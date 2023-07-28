@@ -6,9 +6,43 @@
 
 //MARK: Profile
 "profile.myNFT" = "Мои NFT";
-"profile.NFTfavorites" = "Избранные NFT";
+"profile.nftFavorites" = "Избранные NFT";
 "profile.aboutDeveloper" = "О разработчике";
 "profile.name" = "Имя";
 "profile.description" = "Описание";
 "profile.website" = "Сайт";
 "profile.price" = "Цена";
+"profile.noNFT" = "У Вас ещё нет NFT";
+"profile.noFavoritesNFT" = "У Вас ещё нет избранных NFT";
+
+//MARK: Sort
+"sort.sort" = "Сортировка";
+"sort.byName" = "По имени";
+"sort.byNFTQuantity" = "По количеству NFT";
+"sort.byPrice" = "По цене";
+"sort.byRating" = "По рейтингу";
+"sort.byTitle" = "По названию";
+"sort.close" = "Закрыть";
+
+//MARK: Catalog
+"catalog.author" = "Автор коллекции";
+
+//MARK: Cart
+"cart.price" = "Цена";
+"cart.delete" = "Удалить";
+"cart.goBack" = "Вернуться";
+"cart.deleteQuestion" = "Вы уверены, что хотите удалить объект из корзины?";
+"cart.checkout" = "К оплате";
+"cart.pay" = "Оплатить";
+"cart.paymentMethod" = "Выберите способ оплаты";
+"cart.terms" = "Совершая покупку, вы соглашаетесь с условиями";
+"cart.conditions" = "Пользовательского соглашения";
+"cart.backToCatalog" = "Вернуться в каталог";
+"cart.tryAgain" = "Попробовать еще раз";
+"cart.emptyCart" = "Корзина пуста";
+"cart.successfulPayment" = "Успех! Оплата прошла,\nпоздравляем с покупкой!";
+"cart.failedPayment" = "Упс! Что-то пошло не так :(\nПопробуйте ещё раз!";
+
+//MARK: Statistics
+"statistics.nftCollection" = "Коллекция NFT";
+"statistics.userWebsite" = "Перейти на сайт пользователя";

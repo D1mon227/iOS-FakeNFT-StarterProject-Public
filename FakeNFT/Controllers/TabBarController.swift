@@ -8,10 +8,10 @@ final class TabBarController: UITabBarController {
     }
     
     private func setupTabBar() {
-        let profileVC = UINavigationController(rootViewController: ProfileViewController())
-        let catalogVC = CatalogViewController()
-        let cartVC = CartViewController()
-        let statisticsVC = StatisticsViewController()
+        let profileVC = CustomNavigationController(rootViewController: ProfileViewController())
+        let catalogVC = CustomNavigationController(rootViewController: CatalogViewController())
+        let cartVC = CustomNavigationController(rootViewController: CartViewController())
+        let statisticsVC = CustomNavigationController(rootViewController: StatisticsViewController())
         
         profileVC.tabBarItem = UITabBarItem(title: LocalizableConstants.TabBar.profile,
                                             image: Resourses.Images.TabBar.profileTabBar,

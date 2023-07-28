@@ -29,5 +29,9 @@ enum Resourses {
             static let cartTabBar = UIImage(named: "Cart")
             static let statisticsTabBar = UIImage(systemName: "flag.2.crossed.fill")
         }
+        
+        enum Navigation {
+            static let backButton = UIImage(named: "back Button")
+        }
     }
 }

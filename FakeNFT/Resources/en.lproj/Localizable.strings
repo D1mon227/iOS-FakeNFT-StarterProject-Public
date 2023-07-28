@@ -6,10 +6,43 @@
 
 //MARK: Profile
 "profile.myNFT" = "My NFT";
-"profile.NFTfavorites" = "NFT Favorites";
+"profile.nftFavorites" = "NFT Favorites";
 "profile.aboutDeveloper" = "About the developer";
 "profile.name" = "Name";
 "profile.description" = "Description";
 "profile.website" = "Website";
 "profile.price" = "Price";
+"profile.noNFT" = "You don't have NFT yet";
+"profile.noFavoritesNFT" = "You don't have NFT favorites yet";
 
+//MARK: Sort
+"sort.sort" = "Sort";
+"sort.byName" = "By name";
+"sort.byNFTQuantity" = "By NFT quantity";
+"sort.byPrice" = "By price";
+"sort.byRating" = "By rating";
+"sort.byTitle" = "By title";
+"sort.close" = "Close";
+
+//MARK: Catalog
+"catalog.author" = "Collection author";
+
+//MARK: Cart
+"cart.price" = "Price";
+"cart.delete" = "Delete";
+"cart.goBack" = "Go back";
+"cart.deleteQuestion" = "Are you sure that you want to delete an object from the cart?";
+"cart.checkout" = "Checkout";
+"cart.pay" = "Pay";
+"cart.paymentMethod" = "Choose payment method";
+"cart.terms" = "By placing your order, you agree to the terms of the";
+"cart.conditions" = "User agreement";
+"cart.backToCatalog" = "Back to catalog";
+"cart.tryAgain" = "Try again";
+"cart.emptyCart" = "Cart is empty";
+"cart.successfulPayment" = "Success! Payment is proceeded,\ncongratulations!";
+"cart.failedPayment" = "Oops! Something went wrong :(\nTry again!";
+
+//MARK: Statistics
+"statistics.nftCollection" = "NFT Collection";
+"statistics.userWebsite" = "Go to the user's website";
