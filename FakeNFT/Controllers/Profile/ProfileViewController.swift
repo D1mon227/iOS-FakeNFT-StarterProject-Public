@@ -1,8 +1,5 @@
-//
-//  ProfileViewController.swift
-//  FakeNFT
-//
-//  Created by Dmitry Medvedev on 28.07.2023.
-//
+import UIKit
 
-import Foundation
+final class ProfileViewController: UIViewController {
+    
+}
