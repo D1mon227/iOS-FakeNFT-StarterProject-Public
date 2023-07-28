@@ -29,5 +29,12 @@ enum Resourses {
         enum Profile {
             static let profileImage = UIImage(named: "profile Image")
         }
+        
+        enum TabBar {
+            static let profileTabBar = UIImage(systemName: "person.crop.circle.fill")
+            static let catalogTabBar = UIImage(systemName: "rectangle.stack.fill")
+            static let cartTabBar = UIImage(systemName: "bag.fill")
+            static let statisticsTabBar = UIImage(systemName: "flag.2.crossed.fill")
+        }
     }
 }

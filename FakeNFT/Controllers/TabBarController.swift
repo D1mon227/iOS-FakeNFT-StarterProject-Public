@@ -4,7 +4,6 @@ final class TabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         setupTabBar()
     }
     
@@ -15,16 +14,16 @@ final class TabBarController: UITabBarController {
         let statisticsVC = StatisticsViewController()
         
         profileVC.tabBarItem = UITabBarItem(title: "Профиль",
-                                            image: UIImage(systemName: "person.crop.circle.fill"),
+                                            image: Resourses.Images.TabBar.profileTabBar,
                                             selectedImage: nil)
         catalogVC.tabBarItem = UITabBarItem(title: "Каталог",
-                                            image: UIImage(systemName: "rectangle.stack.fill"),
+                                            image: Resourses.Images.TabBar.catalogTabBar,
                                             selectedImage: nil)
         cartVC.tabBarItem = UITabBarItem(title: "Корзина",
-                                            image: UIImage(systemName: "bag.fill"),
+                                            image: Resourses.Images.TabBar.cartTabBar,
                                             selectedImage: nil)
         statisticsVC.tabBarItem = UITabBarItem(title: "Статистика",
-                                            image: UIImage(systemName: "flag.2.crossed.fill"),
+                                            image: Resourses.Images.TabBar.statisticsTabBar,
                                             selectedImage: nil)
         
         tabBar.unselectedItemTintColor = .black

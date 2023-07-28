@@ -114,7 +114,6 @@
 			isa = PBXGroup;
 			children = (
 				3F478ECE29DB474E00F6D39E /* Colors.swift */,
-				3F478ED029DB476500F6D39E /* Fonts.swift */,
 			);
 			path = DesignSystem;
 			sourceTree = "<group>";
@@ -150,6 +149,7 @@
 				73EA4B012A73C6E2000B4B55 /* Controllers */,
 				3F6806C729CBBC5B00B4F915 /* Scenes  */,
 				73EA4B102A73DBD6000B4B55 /* Resources */,
+				73EA4B132A73DFB1000B4B55 /* Helpers */,
 				3F6806C629CBBC4E00B4F915 /* Services */,
 				3F68069F29CBBAF200B4F915 /* Assets.xcassets */,
 				3F6806A129CBBAF200B4F915 /* LaunchScreen.storyboard */,
@@ -293,6 +293,14 @@
 				73EA4B112A73DBF0000B4B55 /* Resources.swift */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		73EA4B132A73DFB1000B4B55 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				3F478ED029DB476500F6D39E /* Fonts.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
