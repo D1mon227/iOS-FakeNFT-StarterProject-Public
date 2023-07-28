@@ -1,0 +1,15 @@
+//MARK: TabBar
+"tabBar.profile" = "Profile";
+"tabBar.catalog" = "Catalog";
+"tabBar.cart" = "Cart";
+"tabBar.statistics" = "Statistics";
+
+//MARK: Profile
+"profile.myNFT" = "My NFT";
+"profile.NFTfavorites" = "NFT Favorites";
+"profile.aboutDeveloper" = "About the developer";
+"profile.name" = "Name";
+"profile.description" = "Description";
+"profile.website" = "Website";
+"profile.price" = "Price";
+

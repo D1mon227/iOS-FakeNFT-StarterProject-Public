@@ -1,10 +1,3 @@
-//
-//  Resources.swift
-//  FakeNFT
-//
-//  Created by Dmitry Medvedev on 28.07.2023.
-//
-
 import UIKit
 
 enum Resourses {
@@ -33,7 +26,7 @@ enum Resourses {
         enum TabBar {
             static let profileTabBar = UIImage(systemName: "person.crop.circle.fill")
             static let catalogTabBar = UIImage(systemName: "rectangle.stack.fill")
-            static let cartTabBar = UIImage(systemName: "bag.fill")
+            static let cartTabBar = UIImage(named: "Cart")
             static let statisticsTabBar = UIImage(systemName: "flag.2.crossed.fill")
         }
     }

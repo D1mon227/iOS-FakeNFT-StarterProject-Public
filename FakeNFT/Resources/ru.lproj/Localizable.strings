@@ -1,0 +1,14 @@
+//MARK: TabBar
+"tabBar.profile" = "Профиль";
+"tabBar.catalog" = "Каталог";
+"tabBar.cart" = "Корзина";
+"tabBar.statistics" = "Статистика";
+
+//MARK: Profile
+"profile.myNFT" = "Мои NFT";
+"profile.NFTfavorites" = "Избранные NFT";
+"profile.aboutDeveloper" = "О разработчике";
+"profile.name" = "Имя";
+"profile.description" = "Описание";
+"profile.website" = "Сайт";
+"profile.price" = "Цена";
