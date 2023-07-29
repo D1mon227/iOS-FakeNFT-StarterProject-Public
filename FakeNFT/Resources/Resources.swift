@@ -30,8 +30,10 @@ enum Resourses {
             static let statisticsTabBar = UIImage(systemName: "flag.2.crossed.fill")
         }
         
-        enum Navigation {
-            static let backButton = UIImage(named: "back Button")
+        enum Button {
+            static let backButton = UIImage(named: "chevron.backward")
+            static let forwardButton = UIImage(systemName: "chevron.forward")
+            static let closeButton = UIImage(systemName: "xmark")
         }
     }
 }
