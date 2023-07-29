@@ -9,6 +9,7 @@
 "profile.nftFavorites" = "NFT Favorites";
 "profile.aboutDeveloper" = "About the developer";
 "profile.name" = "Name";
+"profile.changePhoto" = "Change\nphoto";
 "profile.description" = "Description";
 "profile.website" = "Website";
 "profile.price" = "Price";

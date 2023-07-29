@@ -16,7 +16,7 @@ final class CustomNavigationController: UINavigationController {
             viewController.navigationItem.leftBarButtonItem = nil
         } else {
             let backButton = UIButton(type: .system)
-            backButton.setImage(UIImage(named: "back Button"), for: .normal)
+            backButton.setImage(Resourses.Images.Button.backButton, for: .normal)
             backButton.tintColor = .blackDay
             backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
             let backButtonBarItem = UIBarButtonItem(customView: backButton)

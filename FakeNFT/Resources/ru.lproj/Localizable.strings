@@ -9,6 +9,7 @@
 "profile.nftFavorites" = "Избранные NFT";
 "profile.aboutDeveloper" = "О разработчике";
 "profile.name" = "Имя";
+"profile.changePhoto" = "Сменить\nфото";
 "profile.description" = "Описание";
 "profile.website" = "Сайт";
 "profile.price" = "Цена";
