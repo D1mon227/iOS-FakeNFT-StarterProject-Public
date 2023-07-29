@@ -17,6 +17,7 @@ final class EditingProfileTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        backgroundColor = .backgroundDay
         setupViews()
     }
     
@@ -33,6 +34,7 @@ final class EditingProfileTableViewCell: UITableViewCell {
         editingTextField.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(44)
+            make.top.equalToSuperview()
         }
     }
 }

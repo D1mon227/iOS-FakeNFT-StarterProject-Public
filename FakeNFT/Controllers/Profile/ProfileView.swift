@@ -37,6 +37,7 @@ final class ProfileView {
     lazy var profileTableView: UITableView = {
         let element = UITableView()
         element.separatorStyle = .none
+        element.backgroundColor = .backgroundDay
         return element
     }()
 }
