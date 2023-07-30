@@ -13,7 +13,7 @@ enum LocalizableConstants {
         static let nftFavorites = NSLocalizedString("profile.nftFavorites", comment: "")
         static let aboutDeveloper = NSLocalizedString("profile.aboutDeveloper", comment: "")
         static let name = NSLocalizedString("profile.name", comment: "")
-        static let changePhoto = NSLocalizedString ("profile.changePhoto", comment: "")
+        static let changePhoto = NSLocalizedString("profile.changePhoto", comment: "")
         static let description = NSLocalizedString("profile.description", comment: "")
         static let website = NSLocalizedString("profile.website", comment: "")
         static let price = NSLocalizedString("profile.price", comment: "")

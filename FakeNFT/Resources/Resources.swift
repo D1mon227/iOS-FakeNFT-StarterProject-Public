@@ -33,7 +33,7 @@ enum Resourses {
         enum Button {
             static let backButton = UIImage(named: "chevron.backward")
             static let forwardButton = UIImage(systemName: "chevron.forward")
-            static let closeButton = UIImage (systemName: "xmark")
+            static let closeButton = UIImage(systemName: "xmark")
         }
     }
 }
