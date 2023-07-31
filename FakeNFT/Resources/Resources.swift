@@ -40,5 +40,9 @@ enum Resourses {
             static let like = UIImage(systemName: "heart.fill")
             static let star = UIImage(systemName: "star.fill")
         }
+        
+        enum Sort {
+            static let sort = UIImage(systemName: "text.justify.leading")
+        }
     }
 }
