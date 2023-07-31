@@ -22,8 +22,16 @@ final class ProfileViewController: UIViewController {
         let editingProfileVC = EditingProfileViewController()
         present(editingProfileVC, animated: true)
     }
+    
+    @objc private func switchToMyNFTViewController() {
+        guard let customNC = navigationController as? CustomNavigationController else { return }
+        let myNFTVC = MyNFTViewController()
+        myNFTVC.title = LocalizableConstants.Profile.myNFT
+        customNC.pushViewController(myNFTVC, animated: true)
+    }
 }
 
+//MARK: UITableViewDataSource
 extension ProfileViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         3
@@ -52,17 +60,27 @@ extension ProfileViewController: UITableViewDataSource {
     
 }
 
+//MARK: UITableViewDelegate
 extension ProfileViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        switch indexPath.row {
+        case 0:
+            switchToMyNFTViewController()
+        default:
+            break
+        }
+    }
 }
 
+//MARK: setupViews
 extension ProfileViewController {
     private func setupNavigationBar() {
         let rightButton = UIButton(type: .system)
         rightButton.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
         rightButton.tintColor = .blackDay
-        let rightBarButton = UIBarButtonItem(customView: rightButton)
         rightButton.addTarget(self, action: #selector(swithToEditingVC), for: .touchUpInside)
+        let rightBarButton = UIBarButtonItem(customView: rightButton)
         navigationItem.rightBarButtonItem = rightBarButton
     }
     
