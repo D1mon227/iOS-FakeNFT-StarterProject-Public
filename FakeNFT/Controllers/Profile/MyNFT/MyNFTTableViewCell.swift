@@ -4,7 +4,11 @@ import SnapKit
 final class MyNFTTableViewCell: UITableViewCell {
     private let nftImage = UIImageView()
     
-    private let favoriteButton = UIButton()
+    private lazy var favoriteButton: UIButton = {
+        let element = UIButton()
+        element.setImage(Resourses.Images.Cell.like, for: .normal)
+        return element
+    }()
     
     private lazy var nftInfoVerticalStack: UIStackView = {
         let element = UIStackView()
@@ -32,7 +36,7 @@ final class MyNFTTableViewCell: UITableViewCell {
     
     private lazy var ratingStar: UIImageView = {
         let element = UIImageView()
-        element.image = UIImage(systemName: "star.fill")
+        element.image = Resourses.Images.Cell.star
         return element
     }()
     
@@ -90,13 +94,13 @@ final class MyNFTTableViewCell: UITableViewCell {
     }
     
     func configureCell(image: UIImage?,
-                       favoriteImage: UIImage?,
+                       favoriteButtonColor: UIColor?,
                        nftName: String?,
                        starColor: UIColor?,
                        author: String?,
                        price: String?) {
         nftImage.image = image
-        favoriteButton.setImage(favoriteImage, for: .normal)
+        favoriteButton.tintColor = favoriteButtonColor
         nftLabel.text = nftName
         ratingStar.tintColor = starColor
         authorLabel.text = author

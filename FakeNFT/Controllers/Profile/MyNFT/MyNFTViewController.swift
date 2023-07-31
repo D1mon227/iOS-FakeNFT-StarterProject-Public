@@ -29,23 +29,23 @@ extension MyNFTViewController: UITableViewDataSource {
         switch indexPath.row {
         case 0:
             cell.configureCell(image: Resourses.Images.NFT.nftCard1,
-                               favoriteImage: UIImage(named: "activeHeart"),
+                               favoriteButtonColor: .redUniversal,
                                nftName: "Lilo",
                                starColor: .yellowUniversal,
                                author: "John Doe",
                                price: "1,78 ETH")
         case 1:
             cell.configureCell(image: Resourses.Images.NFT.nftCard2,
-                               favoriteImage: UIImage(named: "activeHeart"),
+                               favoriteButtonColor: .redUniversal,
                                nftName: "Spring",
                                starColor: .yellowUniversal,
                                author: "John Doe",
                                price: "1,78 ETH")
         case 2:
             cell.configureCell(image: Resourses.Images.NFT.nftCard3,
-                               favoriteImage: UIImage(named: "activeHeart"),
+                               favoriteButtonColor: .redUniversal,
                                nftName: "April",
-                               starColor: .lightGreyDay,
+                               starColor: .yellowUniversal,
                                author: "John Doe",
                                price: "1,78 ETH")
         default:
