@@ -10,7 +10,11 @@ final class TabBarController: UITabBarController {
     
     private func setupTabBar() {
         let profileVC = CustomNavigationController(rootViewController: ProfileViewController())
-        let catalogVC = CustomNavigationController(rootViewController: CatalogViewController(presenter: ))
+        
+        //MARK: - Catalog
+        let catalogVC = CatalogModulesFactory.makeCatalogModule()
+        let catalogNC = CustomNavigationController(rootViewController: catalogVC)
+        
         let cartVC = CustomNavigationController(rootViewController: CartViewController())
 		let statisticsVC = CustomNavigationController(rootViewController: StatisticsViewController())
 
