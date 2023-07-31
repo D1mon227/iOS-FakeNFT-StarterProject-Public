@@ -7,7 +7,6 @@ extension UIViewController {
             message: model.message,
             preferredStyle: model.preferredStyle
         )
-//        alert.view.tintColor = UIColor.general()
         if let firstActionModel = model.firstAction {
             let firstAction = UIAlertAction(title: firstActionModel.title,
                                             style: firstActionModel.style,

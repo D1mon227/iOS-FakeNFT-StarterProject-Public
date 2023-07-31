@@ -10,9 +10,7 @@ protocol NftCatalogServiceProtocol {
     func getNftItems(completion: @escaping (Result<[NftCodable], Error>) -> Void)
 }
 
-final class NftCatalogService: NftCatalogServiceProtocol {
-    static let shared = NftCatalogService()
-    
+final class NftCatalogService: NftCatalogServiceProtocol {    
     private let urlSession = URLSession.shared
     private var task: URLSessionTask?
     
