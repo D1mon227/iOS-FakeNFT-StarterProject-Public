@@ -12,6 +12,7 @@
 "profile.changePhoto" = "Сменить\nфото";
 "profile.description" = "Описание";
 "profile.website" = "Сайт";
+"profile.byAuthor" = "От";
 "profile.price" = "Цена";
 "profile.noNFT" = "У Вас ещё нет NFT";
 "profile.noFavoritesNFT" = "У Вас ещё нет избранных NFT";
