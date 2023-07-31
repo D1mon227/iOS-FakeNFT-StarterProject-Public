@@ -57,7 +57,7 @@ enum Resourses {
         
         enum TabBar {
             static let profileTabBar = UIImage(systemName: "person.crop.circle.fill")
-            static let catalogTabBar = UIImage(systemName: "rectangle.stack.fill")
+            static let catalogTabBar = UIImage(systemName: "Catalog_no_active")
             static let cartTabBar = UIImage(named: "Cart")
             static let statisticsTabBar = UIImage(systemName: "flag.2.crossed.fill")
         }
