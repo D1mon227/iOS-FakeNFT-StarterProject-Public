@@ -12,6 +12,7 @@
 "profile.changePhoto" = "Change\nphoto";
 "profile.description" = "Description";
 "profile.website" = "Website";
+"profile.byAuthor" = "By";
 "profile.price" = "Price";
 "profile.noNFT" = "You don't have NFT yet";
 "profile.noFavoritesNFT" = "You don't have NFT favorites yet";

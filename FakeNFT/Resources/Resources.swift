@@ -31,9 +31,14 @@ enum Resourses {
         }
         
         enum Button {
-            static let backButton = UIImage(named: "chevron.backward")
+            static let backButton = UIImage(systemName: "chevron.backward")
             static let forwardButton = UIImage(systemName: "chevron.forward")
             static let closeButton = UIImage(systemName: "xmark")
+        }
+        
+        enum Cell {
+            static let like = UIImage(systemName: "heart.fill")
+            static let star = UIImage(systemName: "star.fill")
         }
     }
 }
