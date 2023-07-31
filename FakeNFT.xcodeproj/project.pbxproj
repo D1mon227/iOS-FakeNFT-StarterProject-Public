@@ -36,6 +36,8 @@
 		73EA4B162A744591000B4B55 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 73EA4B182A744591000B4B55 /* Localizable.strings */; };
 		73EA4B1B2A744623000B4B55 /* LocalizableConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EA4B1A2A744623000B4B55 /* LocalizableConstants.swift */; };
 		73EA4B1D2A7471D2000B4B55 /* CustomNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EA4B1C2A7471D2000B4B55 /* CustomNavigationViewController.swift */; };
+		C514E5172A7756F3007D4E6A /* StatisticsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C514E5162A7756F3007D4E6A /* StatisticsPresenter.swift */; };
+		C514E5192A775895007D4E6A /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C514E5182A775895007D4E6A /* StatisticsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +89,8 @@
 		73EA4B192A7445CC000B4B55 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		73EA4B1A2A744623000B4B55 /* LocalizableConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizableConstants.swift; sourceTree = "<group>"; };
 		73EA4B1C2A7471D2000B4B55 /* CustomNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationViewController.swift; sourceTree = "<group>"; };
+		C514E5162A7756F3007D4E6A /* StatisticsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsPresenter.swift; sourceTree = "<group>"; };
+		C514E5182A775895007D4E6A /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -282,6 +286,8 @@
 			isa = PBXGroup;
 			children = (
 				73EA4B0D2A73C7C4000B4B55 /* StatisticsViewController.swift */,
+				C514E5162A7756F3007D4E6A /* StatisticsPresenter.swift */,
+				C514E5182A775895007D4E6A /* StatisticsView.swift */,
 			);
 			path = Statistics;
 			sourceTree = "<group>";
@@ -452,6 +458,7 @@
 				3F478ECF29DB474E00F6D39E /* UIColor + Extension.swift in Sources */,
 				3F478ED129DB476500F6D39E /* Fonts.swift in Sources */,
 				73EA4B122A73DBF0000B4B55 /* Resources.swift in Sources */,
+				C514E5172A7756F3007D4E6A /* StatisticsPresenter.swift in Sources */,
 				3FC8C39329D246BA0081F015 /* DateFormatters+Presets.swift in Sources */,
 				3F68069B29CBBAF100B4F915 /* ProductDetailsTableViewController.swift in Sources */,
 				3F6806D529CBBEC700B4F915 /* NetworkTask.swift in Sources */,
@@ -460,6 +467,7 @@
 				3FC8C39129D2453B0081F015 /* ExampleRequest.swift in Sources */,
 				3F6806D729CBC50A00B4F915 /* CellsReusingUtils.swift in Sources */,
 				73EA4B1B2A744623000B4B55 /* LocalizableConstants.swift in Sources */,
+				C514E5192A775895007D4E6A /* StatisticsView.swift in Sources */,
 				3F6806D329CBBE9600B4F915 /* NetworkRequest.swift in Sources */,
 				73EA4B032A73C703000B4B55 /* TabBarController.swift in Sources */,
 				73EA4B0B2A73C7A4000B4B55 /* CartViewController.swift in Sources */,
