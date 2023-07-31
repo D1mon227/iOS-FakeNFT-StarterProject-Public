@@ -56,10 +56,10 @@ extension CatalogPresenter: CatalogPresenterProtocol {
 }
 
 private extension CatalogPresenter {
-    func didGetNftItems(nftItems: [NftCodable]) {
-//        viewModels = nftItems// преобразование во вью модели
+    func didGetNftItems(nftItems: [NftResponse]) {
+        viewModels = nftItems.map { CatalogTableViewCellViewModel(nftResponse: $0) }// преобразование во вью модели
         
-//        view?.update(viewModels)
+        view?.update(with: viewModels)
     }
     
     func didGetError(error: Error) {
