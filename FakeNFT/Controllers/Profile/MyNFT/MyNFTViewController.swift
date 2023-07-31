@@ -6,6 +6,7 @@ final class MyNFTViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationBar()
         setupViews()
         setupTableView()
     }
@@ -65,6 +66,14 @@ extension MyNFTViewController: UITableViewDelegate {
 
 //MARK: SetupViews
 extension MyNFTViewController {
+    private func setupNavigationBar() {
+        let rightButton = UIButton(type: .system)
+        rightButton.setImage(Resourses.Images.Sort.sort, for: .normal)
+        rightButton.tintColor = .blackDay
+        let rightBarButton = UIBarButtonItem(customView: rightButton)
+        navigationItem.rightBarButtonItem = rightBarButton
+    }
+    
     private func setupViews() {
         view.backgroundColor = .backgroundDay
         view.addSubview(myNFTView.myNFTTableView)
