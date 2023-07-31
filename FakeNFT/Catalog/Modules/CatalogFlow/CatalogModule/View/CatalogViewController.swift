@@ -17,14 +17,9 @@ final class CatalogViewController: UIViewController {
     }()
     
     private lazy var sortingByButton: UIButton = {
+        let image = UIImage(named: "sortingBy")
         let button = UIButton.systemButton(
-            with: UIImage(
-                systemName: "sortingBy",
-                withConfiguration: UIImage.SymbolConfiguration(
-                    pointSize: 18,
-                    weight: .bold
-                )
-            )!,
+            with: image ?? UIImage(),
             target: self, action: #selector(didTapsortingByButton))
         button.tintColor = .blackDay
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -42,16 +37,14 @@ final class CatalogViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
+        view.addSubview(tableView)
+        view.addSubview(sortingByButton)
         presenter.viewDidLoad()
         setupNavigationBar()
         setupTableView()
         setupConstraints()
-        
-        //navBar
-        let catalogViewController = CatalogViewController(presenter: presenter)
-        let navigationController = UINavigationController(rootViewController: catalogViewController)
-        navigationController.isModalInPresentation = true
-        present(navigationController, animated: true)
+
     }
     
     @objc private func didTapsortingByButton() {
@@ -73,7 +66,7 @@ private extension CatalogViewController {
         NSLayoutConstraint.activate([
             // sortingByButton
             sortingByButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 13),
-            sortingByButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 13),
+            sortingByButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -13),
             //tableView
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),

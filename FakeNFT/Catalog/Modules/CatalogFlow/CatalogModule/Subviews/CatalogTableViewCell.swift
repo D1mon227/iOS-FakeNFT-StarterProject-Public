@@ -5,6 +5,17 @@ struct CatalogTableViewCellViewModel {
     let nftName: String
     let nftCount: String
     
+//    init(nftCodable: NftCodable) {
+//        imageStringUrls = []
+//        nftName = nftCodable.name
+//        nftCount = nftCodable.count
+//    }
+    
+    
+}
+
+final class CatalogTableViewCell: UITableViewCell {
+    
     private let nftCategoryCover: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -19,16 +30,6 @@ struct CatalogTableViewCellViewModel {
         return label
     }()
     
-//    init(nftCodable: NftCodable) {
-//        imageStringUrls = []
-//        nftName = nftCodable.name
-//        nftCount = nftCodable.count
-//    }
-    
-    // MARK: - Properties
-    
-    static let identifier = "catalogCell"
-    
     private func setupContent() {
         
     }
@@ -41,11 +42,6 @@ struct CatalogTableViewCellViewModel {
             
             ])
     }
-    
-    
-}
-
-final class CatalogTableViewCell: UITableViewCell {
     
     
     func configure(with viewModel: CatalogTableViewCellViewModel) {
