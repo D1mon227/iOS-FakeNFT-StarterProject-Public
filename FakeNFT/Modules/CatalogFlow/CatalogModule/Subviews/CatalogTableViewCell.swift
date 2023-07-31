@@ -1,17 +1,13 @@
 import UIKit
 
 struct CatalogTableViewCellViewModel {
-    let imageStringUrls: [String]
-    let nftName: String
-    let nftCount: String
+    let imageStringUrl: String
+    let nftTitle: String
     
-//    init(nftCodable: NftCodable) {
-//        imageStringUrls = []
-//        nftName = nftCodable.name
-//        nftCount = nftCodable.count
-//    }
-    
-    
+    init(nftResponse: NftResponse) {
+        imageStringUrl = nftResponse.cover
+        nftTitle = nftResponse.name + " (\(nftResponse.nfts.count))"
+    }
 }
 
 final class CatalogTableViewCell: UITableViewCell {
@@ -45,7 +41,9 @@ final class CatalogTableViewCell: UITableViewCell {
     
     
     func configure(with viewModel: CatalogTableViewCellViewModel) {
-
+        viewModel.imageStringUrl
+        nftCategoryLabel.text = viewModel.nftTitle
+        
     }
 }
 

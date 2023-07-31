@@ -15,17 +15,7 @@ final class CatalogViewController: UIViewController {
         table.backgroundColor = .clear
         return table
     }()
-    
-    private lazy var sortingByButton: UIButton = {
-        let image = UIImage(named: "sortingBy")
-        let button = UIButton.systemButton(
-            with: image ?? UIImage(),
-            target: self, action: #selector(didTapsortingByButton))
-        button.tintColor = .blackDay
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
+
     init(presenter: CatalogPresenterProtocol) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
@@ -39,7 +29,7 @@ final class CatalogViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         view.addSubview(tableView)
-        view.addSubview(sortingByButton)
+        //view.addSubview(sortingByButton)
         presenter.viewDidLoad()
         setupNavigationBar()
         setupTableView()
@@ -47,7 +37,7 @@ final class CatalogViewController: UIViewController {
 
     }
     
-    @objc private func didTapsortingByButton() {
+    @objc private func didTapSortingByButton() {
         
     }
 }
@@ -59,21 +49,26 @@ private extension CatalogViewController {
     }
     
     func setupNavigationBar() {
-        
+        let rightButton = UIBarButtonItem(
+            image: UIImage(named:"sortingBy"),
+            style: .plain,
+            target: self,
+            action: #selector(didTapSortingByButton)
+        )
+        rightButton.tintColor = .blackDay
+        navigationItem.rightBarButtonItem = rightButton
     }
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            // sortingByButton
-            sortingByButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 13),
-            sortingByButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -13),
             //tableView
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            tableView.bottomAnchor.constraint(equalTo: sortingByButton.topAnchor, constant: -16),
+            tableView.bottomAnchor.constraint(equalTo:  view.safeAreaLayoutGuide.topAnchor, constant: -16),
         ])
     }
+
 }
 
 extension CatalogViewController: UITableViewDelegate {
