@@ -33,6 +33,16 @@ extension EditingProfileViewController: UITextFieldDelegate {
     }
 }
 
+extension EditingProfileViewController: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
+}
+
 extension EditingProfileViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         3
@@ -46,12 +56,13 @@ extension EditingProfileViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "EditingProfileTableViewCell", for: indexPath) as? EditingProfileTableViewCell else { return UITableViewCell() }
         
         cell.editingTextField.delegate = self
+        cell.editingTextView.delegate = self
         
         switch indexPath.section {
         case 0:
             cell.configureCell(text: "Joaquin Phoenix")
         case 1:
-            cell.configureCell(text: "Дизайнер из Казани, люблю цифровое искусство\nи бейглы. В моей коллекции уже 100+ NFT,\nи еще больше — на моём сайте. Открыт\nк коллаборациям.")
+            cell.configureMiddleCell(text: "Дизайнер из Казани, люблю цифровое искусство\nи бейглы. В моей коллекции уже 100+ NFT,\nи еще больше — на моём сайте. Открыт\nк коллаборациям.")
         case 2:
             cell.configureCell(text: "Joaquin Phoenix.com")
         default:
@@ -82,6 +93,19 @@ extension EditingProfileViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 36
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.section {
+        case 0:
+            return 44
+        case 1:
+            return 120
+        case 2:
+            return 44
+        default:
+            return 120
+        }
     }
 }
 

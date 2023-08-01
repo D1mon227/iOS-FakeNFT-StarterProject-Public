@@ -15,26 +15,34 @@ final class EditingProfileTableViewCell: UITableViewCell {
         return element
     }()
     
+    lazy var editingTextView: UITextView = {
+        let element = UITextView()
+        element.layer.cornerRadius = 12
+        element.returnKeyType = .done
+        element.textColor = .blackDay
+        element.backgroundColor = .lightGreyDay
+        element.font = .bodyRegular
+        return element
+    }()
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         backgroundColor = .backgroundDay
-        setupViews()
     }
     
     func configureCell(text: String) {
+        addSubview(editingTextField)
+        editingTextField.snp.makeConstraints { make in
+            make.top.bottom.leading.trailing.equalToSuperview()
+        }
         editingTextField.text = text
     }
     
-    private func setupViews() {
-        addSubview(editingTextField)
-        setupConstraints()
-    }
-    
-    private func setupConstraints() {
-        editingTextField.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(44)
-            make.top.equalToSuperview()
+    func configureMiddleCell(text: String) {
+        addSubview(editingTextView)
+        editingTextView.snp.makeConstraints { make in
+            make.top.bottom.leading.trailing.equalToSuperview()
         }
+        editingTextView.text = text
     }
 }
