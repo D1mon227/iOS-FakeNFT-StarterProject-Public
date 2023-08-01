@@ -29,6 +29,13 @@ final class ProfileViewController: UIViewController {
         myNFTVC.title = LocalizableConstants.Profile.myNFT
         customNC.pushViewController(myNFTVC, animated: true)
     }
+    
+    @objc private func switchToFavoritesNFTViewController() {
+        guard let customNC = navigationController as? CustomNavigationController else { return }
+        let favoritesNFTVC = FavoritesNFTViewController()
+        favoritesNFTVC.title = LocalizableConstants.Profile.nftFavorites
+        customNC.pushViewController(favoritesNFTVC, animated: true)
+    }
 }
 
 //MARK: UITableViewDataSource
@@ -67,6 +74,8 @@ extension ProfileViewController: UITableViewDelegate {
         switch indexPath.row {
         case 0:
             switchToMyNFTViewController()
+        case 1:
+            switchToFavoritesNFTViewController()
         default:
             break
         }

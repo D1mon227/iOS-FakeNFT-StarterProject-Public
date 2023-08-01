@@ -5,7 +5,7 @@ final class MyNFTTableViewCell: UITableViewCell {
     private let nftImage = UIImageView()
     
     private lazy var favoriteButton: UIButton = {
-        let element = UIButton()
+        let element = UIButton(type: .system)
         element.setImage(Resourses.Images.Cell.like, for: .normal)
         return element
     }()

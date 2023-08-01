@@ -3,6 +3,7 @@ import SnapKit
 
 final class MyNFTViewController: UIViewController {
     private let myNFTView = MyNFTView()
+    private let alertService = AlertService()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,6 +16,28 @@ final class MyNFTViewController: UIViewController {
         myNFTView.myNFTTableView.dataSource = self
         myNFTView.myNFTTableView.delegate = self
         myNFTView.myNFTTableView.register(MyNFTTableViewCell.self, forCellReuseIdentifier: "MyNFTTableViewCell")
+    }
+    
+    @objc private func sort() {
+        alertService.showAlert(title: LocalizableConstants.Sort.sort,
+                               actions: [.byPrice, .byRating, .byTitle, .close],
+                               controller: self) { [weak self] option in
+            guard let self = self else { return }
+            self.sortNFT(by: option)
+        }
+    }
+    
+    private func sortNFT(by: Sort) {
+        switch by {
+        case .byPrice:
+            print("Sort by price")
+        case .byRating:
+            print("Sort by rating")
+        case .byTitle:
+            print("Sort by title")
+        default:
+            break
+        }
     }
 }
 
@@ -30,7 +53,7 @@ extension MyNFTViewController: UITableViewDataSource {
         switch indexPath.row {
         case 0:
             cell.configureCell(image: Resourses.Images.NFT.nftCard1,
-                               favoriteButtonColor: .redUniversal,
+                               favoriteButtonColor: .white,
                                nftName: "Lilo",
                                starColor: .yellowUniversal,
                                author: "John Doe",
@@ -44,7 +67,7 @@ extension MyNFTViewController: UITableViewDataSource {
                                price: "1,78 ETH")
         case 2:
             cell.configureCell(image: Resourses.Images.NFT.nftCard3,
-                               favoriteButtonColor: .redUniversal,
+                               favoriteButtonColor: .white,
                                nftName: "April",
                                starColor: .yellowUniversal,
                                author: "John Doe",
@@ -70,6 +93,7 @@ extension MyNFTViewController {
         let rightButton = UIButton(type: .system)
         rightButton.setImage(Resourses.Images.Sort.sort, for: .normal)
         rightButton.tintColor = .blackDay
+        rightButton.addTarget(self, action: #selector(sort), for: .touchUpInside)
         let rightBarButton = UIBarButtonItem(customView: rightButton)
         navigationItem.rightBarButtonItem = rightBarButton
     }
