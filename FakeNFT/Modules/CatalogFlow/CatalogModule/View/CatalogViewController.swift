@@ -1,11 +1,13 @@
 import UIKit
 
+protocol CatalogViewControllerDelegate: AnyObject {
+    
+}
+
 final class CatalogViewController: UIViewController {
     
-    private let presenter: CatalogPresenterProtocol
-    private var viewModels: [CatalogTableViewCellViewModel] = []
-    
-    private lazy var tableView: UITableView = {
+    // MARK: - Layout elements
+    private let tableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
         table.register(CatalogTableViewCell.self, forCellReuseIdentifier: CatalogTableViewCell.identifier)
@@ -15,6 +17,15 @@ final class CatalogViewController: UIViewController {
         table.backgroundColor = .clear
         return table
     }()
+    
+    // MARK: - Properties
+    
+    weak var delegate: CatalogViewControllerDelegate?
+    private let presenter: CatalogPresenterProtocol
+    private var viewModels: [CatalogTableViewCellViewModel] = []
+    
+    
+    // MARK: - Lifecycle
 
     init(presenter: CatalogPresenterProtocol) {
         self.presenter = presenter
@@ -27,9 +38,6 @@ final class CatalogViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        view.addSubview(tableView)
-        //view.addSubview(sortingByButton)
         presenter.viewDidLoad()
         setupNavigationBar()
         setupTableView()
@@ -37,15 +45,23 @@ final class CatalogViewController: UIViewController {
 
     }
     
+    // MARK: - Actions
+    
     @objc private func didTapSortingByButton() {
         
     }
 }
 
+// MARK: - Layout methods
+
 private extension CatalogViewController {
     
     func setupTableView() {
+        view.backgroundColor = .white
+        view.addSubview(tableView)
         
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     
     func setupNavigationBar() {
@@ -71,9 +87,13 @@ private extension CatalogViewController {
 
 }
 
+// MARK: - UITableViewDelegate
+
 extension CatalogViewController: UITableViewDelegate {
     
 }
+
+// MARK: - UITableViewDataSource
 
 extension CatalogViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
