@@ -27,10 +27,6 @@ final class CatalogTableViewCell: UITableViewCell {
         return label
     }()
     
-    // MARK: - Properties
-    
-    var identifier = "CatalogTableViewCell"
-    
     // MARK: - Lifecycle
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
