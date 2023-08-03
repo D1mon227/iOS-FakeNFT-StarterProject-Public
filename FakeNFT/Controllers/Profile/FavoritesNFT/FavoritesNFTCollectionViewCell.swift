@@ -25,11 +25,11 @@ final class FavoritesNFTCollectionViewCell: UICollectionViewCell {
         return element
     }()
     
-    private lazy var ratingStar: UIImageView = {
-        let element = UIImageView()
-        element.image = Resourses.Images.Cell.star
-        return element
-    }()
+//    private lazy var ratingStar: UIImageView = {
+//        let element = UIImageView()
+//        element.image = Resourses.Images.Cell.star
+//        return element
+//    }()
     
     private lazy var price: UILabel = {
         let element = UILabel()
@@ -57,7 +57,7 @@ final class FavoritesNFTCollectionViewCell: UICollectionViewCell {
         nftImage.image = image
         favoriteButton.tintColor = favoriteButtonColor
         nftLabel.text = nftName
-        ratingStar.tintColor = starColor
+//        ratingStar.tintColor = starColor
         self.price.text = price
     }
     
@@ -67,8 +67,20 @@ final class FavoritesNFTCollectionViewCell: UICollectionViewCell {
         addSubview(favoriteButton)
         addSubview(nftLabel)
         addSubview(ratingHorizontalStack)
-        ratingHorizontalStack.addArrangedSubview(ratingStar)
+        setupRatingStack()
+//        ratingHorizontalStack.addArrangedSubview(ratingStar)
         addSubview(price)
+    }
+    
+    private func setupRatingStack() {
+        for _ in 0..<5 {
+            let imageView = UIImageView(image: Resourses.Images.Cell.star)
+            imageView.snp.makeConstraints { make in
+                make.width.height.equalTo(12)
+            }
+            imageView.tintColor = .yellowUniversal
+            ratingHorizontalStack.addArrangedSubview(imageView)
+        }
     }
     
     private func setupConstraints() {
@@ -93,9 +105,9 @@ final class FavoritesNFTCollectionViewCell: UICollectionViewCell {
             make.top.equalTo(nftLabel.snp.bottom).offset(4)
         }
         
-        ratingStar.snp.makeConstraints { make in
-            make.width.height.equalTo(12)
-        }
+//        ratingStar.snp.makeConstraints { make in
+//            make.width.height.equalTo(12)
+//        }
         
         price.snp.makeConstraints { make in
             make.leading.equalTo(nftImage.snp.trailing).offset(12)

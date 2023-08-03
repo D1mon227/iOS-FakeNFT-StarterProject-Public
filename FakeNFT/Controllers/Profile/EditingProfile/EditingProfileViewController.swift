@@ -3,12 +3,22 @@ import SnapKit
 
 final class EditingProfileViewController: UIViewController {
     private let editingProfileView = EditingProfileView()
+    private var editingInfo: Profile?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         setupEditingTableView()
         setupTarget()
+    }
+    
+    init(profile: Profile?) {
+        super.init(nibName: nil, bundle: nil)
+        editingInfo = profile
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func setupEditingTableView() {
@@ -53,18 +63,19 @@ extension EditingProfileViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "EditingProfileTableViewCell", for: indexPath) as? EditingProfileTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "EditingProfileTableViewCell", for: indexPath) as? EditingProfileTableViewCell,
+              let website = editingInfo?.website else { return UITableViewCell() }
         
         cell.editingTextField.delegate = self
         cell.editingTextView.delegate = self
         
         switch indexPath.section {
         case 0:
-            cell.configureCell(text: "Joaquin Phoenix")
+            cell.configureCell(text: editingInfo?.name ?? "")
         case 1:
-            cell.configureMiddleCell(text: "Дизайнер из Казани, люблю цифровое искусство\nи бейглы. В моей коллекции уже 100+ NFT,\nи еще больше — на моём сайте. Открыт\nк коллаборациям.")
+            cell.configureMiddleCell(text: editingInfo?.description ?? "")
         case 2:
-            cell.configureCell(text: "Joaquin Phoenix.com")
+            cell.configureCell(text: "\(website)")
         default:
             break
         }

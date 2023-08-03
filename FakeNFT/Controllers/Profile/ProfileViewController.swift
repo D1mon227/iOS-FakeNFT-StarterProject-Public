@@ -1,14 +1,37 @@
 import UIKit
 import SnapKit
+import Kingfisher
 
-final class ProfileViewController: UIViewController {
+final class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     private let profileView = ProfileView()
+    var presenter: ProfileViewPresenterProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter?.fetchProfile()
         setupNavigationBar()
         setupViews()
         setupProfileTableView()
+    }
+    
+    init(presenter: ProfileViewPresenterProtocol?) {
+        super.init(nibName: nil, bundle: nil)
+        self.presenter = presenter
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func updateProfileDetails(profile: Profile?) {
+        guard let profile = profile else { return }
+        DispatchQueue.main.async {
+            self.profileView.profileName.text = profile.name
+            self.profileView.profileDescription.text = profile.description
+            self.profileView.websiteButton.setTitle("\(profile.website)", for: .normal)
+            self.profileView.profileImage.kf.setImage(with: profile.avatar)
+            self.profileView.profileTableView.reloadData()
+        }
     }
     
     private func setupProfileTableView() {
@@ -19,7 +42,7 @@ final class ProfileViewController: UIViewController {
     }
     
     @objc private func swithToEditingVC() {
-        let editingProfileVC = EditingProfileViewController()
+        let editingProfileVC = EditingProfileViewController(profile: presenter?.profile)
         present(editingProfileVC, animated: true)
     }
     
@@ -45,13 +68,14 @@ extension ProfileViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileTableViewCell", for: indexPath) as? ProfileTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileTableViewCell", for: indexPath) as? ProfileTableViewCell,
+              let presenter = presenter else { return UITableViewCell() }
         
         switch indexPath.row {
         case 0:
-            cell.configureCell(label: LocalizableConstants.Profile.myNFT + " (112)")
+            cell.configureCell(label: LocalizableConstants.Profile.myNFT + " (\(presenter.profile?.nfts.count ?? 0))")
         case 1:
-            cell.configureCell(label: LocalizableConstants.Profile.nftFavorites + " (11)")
+            cell.configureCell(label: LocalizableConstants.Profile.nftFavorites + " (\(presenter.profile?.likes.count ?? 0))")
         case 2:
             cell.configureCell(label: LocalizableConstants.Profile.aboutDeveloper)
         default:
@@ -86,7 +110,7 @@ extension ProfileViewController: UITableViewDelegate {
 extension ProfileViewController {
     private func setupNavigationBar() {
         let rightButton = UIButton(type: .system)
-        rightButton.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
+        rightButton.setImage(Resourses.Images.Button.editingButton, for: .normal)
         rightButton.tintColor = .blackDay
         rightButton.addTarget(self, action: #selector(swithToEditingVC), for: .touchUpInside)
         let rightBarButton = UIBarButtonItem(customView: rightButton)

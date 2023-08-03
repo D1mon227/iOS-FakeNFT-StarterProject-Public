@@ -17,10 +17,13 @@ final class ProfileTableViewCell: UITableViewCell {
         return element
     }()
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        backgroundColor = .backgroundDay
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func configureCell(label: String) {
@@ -28,6 +31,7 @@ final class ProfileTableViewCell: UITableViewCell {
     }
     
     private func setupViews() {
+        backgroundColor = .backgroundDay
         addSubview(myNFTLabel)
         addSubview(switchImage)
         setupConstraints()

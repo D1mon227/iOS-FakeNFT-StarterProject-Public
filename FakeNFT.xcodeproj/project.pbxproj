@@ -24,7 +24,7 @@
 		3F6806D529CBBEC700B4F915 /* NetworkTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6806D429CBBEC700B4F915 /* NetworkTask.swift */; };
 		3F6806D729CBC50A00B4F915 /* CellsReusingUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6806D629CBC50A00B4F915 /* CellsReusingUtils.swift */; };
 		3FC8C38B29D242E90081F015 /* ProductDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC8C38A29D242E90081F015 /* ProductDetailsTableViewCell.swift */; };
-		3FC8C39129D2453B0081F015 /* ExampleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC8C39029D2453B0081F015 /* ExampleRequest.swift */; };
+		3FC8C39129D2453B0081F015 /* ProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC8C39029D2453B0081F015 /* ProfileRequest.swift */; };
 		3FC8C39329D246BA0081F015 /* DateFormatters+Presets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC8C39229D246BA0081F015 /* DateFormatters+Presets.swift */; };
 		7362C52E2A753D03004CBE1D /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7362C52D2A753D03004CBE1D /* ProfileView.swift */; };
 		7362C5312A7565F2004CBE1D /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7362C5302A7565F2004CBE1D /* ProfileTableViewCell.swift */; };
@@ -39,6 +39,12 @@
 		7362C5452A785E71004CBE1D /* FavoritesNFTView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7362C5442A785E71004CBE1D /* FavoritesNFTView.swift */; };
 		7362C5492A786ACE004CBE1D /* AlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7362C5482A786ACE004CBE1D /* AlertService.swift */; };
 		7362C54B2A787491004CBE1D /* FavoritesNFTCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7362C54A2A787491004CBE1D /* FavoritesNFTCollectionViewCell.swift */; };
+		7362C54D2A7938B6004CBE1D /* ProfileViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7362C54C2A7938B6004CBE1D /* ProfileViewPresenter.swift */; };
+		7362C5502A793912004CBE1D /* ProfileViewPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7362C54F2A793912004CBE1D /* ProfileViewPresenterProtocol.swift */; };
+		7362C5522A793920004CBE1D /* ProfileViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7362C5512A793920004CBE1D /* ProfileViewControllerProtocol.swift */; };
+		7362C5542A7A7009004CBE1D /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7362C5532A7A7009004CBE1D /* Profile.swift */; };
+		7362C5562A7A7262004CBE1D /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7362C5552A7A7262004CBE1D /* ProfileService.swift */; };
+		7362C55C2A7BB2CF004CBE1D /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7362C55B2A7BB2CF004CBE1D /* UIBlockingProgressHUD.swift */; };
 		73EA4B002A73C511000B4B55 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 73EA4AFF2A73C511000B4B55 /* SnapKit */; };
 		73EA4B032A73C703000B4B55 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EA4B022A73C703000B4B55 /* TabBarController.swift */; };
 		73EA4B052A73C770000B4B55 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EA4B042A73C770000B4B55 /* ProfileViewController.swift */; };
@@ -88,7 +94,7 @@
 		3F6806D429CBBEC700B4F915 /* NetworkTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTask.swift; sourceTree = "<group>"; };
 		3F6806D629CBC50A00B4F915 /* CellsReusingUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellsReusingUtils.swift; sourceTree = "<group>"; };
 		3FC8C38A29D242E90081F015 /* ProductDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsTableViewCell.swift; sourceTree = "<group>"; };
-		3FC8C39029D2453B0081F015 /* ExampleRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleRequest.swift; sourceTree = "<group>"; };
+		3FC8C39029D2453B0081F015 /* ProfileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRequest.swift; sourceTree = "<group>"; };
 		3FC8C39229D246BA0081F015 /* DateFormatters+Presets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatters+Presets.swift"; sourceTree = "<group>"; };
 		7362C52D2A753D03004CBE1D /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		7362C5302A7565F2004CBE1D /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
@@ -103,6 +109,12 @@
 		7362C5442A785E71004CBE1D /* FavoritesNFTView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesNFTView.swift; sourceTree = "<group>"; };
 		7362C5482A786ACE004CBE1D /* AlertService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertService.swift; sourceTree = "<group>"; };
 		7362C54A2A787491004CBE1D /* FavoritesNFTCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesNFTCollectionViewCell.swift; sourceTree = "<group>"; };
+		7362C54C2A7938B6004CBE1D /* ProfileViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewPresenter.swift; sourceTree = "<group>"; };
+		7362C54F2A793912004CBE1D /* ProfileViewPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewPresenterProtocol.swift; sourceTree = "<group>"; };
+		7362C5512A793920004CBE1D /* ProfileViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewControllerProtocol.swift; sourceTree = "<group>"; };
+		7362C5532A7A7009004CBE1D /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		7362C5552A7A7262004CBE1D /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
+		7362C55B2A7BB2CF004CBE1D /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
 		73EA4B022A73C703000B4B55 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		73EA4B042A73C770000B4B55 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		73EA4B072A73C789000B4B55 /* CatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewController.swift; sourceTree = "<group>"; };
@@ -203,6 +215,7 @@
 			children = (
 				3FC8C38F29D245250081F015 /* Requests */,
 				7362C5482A786ACE004CBE1D /* AlertService.swift */,
+				7362C5552A7A7262004CBE1D /* ProfileService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -228,6 +241,7 @@
 			isa = PBXGroup;
 			children = (
 				3F6806D829CC979D00B4F915 /* Network */,
+				7362C5532A7A7009004CBE1D /* Profile.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -263,7 +277,7 @@
 		3FC8C38F29D245250081F015 /* Requests */ = {
 			isa = PBXGroup;
 			children = (
-				3FC8C39029D2453B0081F015 /* ExampleRequest.swift */,
+				3FC8C39029D2453B0081F015 /* ProfileRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -299,6 +313,15 @@
 			path = FavoritesNFT;
 			sourceTree = "<group>";
 		};
+		7362C54E2A7938FD004CBE1D /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				7362C54F2A793912004CBE1D /* ProfileViewPresenterProtocol.swift */,
+				7362C5512A793920004CBE1D /* ProfileViewControllerProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		73EA4B012A73C6E2000B4B55 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -316,8 +339,10 @@
 			isa = PBXGroup;
 			children = (
 				7362C52D2A753D03004CBE1D /* ProfileView.swift */,
+				7362C54C2A7938B6004CBE1D /* ProfileViewPresenter.swift */,
 				73EA4B042A73C770000B4B55 /* ProfileViewController.swift */,
 				7362C5302A7565F2004CBE1D /* ProfileTableViewCell.swift */,
+				7362C54E2A7938FD004CBE1D /* Protocols */,
 				7362C52F2A7564CF004CBE1D /* EditingProfile */,
 				7362C53A2A769ED6004CBE1D /* MyNFT */,
 				7362C5412A785DFA004CBE1D /* FavoritesNFT */,
@@ -364,6 +389,7 @@
 			children = (
 				3F478ECE29DB474E00F6D39E /* UIColor + Extension.swift */,
 				3F478ED029DB476500F6D39E /* Fonts.swift */,
+				7362C55B2A7BB2CF004CBE1D /* UIBlockingProgressHUD.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -513,6 +539,10 @@
 				7362C5402A76AC0C004CBE1D /* MyNFTTableViewCell.swift in Sources */,
 				7362C5492A786ACE004CBE1D /* AlertService.swift in Sources */,
 				73EA4B082A73C789000B4B55 /* CatalogViewController.swift in Sources */,
+				7362C55C2A7BB2CF004CBE1D /* UIBlockingProgressHUD.swift in Sources */,
+				7362C5502A793912004CBE1D /* ProfileViewPresenterProtocol.swift in Sources */,
+				7362C5522A793920004CBE1D /* ProfileViewControllerProtocol.swift in Sources */,
+				7362C5562A7A7262004CBE1D /* ProfileService.swift in Sources */,
 				7362C53C2A769EF8004CBE1D /* MyNFTViewController.swift in Sources */,
 				3FC8C38B29D242E90081F015 /* ProductDetailsTableViewCell.swift in Sources */,
 				7362C5312A7565F2004CBE1D /* ProfileTableViewCell.swift in Sources */,
@@ -529,8 +559,9 @@
 				3F6806D529CBBEC700B4F915 /* NetworkTask.swift in Sources */,
 				3F68069729CBBAF100B4F915 /* AppDelegate.swift in Sources */,
 				3F68069929CBBAF100B4F915 /* SceneDelegate.swift in Sources */,
-				3FC8C39129D2453B0081F015 /* ExampleRequest.swift in Sources */,
+				3FC8C39129D2453B0081F015 /* ProfileRequest.swift in Sources */,
 				3F6806D729CBC50A00B4F915 /* CellsReusingUtils.swift in Sources */,
+				7362C5542A7A7009004CBE1D /* Profile.swift in Sources */,
 				73EA4B1B2A744623000B4B55 /* LocalizableConstants.swift in Sources */,
 				7362C5372A75852B004CBE1D /* EditingProfileTableViewCell.swift in Sources */,
 				3F6806D329CBBE9600B4F915 /* NetworkRequest.swift in Sources */,
@@ -541,6 +572,7 @@
 				73EA4B052A73C770000B4B55 /* ProfileViewController.swift in Sources */,
 				7362C53E2A769F6C004CBE1D /* MyNFTView.swift in Sources */,
 				73EA4B0E2A73C7C4000B4B55 /* StatisticsViewController.swift in Sources */,
+				7362C54D2A7938B6004CBE1D /* ProfileViewPresenter.swift in Sources */,
 				3F6806CB29CBBCC700B4F915 /* ExampleNetworkModel.swift in Sources */,
 				7362C52E2A753D03004CBE1D /* ProfileView.swift in Sources */,
 				3F6806D129CBBE6B00B4F915 /* NetworkClient.swift in Sources */,

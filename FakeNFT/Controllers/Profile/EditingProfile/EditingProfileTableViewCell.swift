@@ -19,6 +19,7 @@ final class EditingProfileTableViewCell: UITableViewCell {
         let element = UITextView()
         element.layer.cornerRadius = 12
         element.returnKeyType = .done
+        element.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
         element.textColor = .blackDay
         element.backgroundColor = .lightGreyDay
         element.font = .bodyRegular
