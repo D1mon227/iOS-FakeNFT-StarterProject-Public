@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class UserStatisticsCell: UITableViewCell {
 	
@@ -35,7 +36,6 @@ final class UserStatisticsCell: UITableViewCell {
 		imageView.translatesAutoresizingMaskIntoConstraints = false
 		imageView.contentMode = .scaleAspectFill
 		imageView.layer.cornerRadius = 14
-		imageView.image = UIImage(named: "profile Image")
 		imageView.clipsToBounds = true
 		return imageView
 	}()
@@ -74,19 +74,16 @@ final class UserStatisticsCell: UITableViewCell {
 	
 	func configure(with user: User, cellNumber: Int) {
 		cellNumberLabel.text = "\(cellNumber)"
-		
+
 		let firstName = getFirstName(from: user.name)
 		userNameLabel.text = firstName
-		
+
 		nftCountLabel.text = user.rating
-		let imageUrlString = user.avatar
-		DispatchQueue.global().async {
-			if let imageData = try? Data(contentsOf: imageUrlString),
-			   let image = UIImage(data: imageData) {
-				DispatchQueue.main.async {
-					self.userImageView.image = image
-				}
-			}
+
+		if let imageUrl = user.avatar {
+			userImageView.kf.setImage(with: imageUrl, placeholder: UIImage(named: "placeholderImage"))
+		} else {
+			userImageView.image = UIImage(named: "placeholderImage")
 		}
 	}
 }
