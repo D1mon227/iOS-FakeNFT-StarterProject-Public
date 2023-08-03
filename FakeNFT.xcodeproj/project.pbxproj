@@ -37,6 +37,8 @@
 		73EA4B162A744591000B4B55 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 73EA4B182A744591000B4B55 /* Localizable.strings */; };
 		73EA4B1B2A744623000B4B55 /* LocalizableConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EA4B1A2A744623000B4B55 /* LocalizableConstants.swift */; };
 		73EA4B1D2A7471D2000B4B55 /* CustomNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EA4B1C2A7471D2000B4B55 /* CustomNavigationViewController.swift */; };
+		C5D3AADA2A7B679D005A3694 /* GetUsersRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D3AAD92A7B679D005A3694 /* GetUsersRequest.swift */; };
+		C5D3AADC2A7B67DC005A3694 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D3AADB2A7B67DC005A3694 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +91,8 @@
 		73EA4B192A7445CC000B4B55 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		73EA4B1A2A744623000B4B55 /* LocalizableConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizableConstants.swift; sourceTree = "<group>"; };
 		73EA4B1C2A7471D2000B4B55 /* CustomNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationViewController.swift; sourceTree = "<group>"; };
+		C5D3AAD92A7B679D005A3694 /* GetUsersRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUsersRequest.swift; sourceTree = "<group>"; };
+		C5D3AADB2A7B67DC005A3694 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,6 +207,7 @@
 		3F6806C929CBBCAF00B4F915 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C5D3AADB2A7B67DC005A3694 /* User.swift */,
 				3F6806D829CC979D00B4F915 /* Network */,
 			);
 			path = Models;
@@ -240,6 +245,7 @@
 			isa = PBXGroup;
 			children = (
 				3FC8C39029D2453B0081F015 /* ExampleRequest.swift */,
+				C5D3AAD92A7B679D005A3694 /* GetUsersRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -460,6 +466,7 @@
 				3F68069B29CBBAF100B4F915 /* ProductDetailsTableViewController.swift in Sources */,
 				3F6806D529CBBEC700B4F915 /* NetworkTask.swift in Sources */,
 				3F68069729CBBAF100B4F915 /* AppDelegate.swift in Sources */,
+				C5D3AADA2A7B679D005A3694 /* GetUsersRequest.swift in Sources */,
 				3F68069929CBBAF100B4F915 /* SceneDelegate.swift in Sources */,
 				3FC8C39129D2453B0081F015 /* ExampleRequest.swift in Sources */,
 				3F6806D729CBC50A00B4F915 /* CellsReusingUtils.swift in Sources */,
@@ -469,6 +476,7 @@
 				73EA4B0B2A73C7A4000B4B55 /* CartViewController.swift in Sources */,
 				73EA4B1D2A7471D2000B4B55 /* CustomNavigationViewController.swift in Sources */,
 				73EA4B052A73C770000B4B55 /* ProfileViewController.swift in Sources */,
+				C5D3AADC2A7B67DC005A3694 /* User.swift in Sources */,
 				73EA4B0E2A73C7C4000B4B55 /* StatisticsViewController.swift in Sources */,
 				3F6806CB29CBBCC700B4F915 /* ExampleNetworkModel.swift in Sources */,
 				3F6806D129CBBE6B00B4F915 /* NetworkClient.swift in Sources */,
