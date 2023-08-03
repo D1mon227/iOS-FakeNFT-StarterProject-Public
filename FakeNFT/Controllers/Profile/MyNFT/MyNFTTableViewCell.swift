@@ -1,8 +1,14 @@
 import UIKit
+import Kingfisher
 import SnapKit
 
 final class MyNFTTableViewCell: UITableViewCell {
-    private let nftImage = UIImageView()
+    private lazy var nftImage: UIImageView = {
+        let element = UIImageView()
+        element.layer.cornerRadius = 12
+        element.layer.masksToBounds = true
+        return element
+    }()
     
     private lazy var favoriteButton: UIButton = {
         let element = UIButton(type: .system)
@@ -88,6 +94,8 @@ final class MyNFTTableViewCell: UITableViewCell {
         return element
     }()
     
+    private let totalStars = 5
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
@@ -97,13 +105,13 @@ final class MyNFTTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureCell(image: UIImage?,
+    func configureCell(image: URL?,
                        favoriteButtonColor: UIColor?,
                        nftName: String?,
                        starColor: UIColor?,
                        author: String?,
                        price: String?) {
-        nftImage.image = image
+        nftImage.kf.setImage(with: image)
         favoriteButton.tintColor = favoriteButtonColor
         nftLabel.text = nftName
 //        ratingStar.tintColor = starColor

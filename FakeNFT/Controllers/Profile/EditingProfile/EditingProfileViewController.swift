@@ -63,8 +63,7 @@ extension EditingProfileViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "EditingProfileTableViewCell", for: indexPath) as? EditingProfileTableViewCell,
-              let website = editingInfo?.website else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "EditingProfileTableViewCell", for: indexPath) as? EditingProfileTableViewCell else { return UITableViewCell() }
         
         cell.editingTextField.delegate = self
         cell.editingTextView.delegate = self
@@ -75,7 +74,7 @@ extension EditingProfileViewController: UITableViewDataSource {
         case 1:
             cell.configureMiddleCell(text: editingInfo?.description ?? "")
         case 2:
-            cell.configureCell(text: "\(website)")
+            cell.configureCell(text: editingInfo?.website ?? "")
         default:
             break
         }

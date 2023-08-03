@@ -18,14 +18,14 @@ final class ProfileService {
         }
     }
     
-    func fetchNFT(completion: @escaping (Result<Profile, Error>) -> Void) {
+    func fetchNFT(completion: @escaping (Result<[NFT], Error>) -> Void) {
         
         UIBlockingProgressHUD.show()
         let request = NFTsRequest(httpMethod: .get, dto: nil)
-        networkClient.send(request: request, type: Profile.self) { result in
+        networkClient.send(request: request, type: [NFT].self) { result in
             switch result {
-            case .success(let profile):
-                completion(.success(profile))
+            case .success(let nfts):
+                completion(.success(nfts))
             case .failure(let error):
                 completion(.failure(error))
             }

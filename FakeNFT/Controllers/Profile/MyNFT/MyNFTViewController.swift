@@ -1,12 +1,16 @@
 import UIKit
 import SnapKit
 
-final class MyNFTViewController: UIViewController {
+final class MyNFTViewController: UIViewController, MyNFTViewControllerProtocol {
+    var presenter: MyNFTViewPresenterProtocol?
     private let myNFTView = MyNFTView()
     private let alertService = AlertService()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter = MyNFTViewPresenter()
+        presenter?.view = self
+        presenter?.fetchNFTs()
         setupNavigationBar()
         setupViews()
         setupTableView()
@@ -39,42 +43,29 @@ final class MyNFTViewController: UIViewController {
             break
         }
     }
+    
+    func reloadTableView() {
+        DispatchQueue.main.async {
+            self.myNFTView.myNFTTableView.reloadData()
+        }
+    }
 }
 
 //MARK: UITableViewDataSource
 extension MyNFTViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
+        presenter?.nfts?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MyNFTTableViewCell", for: indexPath) as? MyNFTTableViewCell else { return UITableViewCell() }
         
-        switch indexPath.row {
-        case 0:
-            cell.configureCell(image: Resourses.Images.NFT.nftCard1,
-                               favoriteButtonColor: .white,
-                               nftName: "Lilo",
-                               starColor: .yellowUniversal,
-                               author: "John Doe",
-                               price: "1,78 ETH")
-        case 1:
-            cell.configureCell(image: Resourses.Images.NFT.nftCard2,
-                               favoriteButtonColor: .redUniversal,
-                               nftName: "Spring",
-                               starColor: .yellowUniversal,
-                               author: "John Doe",
-                               price: "1,78 ETH")
-        case 2:
-            cell.configureCell(image: Resourses.Images.NFT.nftCard3,
-                               favoriteButtonColor: .white,
-                               nftName: "April",
-                               starColor: .yellowUniversal,
-                               author: "John Doe",
-                               price: "1,78 ETH")
-        default:
-            break
-        }
+        cell.configureCell(image: presenter?.nfts?[indexPath.row].images[0],
+                           favoriteButtonColor: .white,
+                           nftName: presenter?.nfts?[indexPath.row].name,
+                           starColor: .yellowUniversal,
+                           author: presenter?.nfts?[indexPath.row].author,
+                           price: String(presenter?.nfts?[indexPath.row].price ?? 0))
         
         return cell
     }

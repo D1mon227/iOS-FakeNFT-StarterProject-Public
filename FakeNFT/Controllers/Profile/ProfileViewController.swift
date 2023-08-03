@@ -28,7 +28,7 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
         DispatchQueue.main.async {
             self.profileView.profileName.text = profile.name
             self.profileView.profileDescription.text = profile.description
-            self.profileView.websiteButton.setTitle("\(profile.website)", for: .normal)
+            self.profileView.websiteButton.setTitle(profile.website, for: .normal)
             self.profileView.profileImage.kf.setImage(with: profile.avatar)
             self.profileView.profileTableView.reloadData()
         }
