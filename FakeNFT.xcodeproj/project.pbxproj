@@ -37,6 +37,7 @@
 		73EA4B162A744591000B4B55 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 73EA4B182A744591000B4B55 /* Localizable.strings */; };
 		73EA4B1B2A744623000B4B55 /* LocalizableConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EA4B1A2A744623000B4B55 /* LocalizableConstants.swift */; };
 		73EA4B1D2A7471D2000B4B55 /* CustomNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EA4B1C2A7471D2000B4B55 /* CustomNavigationViewController.swift */; };
+		924DCA592A7BF75900995282 /* cart.md in Resources */ = {isa = PBXBuildFile; fileRef = 924DCA582A7BF75900995282 /* cart.md */; };
 		C5D3AADA2A7B679D005A3694 /* GetUsersRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D3AAD92A7B679D005A3694 /* GetUsersRequest.swift */; };
 		C5D3AADC2A7B67DC005A3694 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D3AADB2A7B67DC005A3694 /* User.swift */; };
 /* End PBXBuildFile section */
@@ -91,6 +92,8 @@
 		73EA4B192A7445CC000B4B55 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		73EA4B1A2A744623000B4B55 /* LocalizableConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizableConstants.swift; sourceTree = "<group>"; };
 		73EA4B1C2A7471D2000B4B55 /* CustomNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationViewController.swift; sourceTree = "<group>"; };
+		924DCA582A7BF75900995282 /* cart.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = cart.md; path = "../../../Downloads/iOS-FakeNFT-StarterProject-Public-cart_screen_implementation/Decomposition/cart.md"; sourceTree = "<group>"; };
+		924DCA5A2A7BF9C400995282 /* cart_decompostition.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = cart_decompostition.md; sourceTree = "<group>"; };
 		C5D3AAD92A7B679D005A3694 /* GetUsersRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUsersRequest.swift; sourceTree = "<group>"; };
 		C5D3AADB2A7B67DC005A3694 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -146,6 +149,7 @@
 		3F68069529CBBAF100B4F915 /* FakeNFT */ = {
 			isa = PBXGroup;
 			children = (
+				924DCA572A7BF74800995282 /* Decomposition */,
 				3F68069629CBBAF100B4F915 /* AppDelegate.swift */,
 				3F68069829CBBAF100B4F915 /* SceneDelegate.swift */,
 				3F6806CE29CBBD1B00B4F915 /* Foundation */,
@@ -314,6 +318,15 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		924DCA572A7BF74800995282 /* Decomposition */ = {
+			isa = PBXGroup;
+			children = (
+				924DCA582A7BF75900995282 /* cart.md */,
+				924DCA5A2A7BF9C400995282 /* cart_decompostition.md */,
+			);
+			path = Decomposition;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -432,6 +445,7 @@
 				3F6806A329CBBAF200B4F915 /* LaunchScreen.storyboard in Resources */,
 				73EA4B162A744591000B4B55 /* Localizable.strings in Resources */,
 				3F6806A029CBBAF200B4F915 /* Assets.xcassets in Resources */,
+				924DCA592A7BF75900995282 /* cart.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
