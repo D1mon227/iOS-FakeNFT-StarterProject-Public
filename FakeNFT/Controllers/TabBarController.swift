@@ -1,7 +1,7 @@
 import UIKit
 
 final class TabBarController: UITabBarController {
-    
+	private let networkClient = DefaultNetworkClient()
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTabBar()
@@ -11,7 +11,7 @@ final class TabBarController: UITabBarController {
         let profileVC = CustomNavigationController(rootViewController: ProfileViewController())
         let catalogVC = CustomNavigationController(rootViewController: CatalogViewController())
         let cartVC = CustomNavigationController(rootViewController: CartViewController())
-		let statisticsVC = CustomNavigationController(rootViewController: StatisticsViewController(with: StatisticsPresenter()))
+		let statisticsVC = CustomNavigationController(rootViewController: StatisticsViewController(with: StatisticsPresenter(networkClient: networkClient)))
         
         profileVC.tabBarItem = UITabBarItem(title: LocalizableConstants.TabBar.profile,
                                             image: Resourses.Images.TabBar.profileTabBar,

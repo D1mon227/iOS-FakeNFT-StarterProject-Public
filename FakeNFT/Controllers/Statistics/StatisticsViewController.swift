@@ -20,5 +20,6 @@ final class StatisticsViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.statisticsPresenter.viewDidLoad(ui: self.customView)
+		self.statisticsPresenter.fetchDataFromServer()
 	}
 }
