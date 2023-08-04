@@ -21,6 +21,7 @@ final class CatalogTableViewCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 12
+        imageView.layer.masksToBounds = true
         return imageView
     }()
     
@@ -88,10 +89,10 @@ private extension CatalogTableViewCell {
             nftCategoryCover.leadingAnchor.constraint(equalTo: nftCategoryView.leadingAnchor),
             nftCategoryCover.topAnchor.constraint(equalTo: nftCategoryView.topAnchor),
             nftCategoryCover.trailingAnchor.constraint(equalTo: nftCategoryView.trailingAnchor),
-            nftCategoryCover.heightAnchor.constraint(equalToConstant: 140),
+            nftCategoryCover.bottomAnchor.constraint(equalTo: nftCategoryLabel.topAnchor),
             // nftCategoryLabel
-            nftCategoryLabel.topAnchor.constraint(equalTo: nftCategoryCover.bottomAnchor),
             nftCategoryLabel.leadingAnchor.constraint(equalTo: nftCategoryCover.leadingAnchor),
+            nftCategoryLabel.bottomAnchor.constraint(equalTo: nftCategoryView.bottomAnchor),
         ])
     }
 }
