@@ -37,20 +37,7 @@ final class MyNFTViewController: UIViewController, MyNFTViewControllerProtocol {
                                actions: [.byPrice, .byRating, .byTitle, .close],
                                controller: self) { [weak self] option in
             guard let self = self else { return }
-            self.sortNFT(by: option)
-        }
-    }
-    
-    private func sortNFT(by: Sort) {
-        switch by {
-        case .byPrice:
-            print("Sort by price")
-        case .byRating:
-            print("Sort by rating")
-        case .byTitle:
-            print("Sort by title")
-        default:
-            break
+            self.presenter?.sortNFT(by: option)
         }
     }
     
@@ -72,11 +59,11 @@ extension MyNFTViewController: UITableViewDataSource {
               let nfts = presenter?.nfts?[indexPath.row] else { return UITableViewCell() }
         
         cell.configureCell(image: nfts.images[0],
-                           favoriteButtonColor: .white,
+                           favoriteButtonColor: .redUniversal,
                            nftName: nfts.name,
                            rating: nfts.rating,
                            author: nfts.author,
-                           price: String(nfts.price))
+                           price: String(nfts.price) + " ETH")
         
         return cell
     }

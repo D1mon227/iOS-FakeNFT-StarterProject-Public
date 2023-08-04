@@ -5,10 +5,6 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
     private let profileService = ProfileService.shared
     private var profilePresenter: ProfileViewPresenterProtocol?
     
-    init(profilePresenter: ProfileViewPresenterProtocol?) {
-        self.profilePresenter = profilePresenter
-    }
-    
     var nfts: [NFT]? {
         didSet {
             DispatchQueue.main.async {
@@ -16,6 +12,10 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
                 UIBlockingProgressHUD.dismiss()
             }
         }
+    }
+    
+    init(profilePresenter: ProfileViewPresenterProtocol?) {
+        self.profilePresenter = profilePresenter
     }
     
     func fetchNFTs() {
@@ -32,7 +32,7 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
         }
     }
     
-    func filterNFTsForProfile(profile: Profile, allNFTs: [NFT]) -> [NFT] {
+    private func filterNFTsForProfile(profile: Profile, allNFTs: [NFT]) -> [NFT] {
         let profileNFTIds = Set(profile.nfts)
 
         let filteredNFTs = allNFTs.filter { nft in
@@ -40,5 +40,22 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
         }
 
         return filteredNFTs
+    }
+    
+    func sortNFT(by: Sort) {
+        guard var nfts = nfts else { return }
+        
+        switch by {
+        case .byPrice:
+            nfts.sort { $0.price > $1.price }
+        case .byRating:
+            nfts.sort { $0.rating > $1.rating }
+        case .byTitle:
+            nfts.sort { $0.name < $1.name }
+        default:
+            break
+        }
+        
+        self.nfts = nfts
     }
 }
