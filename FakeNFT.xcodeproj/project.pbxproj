@@ -39,9 +39,8 @@
 		73EA4B1D2A7471D2000B4B55 /* CustomNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EA4B1C2A7471D2000B4B55 /* CustomNavigationViewController.swift */; };
 		C514E5172A7756F3007D4E6A /* StatisticsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C514E5162A7756F3007D4E6A /* StatisticsPresenter.swift */; };
 		C514E5192A775895007D4E6A /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C514E5182A775895007D4E6A /* StatisticsView.swift */; };
-		C5D3AAD22A7B3B79005A3694 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D3AAD12A7B3B79005A3694 /* User.swift */; };
-		C5D3AAD42A7B3BA7005A3694 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D3AAD32A7B3BA7005A3694 /* MockData.swift */; };
-		C5D3AAD62A7B5FB1005A3694 /* GetUsersRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D3AAD52A7B5FB1005A3694 /* GetUsersRequest.swift */; };
+		C58EB5082A7C95530096F4C3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D3AAD12A7B3B79005A3694 /* User.swift */; };
+		C58EB50A2A7C95F90096F4C3 /* GetUsersRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58EB5092A7C95F90096F4C3 /* GetUsersRequest.swift */; };
 		C5D3AAD82A7B6612005A3694 /* UserStatisticsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D3AAD72A7B6612005A3694 /* UserStatisticsCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -97,9 +96,8 @@
 		73EA4B1C2A7471D2000B4B55 /* CustomNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationViewController.swift; sourceTree = "<group>"; };
 		C514E5162A7756F3007D4E6A /* StatisticsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsPresenter.swift; sourceTree = "<group>"; };
 		C514E5182A775895007D4E6A /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
+		C58EB5092A7C95F90096F4C3 /* GetUsersRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUsersRequest.swift; sourceTree = "<group>"; };
 		C5D3AAD12A7B3B79005A3694 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		C5D3AAD32A7B3BA7005A3694 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MockData.swift; path = ../../../../../../Applications/MockData.swift; sourceTree = "<group>"; };
-		C5D3AAD52A7B5FB1005A3694 /* GetUsersRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUsersRequest.swift; sourceTree = "<group>"; };
 		C5D3AAD72A7B6612005A3694 /* UserStatisticsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatisticsCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -253,6 +251,7 @@
 			isa = PBXGroup;
 			children = (
 				3FC8C39029D2453B0081F015 /* ExampleRequest.swift */,
+				C58EB5092A7C95F90096F4C3 /* GetUsersRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -466,6 +465,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C58EB5082A7C95530096F4C3 /* User.swift in Sources */,
 				7362C5492A786ACE004CBE1D /* AlertService.swift in Sources */,
 				73EA4B082A73C789000B4B55 /* CatalogViewController.swift in Sources */,
 				3FC8C38B29D242E90081F015 /* ProductDetailsTableViewCell.swift in Sources */,
@@ -477,8 +477,8 @@
 				3F68069B29CBBAF100B4F915 /* ProductDetailsTableViewController.swift in Sources */,
 				3F6806D529CBBEC700B4F915 /* NetworkTask.swift in Sources */,
 				3F68069729CBBAF100B4F915 /* AppDelegate.swift in Sources */,
-				C5D3AADA2A7B679D005A3694 /* GetUsersRequest.swift in Sources */,
 				3F68069929CBBAF100B4F915 /* SceneDelegate.swift in Sources */,
+				C58EB50A2A7C95F90096F4C3 /* GetUsersRequest.swift in Sources */,
 				3FC8C39129D2453B0081F015 /* ExampleRequest.swift in Sources */,
 				3F6806D729CBC50A00B4F915 /* CellsReusingUtils.swift in Sources */,
 				73EA4B1B2A744623000B4B55 /* LocalizableConstants.swift in Sources */,

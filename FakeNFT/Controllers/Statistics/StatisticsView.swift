@@ -2,7 +2,8 @@ import UIKit
 
 protocol IStatisticsView: AnyObject, UITableViewDelegate, UITableViewDataSource {
 	func setDelegateDataSource(delegate: UITableViewDelegate & UITableViewDataSource)
-		func updateUI(with data: [User])
+	func updateUI(with data: [User])
+	func getUsers() -> [User]
 	func updateTable()
 	var activityIndicator: UIActivityIndicatorView { get }
 }
@@ -43,6 +44,9 @@ extension StatisticsView: IStatisticsView {
 			guard let self else { return }
 			self.userStatisticsTableView.reloadData()
 		}
+	}
+	func getUsers() -> [User] {
+		return users
 	}
 	
 	func setDelegateDataSource(delegate: UITableViewDataSource & UITableViewDelegate) {
