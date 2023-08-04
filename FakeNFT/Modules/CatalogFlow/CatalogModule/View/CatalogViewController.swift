@@ -18,6 +18,8 @@ final class CatalogViewController: UIViewController {
         return table
     }()
     
+    private let spacingTableViewCell: CGFloat = 10
+    
     // MARK: - Properties
     
     weak var delegate: CatalogViewControllerDelegate?
@@ -48,7 +50,7 @@ final class CatalogViewController: UIViewController {
     // MARK: - Actions
     
     @objc private func didTapSortingByButton() {
-        
+        presenter.didTapSortingButton()
     }
 }
 
@@ -81,7 +83,7 @@ private extension CatalogViewController {
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            tableView.bottomAnchor.constraint(equalTo:  view.safeAreaLayoutGuide.topAnchor, constant: -16),
+            tableView.bottomAnchor.constraint(equalTo:  view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
         ])
     }
 
@@ -90,6 +92,10 @@ private extension CatalogViewController {
 // MARK: - UITableViewDelegate
 
 extension CatalogViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+           return spacingTableViewCell
+       }
+    
     
 }
 
@@ -115,13 +121,21 @@ extension CatalogViewController: UITableViewDataSource {
 
 extension CatalogViewController: CatalogViewProtocol {
     func update(with viewModels: [CatalogTableViewCellViewModel]) {
-        self.viewModels += viewModels
+        self.viewModels = viewModels
         tableView.reloadData()
     }
     
     func displayAlert(model: AlertProtocol) {
         presentAlertWith(model: model)
     }
+    
+    func updateImage(with viewModel: CatalogTableViewCellViewModel,
+                     at index: Int) {
+        let indexPath = IndexPath(row: index, section: 0)
+        guard let cell = tableView.cellForRow(at: indexPath) as? CatalogTableViewCell else { return }
+        cell.configure(with: viewModel)
+    }
 }
+
 
 

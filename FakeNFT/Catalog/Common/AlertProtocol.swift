@@ -4,8 +4,7 @@ protocol AlertProtocol {
     var title: String { get }
     var message: String? { get }
     var preferredStyle: UIAlertController.Style { get }
-    var firstAction: AlertActionProtocol? { get }
-    var secondAction: AlertActionProtocol? { get }
+    var actions: [AlertActionProtocol] { get }
     var tintColor: UIColor { get }
 }
 
@@ -19,21 +18,18 @@ protocol AlertActionProtocol {
 struct AlertModel: AlertProtocol {
     let title: String
     let message: String?
-    let firstAction: AlertActionProtocol?
-    let secondAction: AlertActionProtocol?
+    let actions: [AlertActionProtocol]
     let preferredStyle: UIAlertController.Style
     let tintColor: UIColor
     
     init(title: String,
          message: String? = nil,
-         firstAction: AlertActionProtocol? = nil,
-         secondAction: AlertActionProtocol? = nil,
+         actions: [AlertActionProtocol],
          preferredStyle: UIAlertController.Style = .alert,
          tintColor: UIColor) {
         self.title = title
         self.message = message
-        self.firstAction = firstAction
-        self.secondAction = secondAction
+        self.actions = actions
         self.preferredStyle = preferredStyle
         self.tintColor = tintColor
     }
@@ -55,3 +51,4 @@ struct AlertActionModel: AlertActionProtocol {
         self.handler = handler
     }
 }
+
