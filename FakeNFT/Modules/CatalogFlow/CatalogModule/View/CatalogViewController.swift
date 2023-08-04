@@ -18,8 +18,6 @@ final class CatalogViewController: UIViewController {
         return table
     }()
     
-    private let spacingTableViewCell: CGFloat = 10
-    
     // MARK: - Properties
     
     weak var delegate: CatalogViewControllerDelegate?
@@ -91,13 +89,7 @@ private extension CatalogViewController {
 
 // MARK: - UITableViewDelegate
 
-extension CatalogViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-           return spacingTableViewCell
-       }
-    
-    
-}
+extension CatalogViewController: UITableViewDelegate {}
 
 // MARK: - UITableViewDataSource
 
