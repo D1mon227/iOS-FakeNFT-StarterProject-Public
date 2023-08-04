@@ -40,12 +40,6 @@ final class MyNFTTableViewCell: UITableViewCell {
         return element
     }()
     
-//    private lazy var ratingStar: UIImageView = {
-//        let element = UIImageView()
-//        element.image = Resourses.Images.Cell.star
-//        return element
-//    }()
-    
     private lazy var authorHorizontalStack: UIStackView = {
         let element = UIStackView()
         element.axis = .horizontal
@@ -94,11 +88,12 @@ final class MyNFTTableViewCell: UITableViewCell {
         return element
     }()
     
-    private let totalStars = 5
+    private var starImageViews: [UIImageView] = []
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
+        setupRatingStack()
     }
     
     required init?(coder: NSCoder) {
@@ -108,13 +103,13 @@ final class MyNFTTableViewCell: UITableViewCell {
     func configureCell(image: URL?,
                        favoriteButtonColor: UIColor?,
                        nftName: String?,
-                       starColor: UIColor?,
+                       rating: Int?,
                        author: String?,
                        price: String?) {
         nftImage.kf.setImage(with: image)
         favoriteButton.tintColor = favoriteButtonColor
         nftLabel.text = nftName
-//        ratingStar.tintColor = starColor
+        updateRatingStars(rating: rating)
         authorLabel.text = author
         self.price.text = price
     }
@@ -126,7 +121,6 @@ final class MyNFTTableViewCell: UITableViewCell {
         addSubview(nftInfoVerticalStack)
         nftInfoVerticalStack.addArrangedSubview(nftLabel)
         nftInfoVerticalStack.addArrangedSubview(ratingHorizontalStack)
-        setupRatingStack()
         nftInfoVerticalStack.addArrangedSubview(authorHorizontalStack)
         authorHorizontalStack.addArrangedSubview(fromAuthorLabel)
         authorHorizontalStack.addArrangedSubview(authorLabel)
@@ -142,10 +136,19 @@ final class MyNFTTableViewCell: UITableViewCell {
             imageView.snp.makeConstraints { make in
                 make.width.height.equalTo(12)
             }
-            imageView.tintColor = .yellowUniversal
+            imageView.tintColor = .lightGreyDay
             ratingHorizontalStack.addArrangedSubview(imageView)
+            starImageViews.append(imageView)
         }
     }
+    
+    private func updateRatingStars(rating: Int?) {
+            guard let rating = rating else { return }
+            
+            for i in 0..<5 {
+                starImageViews[i].tintColor = i < rating ? .yellowUniversal : .lightGreyDay
+            }
+        }
     
     private func setupConstraints() {
         nftImage.snp.makeConstraints { make in
@@ -164,10 +167,6 @@ final class MyNFTTableViewCell: UITableViewCell {
             make.width.greaterThanOrEqualTo(78)
             make.centerY.equalTo(nftImage)
         }
-        
-//        ratingStar.snp.makeConstraints { make in
-//            make.width.height.equalTo(12)
-//        }
         
         nftPriceVerticalStack.snp.makeConstraints { make in
             make.centerY.equalTo(nftInfoVerticalStack)

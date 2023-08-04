@@ -3,17 +3,27 @@ import SnapKit
 
 final class MyNFTViewController: UIViewController, MyNFTViewControllerProtocol {
     var presenter: MyNFTViewPresenterProtocol?
+    var profilePresenter: ProfileViewPresenterProtocol?
     private let myNFTView = MyNFTView()
     private let alertService = AlertService()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter = MyNFTViewPresenter()
-        presenter?.view = self
         presenter?.fetchNFTs()
         setupNavigationBar()
         setupViews()
         setupTableView()
+    }
+    
+    init(profilePresenter: ProfileViewPresenterProtocol?) {
+        super.init(nibName: nil, bundle: nil)
+        self.profilePresenter = profilePresenter
+        self.presenter = MyNFTViewPresenter(profilePresenter: profilePresenter)
+        self.presenter?.view = self
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func setupTableView() {
@@ -58,14 +68,15 @@ extension MyNFTViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "MyNFTTableViewCell", for: indexPath) as? MyNFTTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "MyNFTTableViewCell", for: indexPath) as? MyNFTTableViewCell,
+              let nfts = presenter?.nfts?[indexPath.row] else { return UITableViewCell() }
         
-        cell.configureCell(image: presenter?.nfts?[indexPath.row].images[0],
+        cell.configureCell(image: nfts.images[0],
                            favoriteButtonColor: .white,
-                           nftName: presenter?.nfts?[indexPath.row].name,
-                           starColor: .yellowUniversal,
-                           author: presenter?.nfts?[indexPath.row].author,
-                           price: String(presenter?.nfts?[indexPath.row].price ?? 0))
+                           nftName: nfts.name,
+                           rating: nfts.rating,
+                           author: nfts.author,
+                           price: String(nfts.price))
         
         return cell
     }

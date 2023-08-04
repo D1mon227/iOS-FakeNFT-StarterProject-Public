@@ -3,8 +3,12 @@ import Foundation
 final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
     var view: MyNFTViewControllerProtocol?
     private let profileService = ProfileService.shared
+    private var profilePresenter: ProfileViewPresenterProtocol?
     
-    var profile: Profile?
+    init(profilePresenter: ProfileViewPresenterProtocol?) {
+        self.profilePresenter = profilePresenter
+    }
+    
     var nfts: [NFT]? {
         didSet {
             DispatchQueue.main.async {
@@ -15,11 +19,13 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
     }
     
     func fetchNFTs() {
+        guard let profile = self.profilePresenter?.profile else { return }
+        
         profileService.fetchNFT { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let nfts):
-                self.nfts = nfts
+                self.nfts = self.filterNFTsForProfile(profile: profile, allNFTs: nfts)
             case .failure(let error):
                 print(error.localizedDescription)
             }
