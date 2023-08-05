@@ -1,9 +1,5 @@
 import UIKit
 
-protocol CatalogViewControllerDelegate: AnyObject {
-    
-}
-
 final class CatalogViewController: UIViewController {
     
     // MARK: - Layout elements
@@ -12,15 +8,14 @@ final class CatalogViewController: UIViewController {
         table.translatesAutoresizingMaskIntoConstraints = false
         table.register(CatalogTableViewCell.self, forCellReuseIdentifier: CatalogTableViewCell.identifier)
         table.separatorStyle = .none
-        table.isScrollEnabled = false
+        table.isScrollEnabled = true
         table.allowsMultipleSelection = false
-        table.backgroundColor = .clear
+        table.backgroundColor = .backgroundDay
         return table
     }()
     
     // MARK: - Properties
     
-    weak var delegate: CatalogViewControllerDelegate?
     private let presenter: CatalogPresenterProtocol
     private var viewModels: [CatalogTableViewCellViewModel] = []
     
@@ -38,6 +33,9 @@ final class CatalogViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = .backgroundDay
+        
         presenter.viewDidLoad()
         setupNavigationBar()
         setupTableView()
@@ -57,7 +55,6 @@ final class CatalogViewController: UIViewController {
 private extension CatalogViewController {
     
     func setupTableView() {
-        view.backgroundColor = .white
         view.addSubview(tableView)
         
         tableView.delegate = self
@@ -81,7 +78,7 @@ private extension CatalogViewController {
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            tableView.bottomAnchor.constraint(equalTo:  view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16),
         ])
     }
 
@@ -94,6 +91,7 @@ extension CatalogViewController: UITableViewDelegate {}
 // MARK: - UITableViewDataSource
 
 extension CatalogViewController: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModels.count
     }
@@ -107,8 +105,6 @@ extension CatalogViewController: UITableViewDataSource {
         cell.configure(with: viewModel)
         return cell
     }
-    
-    
 }
 
 extension CatalogViewController: CatalogViewProtocol {
@@ -120,14 +116,8 @@ extension CatalogViewController: CatalogViewProtocol {
     func displayAlert(model: AlertProtocol) {
         presentAlertWith(model: model)
     }
-    
-    func updateImage(with viewModel: CatalogTableViewCellViewModel,
-                     at index: Int) {
-        let indexPath = IndexPath(row: index, section: 0)
-        guard let cell = tableView.cellForRow(at: indexPath) as? CatalogTableViewCell else { return }
-        cell.configure(with: viewModel)
-    }
 }
+
 
 
 
