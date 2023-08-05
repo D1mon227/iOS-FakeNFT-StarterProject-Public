@@ -2,12 +2,18 @@ import UIKit
 
 protocol IStatisticsPresenter {
 	func viewDidLoad(ui: IStatisticsView)
+	func navigateToUserDetails(with presenter: UserDetailsPresenter)
+}
+
+protocol IStatisticsViewNavigationDelegate: AnyObject {
+	func showUserDetails(with presenter: UserDetailsPresenter)
 }
 
 final class StatisticsPresenter {
 	var ui: IStatisticsView?
 	private var model: [User]?
 	private let networkClient: NetworkClient
+	weak var navigationDelegate: IStatisticsViewNavigationDelegate?
 	
 	init(networkClient: NetworkClient) {
 		self.networkClient = networkClient
@@ -29,9 +35,20 @@ final class StatisticsPresenter {
 				}
 			case let .failure(error):
 				print("Error fetching data:", error)
-
+				
 			}
 		}
+	}
+	
+	func tapOnTheCell(user: User?) {
+		if let user = user {
+			let userDetailsPresenter = UserDetailsPresenter(user: user)
+			self.navigateToUserDetails(with: userDetailsPresenter)
+		}
+	}
+	
+	func navigateToUserDetails(with presenter: UserDetailsPresenter) {
+		navigationDelegate?.showUserDetails(with: presenter)
 	}
 	
 	func sortData(by sortingOption: Sort, dataToSort: [User]) -> [User] {

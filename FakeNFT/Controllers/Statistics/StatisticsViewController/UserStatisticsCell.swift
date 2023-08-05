@@ -9,10 +9,7 @@ import UIKit
 import Kingfisher
 
 final class UserStatisticsCell: UITableViewCell {
-	
-	
-	static let identifier = "UserStatisticsCell"
-	private var recipeId: Int = 0
+	static let identifier = "userStatisticsCell"
 	var onButtonTapped: (() -> Void)?
 	
 	private lazy var cellNumberLabel: UILabel = {
@@ -74,12 +71,12 @@ final class UserStatisticsCell: UITableViewCell {
 	
 	func configure(with user: User, cellNumber: Int) {
 		cellNumberLabel.text = "\(cellNumber)"
-
+		
 		let firstName = getFirstName(from: user.name)
 		userNameLabel.text = firstName
-
+		
 		nftCountLabel.text = user.rating
-
+		
 		if let imageUrl = user.avatar {
 			userImageView.kf.setImage(with: imageUrl, placeholder: UIImage(named: "placeholderImage"))
 		} else {
@@ -90,16 +87,12 @@ final class UserStatisticsCell: UITableViewCell {
 
 private extension UserStatisticsCell {
 	func configureView() {
-		self.backgroundColor = .white
-		
+		self.backgroundColor = UIColor.backgroundDay
 		contentView.addSubview(containerView)
 		contentView.addSubview(cellNumberLabel)
-		
 		containerView.addSubview(userImageView)
 		containerView.addSubview(userNameLabel)
 		containerView.addSubview(nftCountLabel)
-		
-		
 		
 		NSLayoutConstraint.activate([
 			containerView.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -116,10 +109,8 @@ private extension UserStatisticsCell {
 			userImageView.widthAnchor.constraint(equalToConstant: 28),
 			userImageView.heightAnchor.constraint(equalToConstant: 28),
 			
-			
 			userNameLabel.leadingAnchor.constraint(equalTo: userImageView.trailingAnchor, constant: 8),
 			userNameLabel.centerYAnchor.constraint(equalTo: userImageView.centerYAnchor),
-			
 			
 			nftCountLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
 			nftCountLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor)
@@ -149,8 +140,7 @@ extension StatisticsView: UITableViewDataSource, UITableViewDelegate {
 	// MARK: - UITableViewDelegate
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		//		let item = searchRecipes[indexPath.row]
-		//		presenter?.tapOnTheCell(recipe: item)
+		let item = users[indexPath.row]
+		presenter?.tapOnTheCell(user: item)
 	}
 }
-

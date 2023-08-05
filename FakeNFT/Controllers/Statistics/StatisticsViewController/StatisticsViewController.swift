@@ -1,6 +1,6 @@
 import UIKit
 
-final class StatisticsViewController: UIViewController {
+final class StatisticsViewController: UIViewController, IStatisticsViewNavigationDelegate {
 	private let customView = StatisticsView()
 	private var sortButton: UIBarButtonItem?
 	var statisticsPresenter: StatisticsPresenter
@@ -24,8 +24,15 @@ final class StatisticsViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.statisticsPresenter.viewDidLoad(ui: self.customView)
+		customView.presenter = statisticsPresenter
+		statisticsPresenter.navigationDelegate = self
 		configureNavigationBar()
 		self.statisticsPresenter.fetchDataFromServer()
+	}
+	
+	func showUserDetails(with presenter: UserDetailsPresenter) {
+		let userDetailsViewController = UserDetailsViewController(with: presenter)
+		navigationController?.pushViewController(userDetailsViewController, animated: true)
 	}
 }
 
@@ -37,7 +44,7 @@ private extension StatisticsViewController {
 	
 	func showSortingOptions() {
 		let sortingOptions: [Sort] = [.byName, .byRating, .close]
-
+		
 		let users = statisticsPresenter.ui?.getUsers()
 		if let users = users {
 			alertService.showAlert(title: "Сортировка", actions: sortingOptions, controller: self) { [self] selectedOption in
@@ -48,7 +55,7 @@ private extension StatisticsViewController {
 			print("Error: Users data is not available.")
 		}
 	}
-
+	
 	
 	@objc func sortButtonTapped() {
 		showSortingOptions()

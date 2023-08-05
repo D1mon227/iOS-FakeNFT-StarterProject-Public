@@ -9,7 +9,7 @@ protocol IStatisticsView: AnyObject, UITableViewDelegate, UITableViewDataSource 
 }
 
 final class StatisticsView: UIView {
-	
+	var presenter: StatisticsPresenter?
 	var users: [User] = []
 	
 	lazy var userStatisticsTableView: UITableView = {
@@ -45,6 +45,7 @@ extension StatisticsView: IStatisticsView {
 			self.userStatisticsTableView.reloadData()
 		}
 	}
+	
 	func getUsers() -> [User] {
 		return users
 	}
