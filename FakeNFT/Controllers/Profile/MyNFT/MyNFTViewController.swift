@@ -3,7 +3,7 @@ import SnapKit
 
 final class MyNFTViewController: UIViewController, MyNFTViewControllerProtocol {
     var presenter: MyNFTViewPresenterProtocol?
-    var profilePresenter: ProfileViewPresenterProtocol?
+    private var profilePresenter: ProfileViewPresenterProtocol?
     private let myNFTView = MyNFTView()
     private let alertService = AlertService()
     
@@ -73,6 +73,10 @@ extension MyNFTViewController: UITableViewDataSource {
 extension MyNFTViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 140
+    }
+    
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        false
     }
 }
 

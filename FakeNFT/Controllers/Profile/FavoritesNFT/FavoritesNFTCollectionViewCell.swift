@@ -1,5 +1,6 @@
 import UIKit
 import SnapKit
+import Kingfisher
 
 final class FavoritesNFTCollectionViewCell: UICollectionViewCell {
     private let nftImage = UIImageView()
@@ -25,12 +26,6 @@ final class FavoritesNFTCollectionViewCell: UICollectionViewCell {
         return element
     }()
     
-//    private lazy var ratingStar: UIImageView = {
-//        let element = UIImageView()
-//        element.image = Resourses.Images.Cell.star
-//        return element
-//    }()
-    
     private lazy var price: UILabel = {
         let element = UILabel()
         element.font = .caption1
@@ -39,25 +34,27 @@ final class FavoritesNFTCollectionViewCell: UICollectionViewCell {
         return element
     }()
     
+    private var starImageViews: [UIImageView] = []
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
-        setupConstraints()
+        setupRatingStack()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureCell(image: UIImage?,
+    func configureCell(image: URL?,
                        favoriteButtonColor: UIColor?,
                        nftName: String?,
-                       starColor: UIColor?,
+                       rating: Int?,
                        price: String?) {
-        nftImage.image = image
+        nftImage.kf.setImage(with: image)
         favoriteButton.tintColor = favoriteButtonColor
         nftLabel.text = nftName
-//        ratingStar.tintColor = starColor
+        updateRatingStars(rating: rating)
         self.price.text = price
     }
     
@@ -67,9 +64,8 @@ final class FavoritesNFTCollectionViewCell: UICollectionViewCell {
         addSubview(favoriteButton)
         addSubview(nftLabel)
         addSubview(ratingHorizontalStack)
-        setupRatingStack()
-//        ratingHorizontalStack.addArrangedSubview(ratingStar)
         addSubview(price)
+        setupConstraints()
     }
     
     private func setupRatingStack() {
@@ -78,8 +74,17 @@ final class FavoritesNFTCollectionViewCell: UICollectionViewCell {
             imageView.snp.makeConstraints { make in
                 make.width.height.equalTo(12)
             }
-            imageView.tintColor = .yellowUniversal
+            imageView.tintColor = .lightGreyDay
             ratingHorizontalStack.addArrangedSubview(imageView)
+            starImageViews.append(imageView)
+        }
+    }
+    
+    private func updateRatingStars(rating: Int?) {
+        guard let rating = rating else { return }
+        
+        for i in 0..<5 {
+            starImageViews[i].tintColor = i < rating ? .yellowUniversal : .lightGreyDay
         }
     }
     
@@ -104,10 +109,6 @@ final class FavoritesNFTCollectionViewCell: UICollectionViewCell {
             make.leading.equalTo(nftImage.snp.trailing).offset(12)
             make.top.equalTo(nftLabel.snp.bottom).offset(4)
         }
-        
-//        ratingStar.snp.makeConstraints { make in
-//            make.width.height.equalTo(12)
-//        }
         
         price.snp.makeConstraints { make in
             make.leading.equalTo(nftImage.snp.trailing).offset(12)

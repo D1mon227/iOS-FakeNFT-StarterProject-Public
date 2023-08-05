@@ -1,8 +1,9 @@
 import UIKit
 import SnapKit
 
-final class FavoritesNFTViewController: UIViewController {
+final class FavoritesNFTViewController: UIViewController, FavoritesNFTViewControllerProtocol {
     private let favoritesNFTView = FavoritesNFTView()
+    var presenter: FavoritesNFTViewPresenterProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,21 +16,28 @@ final class FavoritesNFTViewController: UIViewController {
         favoritesNFTView.nftCollectionView.delegate = self
         favoritesNFTView.nftCollectionView.register(FavoritesNFTCollectionViewCell.self, forCellWithReuseIdentifier: "FavoritesNFTCollectionViewCell")
     }
+    
+    func reloadCollectionView() {
+        DispatchQueue.main.async {
+            self.favoritesNFTView.nftCollectionView.reloadData()
+        }
+    }
 }
 
 extension FavoritesNFTViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        6
+        presenter?.nfts?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FavoritesNFTCollectionViewCell", for: indexPath) as? FavoritesNFTCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FavoritesNFTCollectionViewCell", for: indexPath) as? FavoritesNFTCollectionViewCell,
+              let nfts = presenter?.nfts?[indexPath.row] else { return UICollectionViewCell() }
         
-        cell.configureCell(image: Resourses.Images.NFT.nftCard1,
-                           favoriteButtonColor: .white,
-                           nftName: "Archie",
-                           starColor: .yellowUniversal,
-                           price: "1,78 ETH")
+        cell.configureCell(image: nfts.images[0],
+                           favoriteButtonColor: .redUniversal,
+                           nftName: nfts.name,
+                           rating: nfts.rating,
+                           price: String(nfts.price) + " ETH")
         
         return cell
     }

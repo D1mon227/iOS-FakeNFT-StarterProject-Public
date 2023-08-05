@@ -1,7 +1,7 @@
 import Foundation
 
 final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
-    var view: MyNFTViewControllerProtocol?
+    weak var view: MyNFTViewControllerProtocol?
     private let profileService = ProfileService.shared
     private var profilePresenter: ProfileViewPresenterProtocol?
     
