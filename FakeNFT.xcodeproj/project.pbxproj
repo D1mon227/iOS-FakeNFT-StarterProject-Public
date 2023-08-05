@@ -27,7 +27,8 @@
 		1F09D5412A76C4F000367A6A /* CatalogViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F09D5402A76C4F000367A6A /* CatalogViewProtocol.swift */; };
 		1F09D5452A77B89500367A6A /* URLSession+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F09D5442A77B89500367A6A /* URLSession+extension.swift */; };
 		1F09D5472A7A293D00367A6A /* NftCollectionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F09D5462A7A293D00367A6A /* NftCollectionRequest.swift */; };
-		1F09D54B2A7B8CB200367A6A /* DownloadImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F09D54A2A7B8CB200367A6A /* DownloadImageService.swift */; };
+		1F09D54D2A7E489500367A6A /* CatalogTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F09D54C2A7E489500367A6A /* CatalogTableViewCellViewModel.swift */; };
+		1F09D54F2A7E48F100367A6A /* String+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F09D54E2A7E48F100367A6A /* String+extension.swift */; };
 		3F478ECF29DB474E00F6D39E /* UIColor + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F478ECE29DB474E00F6D39E /* UIColor + Extension.swift */; };
 		3F478ED129DB476500F6D39E /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F478ED029DB476500F6D39E /* Fonts.swift */; };
 		3F603CCD29DB4A53000C43D7 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 3F603CCC29DB4A53000C43D7 /* ProgressHUD */; };
@@ -114,7 +115,8 @@
 		1F09D5402A76C4F000367A6A /* CatalogViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewProtocol.swift; sourceTree = "<group>"; };
 		1F09D5442A77B89500367A6A /* URLSession+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+extension.swift"; sourceTree = "<group>"; };
 		1F09D5462A7A293D00367A6A /* NftCollectionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NftCollectionRequest.swift; sourceTree = "<group>"; };
-		1F09D54A2A7B8CB200367A6A /* DownloadImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadImageService.swift; sourceTree = "<group>"; };
+		1F09D54C2A7E489500367A6A /* CatalogTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogTableViewCellViewModel.swift; sourceTree = "<group>"; };
+		1F09D54E2A7E48F100367A6A /* String+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+extension.swift"; sourceTree = "<group>"; };
 		3F478ECE29DB474E00F6D39E /* UIColor + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Extension.swift"; sourceTree = "<group>"; };
 		3F478ED029DB476500F6D39E /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		3F68069329CBBAF100B4F915 /* FakeNFT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FakeNFT.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -244,6 +246,7 @@
 				1F09D52C2A76C3D200367A6A /* UITableViewCell+extension.swift */,
 				1F09D52E2A76C3E900367A6A /* UIViewController+extension.swift */,
 				1F09D5442A77B89500367A6A /* URLSession+extension.swift */,
+				1F09D54E2A7E48F100367A6A /* String+extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 			isa = PBXGroup;
 			children = (
 				1F09D53A2A76C4A100367A6A /* CatalogTableViewCell.swift */,
+				1F09D54C2A7E489500367A6A /* CatalogTableViewCellViewModel.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -332,14 +336,6 @@
 				1F09D5302A76C40300367A6A /* NftCatalogService.swift */,
 			);
 			path = NFTServices;
-			sourceTree = "<group>";
-		};
-		1F09D5492A7B8C8500367A6A /* CommonServices */ = {
-			isa = PBXGroup;
-			children = (
-				1F09D54A2A7B8CB200367A6A /* DownloadImageService.swift */,
-			);
-			path = CommonServices;
 			sourceTree = "<group>";
 		};
 		3F68068A29CBBAF100B4F915 = {
@@ -769,7 +765,9 @@
 				1F2A25652A8E243F00F8B1AD /* UIViewController+extension.swift in Sources */,
 				1F2A25712A8E81F800F8B1AD /* NetworkReachabilityManager.swift in Sources */,
 				1F09D54B2A7B8CB200367A6A /* DownloadImageService.swift in Sources */,
+				1F09D54F2A7E48F100367A6A /* String+extension.swift in Sources */,
 				1F09D5472A7A293D00367A6A /* NftCollectionRequest.swift in Sources */,
+				1F09D54D2A7E489500367A6A /* CatalogTableViewCellViewModel.swift in Sources */,
 				73EA4B0B2A73C7A4000B4B55 /* CartViewController.swift in Sources */,
 				73C3EB612A8E7C3700E047E0 /* NFTService.swift in Sources */,
 				1F09D53F2A76C4CD00367A6A /* CatalogPresenterProtocol.swift in Sources */,

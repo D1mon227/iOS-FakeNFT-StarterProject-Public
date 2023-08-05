@@ -1,17 +1,18 @@
 import Foundation
 
+struct KeyDefaults {
+    static let sortingType = "sortingType"
+}
+
 final class CatalogPresenter {
     
     private let nftCatalogService: NftCatalogServiceProtocol
-    private let downloadImageService: DownloadImageServiceProtocol
     private var viewModels: [CatalogTableViewCellViewModel] = []
     
     weak var view: CatalogViewProtocol?
     
-    init(nftCatalogService: NftCatalogServiceProtocol,
-         downloadImageService: DownloadImageServiceProtocol) {
+    init(nftCatalogService: NftCatalogServiceProtocol) {
         self.nftCatalogService = nftCatalogService
-        self.downloadImageService = downloadImageService
     }
 }
 
@@ -32,28 +33,28 @@ extension CatalogPresenter: CatalogPresenterProtocol {
     
     func didTapSortingButton() {
         let byNameAction = AlertActionModel(title: "По названию",
-                                           style: .default,
-                                           titleTextColor: .systemBlue,
-                                           handler: { [weak self] _ in
-            
-//             self?.sortByName()
-        })
-        
-        let byCountAction = AlertActionModel(title: "По количеству NFT",
                                             style: .default,
                                             titleTextColor: .systemBlue,
                                             handler: { [weak self] _ in
-             
-//             self?.sortByCount()
-         })
+            
+            self?.sortByName()
+        })
+        
+        let byCountAction = AlertActionModel(title: "По количеству NFT",
+                                             style: .default,
+                                             titleTextColor: .systemBlue,
+                                             handler: { [weak self] _ in
+            
+            self?.sortByCount()
+        })
         
         let closeAction = AlertActionModel(title: "Закрыть",
-                                            style: .cancel,
-                                            titleTextColor: .systemBlue,
-                                            handler: { [weak self] _ in
-             
-//             self?.sortByCount()
-         })
+                                           style: .cancel,
+                                           titleTextColor: .systemBlue,
+                                           handler: { [weak self] _ in
+            
+            self?.sortByCount()
+        })
         
         let model = AlertModel(title: "Сортировка",
                                message: nil,
@@ -62,48 +63,52 @@ extension CatalogPresenter: CatalogPresenterProtocol {
                                tintColor: .systemBlue)
         
         view?.displayAlert(model: model)
-
-    }
-    
-    func didChooseSortingType(sortingType: SortingType) {
         
     }
+    
 }
 
 private extension CatalogPresenter {
-    func didGetNftItems(nftItems: [NftResponse]) {
-        viewModels = nftItems.map { CatalogTableViewCellViewModel(nftResponse: $0) }// преобразование во вью модели
-        
+    
+    func sortByCount() {
+        //userDefaults
+        viewModels.sort(by: { $0.nftCount > $1.nftCount })
         view?.update(with: viewModels)
-        downloadAndPresentImages()
+        saveSortingType(.byCount)
     }
+    
+    func sortByName() {
+        //userDefaults
+        viewModels.sort(by: { $0.nftName < $1.nftName })
+        view?.update(with: viewModels)
+        saveSortingType(.byName)
+    }
+    
+    func saveSortingType(_ sortingType: SortingType) {
+        UserDefaults.standard.set(sortingType.rawValue, forKey: KeyDefaults.sortingType)
+    }
+    
+    
+    
+    func didGetNftItems(nftItems: [NftResponse]) {
+            viewModels = nftItems.map { CatalogTableViewCellViewModel(nftResponse: $0) }
+    
+            if let sortingTypeString = UserDefaults.standard.string(forKey: "sortingType"),
+               let sortingType = SortingType(rawValue: sortingTypeString) {
+                switch sortingType {
+                case .byCount: sortByCount()
+                case .byName: sortByName()
+                }
+            } else {
+                view?.update(with: viewModels)
+            }
+        }
     
     func didGetError(error: Error) {
         
     }
     
-    func downloadAndPresentImages() {
-        viewModels.forEach { model in
-            if model.imageData == nil,
-               let encodedString = model.imageStringUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-               let url = URL(string: encodedString) {
-                downloadImageService.getDataFromUrl(url: url) { [weak self] data, response, error in
-                    if let data,
-                       error == nil {
-                        self?.updateImage(id: model.id, data: data)
-                    }
-                    // обработка ошибок
-                }
-            }
-        }
-    }
-    
-    func updateImage(id: String, data: Data) {
-        guard let viewModelIndex = viewModels.firstIndex(where: { $0.id == id }) else { return }
-        var viewModel = viewModels[viewModelIndex]
-        viewModel.imageData = data
-        view?.updateImage(with: viewModel, at: viewModelIndex)
-    }
 }
+
 
 
