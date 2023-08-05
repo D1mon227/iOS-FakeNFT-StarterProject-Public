@@ -38,8 +38,9 @@ final class StatisticsViewController: UIViewController, IStatisticsViewNavigatio
 
 private extension StatisticsViewController {
 	func configureNavigationBar() {
-		sortButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(sortButtonTapped))
-		navigationItem.rightBarButtonItem = sortButton
+		let customBarButtonItem = UIBarButtonItem(image: Resourses.Images.Sort.sort, style: .plain, target: self, action: #selector(sortButtonTapped))
+		customBarButtonItem.tintColor = UIColor.black
+		navigationItem.rightBarButtonItem = customBarButtonItem
 	}
 	
 	func showSortingOptions() {
