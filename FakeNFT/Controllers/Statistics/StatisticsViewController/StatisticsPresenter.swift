@@ -56,7 +56,7 @@ final class StatisticsPresenter {
 		case .byName:
 			return dataToSort.sorted { $0.name < $1.name }
 		case .byRating:
-			return dataToSort.sorted { $0.rating > $1.rating }
+			return dataToSort.sorted { Int($0.rating) ?? 0 > Int($1.rating) ?? 0 }
 		default:
 			return dataToSort
 		}
