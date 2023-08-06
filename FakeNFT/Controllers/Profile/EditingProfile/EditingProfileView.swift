@@ -10,9 +10,8 @@ final class EditingProfileView {
     
     lazy var profileImage: UIImageView = {
         let element = UIImageView()
-        element.image = Resourses.Images.Profile.profileImage
-        element.backgroundColor = .black.withAlphaComponent(0.9)
         element.layer.cornerRadius = 35
+        element.layer.masksToBounds = true
         return element
     }()
     

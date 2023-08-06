@@ -1,5 +1,6 @@
 import UIKit
 import SnapKit
+import Kingfisher
 
 final class EditingProfileViewController: UIViewController {
     private let editingProfileView = EditingProfileView()
@@ -15,6 +16,7 @@ final class EditingProfileViewController: UIViewController {
     init(profile: Profile?) {
         super.init(nibName: nil, bundle: nil)
         editingInfo = profile
+        editingProfileView.profileImage.kf.setImage(with: profile?.avatar)
     }
     
     required init?(coder: NSCoder) {
