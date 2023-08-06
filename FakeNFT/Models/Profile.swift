@@ -14,3 +14,11 @@ struct NewProfile: Encodable {
     var description: String?
     var website: String?
 }
+
+extension NewProfile {
+    func isEqual(to profile: Profile) -> Bool {
+        return name == profile.name &&
+               description == profile.description &&
+               website == profile.website
+    }
+}

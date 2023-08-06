@@ -7,9 +7,7 @@ final class EditingProfileViewController: UIViewController, EditingProfileViewCo
     private var profilePresenter: ProfileViewPresenterProtocol?
     private let editingProfileView = EditingProfileView()
     
-    private var newProfileName: String?
-    private var newProfileDescription: String?
-    private var newProfileWebsite: String?
+    var newProfile: NewProfile?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,15 +21,16 @@ final class EditingProfileViewController: UIViewController, EditingProfileViewCo
         self.profilePresenter = profilePresenter
         self.presenter = EditingProfileViewPresenter(profilePresenter: profilePresenter)
         self.presenter?.view = self
+        self.newProfile = NewProfile(name: profile?.name,
+                                     description: profile?.description,
+                                     website: profile?.website)
         presenter?.editingInfo = profile
         editingProfileView.profileImage.kf.setImage(with: profile?.avatar)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        presenter?.editProfile(newProfile: NewProfile(name: newProfileName,
-                                                      description: newProfileDescription,
-                                                      website: newProfileWebsite))
+        presenter?.editProfile(newProfile: newProfile)
     }
     
     required init?(coder: NSCoder) {
@@ -86,11 +85,11 @@ extension EditingProfileViewController: UITableViewDataSource {
             guard let self = self else { return }
             switch indexPath.section {
             case 0:
-                self.newProfileName = newText
+                self.newProfile?.name = newText
             case 1:
-                self.newProfileDescription = newText
+                self.newProfile?.description = newText
             case 2:
-                self.newProfileWebsite = newText
+                self.newProfile?.website = newText
             default:
                 break
             }

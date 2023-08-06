@@ -16,12 +16,19 @@ final class EditingProfileViewPresenter: EditingProfileViewPresenterProtocol {
     }
     
     func editProfile(newProfile: NewProfile?) {
-        profileService.editProfile(newProfile: newProfile) { result in
-            switch result {
-            case .success(let newProfile):
-                self.profilePresenter?.profile = newProfile
-            case .failure(let error):
-                print(error.localizedDescription)
+        guard let newProfile = newProfile,
+              let oldProfile = profilePresenter?.profile else { return }
+        
+        if newProfile.isEqual(to: oldProfile) {
+            return
+        } else {
+            profileService.editProfile(newProfile: newProfile) { result in
+                switch result {
+                case .success(let newProfile):
+                    self.profilePresenter?.profile = newProfile
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
             }
         }
     }
