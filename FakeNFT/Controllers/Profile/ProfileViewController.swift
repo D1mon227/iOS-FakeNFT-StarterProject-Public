@@ -42,7 +42,7 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
     }
     
     @objc private func swithToEditingVC() {
-        let editingProfileVC = EditingProfileViewController(profile: presenter?.profile)
+        let editingProfileVC = EditingProfileViewController(profilePresenter: presenter, profile: presenter?.profile)
         present(editingProfileVC, animated: true)
     }
     

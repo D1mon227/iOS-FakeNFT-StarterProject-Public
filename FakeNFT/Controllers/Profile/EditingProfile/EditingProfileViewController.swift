@@ -2,9 +2,14 @@ import UIKit
 import SnapKit
 import Kingfisher
 
-final class EditingProfileViewController: UIViewController {
+final class EditingProfileViewController: UIViewController, EditingProfileViewControllerProtocol {
+    var presenter: EditingProfileViewPresenterProtocol?
+    private var profilePresenter: ProfileViewPresenterProtocol?
     private let editingProfileView = EditingProfileView()
-    private var editingInfo: Profile?
+    
+    private var newProfileName: String?
+    private var newProfileDescription: String?
+    private var newProfileWebsite: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -13,10 +18,20 @@ final class EditingProfileViewController: UIViewController {
         setupTarget()
     }
     
-    init(profile: Profile?) {
+    init(profilePresenter: ProfileViewPresenterProtocol?, profile: Profile?) {
         super.init(nibName: nil, bundle: nil)
-        editingInfo = profile
+        self.profilePresenter = profilePresenter
+        self.presenter = EditingProfileViewPresenter(profilePresenter: profilePresenter)
+        self.presenter?.view = self
+        presenter?.editingInfo = profile
         editingProfileView.profileImage.kf.setImage(with: profile?.avatar)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        presenter?.editProfile(newProfile: NewProfile(name: newProfileName,
+                                                      description: newProfileDescription,
+                                                      website: newProfileWebsite))
     }
     
     required init?(coder: NSCoder) {
@@ -37,21 +52,9 @@ final class EditingProfileViewController: UIViewController {
     @objc private func dismissVC() {
         dismiss(animated: true)
     }
-}
-
-extension EditingProfileViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-    }
-}
-
-extension EditingProfileViewController: UITextViewDelegate {
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if text == "\n" {
-            textView.resignFirstResponder()
-            return false
-        }
-        return true
+    
+    func reloadTableView() {
+        editingProfileView.editingTableView.reloadData()
     }
 }
 
@@ -65,20 +68,32 @@ extension EditingProfileViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "EditingProfileTableViewCell", for: indexPath) as? EditingProfileTableViewCell else { return UITableViewCell() }
-        
-        cell.editingTextField.delegate = self
-        cell.editingTextView.delegate = self
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "EditingProfileTableViewCell", for: indexPath) as? EditingProfileTableViewCell,
+              let profile = presenter?.editingInfo else { return UITableViewCell() }
         
         switch indexPath.section {
         case 0:
-            cell.configureCell(text: editingInfo?.name ?? "")
+            cell.configureCell(text: profile.name)
         case 1:
-            cell.configureMiddleCell(text: editingInfo?.description ?? "")
+            cell.configureMiddleCell(text: profile.description)
         case 2:
-            cell.configureCell(text: editingInfo?.website ?? "")
+            cell.configureCell(text: profile.website)
         default:
             break
+        }
+        
+        cell.didTextChange = { [weak self] newText in
+            guard let self = self else { return }
+            switch indexPath.section {
+            case 0:
+                self.newProfileName = newText
+            case 1:
+                self.newProfileDescription = newText
+            case 2:
+                self.newProfileWebsite = newText
+            default:
+                break
+            }
         }
         
         return cell

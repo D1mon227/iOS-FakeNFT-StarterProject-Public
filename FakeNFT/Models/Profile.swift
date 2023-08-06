@@ -8,3 +8,9 @@ struct Profile: Decodable {
     var nfts: [String]
     var likes: [String]
 }
+
+struct NewProfile: Encodable {
+    var name: String?
+    var description: String?
+    var website: String?
+}

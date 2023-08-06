@@ -2,7 +2,7 @@ import Foundation
 
 final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
     weak var view: MyNFTViewControllerProtocol?
-    private let profileService = ProfileService.shared
+    private let nftService = NFTService.shared
     private var profilePresenter: ProfileViewPresenterProtocol?
     
     var nfts: [NFT]? {
@@ -21,7 +21,7 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
     func fetchNFTs() {
         guard let profile = self.profilePresenter?.profile else { return }
         
-        profileService.fetchNFT { [weak self] result in
+        nftService.fetchNFT { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let nfts):
