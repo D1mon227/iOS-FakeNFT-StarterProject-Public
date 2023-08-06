@@ -4,7 +4,6 @@ final class NFTCollectionViewController: UIViewController {
 	private let customView = NFTCollectionView()
 	var nftCollectionPresenter: NFTCollectionPresenter
 	
-	
 	init(with presenter: NFTCollectionPresenter) {
 		self.nftCollectionPresenter = presenter
 		super.init(nibName: nil, bundle: nil)
@@ -16,10 +15,22 @@ final class NFTCollectionViewController: UIViewController {
 	
 	override func loadView() {
 		self.view = self.customView
+		setupNavigationController()
 	}
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.nftCollectionPresenter.viewDidLoad(ui: self.customView)
+	}
+	
+	func showNFTCollection(with presenter: NFTCollectionPresenter) {
+		let nftCollectionViewController = NFTCollectionViewController(with: presenter)
+		navigationController?.pushViewController(nftCollectionViewController, animated: true)
+	}
+}
+
+private extension NFTCollectionViewController {
+	func setupNavigationController() {
+		navigationItem.title = "Коллекция NFT"
 	}
 }

@@ -1,14 +1,13 @@
 import UIKit
 
 final class TabBarController: UITabBarController {
-	private let networkClient = DefaultNetworkClient()
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTabBar()
     }
     
     private func setupTabBar() {
-		let statisticsPresenter = StatisticsPresenter(networkClient: networkClient)
+		let statisticsPresenter = StatisticsPresenter()
 		
         let profileVC = CustomNavigationController(rootViewController: ProfileViewController())
         let catalogVC = CustomNavigationController(rootViewController: CatalogViewController())

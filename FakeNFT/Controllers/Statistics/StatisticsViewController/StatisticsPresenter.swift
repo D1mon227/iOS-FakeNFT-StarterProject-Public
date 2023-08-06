@@ -12,12 +12,9 @@ protocol IStatisticsViewNavigationDelegate: AnyObject {
 final class StatisticsPresenter {
 	var ui: IStatisticsView?
 	private var model: [User]?
-	private let networkClient: NetworkClient
 	weak var navigationDelegate: IStatisticsViewNavigationDelegate?
+	let networkClient = DefaultNetworkClient()
 	
-	init(networkClient: NetworkClient) {
-		self.networkClient = networkClient
-	}
 	
 	func fetchDataFromServer() {
 		self.ui?.activityIndicator.startAnimating()

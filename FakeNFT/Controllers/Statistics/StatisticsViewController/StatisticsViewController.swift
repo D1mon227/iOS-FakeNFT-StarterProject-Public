@@ -6,12 +6,14 @@ final class StatisticsViewController: UIViewController, IStatisticsViewNavigatio
 	var statisticsPresenter: StatisticsPresenter
 	let alertService = AlertService()
 	
+	
 	var users: [User] = []
 	
 	init(with presenter: StatisticsPresenter) {
-		self.statisticsPresenter = presenter
-		super.init(nibName: nil, bundle: nil)
-	}
+			self.statisticsPresenter = presenter
+			super.init(nibName: nil, bundle: nil)
+		}
+
 	
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")

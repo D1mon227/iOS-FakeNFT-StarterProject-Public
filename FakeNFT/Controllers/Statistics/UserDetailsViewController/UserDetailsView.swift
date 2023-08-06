@@ -6,8 +6,9 @@ protocol IUserDetailsView: AnyObject, UITableViewDelegate, UITableViewDataSource
 }
 
 final class UserDetailsView: UIView {
-	 var user: User?
+	var user: User?
 	let cellTitles = ["Коллекция NFT"]
+	var presenter: UserDetailsPresenter?
 	
 	private let userImageView: UIImageView = {
 		let imageView = UIImageView()

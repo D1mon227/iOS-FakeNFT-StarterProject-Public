@@ -43,10 +43,8 @@ final class FavoritesNFTTableViewCell: UITableViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
-	
 	func configure(with user: User) {
 		countFavoritesNFTLabel.text = "(\(user.nfts.count))"
-		
 	}
 }
 
@@ -97,7 +95,7 @@ extension UserDetailsView: UITableViewDataSource, UITableViewDelegate {
 	// MARK: - UITableViewDelegate
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		//		let item = users[indexPath.row]
-		//		presenter?.tapOnTheCell(user: item)
+		guard let selectedUser = user else { return }
+		presenter?.tapOnTheCell(user: selectedUser)
 	}
 }

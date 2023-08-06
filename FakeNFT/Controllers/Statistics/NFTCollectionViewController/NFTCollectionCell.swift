@@ -5,4 +5,157 @@
 //  Created by Артем Крикуненко on 05.08.2023.
 //
 
-import Foundation
+import UIKit
+import Kingfisher
+
+final class NFTCollectionCell: UICollectionViewCell {
+	static let identifier = "NFTCollectionCell"
+	
+	private let containerView: UIView = {
+		let view = UIView()
+		view.translatesAutoresizingMaskIntoConstraints = false
+		view.layer.masksToBounds = false
+		return view
+	}()
+	
+	private let nftImageView: UIImageView = {
+		let imageView = UIImageView()
+		imageView.translatesAutoresizingMaskIntoConstraints = false
+		imageView.contentMode = .scaleAspectFill
+		imageView.layer.cornerRadius = 12
+		imageView.clipsToBounds = true
+		return imageView
+	}()
+	
+	private lazy var stackView: UIStackView = {
+		let stackView = UIStackView()
+		stackView.translatesAutoresizingMaskIntoConstraints = false
+		stackView.axis = .horizontal
+		stackView.distribution = .equalSpacing
+		stackView.spacing = 2
+		return stackView
+	}()
+	
+	private let nftRatingImageView: UIImageView = {
+		let imageView = UIImageView()
+		imageView.translatesAutoresizingMaskIntoConstraints = false
+		imageView.contentMode = .scaleAspectFit
+		return imageView
+	}()
+	
+	private lazy var nftNameLabel: UILabel = {
+		let label = UILabel()
+		label.translatesAutoresizingMaskIntoConstraints = false
+		label.font = UIFont.bodyBold
+		return label
+	}()
+	
+	private lazy var nftPriceLabel: UILabel = {
+		let label = UILabel()
+		label.translatesAutoresizingMaskIntoConstraints = false
+		label.font = UIFont.caption3
+		return label
+	}()
+	
+	override init(frame: CGRect) {
+		super.init(frame: frame)
+		configureView()
+	}
+	
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
+	func configure(with nft: NFT) {
+		if let imageUrl = nft.images {
+			nftImageView.kf.setImage(with: imageUrl.first)
+		}
+		
+		removeRatingStars()
+		setRatingStars(rating: nft.rating)
+		nftNameLabel.text = nft.name
+		nftPriceLabel.text = "\(nft.price) ETH"
+	}
+	
+	private func setRatingStars(rating: Int) {
+		let imageCount = 5
+		
+		for i in 0..<imageCount {
+			let imageView = UIImageView(image: Resourses.Images.Cell.star)
+			imageView.tintColor = .gray
+			imageView.contentMode = .scaleAspectFit
+			imageView.translatesAutoresizingMaskIntoConstraints = false
+			imageView.widthAnchor.constraint(equalToConstant: 12).isActive = true
+			imageView.heightAnchor.constraint(equalToConstant: 12).isActive = true
+			
+			if i < rating {
+				imageView.tintColor = .yellowUniversal
+			} else {
+				imageView.tintColor = .lightGreyDay
+			}
+			
+			stackView.addArrangedSubview(imageView)
+		}
+	}
+	
+	private func removeRatingStars() {
+		for subview in stackView.arrangedSubviews {
+			stackView.removeArrangedSubview(subview)
+			subview.removeFromSuperview()
+		}
+	}
+}
+
+private extension NFTCollectionCell {
+	func configureView() {
+		self.backgroundColor = UIColor.backgroundDay
+		
+		contentView.addSubview(containerView)
+		containerView.addSubview(nftImageView)
+		containerView.addSubview(stackView)
+		containerView.addSubview(nftNameLabel)
+		containerView.addSubview(nftPriceLabel)
+		
+		NSLayoutConstraint.activate([
+			containerView.topAnchor.constraint(equalTo: contentView.topAnchor),
+			containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+			containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+			containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+			
+			nftImageView.topAnchor.constraint(equalTo: containerView.topAnchor),
+			nftImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+			nftImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+			nftImageView.heightAnchor.constraint(equalToConstant: 108),
+			nftImageView.widthAnchor.constraint(equalToConstant: 108),
+			
+			stackView.topAnchor.constraint(equalTo: nftImageView.bottomAnchor, constant: 8),
+			stackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+			
+			nftNameLabel.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 5),
+			nftNameLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+			
+			nftPriceLabel.topAnchor.constraint(equalTo: nftNameLabel.bottomAnchor, constant: 4),
+			nftPriceLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+		])
+	}
+}
+
+extension NFTCollectionView: UICollectionViewDataSource, UICollectionViewDelegate {
+	
+	// MARK: - UITableViewDataSource
+	
+	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		
+		return collectionNFT.count
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+		guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NFTCollectionCell.identifier, for: indexPath) as? NFTCollectionCell else {
+			return UICollectionViewCell()
+		}
+		let item = collectionNFT[indexPath.row]
+		cell.configure(with: item)
+		
+		return cell
+	}
+}
