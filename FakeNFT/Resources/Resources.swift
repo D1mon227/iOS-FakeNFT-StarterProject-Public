@@ -2,6 +2,12 @@ import UIKit
 
 enum Resourses {
     enum Images {
+        enum Onboarding {
+            static let firstScreen = UIImage(named: "firstScreen")
+            static let secondScreen = UIImage(named: "secondScreen")
+            static let thirdScreen = UIImage(named: "thirdScreen")
+        }
+        
         enum NFT {
             static let nftCard1 = UIImage(named: "NFT card 1")
             static let nftCard2 = UIImage(named: "NFT card 2")
