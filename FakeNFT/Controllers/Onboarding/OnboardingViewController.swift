@@ -62,7 +62,7 @@ final class OnboardingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-//        setupGradient()
+        setupGradient()
     }
     
     @objc private func switchToTabbarVC() {
@@ -119,7 +119,7 @@ extension OnboardingViewController {
         let colorBottom = UIColor(red: 0.102, green: 0.106, blue: 0.133, alpha: 0).cgColor
         
         let gradient = CAGradientLayer()
-        gradient.bounds = view.bounds.insetBy(dx: -0.5*view.bounds.size.width, dy: -0.5*view.bounds.size.height)
+        gradient.bounds = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height + 206)
         gradient.colors = [colorTop, colorBottom]
         gradient.locations = [0, 1]
         gradient.position = view.center
