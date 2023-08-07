@@ -29,6 +29,8 @@ final class CatalogTableViewCell: UITableViewCell {
         return label
     }()
     
+    private var gradientLayer: CAGradientLayer?
+    
     private(set) var viewModel: CatalogTableViewCellViewModel?
     
     // MARK: - Lifecycle
@@ -38,6 +40,7 @@ final class CatalogTableViewCell: UITableViewCell {
         
         setupContent()
         setupConstraints()
+        showGradientAnimation()
     }
     
     required init?(coder: NSCoder) {
@@ -48,11 +51,13 @@ final class CatalogTableViewCell: UITableViewCell {
     
     func configure(with viewModel: CatalogTableViewCellViewModel) {
         self.viewModel = viewModel
-
-        nftCategoryCover.kf.setImage(with: viewModel.imageStringUrl)
-        if let data = viewModel.imageData {
-            nftCategoryCover.image = UIImage(data: data)
+        
+        nftCategoryCover.kf.setImage(with: viewModel.imageStringUrl) { [weak self] _ in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self?.gradientLayer?.removeFromSuperlayer()
+            }
         }
+        
         nftCategoryLabel.text = viewModel.nftTitle
     }
 }
@@ -80,8 +85,29 @@ private extension CatalogTableViewCell {
                                                   constant: Layout.nftCategoryLabelTopOffset),
             nftCategoryLabel.leadingAnchor.constraint(equalTo: nftCategoryCover.leadingAnchor),
             nftCategoryLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,
-                                                     constant: -Layout.nftCategoryLabelBottomOffset)
+                                                     constant: -Layout.nftCategoryLabelBottomOffset),
         ])
     }
+    
+    private func showGradientAnimation() {
+        guard let sublayers = nftCategoryCover.layer.sublayers else {
+            addGradientSublayer()
+            return
+        }
+        guard let sublayers = nftCategoryCover.layer.sublayers,
+              !sublayers.contains(where: {$0 is CAGradientLayer }) else {
+            return
+        }
+        addGradientSublayer()
+    }
+    
+    func addGradientSublayer() {
+        gradientLayer = CAGradientLayer().createLoadingGradient(
+            width: UIScreen.main.bounds.width - 32,
+            height: Layout.nftCategoryCoverHeight,
+            radius: 12
+        )
+        guard let gradientLayer else { return }
+        nftCategoryCover.layer.addSublayer(gradientLayer)
+    }
 }
-

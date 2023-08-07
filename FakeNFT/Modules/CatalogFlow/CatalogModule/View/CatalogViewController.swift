@@ -18,9 +18,9 @@ final class CatalogViewController: UIViewController {
     
     private let presenter: CatalogPresenterProtocol
     private var viewModels: [CatalogTableViewCellViewModel] = []
-
+    
     // MARK: - Lifecycle
-
+    
     init(presenter: CatalogPresenterProtocol) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
@@ -80,7 +80,7 @@ private extension CatalogViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16),
         ])
     }
-
+    
 }
 
 // MARK: - UITableViewDelegate
@@ -126,8 +126,14 @@ extension CatalogViewController: CatalogViewProtocol {
     func displayAlert(model: AlertProtocol) {
         presentAlertWith(model: model)
     }
+    
+    func showLoadingIndicator() {
+        UIBlockingProgressHUD.show()
+    }
+    
+    func hideLoadingIndicator() {
+        UIBlockingProgressHUD.dismiss()
+    }
 }
-
-
 
 

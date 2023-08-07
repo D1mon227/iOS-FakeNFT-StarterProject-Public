@@ -22,6 +22,8 @@ final class CatalogPresenter {
 
 extension CatalogPresenter: CatalogPresenterProtocol {
     func viewDidLoad() {
+        view?.showLoadingIndicator()
+        
         nftCatalogService.getNftItems { [weak self] result in
             guard let self else { return }
             
@@ -31,7 +33,7 @@ extension CatalogPresenter: CatalogPresenterProtocol {
             case  .failure(let error):
                 self.didGetError(error: error)
             }
-            
+            self.view?.hideLoadingIndicator()
         }
     }
     
