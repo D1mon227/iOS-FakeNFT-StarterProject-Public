@@ -46,6 +46,8 @@
 		1FEA5B3E2A80B9DB00946DD9 /* CollectionDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEA5B3D2A80B9DB00946DD9 /* CollectionDetailsTableViewCell.swift */; };
 		1FEA5B412A80BD8D00946DD9 /* NFTAuthorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEA5B402A80BD8D00946DD9 /* NFTAuthorService.swift */; };
 		1FEA5B432A80BE9000946DD9 /* AuthorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEA5B422A80BE9000946DD9 /* AuthorResponse.swift */; };
+		1FEA5B472A80D5E500946DD9 /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEA5B462A80D5E500946DD9 /* UIBlockingProgressHUD.swift */; };
+		1FEA5B492A80DBCC00946DD9 /* CAGradientLayer+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEA5B482A80DBCC00946DD9 /* CAGradientLayer+extension.swift */; };
 		3F478ECF29DB474E00F6D39E /* UIColor + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F478ECE29DB474E00F6D39E /* UIColor + Extension.swift */; };
 		3F478ED129DB476500F6D39E /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F478ED029DB476500F6D39E /* Fonts.swift */; };
 		3F68069729CBBAF100B4F915 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F68069629CBBAF100B4F915 /* AppDelegate.swift */; };
@@ -156,6 +158,8 @@
 		1FEA5B3D2A80B9DB00946DD9 /* CollectionDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionDetailsTableViewCell.swift; sourceTree = "<group>"; };
 		1FEA5B402A80BD8D00946DD9 /* NFTAuthorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTAuthorService.swift; sourceTree = "<group>"; };
 		1FEA5B422A80BE9000946DD9 /* AuthorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorResponse.swift; sourceTree = "<group>"; };
+		1FEA5B462A80D5E500946DD9 /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
+		1FEA5B482A80DBCC00946DD9 /* CAGradientLayer+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CAGradientLayer+extension.swift"; sourceTree = "<group>"; };
 		3F478ECE29DB474E00F6D39E /* UIColor + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Extension.swift"; sourceTree = "<group>"; };
 		3F478ED029DB476500F6D39E /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		3F68069329CBBAF100B4F915 /* FakeNFT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FakeNFT.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -284,6 +288,7 @@
 			isa = PBXGroup;
 			children = (
 				1F09D5322A76C42400367A6A /* AlertProtocol.swift */,
+				1FEA5B462A80D5E500946DD9 /* UIBlockingProgressHUD.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -304,6 +309,7 @@
 				1F09D52E2A76C3E900367A6A /* UIViewController+extension.swift */,
 				1F09D5442A77B89500367A6A /* URLSession+extension.swift */,
 				1F09D54E2A7E48F100367A6A /* String+extension.swift */,
+				1FEA5B482A80DBCC00946DD9 /* CAGradientLayer+extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -977,6 +983,7 @@
 				3F68069929CBBAF100B4F915 /* SceneDelegate.swift in Sources */,
 				3FC8C39129D2453B0081F015 /* ExampleRequest.swift in Sources */,
 				1F09D5372A76C47200367A6A /* CatalogModulesFactory.swift in Sources */,
+				1FEA5B492A80DBCC00946DD9 /* CAGradientLayer+extension.swift in Sources */,
 				3F6806D729CBC50A00B4F915 /* CellsReusingUtils.swift in Sources */,
 				1FEA5B412A80BD8D00946DD9 /* NFTAuthorService.swift in Sources */,
 				1FEA5B3E2A80B9DB00946DD9 /* CollectionDetailsTableViewCell.swift in Sources */,
@@ -1022,6 +1029,7 @@
 				1FEA5B432A80BE9000946DD9 /* AuthorResponse.swift in Sources */,
 				3F6806D129CBBE6B00B4F915 /* NetworkClient.swift in Sources */,
 				1F09D5352A76C44500367A6A /* NftResponse.swift in Sources */,
+				1FEA5B472A80D5E500946DD9 /* UIBlockingProgressHUD.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
