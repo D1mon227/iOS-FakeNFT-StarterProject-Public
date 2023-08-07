@@ -43,7 +43,7 @@
 		924DCA622A7CF1F200995282 /* CartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924DCA612A7CF1F200995282 /* CartCell.swift */; };
 		924DCA642A7CF4C200995282 /* CartStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924DCA632A7CF4C200995282 /* CartStruct.swift */; };
 		924DCA662A7CF50900995282 /* CartMockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924DCA652A7CF50900995282 /* CartMockData.swift */; };
-		924DCA682A7CF5A700995282 /* CartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924DCA672A7CF5A700995282 /* CartModel.swift */; };
+		924DCA682A7CF5A700995282 /* CartPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924DCA672A7CF5A700995282 /* CartPresenter.swift */; };
 		C5D3AADA2A7B679D005A3694 /* GetUsersRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D3AAD92A7B679D005A3694 /* GetUsersRequest.swift */; };
 		C5D3AADC2A7B67DC005A3694 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D3AADB2A7B67DC005A3694 /* User.swift */; };
 /* End PBXBuildFile section */
@@ -105,7 +105,7 @@
 		924DCA612A7CF1F200995282 /* CartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartCell.swift; sourceTree = "<group>"; };
 		924DCA632A7CF4C200995282 /* CartStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartStruct.swift; sourceTree = "<group>"; };
 		924DCA652A7CF50900995282 /* CartMockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartMockData.swift; sourceTree = "<group>"; };
-		924DCA672A7CF5A700995282 /* CartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartModel.swift; sourceTree = "<group>"; };
+		924DCA672A7CF5A700995282 /* CartPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartPresenter.swift; sourceTree = "<group>"; };
 		C5D3AAD92A7B679D005A3694 /* GetUsersRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUsersRequest.swift; sourceTree = "<group>"; };
 		C5D3AADB2A7B67DC005A3694 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -305,7 +305,7 @@
 				924DCA5D2A7CB2E200995282 /* FailedPaymentViewController.swift */,
 				924DCA5F2A7CBE9D00995282 /* PaymentViewController.swift */,
 				924DCA612A7CF1F200995282 /* CartCell.swift */,
-				924DCA672A7CF5A700995282 /* CartModel.swift */,
+				924DCA672A7CF5A700995282 /* CartPresenter.swift */,
 			);
 			path = Cart;
 			sourceTree = "<group>";
@@ -491,7 +491,7 @@
 				924DCA5C2A7CB2D300995282 /* SucceedPaymentViewController.swift in Sources */,
 				73EA4B082A73C789000B4B55 /* CatalogViewController.swift in Sources */,
 				3FC8C38B29D242E90081F015 /* ProductDetailsTableViewCell.swift in Sources */,
-				924DCA682A7CF5A700995282 /* CartModel.swift in Sources */,
+				924DCA682A7CF5A700995282 /* CartPresenter.swift in Sources */,
 				3F478ECF29DB474E00F6D39E /* UIColor + Extension.swift in Sources */,
 				3F478ED129DB476500F6D39E /* Fonts.swift in Sources */,
 				73EA4B122A73DBF0000B4B55 /* Resources.swift in Sources */,

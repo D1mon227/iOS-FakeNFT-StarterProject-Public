@@ -15,22 +15,7 @@ protocol CartCellDelegate {
     
 }
 
-/// Cell-class for UITableView
 final class CartCell: UITableViewCell {
-    
-    // MARK: - Constants
-    private enum Constants {
-        
-        static let imageIndents: UIEdgeInsets = .init(top: 16, left: 16, bottom: 16, right: 0)
-        static let nameIndents: UIEdgeInsets = .init(top: 24, left: 20, bottom: 0, right: 0)
-        static let starStackIndents: UIEdgeInsets = .init(top: 4, left: 20, bottom: 0, right: 0)
-        static let priceTitleIndents: UIEdgeInsets = .init(top: 12, left: 20, bottom: 0, right: 0)
-        static let priceIndents: UIEdgeInsets = .init(top: 2, left: 20, bottom: 0, right: 0)
-        static let deleteButtonIndents: UIEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: 16)
-        static let starStackHeight = CGFloat(16)
-        static let imageHeightWidth = CGFloat(108)
-        
-    }
     
     // MARK: - Properties & Init
     var delegate: CartCellDelegate?
@@ -95,7 +80,6 @@ final class CartCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupProperties()
         setupView()
     }
     
@@ -105,48 +89,44 @@ final class CartCell: UITableViewCell {
     
     // MARK: - Functions & Methods
     
-    /// Appearance customisation
     private func setupView() {
+        contentView.addSubview(nftImage)
+        contentView.addSubview(nftName)
+        contentView.addSubview(starStack)
+        contentView.addSubview(nftPriceTitle)
+        contentView.addSubview(nftPrice)
+        contentView.addSubview(deleteButton)
+        
         NSLayoutConstraint.activate([
-            nftImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.imageIndents.left),
-            nftImage.topAnchor.constraint(equalTo: topAnchor, constant: Constants.imageIndents.top),
-            nftImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.imageIndents.bottom),
-            nftImage.widthAnchor.constraint(equalToConstant: Constants.imageHeightWidth),
-            nftImage.heightAnchor.constraint(equalToConstant: Constants.imageHeightWidth),
+            nftImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            nftImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            nftImage.widthAnchor.constraint(equalToConstant: 108),
+            nftImage.heightAnchor.constraint(equalToConstant: 108),
+            nftImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
             
-            nftName.leadingAnchor.constraint(equalTo: nftImage.trailingAnchor, constant: Constants.nameIndents.left),
-            nftName.topAnchor.constraint(equalTo: topAnchor, constant: Constants.nameIndents.top),
-            nftName.widthAnchor.constraint(equalToConstant: contentView.frame.width / 2),
+            nftName.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 24),
+            nftName.leadingAnchor.constraint(equalTo: nftImage.trailingAnchor, constant: 20),
+            nftName.widthAnchor.constraint(equalToConstant: 100),
             
-            starImage.widthAnchor.constraint(equalToConstant: Constants.starStackHeight),
-            starImage.heightAnchor.constraint(equalToConstant: Constants.starStackHeight),
-            starStack.leadingAnchor.constraint(equalTo: nftImage.trailingAnchor, constant: Constants.starStackIndents.left),
-            starStack.topAnchor.constraint(equalTo: nftName.bottomAnchor, constant: Constants.starStackIndents.top),
+            starStack.topAnchor.constraint(equalTo: nftName.bottomAnchor, constant: 4),
+            starStack.leadingAnchor.constraint(equalTo: nftImage.trailingAnchor, constant: 20),
             
-            nftPriceTitle.topAnchor.constraint(equalTo: starStack.bottomAnchor, constant: Constants.priceTitleIndents.top),
-            nftPriceTitle.leadingAnchor.constraint(equalTo: nftImage.trailingAnchor, constant: Constants.priceTitleIndents.left),
+            nftPriceTitle.topAnchor.constraint(equalTo: starStack.bottomAnchor, constant: 12),
+            nftPriceTitle.leadingAnchor.constraint(equalTo: nftImage.trailingAnchor, constant: 20),
+            nftPriceTitle.widthAnchor.constraint(equalToConstant: 100),
             
-            nftPrice.topAnchor.constraint(equalTo: nftPriceTitle.bottomAnchor, constant: Constants.priceIndents.top),
-            nftPrice.leadingAnchor.constraint(equalTo: nftImage.trailingAnchor, constant: Constants.priceIndents.left),
+            nftPrice.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -24),
+            nftPrice.leadingAnchor.constraint(equalTo: nftImage.trailingAnchor, constant: 20),
+            nftPrice.heightAnchor.constraint(equalToConstant: 22),
+            nftPrice.widthAnchor.constraint(equalToConstant: 100),
             
-            deleteButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.deleteButtonIndents.right),
-            deleteButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+            deleteButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -28),
+            deleteButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             deleteButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     
-    /// Setting properties
-    private func setupProperties() {
-        addSubview(nftImage)
-        addSubview(nftName)
-        addSubview(starStack)
-        addSubview(nftPriceTitle)
-        addSubview(nftPrice)
-        contentView.addSubview(deleteButton)
-        starStack.addArrangedSubview(starImage)
-    }
-    
-    /// Setting up the rating
+    // Setting up the rating
     func setupRating(rating: Int) {
         for arrangedSubview in starStack.arrangedSubviews {
             starStack.removeArrangedSubview(arrangedSubview)
