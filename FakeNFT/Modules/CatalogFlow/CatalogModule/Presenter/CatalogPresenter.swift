@@ -1,7 +1,11 @@
 import Foundation
 
-struct KeyDefaults {
-    static let sortingType = "sortingType"
+extension CatalogPresenter {
+    
+    struct KeyDefaults {
+        static let sortingTypeCatalog = "sortingTypeCatalog"
+    }
+    
 }
 
 final class CatalogPresenter {
@@ -88,12 +92,10 @@ private extension CatalogPresenter {
         UserDefaults.standard.set(sortingType.rawValue, forKey: KeyDefaults.sortingType)
     }
     
-    
-    
     func didGetNftItems(nftItems: [NftResponse]) {
             viewModels = nftItems.map { CatalogTableViewCellViewModel(nftResponse: $0) }
     
-            if let sortingTypeString = UserDefaults.standard.string(forKey: "sortingType"),
+            if let sortingTypeString = UserDefaults.standard.string(forKey: KeyDefaults.sortingType),
                let sortingType = SortingType(rawValue: sortingTypeString) {
                 switch sortingType {
                 case .byCount: sortByCount()
