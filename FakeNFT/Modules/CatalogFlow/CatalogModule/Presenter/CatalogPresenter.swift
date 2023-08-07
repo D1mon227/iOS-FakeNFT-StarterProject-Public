@@ -89,13 +89,13 @@ private extension CatalogPresenter {
     }
     
     func saveSortingType(_ sortingType: SortingType) {
-        UserDefaults.standard.set(sortingType.rawValue, forKey: KeyDefaults.sortingType)
+        UserDefaults.standard.set(sortingType.rawValue, forKey: KeyDefaults.sortingTypeCatalog)
     }
     
     func didGetNftItems(nftItems: [NftResponse]) {
             viewModels = nftItems.map { CatalogTableViewCellViewModel(nftResponse: $0) }
     
-            if let sortingTypeString = UserDefaults.standard.string(forKey: KeyDefaults.sortingType),
+            if let sortingTypeString = UserDefaults.standard.string(forKey: KeyDefaults.sortingTypeCatalog),
                let sortingType = SortingType(rawValue: sortingTypeString) {
                 switch sortingType {
                 case .byCount: sortByCount()
