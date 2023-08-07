@@ -113,7 +113,6 @@ extension OnboardingViewController {
         setupConstraints()
     }
     
-    #warning("Исправить градиент. При переходе на следующий контроллер онбординга половина экрана темнеет. Скорее всего слои накладываются друг на друга")
     private func setupGradient() {
         let colorTop = UIColor(red: 0.102, green: 0.106, blue: 0.133, alpha: 1).cgColor
         let colorBottom = UIColor(red: 0.102, green: 0.106, blue: 0.133, alpha: 0).cgColor
