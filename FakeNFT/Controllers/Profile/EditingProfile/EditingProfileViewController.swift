@@ -24,8 +24,8 @@ final class EditingProfileViewController: UIViewController, EditingProfileViewCo
         self.newProfile = NewProfile(name: profile?.name,
                                      description: profile?.description,
                                      website: profile?.website)
-        presenter?.editingInfo = profile
-        editingProfileView.profileImage.kf.setImage(with: profile?.avatar)
+        self.presenter?.editingInfo = profile
+        self.editingProfileView.profileImage.kf.setImage(with: profile?.avatar)
     }
     
     override func viewDidDisappear(_ animated: Bool) {

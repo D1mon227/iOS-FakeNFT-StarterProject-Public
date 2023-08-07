@@ -9,17 +9,17 @@ final class MyNFTViewController: UIViewController, MyNFTViewControllerProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter?.fetchNFTs()
         setupNavigationBar()
         setupViews()
         setupTableView()
     }
     
-    init(profilePresenter: ProfileViewPresenterProtocol?) {
+    init(profilePresenter: ProfileViewPresenterProtocol?, purchasedNFTs: [NFT]?) {
         super.init(nibName: nil, bundle: nil)
         self.profilePresenter = profilePresenter
-        self.presenter = MyNFTViewPresenter(profilePresenter: profilePresenter)
+        self.presenter = MyNFTViewPresenter()
         self.presenter?.view = self
+        self.presenter?.purchasedNFTs = purchasedNFTs
     }
     
     required init?(coder: NSCoder) {
@@ -51,12 +51,12 @@ final class MyNFTViewController: UIViewController, MyNFTViewControllerProtocol {
 //MARK: UITableViewDataSource
 extension MyNFTViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter?.nfts?.count ?? 0
+        presenter?.purchasedNFTs?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MyNFTTableViewCell", for: indexPath) as? MyNFTTableViewCell,
-              let nfts = presenter?.nfts?[indexPath.row] else { return UITableViewCell() }
+              let nfts = presenter?.purchasedNFTs?[indexPath.row] else { return UITableViewCell() }
         
         cell.configureCell(image: nfts.images[0],
                            favoriteButtonColor: .redUniversal,

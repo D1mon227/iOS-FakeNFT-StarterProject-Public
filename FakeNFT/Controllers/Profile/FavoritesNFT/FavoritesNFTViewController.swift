@@ -2,8 +2,21 @@ import UIKit
 import SnapKit
 
 final class FavoritesNFTViewController: UIViewController, FavoritesNFTViewControllerProtocol {
-    private let favoritesNFTView = FavoritesNFTView()
     var presenter: FavoritesNFTViewPresenterProtocol?
+    private var profilePresenter: ProfileViewPresenterProtocol?
+    private let favoritesNFTView = FavoritesNFTView()
+    
+    init(profilePresenter: ProfileViewPresenterProtocol?, favoritesNFTs: [NFT]?) {
+        super.init(nibName: nil, bundle: nil)
+        self.profilePresenter = profilePresenter
+        self.presenter = FavoritesNFTViewPresenter()
+        self.presenter?.view = self
+        self.presenter?.favoritesNFTs = favoritesNFTs
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,12 +39,12 @@ final class FavoritesNFTViewController: UIViewController, FavoritesNFTViewContro
 
 extension FavoritesNFTViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        presenter?.nfts?.count ?? 0
+        presenter?.favoritesNFTs?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FavoritesNFTCollectionViewCell", for: indexPath) as? FavoritesNFTCollectionViewCell,
-              let nfts = presenter?.nfts?[indexPath.row] else { return UICollectionViewCell() }
+              let nfts = presenter?.favoritesNFTs?[indexPath.row] else { return UICollectionViewCell() }
         
         cell.configureCell(image: nfts.images[0],
                            favoriteButtonColor: .redUniversal,

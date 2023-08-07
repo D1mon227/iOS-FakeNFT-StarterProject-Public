@@ -3,12 +3,13 @@ import SnapKit
 import Kingfisher
 
 final class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
-    private let profileView = ProfileView()
     var presenter: ProfileViewPresenterProtocol?
+    private let profileView = ProfileView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter?.fetchProfile()
+        presenter?.fetchNFTs()
         setupNavigationBar()
         setupViews()
         setupProfileTableView()
@@ -48,14 +49,14 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
     
     @objc private func switchToMyNFTViewController() {
         guard let customNC = navigationController as? CustomNavigationController else { return }
-        let myNFTVC = MyNFTViewController(profilePresenter: presenter)
+        let myNFTVC = MyNFTViewController(profilePresenter: presenter, purchasedNFTs: presenter?.purchasedNFTs)
         myNFTVC.title = LocalizableConstants.Profile.myNFT
         customNC.pushViewController(myNFTVC, animated: true)
     }
     
     @objc private func switchToFavoritesNFTViewController() {
         guard let customNC = navigationController as? CustomNavigationController else { return }
-        let favoritesNFTVC = FavoritesNFTViewController()
+        let favoritesNFTVC = FavoritesNFTViewController(profilePresenter: presenter, favoritesNFTs: presenter?.favoritesNFTs)
         favoritesNFTVC.title = LocalizableConstants.Profile.nftFavorites
         customNC.pushViewController(favoritesNFTVC, animated: true)
     }

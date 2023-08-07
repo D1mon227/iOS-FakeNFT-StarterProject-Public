@@ -2,7 +2,12 @@ import Foundation
 
 final class ProfileViewPresenter: ProfileViewPresenterProtocol {
     var view: ProfileViewControllerProtocol?
+//    private var myNFTPresenter: MyNFTViewPresenterProtocol?
     private let profileService = ProfileService.shared
+    private let nftService = NFTService.shared
+    
+    var purchasedNFTs: [NFT]?
+    var favoritesNFTs: [NFT]?
     
     var profile: Profile? {
         didSet {
@@ -23,5 +28,39 @@ final class ProfileViewPresenter: ProfileViewPresenterProtocol {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    func fetchNFTs() {
+        nftService.fetchNFT { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let nfts):
+                guard let profile = profile else { return }
+                self.purchasedNFTs = self.filterPurchasedNFTs(profile: profile, allNFTs: nfts)
+                self.favoritesNFTs = self.filterFavoritesNFTs(profile: profile, allNFTs: nfts)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func filterPurchasedNFTs(profile: Profile, allNFTs: [NFT]) -> [NFT] {
+        let profileNFTIds = Set(profile.nfts)
+
+        let filteredNFTs = allNFTs.filter { nft in
+            return profileNFTIds.contains(nft.id)
+        }
+
+        return filteredNFTs
+    }
+    
+    private func filterFavoritesNFTs(profile: Profile, allNFTs: [NFT]) -> [NFT] {
+        let profileNFTIds = Set(profile.likes)
+
+        let filteredNFTs = allNFTs.filter { nft in
+            return profileNFTIds.contains(nft.id)
+        }
+
+        return filteredNFTs
     }
 }

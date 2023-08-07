@@ -3,7 +3,12 @@ import SnapKit
 import Kingfisher
 
 final class FavoritesNFTCollectionViewCell: UICollectionViewCell {
-    private let nftImage = UIImageView()
+    private lazy var nftImage: UIImageView = {
+        let element = UIImageView()
+        element.layer.cornerRadius = 12
+        element.layer.masksToBounds = true
+        return element
+    }()
     
     private lazy var favoriteButton: UIButton = {
         let element = UIButton(type: .system)
