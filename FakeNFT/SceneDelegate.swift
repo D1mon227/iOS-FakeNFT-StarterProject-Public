@@ -10,7 +10,17 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
         
         let tabBarVC = TabBarController()
-        window?.rootViewController = tabBarVC
+        let onboardingVC = OnboardingPageViewController()
+        
+        var rootViewController: UIViewController
+        
+        if OnboardingManager.hasCompletedOnboarding {
+            rootViewController = tabBarVC
+        } else {
+            rootViewController = onboardingVC
+        }
+        
+        window?.rootViewController = rootViewController
         window?.makeKeyAndVisible()
     }
 }
