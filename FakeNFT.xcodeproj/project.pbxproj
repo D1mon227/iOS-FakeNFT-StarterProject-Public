@@ -349,11 +349,19 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		7392AA612A80A9CD00B40B8B /* Tabbar */ = {
+			isa = PBXGroup;
+			children = (
+				73EA4B022A73C703000B4B55 /* TabBarController.swift */,
+			);
+			path = Tabbar;
+			sourceTree = "<group>";
+		};
 		73EA4B012A73C6E2000B4B55 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				73EA4B1C2A7471D2000B4B55 /* CustomNavigationViewController.swift */,
-				73EA4B022A73C703000B4B55 /* TabBarController.swift */,
+				7392AA612A80A9CD00B40B8B /* Tabbar */,
 				73EA4B062A73C774000B4B55 /* Profile */,
 				73EA4B092A73C78C000B4B55 /* Catalog */,
 				73EA4B0C2A73C7A7000B4B55 /* Cart */,
