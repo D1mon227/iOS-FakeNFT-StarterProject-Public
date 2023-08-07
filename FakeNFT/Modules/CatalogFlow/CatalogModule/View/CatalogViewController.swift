@@ -18,8 +18,7 @@ final class CatalogViewController: UIViewController {
     
     private let presenter: CatalogPresenterProtocol
     private var viewModels: [CatalogTableViewCellViewModel] = []
-    
-    
+
     // MARK: - Lifecycle
 
     init(presenter: CatalogPresenterProtocol) {
@@ -40,7 +39,7 @@ final class CatalogViewController: UIViewController {
         setupNavigationBar()
         setupTableView()
         setupConstraints()
-
+        
     }
     
     // MARK: - Actions
@@ -104,6 +103,17 @@ extension CatalogViewController: UITableViewDataSource {
         let viewModel = viewModels[indexPath.row]
         cell.configure(with: viewModel)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let urlRequest = URLRequest(url: URL(string:"https://practicum.yandex.ru/ios-developer")!)
+        
+        let presenter = WebViewPresenter(urlRequest: urlRequest)
+        
+        let vc = WebViewController(presenter: presenter)
+        vc.hidesBottomBarWhenPushed = true
+        presenter.view = vc
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

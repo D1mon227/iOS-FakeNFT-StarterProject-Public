@@ -4,4 +4,6 @@ struct NftResponse: Codable {
     let name: String
     let nfts: [String]
     let cover: String
+    let description: String
+    let author: String
 }
