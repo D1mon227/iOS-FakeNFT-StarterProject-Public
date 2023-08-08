@@ -13,7 +13,6 @@ final class CartMockData {
     static var shared = CartMockData()
     private init() {}
     
-    //     / Public mock-data CartMockData
     var mockCart: [CartStruct] = [
         CartStruct(nftImages: [""], nftName: "First", nftRating: 4, nftPrice: 4.4),
         CartStruct(nftImages: [""], nftName: "Second", nftRating: 2, nftPrice: 1.4),

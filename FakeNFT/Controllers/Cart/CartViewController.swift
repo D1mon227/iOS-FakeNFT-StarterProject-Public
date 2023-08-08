@@ -10,6 +10,8 @@ final class CartViewController: UIViewController, UITableViewDataSource{
     
     var presenter: CartPresenterProtocol?
     
+    var indexNFTToDelete: Int?
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -27,9 +29,11 @@ final class CartViewController: UIViewController, UITableViewDataSource{
     
     private func setupView() {
         view.backgroundColor = .white
-        view.addSubview(payButton)
+        
         view.addSubview(cartTable)
+        
         view.addSubview(cartInfo)
+        view.addSubview(payButton)
         view.addSubview(countOfNFTS)
         view.addSubview(priceOfNFTS)
         
@@ -44,6 +48,7 @@ final class CartViewController: UIViewController, UITableViewDataSource{
             cartTable.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             cartTable.bottomAnchor.constraint(equalTo: payButton.topAnchor, constant: -16),
             
+            cartInfo.topAnchor.constraint(equalTo: cartTable.bottomAnchor),
             cartInfo.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             cartInfo.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             cartInfo.heightAnchor.constraint(equalToConstant: 76),
@@ -75,6 +80,56 @@ final class CartViewController: UIViewController, UITableViewDataSource{
             }
         })
     }
+    
+    lazy var blurView: UIVisualEffectView = {
+        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
+        blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        blurView.alpha = 0.0
+        blurView.frame = UIScreen.main.bounds
+        return blurView
+    }()
+    
+    let imageToDelete: UIImageView = {
+        let image = UIImageView()
+        image.layer.cornerRadius = 12
+        image.layer.masksToBounds = true
+        image.contentMode = .scaleAspectFill
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
+    
+    let deleteText: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.text = "Delete from basket ?"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let deleteButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .black
+        button.layer.cornerRadius = 12
+        button.layer.masksToBounds = true
+        button.setTitle("Delete", for: .normal)
+        button.setTitleColor(.red, for: .normal)
+        button.addTarget(nil, action: #selector(deleteNFT), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    let cancelButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .black
+        button.layer.cornerRadius = 12
+        button.layer.masksToBounds = true
+        button.addTarget(nil, action: #selector(cancel), for: .touchUpInside)
+        button.setTitle("Cancel", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
     
     let payButton: UIButton = {
         let button = UIButton()
@@ -200,6 +255,37 @@ final class CartViewController: UIViewController, UITableViewDataSource{
         showMenu()
     }
     
+    private func fillPictureToDelete(urlStr: String) {
+        let url = URL(string: urlStr)
+        imageToDelete.kf.setImage(with: url)
+    }
+    
+    @objc
+    func deleteNFT() {
+        print("DELETE \(indexNFTToDelete ?? 0) NFT")
+        blurView.removeFromSuperview()
+        imageToDelete.removeFromSuperview()
+        deleteText.removeFromSuperview()
+        deleteButton.removeFromSuperview()
+        cancelButton.removeFromSuperview()
+        
+        navigationController?.isNavigationBarHidden = false
+        tabBarController?.tabBar.isHidden = false
+    }
+    
+    @objc
+    func cancel() {
+        print("CANCEL")
+        blurView.removeFromSuperview()
+        imageToDelete.removeFromSuperview()
+        deleteText.removeFromSuperview()
+        deleteButton.removeFromSuperview()
+        cancelButton.removeFromSuperview()
+        
+        navigationController?.isNavigationBarHidden = false
+        tabBarController?.tabBar.isHidden = false
+    }
+    
     private func showMenu() {
         let alertController = UIAlertController(title: "Sort Cart", message: nil, preferredStyle: .actionSheet)
         
@@ -246,24 +332,7 @@ final class CartViewController: UIViewController, UITableViewDataSource{
     }
 }
 
-// MARK: - Extension for CartCellDelegate
-
-extension CartViewController: CartCellDelegate {
-    func showDeleteView(index: Int) {
-        let alertController = UIAlertController(title: "Delete NFT", message: "Are you sure you want to delete this NFT?", preferredStyle: .alert)
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
-            // Perform the delete operation based on the index, e.g., remove the NFT from cartArray
-            self.cartArray.remove(at: index)
-            // Reload the table view to reflect the changes
-            self.cartTable.reloadData()
-        }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alertController.addAction(deleteAction)
-        alertController.addAction(cancelAction)
-        present(alertController, animated: true, completion: nil)
-    }
-}
-
+// MARK: - Extension for UIView
 
 extension UIView {
     static func placeholderView(message: String) -> UIView {
@@ -291,6 +360,74 @@ extension CartViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 140
+    }
+    
+}
+
+// MARK: - Extension for CartCellDelegate
+extension CartViewController: CartCellDelegate {
+    
+    private enum Constants {
+        
+        static let imageHeightWidth = CGFloat(108)
+        static let labelWidth = CGFloat(180)
+        
+    }
+    
+//        func showDeleteView(index: Int) {
+//            let alertController = UIAlertController(title: "Delete NFT", message: "Are you sure you want to delete this NFT?", preferredStyle: .alert)
+//            let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
+//                // Perform the delete operation based on the index, e.g., remove the NFT from cartArray
+//                self.cartArray.remove(at: index)
+//                // Reload the table view to reflect the changes
+//                self.cartTable.reloadData()
+//            }
+//            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+//            alertController.addAction(deleteAction)
+//            alertController.addAction(cancelAction)
+//            present(alertController, animated: true, completion: nil)
+//        }
+
+    func showDeleteView(index: Int) {
+        blurView.isUserInteractionEnabled = true
+        view.addSubview(blurView)
+        blurView.contentView.addSubview(imageToDelete)
+        blurView.contentView.addSubview(deleteText)
+        blurView.contentView.addSubview(cancelButton)
+        blurView.contentView.addSubview(deleteButton)
+        
+        navigationController?.isNavigationBarHidden = true
+        tabBarController?.tabBar.isHidden = true
+        
+
+
+        let urlStr = cartArray[index].nftImages.first ?? ""
+        fillPictureToDelete(urlStr: urlStr)
+        indexNFTToDelete = index
+        UIView.animate(withDuration: 0.3) {
+            self.blurView.alpha = 1.0
+            NSLayoutConstraint.activate([
+                self.deleteText.centerYAnchor.constraint(equalTo: self.blurView.centerYAnchor),
+                self.deleteText.centerXAnchor.constraint(equalTo: self.blurView.centerXAnchor),
+                self.deleteText.widthAnchor.constraint(equalToConstant: Constants.labelWidth),
+                self.imageToDelete.centerXAnchor.constraint(equalTo: self.blurView.centerXAnchor),
+                self.imageToDelete.bottomAnchor.constraint(equalTo: self.deleteText.topAnchor, constant: -12),
+                self.imageToDelete.widthAnchor.constraint(equalToConstant: Constants.imageHeightWidth),
+                self.imageToDelete.heightAnchor.constraint(equalToConstant: Constants.imageHeightWidth),
+                self.deleteButton.widthAnchor.constraint(equalToConstant: 127),
+                self.deleteButton.heightAnchor.constraint(equalToConstant: 44),
+                self.deleteButton.topAnchor.constraint(equalTo: self.deleteText.bottomAnchor, constant: 20),
+                self.deleteButton.centerXAnchor.constraint(equalTo: self.blurView.centerXAnchor,constant: -70),
+
+                
+                
+                self.cancelButton.widthAnchor.constraint(equalToConstant: 127),
+                self.cancelButton.heightAnchor.constraint(equalToConstant: 44),
+                self.cancelButton.topAnchor.constraint(equalTo: self.deleteText.bottomAnchor, constant: 20),
+                self.cancelButton.centerXAnchor.constraint(equalTo: self.blurView.centerXAnchor,constant: 70),
+
+            ])
+        }
     }
     
 }

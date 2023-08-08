@@ -1,21 +1,21 @@
 //
-//  CartModel.swift
+//  PaymentPresenter.swift
 //  FakeNFT
 //
-//  Created by Денис on 04.08.2023.
+//  Created by Денис on 08.08.2023.
 //
 
 import Foundation
 
-protocol CartPresenterProtocol {
-    func getNFTsFromAPI(completion: @escaping ([CartStruct]) -> Void)
+protocol PaymentPresenterProtocol {
+    func getCurrenciesFromAPI(completion: @escaping ([PaymentStruct]) -> Void)
 }
 
-final class CartPresenter: CartPresenterProtocol {
+final class PaymentPresenter: PaymentPresenterProtocol {
+
+    var urlString = "https://64c5171bc853c26efada7b56.mockapi.io/api/v1/currencies"
     
-    var urlString = "https://64c5171bc853c26efada7b56.mockapi.io/api/v1/nft/"
-    
-    func getNFTsFromAPI(completion: @escaping ([CartStruct]) -> Void) {
+    func getCurrenciesFromAPI(completion: @escaping ([PaymentStruct]) -> Void) {
         guard let url = URL(string: urlString) else { return }
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -23,7 +23,7 @@ final class CartPresenter: CartPresenterProtocol {
             if let data = data {
                 let decoder = JSONDecoder()
                 do {
-                    let result = try decoder.decode([CartStruct].self, from: data)
+                    let result = try decoder.decode([PaymentStruct].self, from: data)
                     completion(result)
                 } catch {
                     print(response)
@@ -31,5 +31,6 @@ final class CartPresenter: CartPresenterProtocol {
             }
         }).resume()
     }
+    
 }
 

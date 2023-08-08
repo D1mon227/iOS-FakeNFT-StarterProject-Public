@@ -8,11 +8,8 @@
 
 import UIKit
 
-/// Delegate
 protocol CartCellDelegate {
-    
     func showDeleteView(index: Int)
-    
 }
 
 final class CartCell: UITableViewCell {
