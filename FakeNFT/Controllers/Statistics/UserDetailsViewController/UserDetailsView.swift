@@ -7,7 +7,7 @@ protocol IUserDetailsView: AnyObject, UITableViewDelegate, UITableViewDataSource
 
 final class UserDetailsView: UIView {
 	var user: User?
-	let cellTitles = ["Коллекция NFT"]
+	let cellTitles = [LocalizableConstants.Statistics.nftCollection]
 	var presenter: UserDetailsPresenter?
 	
 	private let userImageView: UIImageView = {
@@ -37,7 +37,7 @@ final class UserDetailsView: UIView {
 	private lazy var websiteUserButton: UIButton = {
 		let button = UIButton(type: .system)
 		button.translatesAutoresizingMaskIntoConstraints = false
-		button.setTitle("Перейти на сайт пользователя", for: .normal)
+		button.setTitle(LocalizableConstants.Statistics.userWebsite, for: .normal)
 		button.setTitleColor(.black, for: .normal)
 		button.titleLabel?.font = UIFont.caption1
 		button.layer.cornerRadius = 16

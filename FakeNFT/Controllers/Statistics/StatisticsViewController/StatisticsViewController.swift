@@ -50,7 +50,7 @@ private extension StatisticsViewController {
 		
 		let users = statisticsPresenter.ui?.getUsers()
 		if let users = users {
-			alertService.showAlert(title: "Сортировка", actions: sortingOptions, controller: self) { [self] selectedOption in
+			alertService.showAlert(title: LocalizableConstants.Sort.sort, actions: sortingOptions, controller: self) { [self] selectedOption in
 				let sortedData = statisticsPresenter.sortData(by: selectedOption, dataToSort: users)
 				statisticsPresenter.ui?.updateUI(with: sortedData)
 			}

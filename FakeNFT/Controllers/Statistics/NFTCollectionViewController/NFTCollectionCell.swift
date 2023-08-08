@@ -57,6 +57,36 @@ final class NFTCollectionCell: UICollectionViewCell {
 		return label
 	}()
 	
+	private lazy var favoritesButton: UIButton = {
+		let button = UIButton(type: .system)
+		button.translatesAutoresizingMaskIntoConstraints = false
+		button.setImage(Resourses.Images.Cell.like, for: .normal)
+		button.tintColor = UIColor.white
+		button.addTarget(self, action: #selector(favoritesButtonTapped), for: .touchUpInside)
+		return button
+	}()
+	
+	private lazy var cartButton: UIButton = {
+		let button = UIButton(type: .system)
+		button.translatesAutoresizingMaskIntoConstraints = false
+		button.setImage(Resourses.Images.TabBar.cartTabBar, for: .normal)
+		button.tintColor = UIColor.black
+		button.addTarget(self, action: #selector(cartButtonTapped), for: .touchUpInside)
+		return button
+	}()
+	
+	@objc
+	private func favoritesButtonTapped(_ sender: UIButton) {
+		favoritesButton.tintColor = UIColor.redUniversal
+		print("123")
+	}
+	
+	@objc
+	private func cartButtonTapped(_ sender: UIButton) {
+		cartButton.tintColor = UIColor.gray
+		print("321")
+	}
+	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		configureView()
@@ -115,6 +145,8 @@ private extension NFTCollectionCell {
 		containerView.addSubview(stackView)
 		containerView.addSubview(nftNameLabel)
 		containerView.addSubview(nftPriceLabel)
+		containerView.addSubview(favoritesButton)
+		containerView.addSubview(cartButton)
 		
 		NSLayoutConstraint.activate([
 			containerView.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -127,6 +159,16 @@ private extension NFTCollectionCell {
 			nftImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
 			nftImageView.heightAnchor.constraint(equalToConstant: 108),
 			nftImageView.widthAnchor.constraint(equalToConstant: 108),
+			
+			favoritesButton.topAnchor.constraint(equalTo: nftImageView.topAnchor),
+			favoritesButton.trailingAnchor.constraint(equalTo: nftImageView.trailingAnchor),
+			favoritesButton.heightAnchor.constraint(equalToConstant: 42),
+			favoritesButton.widthAnchor.constraint(equalToConstant: 42),
+			
+			cartButton.topAnchor.constraint(equalTo: nftImageView.bottomAnchor, constant: 24),
+			cartButton.trailingAnchor.constraint(equalTo: nftImageView.trailingAnchor),
+			cartButton.heightAnchor.constraint(equalToConstant: 40),
+			cartButton.widthAnchor.constraint(equalToConstant: 40),
 			
 			stackView.topAnchor.constraint(equalTo: nftImageView.bottomAnchor, constant: 8),
 			stackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
@@ -145,7 +187,6 @@ extension NFTCollectionView: UICollectionViewDataSource, UICollectionViewDelegat
 	// MARK: - UITableViewDataSource
 	
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		
 		return collectionNFT.count
 	}
 	

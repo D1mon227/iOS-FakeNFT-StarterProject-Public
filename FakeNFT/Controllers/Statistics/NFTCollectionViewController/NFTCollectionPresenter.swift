@@ -10,8 +10,9 @@ final class NFTCollectionPresenter {
 	
 	func fetchNFTsForUser(nftIds: [String]) {
 		DispatchQueue.main.async {
-				self.ui?.activityIndicator.startAnimating()
-			}
+			self.ui?.activityIndicator.startAnimating()
+		}
+		
 		let dispatchGroup = DispatchGroup()
 		var userNFTs: [NFT] = []
 		
@@ -31,10 +32,27 @@ final class NFTCollectionPresenter {
 		}
 		
 		dispatchGroup.notify(queue: .main) { [weak self] in
-				self?.ui?.activityIndicator.stopAnimating()
-				self?.ui?.updateUI(with: userNFTs)
-			}
+			self?.ui?.activityIndicator.stopAnimating()
+			self?.ui?.updateUI(with: userNFTs)
+		}
 	}
+	
+//	func sendToPut() {
+//		guard let url = URL(string: "123") else { return }
+//		let userData = putUser(name: "1", avatar: url, description: "32", website: url, nfts: ["23"], likes: ["32"], id: "1")
+//		let putRequest = PutUsersRequest(dto: userData)
+//
+//		networkClient.send(request: putRequest) { result in
+//			switch result {
+//			case .success(let data):
+//				// Обработка успешного ответа от сервера, если нужно
+//				print("Успешный ответ от сервера. Данные: \(data)")
+//			case .failure(let error):
+//				// Обработка ошибки, если запрос не удался или сервер вернул ошибку
+//				print("Ошибка при выполнении PUT-запроса: \(error)")
+//			}
+//		}
+//	}
 }
 
 extension NFTCollectionPresenter: INFTCollectionPresenter {

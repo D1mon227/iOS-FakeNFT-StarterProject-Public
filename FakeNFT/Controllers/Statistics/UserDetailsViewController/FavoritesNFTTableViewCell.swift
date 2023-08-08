@@ -11,6 +11,13 @@ final class FavoritesNFTTableViewCell: UITableViewCell {
 	static let identifier = "favoritesNFTTableViewCell"
 	var onButtonTapped: (() -> Void)?
 	
+	private let containerView: UIView = {
+		let view = UIView()
+		view.translatesAutoresizingMaskIntoConstraints = false
+		view.layer.masksToBounds = false
+		return view
+	}()
+	
 	let disclosureIndicatorImageView: UIImageView = {
 		let imageView = UIImageView(image: UIImage(systemName: "chevron.right"))
 		imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -22,7 +29,6 @@ final class FavoritesNFTTableViewCell: UITableViewCell {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.font = UIFont.bodyBold
-		label.text = "Коллекция NFT"
 		return label
 	}()
 	
@@ -30,7 +36,7 @@ final class FavoritesNFTTableViewCell: UITableViewCell {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.font = UIFont.bodyBold
-		label.text = "()"
+//		label.text = "()"
 		return label
 	}()
 	
@@ -52,19 +58,26 @@ private extension FavoritesNFTTableViewCell {
 	func configureView() {
 		self.backgroundColor = UIColor.backgroundDay
 		
-		contentView.addSubview(self.titleFavoritesNFTLabel)
-		contentView.addSubview(self.countFavoritesNFTLabel)
-		contentView.addSubview(disclosureIndicatorImageView)
+		contentView.addSubview(self.containerView)
+		containerView.addSubview(titleFavoritesNFTLabel)
+		containerView.addSubview(countFavoritesNFTLabel)
+		containerView.addSubview(disclosureIndicatorImageView)
 		
 		NSLayoutConstraint.activate([
-			titleFavoritesNFTLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-			titleFavoritesNFTLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-			titleFavoritesNFTLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 16),
+			containerView.topAnchor.constraint(equalTo: contentView.topAnchor),
+			containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+			containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+			containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+			containerView.heightAnchor.constraint(equalToConstant: 54),
+			
+
+			titleFavoritesNFTLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+			titleFavoritesNFTLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
 			
 			countFavoritesNFTLabel.leadingAnchor.constraint(equalTo: titleFavoritesNFTLabel.trailingAnchor, constant: 8),
 			countFavoritesNFTLabel.centerYAnchor.constraint(equalTo: titleFavoritesNFTLabel.centerYAnchor),
 			
-			disclosureIndicatorImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+			disclosureIndicatorImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
 			disclosureIndicatorImageView.centerYAnchor.constraint(equalTo: titleFavoritesNFTLabel.centerYAnchor)
 		])
 	}
@@ -83,7 +96,6 @@ extension UserDetailsView: UITableViewDataSource, UITableViewDelegate {
 			return UITableViewCell()
 		}
 		cell.titleFavoritesNFTLabel.text = cellTitles[indexPath.row]
-		
 		if let user = user {
 			cell.configure(with: user)
 		}

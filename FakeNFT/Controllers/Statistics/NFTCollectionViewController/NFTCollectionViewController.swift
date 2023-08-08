@@ -21,6 +21,7 @@ final class NFTCollectionViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.nftCollectionPresenter.viewDidLoad(ui: self.customView)
+//		self.nftCollectionPresenter.sendToPut()
 	}
 	
 	func showNFTCollection(with presenter: NFTCollectionPresenter) {
@@ -31,6 +32,6 @@ final class NFTCollectionViewController: UIViewController {
 
 private extension NFTCollectionViewController {
 	func setupNavigationController() {
-		navigationItem.title = "Коллекция NFT"
+		navigationItem.title = LocalizableConstants.Statistics.nftCollection
 	}
 }

@@ -1,5 +1,3 @@
-import UIKit
-
 protocol IUserDetailsPresenter {
 	func viewDidLoad(ui: UserDetailsView)
 }
@@ -21,9 +19,8 @@ final class UserDetailsPresenter {
 		let nftCollectionPresenter = NFTCollectionPresenter()
 		navigationDelegate?.showNFTCollection(with: nftCollectionPresenter)
 		if let nftIds = user?.nfts {
-				nftCollectionPresenter.fetchNFTsForUser(nftIds: nftIds)
-			}
-		
+			nftCollectionPresenter.fetchNFTsForUser(nftIds: nftIds)
+		}
 	}
 }
 
