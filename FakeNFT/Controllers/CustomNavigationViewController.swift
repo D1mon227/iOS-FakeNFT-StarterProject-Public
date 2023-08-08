@@ -22,6 +22,8 @@ final class CustomNavigationController: UINavigationController {
             let backButtonBarItem = UIBarButtonItem(customView: backButton)
             viewController.navigationItem.leftBarButtonItem = backButtonBarItem
         }
+        
+        viewController.hidesBottomBarWhenPushed = true
     }
     
     @objc private func backButtonTapped() {
