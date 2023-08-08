@@ -12,6 +12,7 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
         presenter?.fetchNFTs()
         setupNavigationBar()
         setupViews()
+        setupTargets()
         setupProfileTableView()
     }
     
@@ -40,6 +41,16 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
         profileView.profileTableView.delegate = self
         profileView.profileTableView.register(ProfileTableViewCell.self,
                                               forCellReuseIdentifier: "ProfileTableViewCell")
+    }
+    
+    private func setupTargets() {
+        profileView.websiteButton.addTarget(self, action: #selector(switchToAuthorInformation), for: .touchUpInside)
+    }
+    
+    @objc private func switchToAuthorInformation() {
+        guard let customNC = navigationController as? CustomNavigationController,
+              let webViewController = presenter?.switchToAuthorInformation() else { return }
+        customNC.pushViewController(webViewController, animated: true)
     }
     
     @objc private func swithToEditingVC() {
@@ -101,6 +112,8 @@ extension ProfileViewController: UITableViewDelegate {
             switchToMyNFTViewController()
         case 1:
             switchToFavoritesNFTViewController()
+        case 2:
+            switchToAuthorInformation()
         default:
             break
         }

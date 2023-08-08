@@ -2,7 +2,6 @@ import Foundation
 
 final class ProfileViewPresenter: ProfileViewPresenterProtocol {
     var view: ProfileViewControllerProtocol?
-//    private var myNFTPresenter: MyNFTViewPresenterProtocol?
     private let profileService = ProfileService.shared
     private let nftService = NFTService.shared
     
@@ -42,6 +41,16 @@ final class ProfileViewPresenter: ProfileViewPresenterProtocol {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    func switchToAuthorInformation() -> WebViewController? {
+        guard let website = profile?.website,
+              let url = URL(string: website) else { return nil }
+        let webViewPresenter = WebViewPresenter(urlRequest: URLRequest(url: url))
+        let webViewController = WebViewController(presenter: webViewPresenter)
+        webViewPresenter.view = webViewController
+        
+        return webViewController
     }
     
     private func filterPurchasedNFTs(profile: Profile, allNFTs: [NFT]) -> [NFT] {

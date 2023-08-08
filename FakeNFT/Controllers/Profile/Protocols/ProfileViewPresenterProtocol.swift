@@ -7,4 +7,5 @@ protocol ProfileViewPresenterProtocol: AnyObject {
     var favoritesNFTs: [NFT]? { get set }
     func fetchProfile()
     func fetchNFTs()
+    func switchToAuthorInformation() -> WebViewController?
 }
