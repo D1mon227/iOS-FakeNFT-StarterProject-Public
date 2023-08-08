@@ -45,6 +45,8 @@ enum Resourses {
         enum Cell {
             static let like = UIImage(systemName: "heart.fill")
             static let star = UIImage(systemName: "star.fill")
+			static let cart = UIImage(named: "cart")
+			static let cartFill = UIImage(named: "cart.fill")
         }
         
         enum Sort {
