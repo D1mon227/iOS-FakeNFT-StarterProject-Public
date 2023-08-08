@@ -27,5 +27,6 @@ final class UserDetailsViewController: UIViewController, IUserDetailsViewNavigat
 		self.userDetailsPresenter.viewDidLoad(ui: self.customView)
 		customView.presenter = userDetailsPresenter
 		userDetailsPresenter.navigationDelegate = self
+		customView.navigationController = self.navigationController
 	}
 }

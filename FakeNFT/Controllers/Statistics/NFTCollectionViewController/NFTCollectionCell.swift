@@ -69,7 +69,7 @@ final class NFTCollectionCell: UICollectionViewCell {
 	private lazy var cartButton: UIButton = {
 		let button = UIButton(type: .system)
 		button.translatesAutoresizingMaskIntoConstraints = false
-		button.setImage(Resourses.Images.TabBar.cartTabBar, for: .normal)
+		button.setImage(Resourses.Images.Cell.cart, for: .normal)
 		button.tintColor = UIColor.black
 		button.addTarget(self, action: #selector(cartButtonTapped), for: .touchUpInside)
 		return button
@@ -83,7 +83,7 @@ final class NFTCollectionCell: UICollectionViewCell {
 	
 	@objc
 	private func cartButtonTapped(_ sender: UIButton) {
-		cartButton.tintColor = UIColor.gray
+		cartButton.setImage(Resourses.Images.Cell.cartFill, for: .normal)
 		print("321")
 	}
 	

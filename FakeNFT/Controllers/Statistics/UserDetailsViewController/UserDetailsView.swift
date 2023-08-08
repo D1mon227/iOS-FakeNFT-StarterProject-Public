@@ -9,6 +9,7 @@ final class UserDetailsView: UIView {
 	var user: User?
 	let cellTitles = [LocalizableConstants.Statistics.nftCollection]
 	var presenter: UserDetailsPresenter?
+	weak var navigationController: UINavigationController?
 	
 	private let userImageView: UIImageView = {
 		let imageView = UIImageView()
@@ -76,18 +77,19 @@ final class UserDetailsView: UIView {
 		userDescriptionLabel.text = user?.description
 	}
 	
-	@objc
-	private func websiteUserButtonTapped(_ sender: UIButton) {
-//		let webViewController = WebViewController()
-//
-//		webViewController.loadWebsite(urlString: user?.website)
-//
-//		if let navigationController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController {
-//			navigationController.pushViewController(webViewController, animated: true)
-//		} else {
-//			let navController = UINavigationController(rootViewController: webViewController)
-//			UIApplication.shared.keyWindow?.rootViewController?.present(navController, animated: true, completion: nil)
-//		}
+	@objc private func websiteUserButtonTapped(_ sender: UIButton) {
+		if let url = user?.website {
+			let request = URLRequest(url: url)
+			
+			// Создание экземпляра WebViewPresenter с URL-запросом
+			let webPresenter = WebViewPresenter(urlRequest: request)
+			let webViewController = WebViewController(presenter: webPresenter)
+			webViewController.load(request: request)
+			webViewController.hidesBottomBarWhenPushed = true
+			if let navigationController = self.navigationController {
+				navigationController.pushViewController(webViewController, animated: true)
+			}
+		}
 	}
 }
 
