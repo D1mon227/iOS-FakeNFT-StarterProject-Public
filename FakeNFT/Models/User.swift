@@ -16,3 +16,13 @@ struct User: Decodable {
 	let rating: String
 	let id: String
 }
+
+struct putUser: Encodable {
+	let name: String
+	let avatar: URL?
+	let description: String
+	let website: URL
+	let nfts: [String]
+	let likes: [String]
+	let id: String
+}

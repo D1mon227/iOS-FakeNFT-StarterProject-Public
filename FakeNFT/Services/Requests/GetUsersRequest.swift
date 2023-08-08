@@ -13,3 +13,23 @@ struct GetUsersRequest: NetworkRequest {
 	}
 }
 
+struct GetNFTsForUserRequest: NetworkRequest {
+	let nftId: String
+
+	var endpoint: URL? {
+		let urlString = "https://64c5171bc853c26efada7b56.mockapi.io/api/v1/nft/\(nftId)"
+		return URL(string: urlString)
+	}
+}
+
+struct PutUsersRequest: NetworkRequest {
+	var endpoint: URL? {
+		URL(string: "https://64c5171bc853c26efada7b56.mockapi.io/api/v1/profile/1")
+	}
+
+	var httpMethod: HttpMethod {
+		.put
+	}
+
+	var dto: Encodable?
+}
