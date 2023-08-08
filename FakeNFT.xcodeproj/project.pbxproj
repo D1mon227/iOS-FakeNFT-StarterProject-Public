@@ -41,8 +41,6 @@
 		1F09D55D2A7E92DC00367A6A /* DetailedCollectionPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F09D55C2A7E92DC00367A6A /* DetailedCollectionPresenterProtocol.swift */; };
 		1F09D55F2A7E930E00367A6A /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F09D55E2A7E930E00367A6A /* CategoriesViewController.swift */; };
 		1F09D5612A7E933500367A6A /* CategoriesViewProtocoll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F09D5602A7E933500367A6A /* CategoriesViewProtocoll.swift */; };
-		1FEA5B392A80ACF500946DD9 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEA5B382A80ACF500946DD9 /* WebViewController.swift */; };
-		1FEA5B3C2A80B19C00946DD9 /* WebViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEA5B3B2A80B19C00946DD9 /* WebViewPresenter.swift */; };
 		1FEA5B3E2A80B9DB00946DD9 /* CollectionDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEA5B3D2A80B9DB00946DD9 /* CollectionDetailsTableViewCell.swift */; };
 		1FEA5B412A80BD8D00946DD9 /* NFTAuthorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEA5B402A80BD8D00946DD9 /* NFTAuthorService.swift */; };
 		1FEA5B432A80BE9000946DD9 /* AuthorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEA5B422A80BE9000946DD9 /* AuthorResponse.swift */; };
@@ -154,8 +152,6 @@
 		1F09D55C2A7E92DC00367A6A /* DetailedCollectionPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedCollectionPresenterProtocol.swift; sourceTree = "<group>"; };
 		1F09D55E2A7E930E00367A6A /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
 		1F09D5602A7E933500367A6A /* CategoriesViewProtocoll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewProtocoll.swift; sourceTree = "<group>"; };
-		1FEA5B382A80ACF500946DD9 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
-		1FEA5B3B2A80B19C00946DD9 /* WebViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewPresenter.swift; sourceTree = "<group>"; };
 		1FEA5B3D2A80B9DB00946DD9 /* CollectionDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionDetailsTableViewCell.swift; sourceTree = "<group>"; };
 		1FEA5B402A80BD8D00946DD9 /* NFTAuthorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTAuthorService.swift; sourceTree = "<group>"; };
 		1FEA5B422A80BE9000946DD9 /* AuthorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorResponse.swift; sourceTree = "<group>"; };
@@ -450,15 +446,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		1FEA5B3A2A80B17800946DD9 /* WebViewModule */ = {
-			isa = PBXGroup;
-			children = (
-				1FEA5B382A80ACF500946DD9 /* WebViewController.swift */,
-				1FEA5B3B2A80B19C00946DD9 /* WebViewPresenter.swift */,
-			);
-			path = WebViewModule;
-			sourceTree = "<group>";
-		};
 		1FEA5B3F2A80BD6D00946DD9 /* NFTAuthorServices */ = {
 			isa = PBXGroup;
 			children = (
@@ -715,7 +702,6 @@
 				1FEA5B7A2A8BE95E00946DD9 /* NetworkError */,
 				1FEA5B4C2A81495100946DD9 /* WebViewModule */,
 				737D031F2A80707A00DCB5B1 /* Onboarding */,
-				1FEA5B3A2A80B17800946DD9 /* WebViewModule */,
 				73EA4B1C2A7471D2000B4B55 /* CustomNavigationViewController.swift */,
 				737D031E2A80706400DCB5B1 /* Tabbar */,
 				73EA4B062A73C774000B4B55 /* Profile */,
@@ -978,7 +964,6 @@
 				3F6806D529CBBEC700B4F915 /* NetworkTask.swift in Sources */,
 				737D03212A80709100DCB5B1 /* OnboardingViewController.swift in Sources */,
 				3F68069729CBBAF100B4F915 /* AppDelegate.swift in Sources */,
-				1FEA5B3C2A80B19C00946DD9 /* WebViewPresenter.swift in Sources */,
 				C5D3AADA2A7B679D005A3694 /* GetUsersRequest.swift in Sources */,
 				1F09D52F2A76C3E900367A6A /* UIViewController+extension.swift in Sources */,
 				3F68069929CBBAF100B4F915 /* SceneDelegate.swift in Sources */,
@@ -1014,7 +999,6 @@
 				733B35982A90D1AA0068C2C6 /* RegistrationViewController.swift in Sources */,
 				C5D3AADC2A7B67DC005A3694 /* User.swift in Sources */,
 				1FEA5B4B2A8145A800946DD9 /* AuthorRequest.swift in Sources */,
-				1FEA5B392A80ACF500946DD9 /* WebViewController.swift in Sources */,
 				73EA4B0E2A73C7C4000B4B55 /* StatisticsViewController.swift in Sources */,
 				7300E0882A93A84300AD427A /* Alert.swift in Sources */,
 				C51A14262A91F538002B1DC5 /* RegistrationViewPresenter.swift in Sources */,
