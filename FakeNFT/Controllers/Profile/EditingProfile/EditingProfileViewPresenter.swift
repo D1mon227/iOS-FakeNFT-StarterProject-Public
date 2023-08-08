@@ -5,6 +5,7 @@ final class EditingProfileViewPresenter: EditingProfileViewPresenterProtocol {
     private let profileService = ProfileService.shared
     private var profilePresenter: ProfileViewPresenterProtocol?
     
+    var newProfile: NewProfile?
     var editingInfo: Profile? {
         didSet {
             view?.reloadTableView()
@@ -15,7 +16,12 @@ final class EditingProfileViewPresenter: EditingProfileViewPresenterProtocol {
         self.profilePresenter = profilePresenter
     }
     
-    func editProfile(newProfile: NewProfile?) {
+    func getProfileInfo() {
+        guard let profile = profilePresenter?.profile else { return }
+        editingInfo = profile
+    }
+    
+    func editProfile() {
         guard let newProfile = newProfile,
               let oldProfile = profilePresenter?.profile else { return }
         

@@ -54,20 +54,20 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
     }
     
     @objc private func swithToEditingVC() {
-        let editingProfileVC = EditingProfileViewController(profilePresenter: presenter, profile: presenter?.profile)
+        let editingProfileVC = EditingProfileViewController(profilePresenter: presenter)
         present(editingProfileVC, animated: true)
     }
     
     @objc private func switchToMyNFTViewController() {
         guard let customNC = navigationController as? CustomNavigationController else { return }
-        let myNFTVC = MyNFTViewController(profilePresenter: presenter, purchasedNFTs: presenter?.purchasedNFTs)
+        let myNFTVC = MyNFTViewController(profilePresenter: presenter)
         myNFTVC.title = LocalizableConstants.Profile.myNFT
         customNC.pushViewController(myNFTVC, animated: true)
     }
     
     @objc private func switchToFavoritesNFTViewController() {
         guard let customNC = navigationController as? CustomNavigationController else { return }
-        let favoritesNFTVC = FavoritesNFTViewController(profilePresenter: presenter, favoritesNFTs: presenter?.favoritesNFTs)
+        let favoritesNFTVC = FavoritesNFTViewController(profilePresenter: presenter, likes: presenter?.profile?.likes)
         favoritesNFTVC.title = LocalizableConstants.Profile.nftFavorites
         customNC.pushViewController(favoritesNFTVC, animated: true)
     }

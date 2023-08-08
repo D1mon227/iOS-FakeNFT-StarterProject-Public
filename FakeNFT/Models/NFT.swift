@@ -10,3 +10,7 @@ struct NFT: Decodable {
     var author: String
     var id: String
 }
+
+struct Like: Encodable {
+    var likes: [String]?
+}

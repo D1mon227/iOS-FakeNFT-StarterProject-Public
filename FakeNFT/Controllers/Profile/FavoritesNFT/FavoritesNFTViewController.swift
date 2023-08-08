@@ -6,12 +6,12 @@ final class FavoritesNFTViewController: UIViewController, FavoritesNFTViewContro
     private var profilePresenter: ProfileViewPresenterProtocol?
     private let favoritesNFTView = FavoritesNFTView()
     
-    init(profilePresenter: ProfileViewPresenterProtocol?, favoritesNFTs: [NFT]?) {
+    init(profilePresenter: ProfileViewPresenterProtocol?, likes: [String]?) {
         super.init(nibName: nil, bundle: nil)
         self.profilePresenter = profilePresenter
-        self.presenter = FavoritesNFTViewPresenter()
+        self.presenter = FavoritesNFTViewPresenter(profilePresenter: profilePresenter)
         self.presenter?.view = self
-        self.presenter?.favoritesNFTs = favoritesNFTs
+        self.presenter?.likes = likes
     }
     
     required init?(coder: NSCoder) {
@@ -22,6 +22,7 @@ final class FavoritesNFTViewController: UIViewController, FavoritesNFTViewContro
         super.viewDidLoad()
         setupViews()
         setupCollectionView()
+        presenter?.getFavoritesNFTs()
     }
     
     private func setupCollectionView() {
@@ -46,6 +47,7 @@ extension FavoritesNFTViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FavoritesNFTCollectionViewCell", for: indexPath) as? FavoritesNFTCollectionViewCell,
               let nfts = presenter?.favoritesNFTs?[indexPath.row] else { return UICollectionViewCell() }
         
+        cell.delegate = self
         cell.configureCell(image: nfts.images[0],
                            favoriteButtonColor: .redUniversal,
                            nftName: nfts.name,
@@ -71,6 +73,15 @@ extension FavoritesNFTViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+    }
+}
+
+extension FavoritesNFTViewController: FavoritesNFTCollectionViewCellDelegate {
+    func didTapLike(_ cell: FavoritesNFTCollectionViewCell) {
+        guard let indexPath = favoritesNFTView.nftCollectionView.indexPath(for: cell),
+              let presenter = presenter else { return }
+        let nftID = presenter.favoritesNFTs?[indexPath.row].id ?? ""
+        presenter.changeLike(nftID)
     }
 }
 

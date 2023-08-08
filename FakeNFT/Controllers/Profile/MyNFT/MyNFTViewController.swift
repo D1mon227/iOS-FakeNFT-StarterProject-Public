@@ -7,23 +7,23 @@ final class MyNFTViewController: UIViewController, MyNFTViewControllerProtocol {
     private let myNFTView = MyNFTView()
     private let alertService = AlertService()
     
+    init(profilePresenter: ProfileViewPresenterProtocol?) {
+        super.init(nibName: nil, bundle: nil)
+        self.profilePresenter = profilePresenter
+        self.presenter = MyNFTViewPresenter(profilePresenter: profilePresenter)
+        self.presenter?.view = self
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
         setupViews()
         setupTableView()
-    }
-    
-    init(profilePresenter: ProfileViewPresenterProtocol?, purchasedNFTs: [NFT]?) {
-        super.init(nibName: nil, bundle: nil)
-        self.profilePresenter = profilePresenter
-        self.presenter = MyNFTViewPresenter()
-        self.presenter?.view = self
-        self.presenter?.purchasedNFTs = purchasedNFTs
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        presenter?.getPurchasedNFTs()
     }
     
     private func setupTableView() {

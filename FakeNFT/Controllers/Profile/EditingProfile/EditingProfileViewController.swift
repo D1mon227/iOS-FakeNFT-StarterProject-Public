@@ -7,30 +7,25 @@ final class EditingProfileViewController: UIViewController, EditingProfileViewCo
     private var profilePresenter: ProfileViewPresenterProtocol?
     private let editingProfileView = EditingProfileView()
     
-    var newProfile: NewProfile?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         setupEditingTableView()
         setupTarget()
+        presenter?.getProfileInfo()
     }
     
-    init(profilePresenter: ProfileViewPresenterProtocol?, profile: Profile?) {
+    init(profilePresenter: ProfileViewPresenterProtocol?) {
         super.init(nibName: nil, bundle: nil)
         self.profilePresenter = profilePresenter
         self.presenter = EditingProfileViewPresenter(profilePresenter: profilePresenter)
         self.presenter?.view = self
-        self.newProfile = NewProfile(name: profile?.name,
-                                     description: profile?.description,
-                                     website: profile?.website)
-        self.presenter?.editingInfo = profile
-        self.editingProfileView.profileImage.kf.setImage(with: profile?.avatar)
+        self.presenter?.newProfile = NewProfile()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        presenter?.editProfile(newProfile: newProfile)
+        presenter?.editProfile()
     }
     
     required init?(coder: NSCoder) {
@@ -53,7 +48,9 @@ final class EditingProfileViewController: UIViewController, EditingProfileViewCo
     }
     
     func reloadTableView() {
+        guard let avatar = presenter?.editingInfo?.avatar else { return }
         editingProfileView.editingTableView.reloadData()
+        editingProfileView.profileImage.kf.setImage(with: avatar)
     }
 }
 
@@ -85,11 +82,11 @@ extension EditingProfileViewController: UITableViewDataSource {
             guard let self = self else { return }
             switch indexPath.section {
             case 0:
-                self.newProfile?.name = newText
+                self.presenter?.newProfile?.name = newText
             case 1:
-                self.newProfile?.description = newText
+                self.presenter?.newProfile?.description = newText
             case 2:
-                self.newProfile?.website = newText
+                self.presenter?.newProfile?.website = newText
             default:
                 break
             }

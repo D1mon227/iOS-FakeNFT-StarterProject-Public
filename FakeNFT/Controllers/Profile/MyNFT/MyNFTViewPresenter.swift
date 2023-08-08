@@ -2,6 +2,7 @@ import Foundation
 
 final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
     weak var view: MyNFTViewControllerProtocol?
+    var profilePresenter: ProfileViewPresenterProtocol?
     
     var purchasedNFTs: [NFT]? {
         didSet {
@@ -9,6 +10,26 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
                 self.view?.reloadTableView()
             }
         }
+    }
+    
+    init(profilePresenter: ProfileViewPresenterProtocol?) {
+        self.profilePresenter = profilePresenter
+    }
+    
+    func getPurchasedNFTs() {
+        guard let profile = profilePresenter?.profile,
+              let allNFTs = profilePresenter?.allNFTs else { return }
+        purchasedNFTs = filterPurchasedNFTs(profile: profile, allNFTs: allNFTs)
+    }
+    
+    private func filterPurchasedNFTs(profile: Profile, allNFTs: [NFT]) -> [NFT] {
+        let profileNFTIds = Set(profile.nfts)
+
+        let filteredNFTs = allNFTs.filter { nft in
+            return profileNFTIds.contains(nft.id)
+        }
+
+        return filteredNFTs
     }
     
     func sortNFT(by: Sort) {

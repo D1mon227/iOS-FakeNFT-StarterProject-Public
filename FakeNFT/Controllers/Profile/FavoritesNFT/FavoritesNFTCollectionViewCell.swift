@@ -13,6 +13,7 @@ final class FavoritesNFTCollectionViewCell: UICollectionViewCell {
     private lazy var favoriteButton: UIButton = {
         let element = UIButton(type: .system)
         element.setImage(Resourses.Images.Cell.like, for: .normal)
+        element.addTarget(self, action: #selector(tappedLike), for: .touchUpInside)
         return element
     }()
     
@@ -39,6 +40,8 @@ final class FavoritesNFTCollectionViewCell: UICollectionViewCell {
         return element
     }()
     
+    weak var delegate: FavoritesNFTCollectionViewCellDelegate?
+    
     private var starImageViews: [UIImageView] = []
     
     override init(frame: CGRect) {
@@ -49,6 +52,10 @@ final class FavoritesNFTCollectionViewCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc private func tappedLike() {
+        delegate?.didTapLike(self)
     }
     
     func configureCell(image: URL?,
