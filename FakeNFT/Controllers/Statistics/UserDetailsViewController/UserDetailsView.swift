@@ -81,11 +81,11 @@ final class UserDetailsView: UIView {
 		if let url = user?.website {
 			let request = URLRequest(url: url)
 			
-			// Создание экземпляра WebViewPresenter с URL-запросом
 			let webPresenter = WebViewPresenter(urlRequest: request)
 			let webViewController = WebViewController(presenter: webPresenter)
-			webViewController.load(request: request)
+			webPresenter.view = webViewController
 			webViewController.hidesBottomBarWhenPushed = true
+			
 			if let navigationController = self.navigationController {
 				navigationController.pushViewController(webViewController, animated: true)
 			}
