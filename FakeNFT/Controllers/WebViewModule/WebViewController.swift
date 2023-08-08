@@ -43,7 +43,7 @@ final class WebViewController: UIViewController, WebViewControllerProtocol {
     }
     
     private func setupConstraints() {
-        
+		view.backgroundColor = UIColor.backgroundDay
         view.addSubview(webView)
         webView.translatesAutoresizingMaskIntoConstraints = false
         
