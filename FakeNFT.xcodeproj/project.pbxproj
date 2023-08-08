@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1FEA5B4E2A81497100946DD9 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEA5B4D2A81497100946DD9 /* WebViewController.swift */; };
+		1FEA5B502A81498900946DD9 /* WebViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEA5B4F2A81498900946DD9 /* WebViewPresenter.swift */; };
 		3F478ECF29DB474E00F6D39E /* UIColor + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F478ECE29DB474E00F6D39E /* UIColor + Extension.swift */; };
 		3F478ED129DB476500F6D39E /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F478ED029DB476500F6D39E /* Fonts.swift */; };
 		3F603CCD29DB4A53000C43D7 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 3F603CCC29DB4A53000C43D7 /* ProgressHUD */; };
@@ -87,6 +89,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1FEA5B4D2A81497100946DD9 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		1FEA5B4F2A81498900946DD9 /* WebViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewPresenter.swift; sourceTree = "<group>"; };
 		3F478ECE29DB474E00F6D39E /* UIColor + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Extension.swift"; sourceTree = "<group>"; };
 		3F478ED029DB476500F6D39E /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		3F68069329CBBAF100B4F915 /* FakeNFT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FakeNFT.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -179,6 +183,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1FEA5B4C2A81495100946DD9 /* WebViewModule */ = {
+			isa = PBXGroup;
+			children = (
+				1FEA5B4D2A81497100946DD9 /* WebViewController.swift */,
+				1FEA5B4F2A81498900946DD9 /* WebViewPresenter.swift */,
+			);
+			path = WebViewModule;
+			sourceTree = "<group>";
+		};
 		3F68068A29CBBAF100B4F915 = {
 			isa = PBXGroup;
 			children = (
@@ -376,6 +389,7 @@
 		73EA4B012A73C6E2000B4B55 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1FEA5B4C2A81495100946DD9 /* WebViewModule */,
 				737D031F2A80707A00DCB5B1 /* Onboarding */,
 				73EA4B1C2A7471D2000B4B55 /* CustomNavigationViewController.swift */,
 				737D031E2A80706400DCB5B1 /* Tabbar */,
@@ -592,6 +606,7 @@
 				73983AB12A7E954D00C9A73A /* StatisticsViewController.swift in Sources */,
 				7362C5402A76AC0C004CBE1D /* MyNFTTableViewCell.swift in Sources */,
 				7362C5492A786ACE004CBE1D /* AlertService.swift in Sources */,
+				1FEA5B4E2A81497100946DD9 /* WebViewController.swift in Sources */,
 				7362C56A2A7D47B7004CBE1D /* FavoritesNFTViewPresenter.swift in Sources */,
 				73EA4B082A73C789000B4B55 /* CatalogViewController.swift in Sources */,
 				7362C55C2A7BB2CF004CBE1D /* UIBlockingProgressHUD.swift in Sources */,
@@ -607,6 +622,7 @@
 				7362C5352A75704C004CBE1D /* EditingProfileView.swift in Sources */,
 				7362C5452A785E71004CBE1D /* FavoritesNFTView.swift in Sources */,
 				3F478ECF29DB474E00F6D39E /* UIColor + Extension.swift in Sources */,
+				1FEA5B502A81498900946DD9 /* WebViewPresenter.swift in Sources */,
 				7362C5702A7D481C004CBE1D /* FavoritesNFTViewPresenterProtocol.swift in Sources */,
 				3F478ED129DB476500F6D39E /* Fonts.swift in Sources */,
 				7362C5332A756D7C004CBE1D /* EditingProfileViewController.swift in Sources */,
