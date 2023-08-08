@@ -84,7 +84,6 @@ final class UserDetailsView: UIView {
 			let webPresenter = WebViewPresenter(urlRequest: request)
 			let webViewController = WebViewController(presenter: webPresenter)
 			webPresenter.view = webViewController
-			webViewController.hidesBottomBarWhenPushed = true
 			
 			if let navigationController = self.navigationController {
 				navigationController.pushViewController(webViewController, animated: true)
