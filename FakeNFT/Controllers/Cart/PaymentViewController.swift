@@ -10,12 +10,12 @@ import Kingfisher
 
 final class PaymentViewController: UIViewController {
     
-    var presenter: PaymentPresenterProtocol?
+    var presenter: PaymentPresenter?
     
     var paymentArray: [PaymentStruct] = []
     
-    var isCellSelected = false
-    
+    var isCellSelected: Int = -1
+
     let paymentCollection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -44,15 +44,6 @@ final class PaymentViewController: UIViewController {
         return button
     }()
     
-    let backButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "Back"), for: .normal)
-        button.layer.masksToBounds = true
-        button.addTarget(nil, action: #selector(backButtonTapped), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
     let cartInfo: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 0.97, green: 0.97, blue: 0.97, alpha: 1)
@@ -71,15 +62,6 @@ final class PaymentViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    let paymentTitle: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
-        label.text = "Выберите способ оплаты"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
     
     let userAgreementLink: UILabel = {
         let label = UILabel()
@@ -116,15 +98,8 @@ extension PaymentViewController {
         NSLayoutConstraint.activate([
             paymentCollection.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             paymentCollection.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            paymentCollection.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
+            paymentCollection.topAnchor.constraint(equalTo: view.topAnchor, constant: 108),
             paymentCollection.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -150),
-            
-            
-            backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 9),
-            backButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 9),
-            
-            paymentTitle.centerYAnchor.constraint(equalTo: backButton.centerYAnchor),
-            paymentTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             cartInfo.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             cartInfo.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -159,10 +134,8 @@ extension PaymentViewController {
             }
         })
         tabBarController?.tabBar.isHidden = true
-        title = "Выберите способ оплаты"
-        view.backgroundColor = .white
-        view.addSubview(backButton)
-        view.addSubview(paymentTitle)
+        //        view.addSubview(backButton)
+//        view.addSubview(paymentTitle)
         view.addSubview(cartInfo)
         view.addSubview(paymentButton)
         view.addSubview(userAgreementText)
@@ -174,10 +147,15 @@ extension PaymentViewController {
         
         view.addSubview(collectionViewContainer)
         
+        
         paymentCollection.register(PaymentCell.self, forCellWithReuseIdentifier: "paymentCell")
         paymentCollection.dataSource = self
         paymentCollection.delegate = self
-        paymentCollection.backgroundColor = .clear 
+        paymentCollection.backgroundColor = .clear
+        
+        title = "Выберите способ оплаты"
+        view.backgroundColor = .white
+
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(labelTapped))
         userAgreementLink.addGestureRecognizer(tapGesture)
@@ -207,36 +185,27 @@ extension PaymentViewController {
     
     @objc
     func payButtonTapped() {
-        if isCellSelected {
-            let randomNum = Int.random(in: 1...3)
-            if randomNum == 1 {
-                let failedVC = FailedPaymentViewController()
-                failedVC.modalPresentationStyle = .fullScreen
-                failedVC.modalTransitionStyle = .crossDissolve
-                present(failedVC, animated: false) {
-                    print("FailedPaymentViewController presented")
-                }
-            } else {
-                let successVC = SucceedPaymentViewController()
-                successVC.modalPresentationStyle = .fullScreen
-                successVC.modalTransitionStyle = .crossDissolve
-                present(successVC, animated: false) {
-                    print("SucceedPaymentViewController presented")
+        if isCellSelected != -1 {
+            let selectedPayment = paymentArray[isCellSelected - 1] // Subtract 1 to get the correct index
+            presenter?.getPaymentResult(currencyID: selectedPayment.id) { payment in
+                DispatchQueue.main.async {
+                    if payment.success {
+                        let successVC = SucceedPaymentViewController()
+                        successVC.modalPresentationStyle = .fullScreen
+                        successVC.modalTransitionStyle = .crossDissolve
+                        self.present(successVC, animated: false, completion: nil)
+                    } else {
+                        let failedVC = FailedPaymentViewController()
+                        failedVC.modalPresentationStyle = .fullScreen
+                        failedVC.modalTransitionStyle = .crossDissolve
+                        self.present(failedVC, animated: false, completion: nil)
+                    }
                 }
             }
         }
     }
-    
-    @objc
-    func backButtonTapped() {
-        let cartVC = CartViewController()
-        let tabBar = TabBarController()
-        tabBar.modalPresentationStyle = .fullScreen
-        tabBar.modalTransitionStyle = .crossDissolve
-        present(tabBar, animated: true)
-        
-        
-    }
+
+
 
     
     @objc func labelTapped() {
@@ -278,7 +247,7 @@ extension PaymentViewController: UICollectionViewDataSource {
 extension PaymentViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        isCellSelected = true
+        isCellSelected = indexPath.row + 1
     }
     
 }

@@ -12,6 +12,8 @@ final class CartViewController: UIViewController, UITableViewDataSource{
     
     var indexNFTToDelete: Int?
     
+    var myOrders = [String]()
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -73,12 +75,27 @@ final class CartViewController: UIViewController, UITableViewDataSource{
     }()
     
     private func fetchDataFromAPI() {
-        presenter?.getNFTsFromAPI(completion: { [weak self] newCartArray in
-            self?.cartArray = newCartArray
-            DispatchQueue.main.async {
-                self?.cartTable.reloadData()
+        myOrders = []
+        cartArray = []
+        presenter?.cartNFTs { orders in
+            if let orders = orders {
+                self.myOrders = orders.nfts
+                self.myOrders.forEach { i in
+                    self.presenter?.getNFTsFromAPI(nftID: i) { cart in
+                        if let cart = cart {
+                            self.cartArray.append(cart)
+                            DispatchQueue.main.async {
+                                self.cartTable.reloadData()
+                            }
+                        } else {
+                            print("Error fetching cart data")
+                        }
+                    }
+                }
+            } else {
+                print("Error fetching orders")
             }
-        })
+        }
     }
     
     lazy var blurView: UIVisualEffectView = {
@@ -245,10 +262,10 @@ final class CartViewController: UIViewController, UITableViewDataSource{
     
     @objc
     func payButtonTapped() {
-        let failedVC = PaymentViewController()
-        failedVC.modalPresentationStyle = .fullScreen
-        failedVC.modalTransitionStyle = .crossDissolve
-        present(failedVC, animated: true)
+        guard let customNC = navigationController as? CustomNavigationController else { return }
+        let payVC = PaymentViewController()
+        payVC.title = "Payment"
+        customNC.pushViewController(payVC, animated: true)
     }
     
     @objc private func sortButtonTapped() {
@@ -262,6 +279,12 @@ final class CartViewController: UIViewController, UITableViewDataSource{
     
     @objc
     func deleteNFT() {
+        guard let indexToDelete = indexNFTToDelete else {
+            return
+        }
+        cartArray.remove(at: indexToDelete)
+        cartTable.reloadData()
+        
         print("DELETE \(indexNFTToDelete ?? 0) NFT")
         blurView.removeFromSuperview()
         imageToDelete.removeFromSuperview()
@@ -374,20 +397,20 @@ extension CartViewController: CartCellDelegate {
         
     }
     
-//        func showDeleteView(index: Int) {
-//            let alertController = UIAlertController(title: "Delete NFT", message: "Are you sure you want to delete this NFT?", preferredStyle: .alert)
-//            let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
-//                // Perform the delete operation based on the index, e.g., remove the NFT from cartArray
-//                self.cartArray.remove(at: index)
-//                // Reload the table view to reflect the changes
-//                self.cartTable.reloadData()
-//            }
-//            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-//            alertController.addAction(deleteAction)
-//            alertController.addAction(cancelAction)
-//            present(alertController, animated: true, completion: nil)
-//        }
-
+    //        func showDeleteView(index: Int) {
+    //            let alertController = UIAlertController(title: "Delete NFT", message: "Are you sure you want to delete this NFT?", preferredStyle: .alert)
+    //            let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
+    //                // Perform the delete operation based on the index, e.g., remove the NFT from cartArray
+    //                self.cartArray.remove(at: index)
+    //                // Reload the table view to reflect the changes
+    //                self.cartTable.reloadData()
+    //            }
+    //            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+    //            alertController.addAction(deleteAction)
+    //            alertController.addAction(cancelAction)
+    //            present(alertController, animated: true, completion: nil)
+    //        }
+    
     func showDeleteView(index: Int) {
         blurView.isUserInteractionEnabled = true
         view.addSubview(blurView)
@@ -399,11 +422,12 @@ extension CartViewController: CartCellDelegate {
         navigationController?.isNavigationBarHidden = true
         tabBarController?.tabBar.isHidden = true
         
-
-
+        
+        
         let urlStr = cartArray[index].nftImages.first ?? ""
         fillPictureToDelete(urlStr: urlStr)
         indexNFTToDelete = index
+        print(index)
         UIView.animate(withDuration: 0.3) {
             self.blurView.alpha = 1.0
             NSLayoutConstraint.activate([
@@ -418,14 +442,11 @@ extension CartViewController: CartCellDelegate {
                 self.deleteButton.heightAnchor.constraint(equalToConstant: 44),
                 self.deleteButton.topAnchor.constraint(equalTo: self.deleteText.bottomAnchor, constant: 20),
                 self.deleteButton.centerXAnchor.constraint(equalTo: self.blurView.centerXAnchor,constant: -70),
-
-                
-                
                 self.cancelButton.widthAnchor.constraint(equalToConstant: 127),
                 self.cancelButton.heightAnchor.constraint(equalToConstant: 44),
                 self.cancelButton.topAnchor.constraint(equalTo: self.deleteText.bottomAnchor, constant: 20),
                 self.cancelButton.centerXAnchor.constraint(equalTo: self.blurView.centerXAnchor,constant: 70),
-
+                
             ])
         }
     }

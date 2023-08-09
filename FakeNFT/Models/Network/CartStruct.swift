@@ -20,3 +20,7 @@ import Foundation
          case nftPrice = "price"
      }
  }
+struct OrdersStruct: Codable {
+    let nfts: [String]
+    let id: String
+}

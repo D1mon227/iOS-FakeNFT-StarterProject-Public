@@ -71,10 +71,11 @@ final class SucceedPaymentViewController: UIViewController {
     
     @objc
     func backTapped() {
-        let catalog = CatalogViewController()
-        catalog.modalPresentationStyle = .fullScreen
-        catalog.modalTransitionStyle = .crossDissolve
-        present(catalog, animated: true)
+        let tabBar = TabBarController()
+        tabBar.modalPresentationStyle = .fullScreen
+        tabBar.modalTransitionStyle = .crossDissolve
+        present(tabBar, animated: true, completion: nil)
+        
     }
     
 }
