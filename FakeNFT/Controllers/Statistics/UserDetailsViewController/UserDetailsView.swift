@@ -104,6 +104,7 @@ extension UserDetailsView: IUserDetailsView {
 		user = data
 		configure()
 	}
+	
 	func setDelegateDataSource(delegate: UITableViewDataSource & UITableViewDelegate) {
 		favoritesNFTTableView.delegate = delegate
 		favoritesNFTTableView.dataSource = delegate

@@ -21,9 +21,9 @@ final class NFTCollectionViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.nftCollectionPresenter.viewDidLoad(ui: self.customView)
+		customView.presenter = nftCollectionPresenter
 		self.nftCollectionPresenter.fetchLikesFromServer()
 		self.nftCollectionPresenter.fetchOrdersFromServer()
-//		self.nftCollectionPresenter.sendToPut()
 	}
 	
 	func showNFTCollection(with presenter: NFTCollectionPresenter) {

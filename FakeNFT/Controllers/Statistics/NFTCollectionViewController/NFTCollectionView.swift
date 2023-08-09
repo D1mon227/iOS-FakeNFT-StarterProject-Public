@@ -14,12 +14,6 @@ final class NFTCollectionView: UIView {
 	var order: Order?
 	var presenter: NFTCollectionPresenter?
 	
-	enum LayoutConstants {
-		static let top: CGFloat = 8
-		static let leading: CGFloat = 8
-		static let trailing: CGFloat = 8
-	}
-	
 	enum Metrics {
 		static let collectionItemSize = CGSize(width: 108, height: 192)
 		static let spacing: CGFloat = 0
@@ -81,16 +75,23 @@ extension NFTCollectionView: INFTCollectionView {
 	
 	func fetchLikes(with data: Profile) {
 		profile = data
+		DispatchQueue.main.async { [weak self] in
+			guard let self else { return }
+			self.nftCollectionView.reloadData()
+		}
 	}
 	
 	func fetchOrders(with data: Order) {
 		order = data
+		DispatchQueue.main.async { [weak self] in
+			guard let self else { return }
+			self.nftCollectionView.reloadData()
+		}
 	}
 }
 
 private extension NFTCollectionView {
 	func configureView() {
-		
 		self.backgroundColor = UIColor.backgroundDay
 		self.addSubview(self.nftCollectionView)
 		self.addSubview(self.activityIndicator)
@@ -109,6 +110,5 @@ private extension NFTCollectionView {
 			emptyLabel.centerXAnchor.constraint(equalTo: nftCollectionView.centerXAnchor),
 			emptyLabel.centerYAnchor.constraint(equalTo: nftCollectionView.centerYAnchor)
 		])
-		
 	}
 }

@@ -10,7 +10,6 @@ import Kingfisher
 
 final class UserStatisticsCell: UITableViewCell {
 	static let identifier = "userStatisticsCell"
-	var onButtonTapped: (() -> Void)?
 	
 	private lazy var cellNumberLabel: UILabel = {
 		let label = UILabel()
@@ -99,7 +98,6 @@ private extension UserStatisticsCell {
 			containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 35),
 			containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
 			containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
-			containerView.heightAnchor.constraint(equalToConstant: 88),
 			
 			cellNumberLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
 			cellNumberLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
@@ -142,5 +140,9 @@ extension StatisticsView: UITableViewDataSource, UITableViewDelegate {
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let item = users[indexPath.row]
 		presenter?.tapOnTheCell(user: item)
+	}
+	
+	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		return 88
 	}
 }

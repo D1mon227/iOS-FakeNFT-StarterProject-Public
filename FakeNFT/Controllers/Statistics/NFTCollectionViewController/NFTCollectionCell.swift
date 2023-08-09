@@ -10,6 +10,7 @@ import Kingfisher
 
 final class NFTCollectionCell: UICollectionViewCell {
 	static let identifier = "NFTCollectionCell"
+	var onButtonTapped: (() -> Void)?
 	
 	private let containerView: UIView = {
 		let view = UIView()
@@ -76,13 +77,11 @@ final class NFTCollectionCell: UICollectionViewCell {
 	}()
 	
 	@objc
-	private func favoritesButtonTapped(_ sender: UIButton) {
-	}
+	private func favoritesButtonTapped(_ sender: UIButton) { }
 	
 	@objc
 	private func cartButtonTapped(_ sender: UIButton) {
-		cartButton.setImage(Resourses.Images.Cell.cartFill, for: .normal)
-		print("321")
+		onButtonTapped?()
 	}
 	
 	override init(frame: CGRect) {
@@ -193,11 +192,17 @@ extension NFTCollectionView: UICollectionViewDataSource, UICollectionViewDelegat
 			return UICollectionViewCell()
 		}
 		let item = collectionNFT[indexPath.row]
-		cell.configure(with: item)
-		
 		configureFavoritesButton(cell, for: item)
 		configureCartButton(cell, for: item)
+		cell.configure(with: item)
 		
+		if let id = order?.id {
+			cell.configure(with: item)
+			
+			cell.onButtonTapped = {
+				self.presenter?.tapOnTheCell(for: item.id, id: id)
+			}
+		}
 		return cell
 	}
 	

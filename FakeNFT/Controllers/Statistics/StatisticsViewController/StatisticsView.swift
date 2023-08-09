@@ -16,6 +16,7 @@ final class StatisticsView: UIView {
 		let tableView = UITableView(frame: .zero, style: .plain)
 		tableView.translatesAutoresizingMaskIntoConstraints = false
 		tableView.separatorStyle = .none
+		tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
 		tableView.backgroundColor = UIColor.backgroundDay
 		tableView.showsVerticalScrollIndicator = false
 		tableView.register(UserStatisticsCell.self, forCellReuseIdentifier: UserStatisticsCell.identifier)
@@ -68,7 +69,7 @@ private extension StatisticsView {
 		self.addSubview(activityIndicator)
 		
 		NSLayoutConstraint.activate([
-			userStatisticsTableView.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
+			userStatisticsTableView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
 			userStatisticsTableView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
 			userStatisticsTableView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
 			userStatisticsTableView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 8),

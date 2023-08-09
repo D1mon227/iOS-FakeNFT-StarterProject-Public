@@ -9,7 +9,6 @@ import UIKit
 
 final class FavoritesNFTTableViewCell: UITableViewCell {
 	static let identifier = "favoritesNFTTableViewCell"
-	var onButtonTapped: (() -> Void)?
 	
 	private let containerView: UIView = {
 		let view = UIView()
@@ -36,7 +35,6 @@ final class FavoritesNFTTableViewCell: UITableViewCell {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.font = UIFont.bodyBold
-//		label.text = "()"
 		return label
 	}()
 	
@@ -70,7 +68,6 @@ private extension FavoritesNFTTableViewCell {
 			containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 			containerView.heightAnchor.constraint(equalToConstant: 54),
 			
-
 			titleFavoritesNFTLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
 			titleFavoritesNFTLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
 			

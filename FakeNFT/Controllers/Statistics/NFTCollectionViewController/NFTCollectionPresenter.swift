@@ -7,6 +7,7 @@ protocol INFTCollectionPresenter {
 final class NFTCollectionPresenter {
 	var ui: INFTCollectionView?
 	let networkClient = DefaultNetworkClient()
+	var order: [Order] = []
 	
 	func fetchNFTsForUser(nftIds: [String]) {
 		DispatchQueue.main.async {
@@ -55,28 +56,43 @@ final class NFTCollectionPresenter {
 			switch result {
 			case let .success(order):
 				self.ui?.fetchOrders(with: order)
+				self.order.append(order)
 			case let .failure(error):
 				print("Error fetching data:", error)
 			}
 		}
 	}
 	
-//	func sendToPut() {
-//		guard let url = URL(string: "123") else { return }
-//		let userData = putUser(name: "1", avatar: url, description: "32", website: url, nfts: ["23"], likes: ["32"], id: "1")
-//		let putRequest = PutUsersRequest(dto: userData)
-//
-//		networkClient.send(request: putRequest) { result in
-//			switch result {
-//			case .success(let data):
-//				// Обработка успешного ответа от сервера, если нужно
-//				print("Успешный ответ от сервера. Данные: \(data)")
-//			case .failure(let error):
-//				// Обработка ошибки, если запрос не удался или сервер вернул ошибку
-//				print("Ошибка при выполнении PUT-запроса: \(error)")
-//			}
-//		}
-//	}
+	func putOrderFromServer(order: Order) {
+		let putRequest = PutOrderRequest(dto: order)
+		networkClient.send(request: putRequest) { result in
+			switch result {
+			case .success(_): break
+				
+			case .failure(let error):
+				print("Ошибка при выполнении PUT-запроса: \(error)")
+			}
+		}
+	}
+	
+	func tapOnTheCell(for nftID: String, id: String) {
+		if let orderIndex = order.firstIndex(where: { $0.id == id }) {
+			var updatedOrder = order[orderIndex]
+			
+			if let nftIndex = updatedOrder.nfts.firstIndex(of: nftID) {
+				updatedOrder.nfts.remove(at: nftIndex)
+				order[orderIndex] = updatedOrder
+				print("Removed nftID: \(nftID)")
+			} else {
+				updatedOrder.nfts.append(nftID)
+				order[orderIndex] = updatedOrder
+				print("Added nftID: \(nftID)")
+			}
+			
+			putOrderFromServer(order: updatedOrder)
+			ui?.fetchOrders(with: updatedOrder)
+		}
+	}
 }
 
 extension NFTCollectionPresenter: INFTCollectionPresenter {
