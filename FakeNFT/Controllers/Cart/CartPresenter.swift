@@ -70,10 +70,14 @@ final class CartPresenter: CartPresenterProtocol {
         session.resume()
     }
     
-    
     func changeCart(newArray: [String], completion: @escaping () -> Void) {
-        let request = urlString + "api/v1/orders/1"
-        guard let url = URL(string: request) else { return }
+        let requestURL = urlString + "/api/v1/orders/1"
+        
+        guard let url = URL(string: requestURL) else {
+            print("Invalid URL: \(requestURL)")
+            return
+        }
+        
         let parameters = [
             "nfts": newArray
         ]
@@ -83,23 +87,33 @@ final class CartPresenter: CartPresenterProtocol {
             request.httpMethod = "PUT"
             request.httpBody = jsonData
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            let session = URLSession.shared.dataTask(with: request, completionHandler: { data, response, error in
+            request.addValue("\(jsonData.count)", forHTTPHeaderField: "Content-Length")
+            
+            let session = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    print("Error updating cart data: \(error)")
+                    completion() // Call the completion block even if there's an error
+                    return
+                }
+                
                 if let data = data {
-                    let decoder = JSONDecoder()
                     do {
+                        // Decode the response if needed (make sure it matches the expected structure)
+                        let decoder = JSONDecoder()
                         let result = try decoder.decode(OrdersStruct.self, from: data)
-                        completion()
+                        // Check the response and take appropriate actions
+                        completion() // Call the completion block on success
                     } catch {
-                        print(response)
-                        print("Ошибка загрузки данных корзины \(error)")
+                        print("Error decoding response: \(error)")
                     }
                 }
-            })
+            }
+            
             session.resume()
         } catch {
-            print("Ошибка сериализации параметров в JSON: \(error)")
+            print("Error serializing parameters to JSON: \(error)")
         }
     }
-    
+
 }
 

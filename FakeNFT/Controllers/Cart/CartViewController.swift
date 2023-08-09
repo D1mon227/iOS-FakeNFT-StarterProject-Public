@@ -279,13 +279,23 @@ final class CartViewController: UIViewController, UITableViewDataSource{
     
     @objc
     func deleteNFT() {
-        guard let indexToDelete = indexNFTToDelete else {
-            return
-        }
-        cartArray.remove(at: indexToDelete)
-        cartTable.reloadData()
         
-        print("DELETE \(indexNFTToDelete ?? 0) NFT")
+        guard let indexToDelete = indexNFTToDelete else {
+                return
+            }
+            
+            myOrders.remove(at: indexToDelete)
+            presenter?.changeCart(newArray: myOrders, completion: {
+                self.fetchDataFromAPI()
+            })
+        
+//        guard let indexToDelete = indexNFTToDelete else {
+//            return
+//        }
+//        cartArray.remove(at: indexToDelete)
+//        cartTable.reloadData()
+//
+//        print("DELETE \(indexNFTToDelete ?? 0) NFT")
         blurView.removeFromSuperview()
         imageToDelete.removeFromSuperview()
         deleteText.removeFromSuperview()
@@ -396,20 +406,6 @@ extension CartViewController: CartCellDelegate {
         static let labelWidth = CGFloat(180)
         
     }
-    
-    //        func showDeleteView(index: Int) {
-    //            let alertController = UIAlertController(title: "Delete NFT", message: "Are you sure you want to delete this NFT?", preferredStyle: .alert)
-    //            let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
-    //                // Perform the delete operation based on the index, e.g., remove the NFT from cartArray
-    //                self.cartArray.remove(at: index)
-    //                // Reload the table view to reflect the changes
-    //                self.cartTable.reloadData()
-    //            }
-    //            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-    //            alertController.addAction(deleteAction)
-    //            alertController.addAction(cancelAction)
-    //            present(alertController, animated: true, completion: nil)
-    //        }
     
     func showDeleteView(index: Int) {
         blurView.isUserInteractionEnabled = true
