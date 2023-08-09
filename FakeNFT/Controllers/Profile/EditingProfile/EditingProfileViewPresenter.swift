@@ -19,6 +19,9 @@ final class EditingProfileViewPresenter: EditingProfileViewPresenterProtocol {
     func getProfileInfo() {
         guard let profile = profilePresenter?.profile else { return }
         editingInfo = profile
+        newProfile = NewProfile(name: profile.name,
+                                description: profile.description,
+                                website: profile.website)
     }
     
     func editProfile() {
