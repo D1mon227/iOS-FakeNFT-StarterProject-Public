@@ -49,6 +49,18 @@ final class NFTCollectionPresenter {
 		}
 	}
 	
+	func fetchOrdersFromServer() {
+		let request = GetOrdersForUserRequest()
+		networkClient.send(request: request, type: Order.self) {  result in
+			switch result {
+			case let .success(order):
+				self.ui?.fetchOrders(with: order)
+			case let .failure(error):
+				print("Error fetching data:", error)
+			}
+		}
+	}
+	
 //	func sendToPut() {
 //		guard let url = URL(string: "123") else { return }
 //		let userData = putUser(name: "1", avatar: url, description: "32", website: url, nfts: ["23"], likes: ["32"], id: "1")

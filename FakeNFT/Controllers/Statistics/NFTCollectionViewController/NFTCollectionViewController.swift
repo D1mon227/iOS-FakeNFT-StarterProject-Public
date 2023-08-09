@@ -22,6 +22,7 @@ final class NFTCollectionViewController: UIViewController {
 		super.viewDidLoad()
 		self.nftCollectionPresenter.viewDidLoad(ui: self.customView)
 		self.nftCollectionPresenter.fetchLikesFromServer()
+		self.nftCollectionPresenter.fetchOrdersFromServer()
 //		self.nftCollectionPresenter.sendToPut()
 	}
 	

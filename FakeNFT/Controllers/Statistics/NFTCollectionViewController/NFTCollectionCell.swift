@@ -57,7 +57,7 @@ final class NFTCollectionCell: UICollectionViewCell {
 		return label
 	}()
 	
-	 lazy var favoritesButton: UIButton = {
+	lazy var favoritesButton: UIButton = {
 		let button = UIButton(type: .system)
 		button.translatesAutoresizingMaskIntoConstraints = false
 		button.setImage(Resourses.Images.Cell.like, for: .normal)
@@ -66,7 +66,7 @@ final class NFTCollectionCell: UICollectionViewCell {
 		return button
 	}()
 	
-	private lazy var cartButton: UIButton = {
+	lazy var cartButton: UIButton = {
 		let button = UIButton(type: .system)
 		button.translatesAutoresizingMaskIntoConstraints = false
 		button.setImage(Resourses.Images.Cell.cart, for: .normal)
@@ -195,13 +195,25 @@ extension NFTCollectionView: UICollectionViewDataSource, UICollectionViewDelegat
 		let item = collectionNFT[indexPath.row]
 		cell.configure(with: item)
 		
+		configureFavoritesButton(cell, for: item)
+		configureCartButton(cell, for: item)
+		
+		return cell
+	}
+	
+	func configureFavoritesButton(_ cell: NFTCollectionCell, for item: NFT) {
 		if let profileLikes = profile, profileLikes.likes.contains(item.id) {
 			cell.favoritesButton.tintColor = .redUniversal
-			
 		} else {
 			cell.favoritesButton.tintColor = UIColor.white
 		}
-		
-		return cell
+	}
+	
+	func configureCartButton(_ cell: NFTCollectionCell, for item: NFT) {
+		if let order = order, order.nfts.contains(item.id) {
+			cell.cartButton.setImage(Resourses.Images.Cell.cartFill, for: .normal)
+		} else {
+			cell.cartButton.setImage(Resourses.Images.Cell.cart, for: .normal)
+		}
 	}
 }

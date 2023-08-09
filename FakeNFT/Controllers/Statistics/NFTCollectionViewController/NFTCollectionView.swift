@@ -4,12 +4,14 @@ protocol INFTCollectionView: AnyObject, UICollectionViewDelegate, UICollectionVi
 	func setDelegateDataSource(delegate: UICollectionViewDelegate & UICollectionViewDataSource)
 	func updateUI(with data: [NFT])
 	func fetchLikes(with data: Profile)
+	func fetchOrders(with data: Order)
 	var activityIndicator: UIActivityIndicatorView { get }
 }
 
 final class NFTCollectionView: UIView {
 	var collectionNFT: [NFT] = []
 	var profile: Profile?
+	var order: Order?
 	var presenter: NFTCollectionPresenter?
 	
 	enum LayoutConstants {
@@ -67,6 +69,7 @@ extension NFTCollectionView: INFTCollectionView {
 		nftCollectionView.delegate = delegate
 		nftCollectionView.dataSource = delegate
 	}
+	
 	func updateUI(with data: [NFT]) {
 		collectionNFT = data
 		DispatchQueue.main.async { [weak self] in
@@ -78,6 +81,10 @@ extension NFTCollectionView: INFTCollectionView {
 	
 	func fetchLikes(with data: Profile) {
 		profile = data
+	}
+	
+	func fetchOrders(with data: Order) {
+		order = data
 	}
 }
 
