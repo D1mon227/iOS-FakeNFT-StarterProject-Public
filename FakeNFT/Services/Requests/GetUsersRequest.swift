@@ -13,6 +13,12 @@ struct GetUsersRequest: NetworkRequest {
 	}
 }
 
+struct GetLikesForUserRequest: NetworkRequest {
+	var endpoint: URL? {
+		URL(string: "https://64c5171bc853c26efada7b56.mockapi.io/api/v1/profile/1")
+	}
+}
+
 struct GetNFTsForUserRequest: NetworkRequest {
 	let nftId: String
 

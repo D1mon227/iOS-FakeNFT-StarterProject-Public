@@ -21,6 +21,7 @@ final class NFTCollectionViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.nftCollectionPresenter.viewDidLoad(ui: self.customView)
+		self.nftCollectionPresenter.fetchLikesFromServer()
 //		self.nftCollectionPresenter.sendToPut()
 	}
 	

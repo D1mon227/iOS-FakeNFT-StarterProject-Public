@@ -49,6 +49,8 @@
 		C57CAD072A7DE40300E8D5C1 /* NFTCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57CAD062A7DE40300E8D5C1 /* NFTCollectionView.swift */; };
 		C57CAD0A2A7DE41400E8D5C1 /* NFTCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57CAD092A7DE41400E8D5C1 /* NFTCollectionCell.swift */; };
 		C57CAD0C2A7E1A3000E8D5C1 /* FavoritesNFTTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57CAD0B2A7E1A3000E8D5C1 /* FavoritesNFTTableViewCell.swift */; };
+		C5D28CB02A830F49002600BC /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D28CAF2A830F49002600BC /* Profile.swift */; };
+		C5D28CB22A830F5F002600BC /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D28CB12A830F5F002600BC /* Order.swift */; };
 		C5D3AAD82A7B6612005A3694 /* UserStatisticsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D3AAD72A7B6612005A3694 /* UserStatisticsCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -114,6 +116,8 @@
 		C57CAD062A7DE40300E8D5C1 /* NFTCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTCollectionView.swift; sourceTree = "<group>"; };
 		C57CAD092A7DE41400E8D5C1 /* NFTCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTCollectionCell.swift; sourceTree = "<group>"; };
 		C57CAD0B2A7E1A3000E8D5C1 /* FavoritesNFTTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesNFTTableViewCell.swift; sourceTree = "<group>"; };
+		C5D28CAF2A830F49002600BC /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		C5D28CB12A830F5F002600BC /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		C5D3AAD12A7B3B79005A3694 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C5D3AAD72A7B6612005A3694 /* UserStatisticsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatisticsCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -225,6 +229,8 @@
 			children = (
 				C50E6CC42A7E930000B852F9 /* User.swift */,
 				C57561202A7F1EE0008E9F3C /* NFT.swift */,
+				C5D28CAF2A830F49002600BC /* Profile.swift */,
+				C5D28CB12A830F5F002600BC /* Order.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -548,11 +554,13 @@
 				C57CACFA2A7DE3A700E8D5C1 /* UserDetailsViewController.swift in Sources */,
 				C57CAD0C2A7E1A3000E8D5C1 /* FavoritesNFTTableViewCell.swift in Sources */,
 				C514E5192A775895007D4E6A /* StatisticsView.swift in Sources */,
+				C5D28CB02A830F49002600BC /* Profile.swift in Sources */,
 				3F6806D329CBBE9600B4F915 /* NetworkRequest.swift in Sources */,
 				73EA4B032A73C703000B4B55 /* TabBarController.swift in Sources */,
 				73EA4B0B2A73C7A4000B4B55 /* CartViewController.swift in Sources */,
 				73EA4B1D2A7471D2000B4B55 /* CustomNavigationViewController.swift in Sources */,
 				C50E6CC72A7E931400B852F9 /* GetUsersRequest.swift in Sources */,
+				C5D28CB22A830F5F002600BC /* Order.swift in Sources */,
 				73EA4B052A73C770000B4B55 /* ProfileViewController.swift in Sources */,
 				73EA4B0E2A73C7C4000B4B55 /* StatisticsViewController.swift in Sources */,
 				737D03232A80776700DCB5B1 /* OnboardingPageViewController.swift in Sources */,

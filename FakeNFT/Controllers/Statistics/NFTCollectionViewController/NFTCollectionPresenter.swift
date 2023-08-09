@@ -37,6 +37,18 @@ final class NFTCollectionPresenter {
 		}
 	}
 	
+	func fetchLikesFromServer() {
+		let request = GetLikesForUserRequest()
+		networkClient.send(request: request, type: Profile.self) {  result in
+			switch result {
+			case let .success(likes):
+				self.ui?.fetchLikes(with: likes)
+			case let .failure(error):
+				print("Error fetching data:", error)
+			}
+		}
+	}
+	
 //	func sendToPut() {
 //		guard let url = URL(string: "123") else { return }
 //		let userData = putUser(name: "1", avatar: url, description: "32", website: url, nfts: ["23"], likes: ["32"], id: "1")

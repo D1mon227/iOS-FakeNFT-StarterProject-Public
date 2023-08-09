@@ -57,7 +57,7 @@ final class NFTCollectionCell: UICollectionViewCell {
 		return label
 	}()
 	
-	private lazy var favoritesButton: UIButton = {
+	 lazy var favoritesButton: UIButton = {
 		let button = UIButton(type: .system)
 		button.translatesAutoresizingMaskIntoConstraints = false
 		button.setImage(Resourses.Images.Cell.like, for: .normal)
@@ -77,8 +77,6 @@ final class NFTCollectionCell: UICollectionViewCell {
 	
 	@objc
 	private func favoritesButtonTapped(_ sender: UIButton) {
-		favoritesButton.tintColor = UIColor.redUniversal
-		print("123")
 	}
 	
 	@objc
@@ -196,6 +194,13 @@ extension NFTCollectionView: UICollectionViewDataSource, UICollectionViewDelegat
 		}
 		let item = collectionNFT[indexPath.row]
 		cell.configure(with: item)
+		
+		if let profileLikes = profile, profileLikes.likes.contains(item.id) {
+			cell.favoritesButton.tintColor = .redUniversal
+			
+		} else {
+			cell.favoritesButton.tintColor = UIColor.white
+		}
 		
 		return cell
 	}

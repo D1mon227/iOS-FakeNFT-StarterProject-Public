@@ -16,7 +16,7 @@ final class StatisticsPresenter {
 	let networkClient = DefaultNetworkClient()
 	
 	
-	func fetchDataFromServer() {
+	func fetchUserFromServer() {
 		self.ui?.activityIndicator.startAnimating()
 		let request = GetUsersRequest()
 		networkClient.send(request: request, type: [User].self) { [weak self] result in

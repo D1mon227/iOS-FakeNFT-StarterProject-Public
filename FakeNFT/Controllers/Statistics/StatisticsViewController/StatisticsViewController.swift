@@ -29,7 +29,7 @@ final class StatisticsViewController: UIViewController, IStatisticsViewNavigatio
 		customView.presenter = statisticsPresenter
 		statisticsPresenter.navigationDelegate = self
 		configureNavigationBar()
-		self.statisticsPresenter.fetchDataFromServer()
+		self.statisticsPresenter.fetchUserFromServer()
 	}
 	
 	func showUserDetails(with presenter: UserDetailsPresenter) {

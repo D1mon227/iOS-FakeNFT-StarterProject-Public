@@ -3,11 +3,13 @@ import UIKit
 protocol INFTCollectionView: AnyObject, UICollectionViewDelegate, UICollectionViewDataSource {
 	func setDelegateDataSource(delegate: UICollectionViewDelegate & UICollectionViewDataSource)
 	func updateUI(with data: [NFT])
+	func fetchLikes(with data: Profile)
 	var activityIndicator: UIActivityIndicatorView { get }
 }
 
 final class NFTCollectionView: UIView {
 	var collectionNFT: [NFT] = []
+	var profile: Profile?
 	var presenter: NFTCollectionPresenter?
 	
 	enum LayoutConstants {
@@ -72,6 +74,10 @@ extension NFTCollectionView: INFTCollectionView {
 			self.nftCollectionView.reloadData()
 			emptyLabel.isHidden = !collectionNFT.isEmpty
 		}
+	}
+	
+	func fetchLikes(with data: Profile) {
+		profile = data
 	}
 }
 
