@@ -61,14 +61,12 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
     @objc private func switchToMyNFTViewController() {
         guard let customNC = navigationController as? CustomNavigationController else { return }
         let myNFTVC = MyNFTViewController(profilePresenter: presenter)
-        myNFTVC.title = LocalizableConstants.Profile.myNFT
         customNC.pushViewController(myNFTVC, animated: true)
     }
     
     @objc private func switchToFavoritesNFTViewController() {
         guard let customNC = navigationController as? CustomNavigationController else { return }
         let favoritesNFTVC = FavoritesNFTViewController(profilePresenter: presenter, likes: presenter?.profile?.likes)
-        favoritesNFTVC.title = LocalizableConstants.Profile.nftFavorites
         customNC.pushViewController(favoritesNFTVC, animated: true)
     }
 }
@@ -85,9 +83,9 @@ extension ProfileViewController: UITableViewDataSource {
         
         switch indexPath.row {
         case 0:
-            cell.configureCell(label: LocalizableConstants.Profile.myNFT + " (\(presenter.profile?.nfts.count ?? 0))")
+            cell.configureCell(label: LocalizableConstants.Profile.myNFT + " (\(presenter.profile?.nfts?.count ?? 0))")
         case 1:
-            cell.configureCell(label: LocalizableConstants.Profile.nftFavorites + " (\(presenter.profile?.likes.count ?? 0))")
+            cell.configureCell(label: LocalizableConstants.Profile.nftFavorites + " (\(presenter.profile?.likes?.count ?? 0))")
         case 2:
             cell.configureCell(label: LocalizableConstants.Profile.aboutDeveloper)
         default:

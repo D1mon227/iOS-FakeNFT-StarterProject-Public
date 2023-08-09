@@ -20,16 +20,50 @@ final class MyNFTViewController: UIViewController, MyNFTViewControllerProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .backgroundDay
         setupNavigationBar()
-        setupViews()
+//        setupViews()
         setupTableView()
         presenter?.getPurchasedNFTs()
+        setupTitle()
     }
     
     private func setupTableView() {
         myNFTView.myNFTTableView.dataSource = self
         myNFTView.myNFTTableView.delegate = self
         myNFTView.myNFTTableView.register(MyNFTTableViewCell.self, forCellReuseIdentifier: "MyNFTTableViewCell")
+    }
+    
+    func reloadViews() {
+        setupTitle()
+        presenter?.arePurchasedNFTsEmpty() ?? false ? addEmptyLabel() : addCollectionView()
+    }
+    
+    private func addEmptyLabel() {
+        myNFTView.myNFTTableView.removeFromSuperview()
+        view.addSubview(myNFTView.emptyLabel)
+        myNFTView.emptyLabel.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+    }
+
+    private func addCollectionView() {
+        myNFTView.emptyLabel.removeFromSuperview()
+        view.addSubview(myNFTView.myNFTTableView)
+        myNFTView.myNFTTableView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
+        }
+        myNFTView.myNFTTableView.reloadData()
+    }
+    
+    private func setupTitle() {
+        if presenter?.arePurchasedNFTsEmpty() ?? false {
+            self.title = nil
+        } else {
+            self.title = LocalizableConstants.Profile.myNFT
+        }
     }
     
     @objc private func sort() {
@@ -41,29 +75,29 @@ final class MyNFTViewController: UIViewController, MyNFTViewControllerProtocol {
         }
     }
     
-    func reloadTableView() {
-        DispatchQueue.main.async {
-            self.myNFTView.myNFTTableView.reloadData()
-        }
-    }
+//    func reloadTableView() {
+//        DispatchQueue.main.async {
+//            self.myNFTView.myNFTTableView.reloadData()
+//        }
+//    }
 }
 
 //MARK: UITableViewDataSource
 extension MyNFTViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter?.purchasedNFTs?.count ?? 0
+        presenter?.purchasedNFTs.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MyNFTTableViewCell", for: indexPath) as? MyNFTTableViewCell,
-              let nfts = presenter?.purchasedNFTs?[indexPath.row] else { return UITableViewCell() }
+              let nfts = presenter?.purchasedNFTs[indexPath.row] else { return UITableViewCell() }
         
-        cell.configureCell(image: nfts.images[0],
+        cell.configureCell(image: nfts.images?[0],
                            favoriteButtonColor: .redUniversal,
                            nftName: nfts.name,
                            rating: nfts.rating,
                            author: nfts.author,
-                           price: String(nfts.price) + " ETH")
+                           price: String(nfts.price ?? 0.0) + " ETH")
         
         return cell
     }
@@ -91,17 +125,17 @@ extension MyNFTViewController {
         navigationItem.rightBarButtonItem = rightBarButton
     }
     
-    private func setupViews() {
-        view.backgroundColor = .backgroundDay
-        view.addSubview(myNFTView.myNFTTableView)
-        setupConstraints()
-    }
-    
-    private func setupConstraints() {
-        myNFTView.myNFTTableView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
-        }
-    }
+//    private func setupViews() {
+//        view.backgroundColor = .backgroundDay
+//        view.addSubview(myNFTView.myNFTTableView)
+//        setupConstraints()
+//    }
+//
+//    private func setupConstraints() {
+//        myNFTView.myNFTTableView.snp.makeConstraints { make in
+//            make.leading.trailing.equalToSuperview()
+//            make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
+//            make.bottom.equalTo(view.safeAreaLayoutGuide)
+//        }
+//    }
 }

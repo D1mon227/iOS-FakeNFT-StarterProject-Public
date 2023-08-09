@@ -69,11 +69,11 @@ extension EditingProfileViewController: UITableViewDataSource {
         
         switch indexPath.section {
         case 0:
-            cell.configureCell(text: profile.name)
+            cell.configureCell(text: profile.name ?? "")
         case 1:
-            cell.configureMiddleCell(text: profile.description)
+            cell.configureMiddleCell(text: profile.description ?? "")
         case 2:
-            cell.configureCell(text: profile.website)
+            cell.configureCell(text: profile.website ?? "")
         default:
             break
         }

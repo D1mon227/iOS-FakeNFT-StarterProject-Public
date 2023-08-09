@@ -20,9 +20,10 @@ final class FavoritesNFTViewController: UIViewController, FavoritesNFTViewContro
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupViews()
+        view.backgroundColor = .backgroundDay
         setupCollectionView()
         presenter?.getFavoritesNFTs()
+        setupTitle()
     }
     
     private func setupCollectionView() {
@@ -31,28 +32,54 @@ final class FavoritesNFTViewController: UIViewController, FavoritesNFTViewContro
         favoritesNFTView.nftCollectionView.register(FavoritesNFTCollectionViewCell.self, forCellWithReuseIdentifier: "FavoritesNFTCollectionViewCell")
     }
     
-    func reloadCollectionView() {
-        DispatchQueue.main.async {
-            self.favoritesNFTView.nftCollectionView.reloadData()
+    func reloadViews() {
+        setupTitle()
+        presenter?.areFavoritesNFTsEmpty() ?? false ? addEmptyLabel() : addCollectionView()
+    }
+    
+    private func addEmptyLabel() {
+        favoritesNFTView.nftCollectionView.removeFromSuperview()
+        view.addSubview(favoritesNFTView.emptyLabel)
+        favoritesNFTView.emptyLabel.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+    }
+
+    private func addCollectionView() {
+        favoritesNFTView.emptyLabel.removeFromSuperview()
+        view.addSubview(favoritesNFTView.nftCollectionView)
+        favoritesNFTView.nftCollectionView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
+        }
+        favoritesNFTView.nftCollectionView.reloadData()
+    }
+    
+    private func setupTitle() {
+        if presenter?.areFavoritesNFTsEmpty() ?? false {
+            self.title = nil
+        } else {
+            self.title = LocalizableConstants.Profile.nftFavorites
         }
     }
 }
 
 extension FavoritesNFTViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        presenter?.favoritesNFTs?.count ?? 0
+        presenter?.favoritesNFTs.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FavoritesNFTCollectionViewCell", for: indexPath) as? FavoritesNFTCollectionViewCell,
-              let nfts = presenter?.favoritesNFTs?[indexPath.row] else { return UICollectionViewCell() }
+              let nfts = presenter?.favoritesNFTs[indexPath.row] else { return UICollectionViewCell() }
         
         cell.delegate = self
-        cell.configureCell(image: nfts.images[0],
+        cell.configureCell(image: nfts.images?[0],
                            favoriteButtonColor: .redUniversal,
                            nftName: nfts.name,
                            rating: nfts.rating,
-                           price: String(nfts.price) + " ETH")
+                           price: String(nfts.price ?? 0.0) + " ETH")
         
         return cell
     }
@@ -80,23 +107,7 @@ extension FavoritesNFTViewController: FavoritesNFTCollectionViewCellDelegate {
     func didTapLike(_ cell: FavoritesNFTCollectionViewCell) {
         guard let indexPath = favoritesNFTView.nftCollectionView.indexPath(for: cell),
               let presenter = presenter else { return }
-        let nftID = presenter.favoritesNFTs?[indexPath.row].id ?? ""
+        let nftID = presenter.favoritesNFTs[indexPath.row].id
         presenter.changeLike(nftID)
-    }
-}
-
-extension FavoritesNFTViewController {
-    private func setupViews() {
-        view.backgroundColor = .backgroundDay
-        view.addSubview(favoritesNFTView.nftCollectionView)
-        setupConstraints()
-    }
-    
-    private func setupConstraints() {
-        favoritesNFTView.nftCollectionView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
-        }
     }
 }

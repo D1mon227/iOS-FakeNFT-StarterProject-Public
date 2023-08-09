@@ -7,4 +7,12 @@ final class FavoritesNFTView {
         element.backgroundColor = .backgroundDay
         return element
     }()
+    
+    lazy var emptyLabel: UILabel = {
+        let element = UILabel()
+        element.font = .bodyBold
+        element.textColor = .blackDay
+        element.text = LocalizableConstants.Profile.noFavoritesNFT
+        return element
+    }()
 }

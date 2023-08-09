@@ -4,10 +4,10 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
     weak var view: MyNFTViewControllerProtocol?
     var profilePresenter: ProfileViewPresenterProtocol?
     
-    var purchasedNFTs: [NFT]? {
+    var purchasedNFTs: [NFT] = [] {
         didSet {
             DispatchQueue.main.async {
-                self.view?.reloadTableView()
+                self.view?.reloadViews()
             }
         }
     }
@@ -22,26 +22,34 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
         purchasedNFTs = filterPurchasedNFTs(profile: profile, allNFTs: allNFTs)
     }
     
+    func arePurchasedNFTsEmpty() -> Bool {
+        if purchasedNFTs.isEmpty {
+            return true
+        } else {
+            return false
+        }
+    }
+    
     private func filterPurchasedNFTs(profile: Profile, allNFTs: [NFT]) -> [NFT] {
-        let profileNFTIds = Set(profile.nfts)
+        guard let profileNFTIds = profile.nfts else { return [] }
 
         let filteredNFTs = allNFTs.filter { nft in
-            return profileNFTIds.contains(nft.id)
+            return profileNFTIds.contains(nft.id ?? "")
         }
 
         return filteredNFTs
     }
     
     func sortNFT(by: Sort) {
-        guard var nfts = purchasedNFTs else { return }
+        var nfts = purchasedNFTs
         
         switch by {
         case .byPrice:
-            nfts.sort { $0.price > $1.price }
+            nfts.sort { $0.price ?? 0.0 > $1.price ?? 0.0 }
         case .byRating:
-            nfts.sort { $0.rating > $1.rating }
+            nfts.sort { $0.rating ?? 0 > $1.rating ?? 0 }
         case .byTitle:
-            nfts.sort { $0.name < $1.name }
+            nfts.sort { $0.name ?? "" < $1.name ?? "" }
         default:
             break
         }

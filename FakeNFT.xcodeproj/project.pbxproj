@@ -408,8 +408,8 @@
 				73EA4B1C2A7471D2000B4B55 /* CustomNavigationViewController.swift */,
 				737D031E2A80706400DCB5B1 /* Tabbar */,
 				73EA4B062A73C774000B4B55 /* Profile */,
-				73EA4B092A73C78C000B4B55 /* Catalog */,
 				73EA4B0C2A73C7A7000B4B55 /* Cart */,
+				73EA4B092A73C78C000B4B55 /* Catalog */,
 				73EA4B0F2A73C7C8000B4B55 /* Statistics */,
 			);
 			path = Controllers;

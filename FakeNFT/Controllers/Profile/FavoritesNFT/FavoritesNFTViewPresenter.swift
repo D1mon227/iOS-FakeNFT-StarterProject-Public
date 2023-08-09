@@ -6,16 +6,24 @@ final class FavoritesNFTViewPresenter: FavoritesNFTViewPresenterProtocol {
     private let likeService = LikeService.shared
     
     var likes: [String]?
-    var favoritesNFTs: [NFT]? {
+    var favoritesNFTs: [NFT] = [] {
         didSet {
             DispatchQueue.main.async {
-                self.view?.reloadCollectionView()
+                self.view?.reloadViews()
             }
         }
     }
     
     init(profilePresenter: ProfileViewPresenterProtocol?) {
         self.profilePresenter = profilePresenter
+    }
+    
+    func areFavoritesNFTsEmpty() -> Bool {
+        if favoritesNFTs.isEmpty {
+            return true
+        } else {
+            return false
+        }
     }
     
     func changeLike(_ id: String?) {
@@ -45,10 +53,10 @@ final class FavoritesNFTViewPresenter: FavoritesNFTViewPresenterProtocol {
     }
     
     private func filterFavoritesNFTs(profile: Profile, allNFTs: [NFT]) -> [NFT] {
-        let profileNFTIds = Set(profile.likes)
+        guard let profileNFTIds = profile.likes else { return [] }
 
         let filteredNFTs = allNFTs.filter { nft in
-            return profileNFTIds.contains(nft.id)
+            return profileNFTIds.contains(nft.id ?? "")
         }
 
         return filteredNFTs
