@@ -101,13 +101,17 @@ final class MyNFTTableViewCell: UITableViewCell {
     }
     
     func configureCell(image: URL?,
-                       favoriteButtonColor: UIColor?,
+                       doesNftHasLike: Bool?,
                        nftName: String?,
                        rating: Int?,
                        author: String?,
                        price: String?) {
         nftImage.kf.setImage(with: image)
-        favoriteButton.tintColor = favoriteButtonColor
+        if doesNftHasLike == true {
+            favoriteButton.tintColor = .redUniversal
+        } else {
+            favoriteButton.tintColor = .white
+        }
         nftLabel.text = nftName
         updateRatingStars(rating: rating)
         authorLabel.text = author

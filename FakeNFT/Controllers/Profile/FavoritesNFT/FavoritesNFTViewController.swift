@@ -53,7 +53,6 @@ final class FavoritesNFTViewController: UIViewController, FavoritesNFTViewContro
             make.bottom.equalTo(view.safeAreaLayoutGuide)
             make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
         }
-        favoritesNFTView.nftCollectionView.reloadData()
     }
     
     private func setupTitle() {
@@ -109,5 +108,10 @@ extension FavoritesNFTViewController: FavoritesNFTCollectionViewCellDelegate {
               let presenter = presenter else { return }
         let nftID = presenter.favoritesNFTs[indexPath.row].id
         presenter.changeLike(nftID)
+        
+        favoritesNFTView.nftCollectionView.performBatchUpdates {
+            presenter.favoritesNFTs.remove(at: indexPath.row)
+            favoritesNFTView.nftCollectionView.deleteItems(at: [indexPath])
+        }
     }
 }

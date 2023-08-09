@@ -27,15 +27,13 @@ final class FavoritesNFTViewPresenter: FavoritesNFTViewPresenterProtocol {
     }
     
     func changeLike(_ id: String?) {
-        guard let nfts = profilePresenter?.allNFTs,
-              let id = id else { return }
+        guard let id = id else { return }
         removeLike(id)
         likeService.changeLike(newLike: Like(likes: likes)) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let newProfile):
                 self.profilePresenter?.profile = newProfile
-                self.favoritesNFTs = filterFavoritesNFTs(profile: newProfile, allNFTs: nfts)
             case .failure(let error):
                 print(error.localizedDescription)
             }

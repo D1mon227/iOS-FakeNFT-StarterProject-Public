@@ -22,7 +22,6 @@ final class MyNFTViewController: UIViewController, MyNFTViewControllerProtocol {
         super.viewDidLoad()
         view.backgroundColor = .backgroundDay
         setupNavigationBar()
-//        setupViews()
         setupTableView()
         presenter?.getPurchasedNFTs()
         setupTitle()
@@ -74,12 +73,6 @@ final class MyNFTViewController: UIViewController, MyNFTViewControllerProtocol {
             self.presenter?.sortNFT(by: option)
         }
     }
-    
-//    func reloadTableView() {
-//        DispatchQueue.main.async {
-//            self.myNFTView.myNFTTableView.reloadData()
-//        }
-//    }
 }
 
 //MARK: UITableViewDataSource
@@ -93,13 +86,22 @@ extension MyNFTViewController: UITableViewDataSource {
               let nfts = presenter?.purchasedNFTs[indexPath.row] else { return UITableViewCell() }
         
         cell.configureCell(image: nfts.images?[0],
-                           favoriteButtonColor: .redUniversal,
+                           doesNftHasLike: doesNftHasLike(for: nfts),
                            nftName: nfts.name,
                            rating: nfts.rating,
                            author: nfts.author,
                            price: String(nfts.price ?? 0.0) + " ETH")
         
         return cell
+    }
+    
+    private func doesNftHasLike(for item: NFT) -> Bool {
+        guard let profile = profilePresenter?.profile?.likes else { return false }
+        if profile.contains(item.id ?? "") {
+            return true
+        } else {
+            return false
+        }
     }
 }
 
