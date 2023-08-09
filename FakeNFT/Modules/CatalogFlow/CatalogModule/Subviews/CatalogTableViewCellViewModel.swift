@@ -11,7 +11,7 @@ struct CatalogTableViewCellViewModel {
         nftName + " (\(nftCount))"
     }
     
-    init(nftResponse: NftResponse) {
+    init(nftResponse: NftCollectionResponse) {
         self.id = nftResponse.id
         self.imageStringUrl = nftResponse.cover.makeUrl()
         self.nftName = nftResponse.name

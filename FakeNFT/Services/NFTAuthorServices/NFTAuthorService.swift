@@ -8,7 +8,7 @@ extension NFTAuthorService {
 
 protocol NFTAuthorServiceProtocol {
     func getNftAuthor(by id: String,
-                     completion: @escaping (Result<[AuthorResponse], Error>) -> Void)
+                     completion: @escaping (Result<AuthorResponse, Error>) -> Void)
 }
 
 final class NFTAuthorService: NFTAuthorServiceProtocol {
@@ -16,7 +16,7 @@ final class NFTAuthorService: NFTAuthorServiceProtocol {
     private var task: URLSessionTask?
     
     func getNftAuthor(by id: String,
-                      completion: @escaping (Result<[AuthorResponse], Error>) -> Void) {
+                      completion: @escaping (Result<AuthorResponse, Error>) -> Void) {
         assert(Thread.isMainThread)
         task?.cancel()
         
@@ -25,7 +25,7 @@ final class NFTAuthorService: NFTAuthorServiceProtocol {
         
         //обработать ошибку
         let request = try! makeRequest(for: modelRequest)
-        let task = session.objectTask(for: request) { [weak self] (result: Result<[AuthorResponse], Error>) in
+        let task = session.objectTask(for: request) { [weak self] (result: Result<AuthorResponse, Error>) in
             guard let self = self else { return }
             
             DispatchQueue.main.async {

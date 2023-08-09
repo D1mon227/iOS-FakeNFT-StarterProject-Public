@@ -1,29 +1,36 @@
+//
+//  NftService.swift
+//  FakeNFT
+//
+//  Created by Екатерина Иванова on 08.08.2023.
+//
+
 import Foundation
 
-extension NftCatalogService {
-    enum NftCatalogServiceError: Error {
+extension NftService {
+    enum NftServiceError: Error {
         case parseError, networkError, notEnoughDataForRequest
     }
 }
 
-protocol NftCatalogServiceProtocol {
-    func getNftItems(completion: @escaping (Result<[NftCollectionResponse], Error>) -> Void)
+protocol NftServiceProtocol {
+    func getNft(by id: String, completion: @escaping (Result<NftResponse, Error>) -> Void)
 }
 
-final class NftCatalogService: NftCatalogServiceProtocol {
+final class NftService: NftServiceProtocol {
     private let urlSession = URLSession.shared
     private var task: URLSessionTask?
     
-    func getNftItems(completion: @escaping (Result<[NftCollectionResponse], Error>) -> Void) {
+    func getNft(by id: String, completion: @escaping (Result<NftResponse, Error>) -> Void) {
         assert(Thread.isMainThread)
         task?.cancel()
         
         let session = urlSession
-        let modelRequest = NftCollectionRequest.getAllCollections
+        let modelRequest = NftRequest.getNftById(id: id)
         
         //обработать ошибку
         let request = try! makeRequest(for: modelRequest)
-        let task = session.objectTask(for: request) { [weak self] (result: Result<[NftCollectionResponse], Error>) in
+        let task = session.objectTask(for: request) { [weak self] (result: Result<NftResponse, Error>) in
             guard let self = self else { return }
             
             DispatchQueue.main.async {
@@ -44,13 +51,14 @@ final class NftCatalogService: NftCatalogServiceProtocol {
     
     private func makeRequest(for networkRequestModel: NetworkRequest) throws -> URLRequest {
         guard let endpoint = networkRequestModel.endpoint else {
-            throw NftCatalogServiceError.notEnoughDataForRequest
+            throw NftServiceError.notEnoughDataForRequest
         }
         var urlRequest = URLRequest(url: endpoint)
         urlRequest.httpMethod = networkRequestModel.httpMethod.rawValue
         return urlRequest
     }
  }
+
 
 
 

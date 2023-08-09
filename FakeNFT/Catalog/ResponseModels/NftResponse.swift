@@ -1,9 +1,8 @@
-
 struct NftResponse: Codable {
     let id: String
     let name: String
-    let nfts: [String]
-    let cover: String
-    let description: String
-    let author: String
+    let images: [String]
+    let rating: Int
+    let price: Float
 }
+
