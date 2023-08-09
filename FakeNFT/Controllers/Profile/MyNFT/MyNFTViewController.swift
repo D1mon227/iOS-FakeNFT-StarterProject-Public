@@ -124,18 +124,4 @@ extension MyNFTViewController {
         let rightBarButton = UIBarButtonItem(customView: rightButton)
         navigationItem.rightBarButtonItem = rightBarButton
     }
-    
-//    private func setupViews() {
-//        view.backgroundColor = .backgroundDay
-//        view.addSubview(myNFTView.myNFTTableView)
-//        setupConstraints()
-//    }
-//
-//    private func setupConstraints() {
-//        myNFTView.myNFTTableView.snp.makeConstraints { make in
-//            make.leading.trailing.equalToSuperview()
-//            make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
-//            make.bottom.equalTo(view.safeAreaLayoutGuide)
-//        }
-//    }
 }
