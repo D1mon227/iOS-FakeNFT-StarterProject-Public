@@ -12,6 +12,7 @@ final class CatalogPresenter {
     
     private let nftCatalogService: NftCatalogServiceProtocol
     private var viewModels: [CatalogTableViewCellViewModel] = []
+    private var responses: [NftCollectionResponse] = []
     
     weak var view: CatalogViewProtocol?
     
@@ -29,6 +30,7 @@ extension CatalogPresenter: CatalogPresenterProtocol {
             
             switch result {
             case .success(let items):
+                responses = items
                 self.didGetNftItems(nftItems: items)
             case  .failure(let error):
                 self.didGetError(error: error)
@@ -72,19 +74,23 @@ extension CatalogPresenter: CatalogPresenterProtocol {
         
     }
     
+    func didSelectCell(at index: Int) {
+        let response = responses[index]
+        let viewController = CatalogModulesFactory.makeDetailedCollectionModule(response: response)
+        view?.push(viewController)
+    }
+    
 }
 
 private extension CatalogPresenter {
     
     func sortByCount() {
-        //userDefaults
         viewModels.sort(by: { $0.nftCount > $1.nftCount })
         view?.update(with: viewModels)
         saveSortingType(.byCount)
     }
     
     func sortByName() {
-        //userDefaults
         viewModels.sort(by: { $0.nftName < $1.nftName })
         view?.update(with: viewModels)
         saveSortingType(.byName)
@@ -94,7 +100,7 @@ private extension CatalogPresenter {
         UserDefaults.standard.set(sortingType.rawValue, forKey: KeyDefaults.sortingTypeCatalog)
     }
     
-    func didGetNftItems(nftItems: [NftResponse]) {
+    func didGetNftItems(nftItems: [NftCollectionResponse]) {
             viewModels = nftItems.map { CatalogTableViewCellViewModel(nftResponse: $0) }
     
             if let sortingTypeString = UserDefaults.standard.string(forKey: KeyDefaults.sortingTypeCatalog),

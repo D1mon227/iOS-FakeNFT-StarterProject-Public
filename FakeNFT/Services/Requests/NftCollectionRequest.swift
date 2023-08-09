@@ -27,3 +27,27 @@ enum NftCollectionRequest: NetworkRequest {
         }
     }
 }
+
+enum NftRequest: NetworkRequest {
+    
+    case getNftById(id: String)
+    
+    var endpoint: URL? {
+        switch self {
+        case .getNftById(let id):
+            return URL(string: "\(baseURL)/api/v1/nft/\(id)")
+        }
+       
+    }
+    
+    var baseURL: String {
+        return "https://64858e8ba795d24810b71189.mockapi.io"
+    }
+    
+    var httpMethod: HttpMethod {
+        switch self {
+        case .getNftById:
+            return .get
+        }
+    }
+}

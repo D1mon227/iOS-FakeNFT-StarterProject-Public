@@ -1,14 +1,9 @@
 import UIKit
 import Kingfisher
 
-private class CollectionDetailsCell {
+final class CollectionDetailsCell: UITableViewCell {
     
     // MARK: - Layout elements
-    
-//    let corners = UIRectCorner(arrayLiteral: [
-//        UIRectCorner.bottomLeft,
-//        UIRectCorner.bottomRight
-//    ])
     
     private let nftCollectionCover: UIImageView = {
         let imageView = UIImageView()
@@ -34,9 +29,39 @@ private class CollectionDetailsCell {
         return label
     }()
     
+    init() {
+        setupViews()
+    }
     
-    private var gradientLayer: CAGradientLayer?
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
+}
+
+private extension CollectionDetailsCell {
     
+    func setupViews() {
+        addSubviews()
+        setupNftCollectionCover()
+    }
     
+    func setupNftCollectionCover() {
+        let corners = UIRectCorner(arrayLiteral: [
+            UIRectCorner.bottomLeft,
+            UIRectCorner.bottomRight
+        ])
+        
+//        Determine the size of the rounded corners
+        let cornerRadii = CGSize(
+            width: 12,
+            height: 12
+        )
+        
+        nftCollectionCover.applyCorners(cornerRadii: cornerRadii, corners: corners)
+    }
+    
+    func addSubviews() {
+        
+    }
 }

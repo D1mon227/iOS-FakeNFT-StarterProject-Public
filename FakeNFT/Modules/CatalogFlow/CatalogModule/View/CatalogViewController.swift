@@ -106,14 +106,7 @@ extension CatalogViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let urlRequest = URLRequest(url: URL(string:"https://practicum.yandex.ru/ios-developer")!)
-        
-        let presenter = WebViewPresenter(urlRequest: urlRequest)
-        
-        let vc = WebViewController(presenter: presenter)
-        vc.hidesBottomBarWhenPushed = true
-        presenter.view = vc
-        navigationController?.pushViewController(vc, animated: true)
+        presenter.didSelectCell(at: indexPath.row)
     }
 }
 
@@ -121,6 +114,10 @@ extension CatalogViewController: CatalogViewProtocol {
     func update(with viewModels: [CatalogTableViewCellViewModel]) {
         self.viewModels = viewModels
         tableView.reloadData()
+    }
+    
+    func push(_ viewController: UIViewController) {
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
     func displayAlert(model: AlertProtocol) {

@@ -8,4 +8,13 @@ final class CatalogModulesFactory {
         
         return viewController
     }
+    
+    static func makeDetailedCollectionModule(response: NftCollectionResponse) -> DetailedCollectionViewController {
+//        let nftCatalogService = NftCatalogService()
+        let presenter = DetailedCollectionPresenter(response: response)
+        let viewController = DetailedCollectionViewController(presenter: presenter)
+        presenter.view = viewController
+        
+        return viewController
+    }
 }
