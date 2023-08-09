@@ -50,7 +50,7 @@ enum Resourses {
         }
         
         enum Sort {
-            static let sort = UIImage(systemName: "text.justify.leading")
+            static let sort = UIImage(named: "Sort")
         }
     }
 }
