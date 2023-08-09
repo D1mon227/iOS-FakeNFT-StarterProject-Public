@@ -39,11 +39,11 @@ final class UserDetailsView: UIView {
 		let button = UIButton(type: .system)
 		button.translatesAutoresizingMaskIntoConstraints = false
 		button.setTitle(LocalizableConstants.Statistics.userWebsite, for: .normal)
-		button.setTitleColor(.black, for: .normal)
+		button.setTitleColor(.blackDay, for: .normal)
 		button.titleLabel?.font = UIFont.caption1
 		button.layer.cornerRadius = 16
 		button.layer.borderWidth = 1
-		button.layer.borderColor = UIColor.black.cgColor
+		button.layer.borderColor = UIColor.blackDay.cgColor
 		button.addTarget(self, action: #selector(websiteUserButtonTapped), for: .touchUpInside)
 		return button
 	}()
@@ -52,6 +52,8 @@ final class UserDetailsView: UIView {
 		let tableView = UITableView(frame: .zero, style: .plain)
 		tableView.translatesAutoresizingMaskIntoConstraints = false
 		tableView.separatorStyle = .none
+		tableView.isScrollEnabled = false
+		tableView.backgroundColor = UIColor.backgroundDay
 		tableView.showsVerticalScrollIndicator = false
 		tableView.register(FavoritesNFTTableViewCell.self, forCellReuseIdentifier: FavoritesNFTTableViewCell.identifier)
 		return tableView
@@ -64,6 +66,11 @@ final class UserDetailsView: UIView {
 	
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
+	}
+	
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+		websiteUserButton.layer.borderColor = UIColor.blackDay.cgColor
 	}
 	
 	func configure() {

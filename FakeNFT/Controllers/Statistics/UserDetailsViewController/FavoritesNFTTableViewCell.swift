@@ -21,7 +21,7 @@ final class FavoritesNFTTableViewCell: UITableViewCell {
 	let disclosureIndicatorImageView: UIImageView = {
 		let imageView = UIImageView(image: UIImage(systemName: "chevron.right"))
 		imageView.translatesAutoresizingMaskIntoConstraints = false
-		imageView.tintColor = .black
+		imageView.tintColor = .blackDay
 		return imageView
 	}()
 	

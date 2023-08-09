@@ -16,6 +16,7 @@ final class StatisticsView: UIView {
 		let tableView = UITableView(frame: .zero, style: .plain)
 		tableView.translatesAutoresizingMaskIntoConstraints = false
 		tableView.separatorStyle = .none
+		tableView.backgroundColor = UIColor.backgroundDay
 		tableView.showsVerticalScrollIndicator = false
 		tableView.register(UserStatisticsCell.self, forCellReuseIdentifier: UserStatisticsCell.identifier)
 		return tableView

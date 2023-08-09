@@ -30,6 +30,7 @@ final class NFTCollectionView: UIView {
 		let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
 		cv.translatesAutoresizingMaskIntoConstraints = false
 		cv.showsVerticalScrollIndicator = false
+		cv.backgroundColor = UIColor.backgroundDay
 		cv.register(NFTCollectionCell.self, forCellWithReuseIdentifier: NFTCollectionCell.identifier)
 		return cv
 	}()

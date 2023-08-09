@@ -41,7 +41,7 @@ final class StatisticsViewController: UIViewController, IStatisticsViewNavigatio
 private extension StatisticsViewController {
 	func configureNavigationBar() {
 		let customBarButtonItem = UIBarButtonItem(image: Resourses.Images.Sort.sort, style: .plain, target: self, action: #selector(sortButtonTapped))
-		customBarButtonItem.tintColor = UIColor.black
+		customBarButtonItem.tintColor = UIColor.blackDay
 		navigationItem.rightBarButtonItem = customBarButtonItem
 	}
 	

@@ -70,7 +70,7 @@ final class NFTCollectionCell: UICollectionViewCell {
 		let button = UIButton(type: .system)
 		button.translatesAutoresizingMaskIntoConstraints = false
 		button.setImage(Resourses.Images.Cell.cart, for: .normal)
-		button.tintColor = UIColor.black
+		button.tintColor = UIColor.blackDay
 		button.addTarget(self, action: #selector(cartButtonTapped), for: .touchUpInside)
 		return button
 	}()
