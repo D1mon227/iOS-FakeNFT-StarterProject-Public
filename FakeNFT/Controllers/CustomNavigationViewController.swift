@@ -1,10 +1,3 @@
-//
-//  CustomNavigationViewController.swift
-//  FakeNFT
-//
-//  Created by Dmitry Medvedev on 29.07.2023.
-//
-
 import UIKit
 
 final class CustomNavigationController: UINavigationController {
