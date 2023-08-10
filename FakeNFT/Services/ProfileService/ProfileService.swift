@@ -8,35 +8,35 @@
 import Foundation
 
 extension ProfileService {
-    enum FavoriteNftsServiceError: Error {
+    enum ProfileServiceError: Error {
         case parseError, networkError, notEnoughDataForRequest
     }
 }
 
 protocol ProfileServiceProtocol {
-    func getNft(by id: String, completion: @escaping (Result<NftResponse, Error>) -> Void)
+    func getProfile(id: String,
+                    completion: @escaping (Result<ProfileModel, Error>) -> Void)
+    func putProfile(user: ProfileModel, completion: @escaping (Result<ProfileModel, Error>) -> Void)
 }
 
 final class ProfileService: ProfileServiceProtocol {
     private let urlSession = URLSession.shared
-    private let authId = "1"
     
-    func getProfile(completion: @escaping (Result<NftResponse, Error>) -> Void) {
+    func getProfile(id: String,
+                    completion: @escaping (Result<ProfileModel, Error>) -> Void) {
         assert(Thread.isMainThread)
-        
-        let session = urlSession
-        let modelRequest = AuthorRequest.getProfileById(id: authId)
+
+        let modelRequest = ProfileRequest.getProfileById(id: id)
         
         //обработать ошибку
         let request = try! makeRequest(for: modelRequest)
-        session.objectTask(for: request) { [weak self] (result: Result<NftResponse, Error>) in
-            guard let self = self else { return }
-            
+        urlSession.objectTask(for: request) { [weak self] (result: Result<ProfileModel, Error>) in
+   
             DispatchQueue.main.async {
                 
                 switch result {
-                case .success(let nftItemResult):
-                    completion(.success(nftItemResult))
+                case .success(let user):
+                    completion(.success(user))
                 case .failure(let error):
                     completion(.failure(error))
                 }
@@ -45,39 +45,37 @@ final class ProfileService: ProfileServiceProtocol {
 
     }
     
-    func putProfile(completion: @escaping (Result<NftResponse, Error>) -> Void) {
+    func putProfile(user: ProfileModel, completion: @escaping (Result<ProfileModel, Error>) -> Void) {
         assert(Thread.isMainThread)
         
-        let session = urlSession
-        let modelRequest = AuthorRequest.getProfileById(id: authId)
+        let modelRequest = ProfileRequest.putProfile(user: user)
         
         //обработать ошибку
         let request = try! makeRequest(for: modelRequest)
-        session.objectTask(for: request) { [weak self] (result: Result<NftResponse, Error>) in
-            guard let self = self else { return }
-            
+        urlSession.objectTask(for: request) { [weak self] (result: Result<ProfileModel, Error>) in
+
             DispatchQueue.main.async {
                 
                 switch result {
-                case .success(let nftItemResult):
-                    completion(.success(nftItemResult))
+                case .success(let user):
+                    completion(.success(user))
                 case .failure(let error):
                     completion(.failure(error))
                 }
             }
         }.resume()
-
     }
     
     private func makeRequest(for networkRequestModel: NetworkRequest) throws -> URLRequest {
         guard let endpoint = networkRequestModel.endpoint else {
-            throw FavoriteNftsService.notEnoughDataForRequest
+            throw ProfileServiceError.notEnoughDataForRequest
         }
         var urlRequest = URLRequest(url: endpoint)
         urlRequest.httpMethod = networkRequestModel.httpMethod.rawValue
         return urlRequest
     }
  }
+
 
 
 

@@ -1,3 +1,5 @@
 protocol DetailedCollectionViewProtocol: AnyObject {
-    func updateViewModel(with viewModel: NFTCollectionTableViewCellModel)
+    func updateViewModel(with detailedDescriptionModel: CollectionDetailsTableViewCellModel)
+    func updateViewModel(with nftsViewModel: NFTCollectionTableViewCellViewModel)
 }
+
