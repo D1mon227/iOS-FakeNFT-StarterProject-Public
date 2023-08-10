@@ -3,16 +3,32 @@ import UIKit
 
 final class NFTCollectionTableViewCell: UITableViewCell {
     
-    private lazy var collectionView = UICollectionView(frame: .zero,
-                                                       collectionViewLayout: UICollectionViewLayout())
+    private lazy var collectionView: UICollectionView = {
+        let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .backgroundDay
+        view.register(
+            NFTCollectionViewCell.self,
+            forCellWithReuseIdentifier: NFTCollectionViewCell.identifier
+        )
+        return view
+    }()
     
     
     
+    func setupCollectionView() {
+        //collectionView.addSubview(<#T##view: UIView##UIView#>)
+    }
 
+    func setupCollectionViewConstrains() {
+        NSLayoutConstraint.activate([
+        //
+        ])
+    }
     
 }
 
-struct NFTCollectionCollectionViewCellModel {
+struct NFTCollectionViewCellModel {
     let nftIcon: String?
     let nftStarsCount: Int
     let nftNameLabel: String
@@ -24,52 +40,5 @@ struct NFTCollectionCollectionViewCellModel {
         self.nftStarsCount = nftResponse.rating
         self.price = nftResponse.price
     }
-}
-
-final class NFTCollectionCollectionViewCell: UICollectionViewCell {
-    //    private let nftIcon: UIImageView = {
-    //        let imageView = UIImageView()
-    //        imageView.translatesAutoresizingMaskIntoConstraints = false
-    //        imageView.layer.cornerRadius = 12
-    //        imageView.layer.masksToBounds = true
-    //        return imageView
-    //    }()
-    //
-    //    private let nftStars: UILabel = {
-    //        let label = UILabel()
-    //        label.translatesAutoresizingMaskIntoConstraints = false
-    //        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-    //
-    //        return label
-    //    }()
-    //
-    //    private let nftNameLabel: UILabel = {
-    //        let label = UILabel()
-    //        label.translatesAutoresizingMaskIntoConstraints = false
-    //        label.font = UIFont.systemFont(ofSize: 10)
-    //
-    //        return label
-    //    }()
-    //
-    //    private let nftPriceLabel: UILabel = {
-    //        let label = UILabel()
-    //        label.translatesAutoresizingMaskIntoConstraints = false
-    //        label.font = UIFont.systemFont(ofSize: 10)
-    //
-    //        return label
-    //    }()
-    //
-    //    private let nftLikeButton: UIButton = {
-    //        let button = UIButton()
-    //        button.translatesAutoresizingMaskIntoConstraints = false
-    //
-    //        return button
-    //    }()
-    //
-    //    private let nftCartButton: UIButton = {
-    //        let button = UIButton()
-    //        button.translatesAutoresizingMaskIntoConstraints = false
-    //
-    //        return button
-    //    }()
+    
 }
