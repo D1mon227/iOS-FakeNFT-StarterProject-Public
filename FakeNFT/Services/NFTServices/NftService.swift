@@ -19,18 +19,16 @@ protocol NftServiceProtocol {
 
 final class NftService: NftServiceProtocol {
     private let urlSession = URLSession.shared
-    private var task: URLSessionTask?
     
     func getNft(by id: String, completion: @escaping (Result<NftResponse, Error>) -> Void) {
         assert(Thread.isMainThread)
-        task?.cancel()
         
         let session = urlSession
         let modelRequest = NftRequest.getNftById(id: id)
         
         //обработать ошибку
         let request = try! makeRequest(for: modelRequest)
-        let task = session.objectTask(for: request) { [weak self] (result: Result<NftResponse, Error>) in
+        session.objectTask(for: request) { [weak self] (result: Result<NftResponse, Error>) in
             guard let self = self else { return }
             
             DispatchQueue.main.async {
@@ -42,11 +40,8 @@ final class NftService: NftServiceProtocol {
                     completion(.failure(error))
                 }
             }
+        }.resume()
 
-            self.task = nil
-        }
-        self.task = task
-        task.resume()
     }
     
     private func makeRequest(for networkRequestModel: NetworkRequest) throws -> URLRequest {

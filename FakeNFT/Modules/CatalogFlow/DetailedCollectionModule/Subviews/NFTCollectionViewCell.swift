@@ -1,4 +1,20 @@
 import UIKit
+import Kingfisher
+
+struct NFTCollectionViewCellViewModel {
+    let nftIcon: String?
+    let nftStarsCount: Int
+    let nftName: String
+    let nftPrice: String
+    let isFavorite: Bool
+    
+    init(nftResponse: NftResponse) {
+        self.nftIcon = nftResponse.images.first
+        self.nftStarsCount = nftResponse.rating
+        self.nftName = nftResponse.name
+
+    }
+}
 
 final class NFTCollectionViewCell: UICollectionViewCell {
     
@@ -69,6 +85,17 @@ final class NFTCollectionViewCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure(with viewModel: NFTCollectionViewCellViewModel) {
+//        nftIcon.kf.se
+        nftNameLabel.text = viewModel.nftName
+        nftPriceLabel.text = viewModel.nftPrice
+        if viewModel.isFavorite {
+//            nftLikeButton.setImage(<#T##image: UIImage?##UIImage?#>, for: <#T##UIControl.State#>)
+        } else {
+            //            nftLikeButton.setImage(<#T##image: UIImage?##UIImage?#>, for: <#T##UIControl.State#>)
+        }
     }
     
 }

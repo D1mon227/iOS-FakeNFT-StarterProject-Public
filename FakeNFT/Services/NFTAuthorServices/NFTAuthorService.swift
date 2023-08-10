@@ -21,7 +21,7 @@ final class NFTAuthorService: NFTAuthorServiceProtocol {
         task?.cancel()
         
         let session = urlSession
-        let modelRequest = AuthorRequest.getAuthorById(id: id)
+        let modelRequest = AuthorRequest.getProfileById(id: id)
         
         //обработать ошибку
         let request = try! makeRequest(for: modelRequest)

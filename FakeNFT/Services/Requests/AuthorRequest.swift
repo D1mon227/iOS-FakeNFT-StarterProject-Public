@@ -2,11 +2,14 @@ import Foundation
 
 enum AuthorRequest: NetworkRequest {
     
-    case getAuthorById(id: String)
+    case getProfileById(id: String)
+    case putProfileById(id: String)
     
     var endpoint: URL? {
         switch self {
-        case .getAuthorById(let id):
+        case .getProfileById(let id):
+            return URL(string: "\(baseURL)/api/v1/profile/\(id)")
+        case .putProfileById(let id):
             return URL(string: "\(baseURL)/api/v1/profile/\(id)")
         }
        
@@ -18,8 +21,10 @@ enum AuthorRequest: NetworkRequest {
     
     var httpMethod: HttpMethod {
         switch self {
-        case .getAuthorById:
+        case .getProfileById:
             return .get
+        case .putProfileById:
+            return .put
         }
     }
 }
