@@ -4,6 +4,21 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
     weak var view: MyNFTViewControllerProtocol?
     var profilePresenter: ProfileViewPresenterProtocol?
     private let nftService = NFTService.shared
+    private let userDefaults = UserDefaults.standard
+    private let sortUserDefaultsKey = "MyNFtSortKey"
+    
+    private var currentSort: Sort {
+        get {
+            if let savedSort = userDefaults.string(forKey: sortUserDefaultsKey) {
+                return Sort(rawValue: savedSort) ?? .byRating
+            } else {
+                return .byRating
+            }
+        }
+        set {
+            userDefaults.set(newValue.rawValue, forKey: sortUserDefaultsKey)
+        }
+    }
     
     var purchasedNFTs: [NFT] = [] {
         didSet {
@@ -25,6 +40,7 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
             case .success(let nfts):
                 guard let profile = profilePresenter?.profile else { return }
                 self.purchasedNFTs = filterPurchasedNFTs(profile: profile, allNFTs: nfts)
+                self.sortNFT(by: currentSort)
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -55,10 +71,13 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
         switch by {
         case .byPrice:
             nfts.sort { $0.price ?? 0.0 > $1.price ?? 0.0 }
+            currentSort = .byPrice
         case .byRating:
             nfts.sort { $0.rating ?? 0 > $1.rating ?? 0 }
+            currentSort = .byRating
         case .byTitle:
             nfts.sort { $0.name ?? "" < $1.name ?? "" }
+            currentSort = .byTitle
         default:
             break
         }
