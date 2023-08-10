@@ -1,7 +1,7 @@
 
 import UIKit
 
-struct NFTCollectionTableViewCellViewModel {
+struct NFTCollectionTableViewCellViewModel: DetailedCollectionTableViewCellProtocol {
     let nftModels: [NFTCollectionViewCellViewModel]
 }
 
@@ -20,7 +20,7 @@ final class NFTCollectionTableViewCell: UITableViewCell {
         return view
     }()
     
-    func configureWith(viewModel: NFTCollectionTableViewCellViewModel) {
+    func configure(with viewModel: NFTCollectionTableViewCellViewModel) {
         nftModels = viewModel.nftModels
         collectionView.reloadData()
     }
@@ -34,7 +34,6 @@ final class NFTCollectionTableViewCell: UITableViewCell {
         //
         ])
     }
-    
     
 }
 
@@ -56,3 +55,4 @@ extension NFTCollectionTableViewCell: UICollectionViewDataSource, UICollectionVi
     }
 
 }
+

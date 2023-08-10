@@ -1,6 +1,12 @@
 import UIKit
 import Kingfisher
 
+extension CollectionDetailsCell {
+    enum Layout {
+        static let nftCollectionCoverHeight: CGFloat = 179
+    }
+}
+
 final class CollectionDetailsCell: UITableViewCell {
     
     // MARK: - Layout elements
@@ -38,6 +44,11 @@ final class CollectionDetailsCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configure(with viewModel: CollectionDetailsTableViewCellModel) {
+//        nftCollectionCover.kf.setImage(with: <#T##Source?#>)
+        nftCategoryLabel.text = viewModel.collectionName
+        nftCategoryDe.text = viewModel.collectionDescription
+    }
 }
 
 private extension CollectionDetailsCell {
@@ -63,6 +74,23 @@ private extension CollectionDetailsCell {
     }
     
     func addSubviews() {
+        
+    }
+    
+    func setupCollectionDetailsConstrains() {
+        NSLayoutConstraint.activate([
+            //nftCollectionCover
+            nftCollectionCover.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            nftCollectionCover.topAnchor.constraint(equalTo: contentView.topAnchor),
+            nftCollectionCover.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            nftCollectionCover.heightAnchor.constraint(equalToConstant: Layout.nftCollectionCoverHeight),
+            //nftCollectionNameLabel
+            
+            //nftCollectionAuthorLabel
+            
+            //nftCategoryDescriptionLabel
+            
+        ])
         
     }
 }

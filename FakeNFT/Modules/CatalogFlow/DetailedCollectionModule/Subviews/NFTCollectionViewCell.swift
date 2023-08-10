@@ -2,6 +2,7 @@ import UIKit
 import Kingfisher
 
 struct NFTCollectionViewCellViewModel {
+    let nftId: String
     let nftIcon: String?
     let nftStarsCount: Int
     let nftName: String
@@ -9,10 +10,35 @@ struct NFTCollectionViewCellViewModel {
     let isFavorite: Bool
     
     init(nftResponse: NftResponse) {
+        self.nftId = nftResponse.id
         self.nftIcon = nftResponse.images.first
         self.nftStarsCount = nftResponse.rating
         self.nftName = nftResponse.name
-
+        self.isFavorite = false
+        self.nftPrice = String(nftResponse.price)
+    }
+    
+    init(nftId: String,
+         nftIcon: String?,
+         nftStarsCount: Int,
+         nftName: String,
+         nftPrice: String,
+         isFavorite: Bool) {
+        self.nftId = nftId
+        self.nftIcon = nftIcon
+        self.nftStarsCount = nftStarsCount
+        self.nftName = nftName
+        self.isFavorite = isFavorite
+        self.nftPrice = nftPrice
+    }
+    
+    func makeNewModel(isFavorite: Bool) -> NFTCollectionViewCellViewModel {
+        return NFTCollectionViewCellViewModel(nftId: self.nftId,
+                                              nftIcon: self.nftIcon,
+                                              nftStarsCount: self.nftStarsCount,
+                                              nftName: self.nftName,
+                                              nftPrice: self.nftPrice,
+                                              isFavorite: isFavorite)
     }
 }
 
@@ -127,3 +153,4 @@ extension NFTCollectionViewCell {
         ])
     }
 }
+

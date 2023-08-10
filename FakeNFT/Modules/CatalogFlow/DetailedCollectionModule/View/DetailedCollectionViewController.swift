@@ -22,9 +22,13 @@ final class DetailedCollectionViewController: UIViewController {
 }
 
 extension DetailedCollectionViewController: DetailedCollectionViewProtocol {
+    func updateViewModel(with nftsViewModel: NFTCollectionTableViewCellViewModel) {
+        viewModels += [nftsViewModel]
+        tableView.reloadData()
+    }
     
-    func updateViewModel(with viewModel: NFTCollectionTableViewCellModel) {
-        viewModels += [viewModel]
+    func updateViewModel(with detailedDescriptionModel: CollectionDetailsTableViewCellModel) {
+        viewModels += [detailedDescriptionModel]
         tableView.reloadData()
     }
 }
@@ -42,13 +46,16 @@ extension DetailedCollectionViewController: UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let viewModel = viewModels[indexPath.row]
-        if let cell = tableView.dequeueReusableCell(withIdentifier: CollectionDetailsCell.identifier) as? CollectionDetailsCell {
-            
-        } else if let cell = tableView.dequeueReusableCell(withIdentifier: NFTCollectionTableViewCell.identifier) as? NFTCollectionTableViewCell {
-            
+        if let cell = tableView.dequeueReusableCell(withIdentifier: CollectionDetailsCell.identifier) as? CollectionDetailsCell,
+           let detailedCollectionViewModel = viewModel as? CollectionDetailsTableViewCellModel {
+            cell.configure(with: detailedCollectionViewModel)
+        } else if let cell = tableView.dequeueReusableCell(withIdentifier: NFTCollectionTableViewCell.identifier) as? NFTCollectionTableViewCell,
+                  let nftsViewModel = viewModel as? NFTCollectionTableViewCellViewModel {
+            cell.configure(with: nftsViewModel)
         }
         
         return UITableViewCell()
     }
     
 }
+
