@@ -22,7 +22,7 @@ final class FavoritesNFTViewController: UIViewController, FavoritesNFTViewContro
         super.viewDidLoad()
         view.backgroundColor = .backgroundDay
         setupCollectionView()
-        presenter?.getFavoritesNFTs()
+        presenter?.fetchNFTs()
         setupTitle()
     }
     

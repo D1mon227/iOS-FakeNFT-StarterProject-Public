@@ -3,11 +3,13 @@ import Foundation
 final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
     weak var view: MyNFTViewControllerProtocol?
     var profilePresenter: ProfileViewPresenterProtocol?
+    private let nftService = NFTService.shared
     
     var purchasedNFTs: [NFT] = [] {
         didSet {
             DispatchQueue.main.async {
                 self.view?.reloadViews()
+                UIBlockingProgressHUD.dismiss()
             }
         }
     }
@@ -16,10 +18,17 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
         self.profilePresenter = profilePresenter
     }
     
-    func getPurchasedNFTs() {
-        guard let profile = profilePresenter?.profile,
-              let allNFTs = profilePresenter?.allNFTs else { return }
-        purchasedNFTs = filterPurchasedNFTs(profile: profile, allNFTs: allNFTs)
+    func fetchNFTs() {
+        nftService.fetchNFT { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let nfts):
+                guard let profile = profilePresenter?.profile else { return }
+                self.purchasedNFTs = filterPurchasedNFTs(profile: profile, allNFTs: nfts)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
     
     func arePurchasedNFTsEmpty() -> Bool {

@@ -9,7 +9,6 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter?.fetchProfile()
-        presenter?.fetchNFTs()
         setupNavigationBar()
         setupViews()
         setupTargets()

@@ -4,12 +4,14 @@ final class FavoritesNFTViewPresenter: FavoritesNFTViewPresenterProtocol {
     weak var view: FavoritesNFTViewControllerProtocol?
     private var profilePresenter: ProfileViewPresenterProtocol?
     private let likeService = LikeService.shared
+    private let nftService = NFTService.shared
     
     var likes: [String]?
     var favoritesNFTs: [NFT] = [] {
         didSet {
             DispatchQueue.main.async {
                 self.view?.reloadViews()
+                UIBlockingProgressHUD.dismiss()
             }
         }
     }
@@ -40,10 +42,17 @@ final class FavoritesNFTViewPresenter: FavoritesNFTViewPresenterProtocol {
         }
     }
     
-    func getFavoritesNFTs() {
-        guard let profile = profilePresenter?.profile,
-              let allNFTs = profilePresenter?.allNFTs else { return }
-        favoritesNFTs = filterFavoritesNFTs(profile: profile, allNFTs: allNFTs)
+    func fetchNFTs() {
+        nftService.fetchNFT { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let nfts):
+                guard let profile = profilePresenter?.profile else { return }
+                self.favoritesNFTs = filterFavoritesNFTs(profile: profile, allNFTs: nfts)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
     
     private func removeLike(_ id: String?) {

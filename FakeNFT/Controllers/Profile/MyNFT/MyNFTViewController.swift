@@ -23,7 +23,7 @@ final class MyNFTViewController: UIViewController, MyNFTViewControllerProtocol {
         view.backgroundColor = .backgroundDay
         setupNavigationBar()
         setupTableView()
-        presenter?.getPurchasedNFTs()
+        presenter?.fetchNFTs()
         setupTitle()
     }
     
