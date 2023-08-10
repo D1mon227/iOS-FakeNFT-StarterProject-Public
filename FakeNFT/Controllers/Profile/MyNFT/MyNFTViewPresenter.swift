@@ -4,6 +4,7 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
     weak var view: MyNFTViewControllerProtocol?
     var profilePresenter: ProfileViewPresenterProtocol?
     private let nftService = NFTService.shared
+    private let userService = UserService.shared
     private let userDefaults = UserDefaults.standard
     private let sortUserDefaultsKey = "MyNFtSortKey"
     
@@ -29,6 +30,14 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
         }
     }
     
+    var users: [User] = [] {
+        didSet {
+            DispatchQueue.main.async {
+                self.view?.reloadViews()
+            }
+        }
+    }
+    
     init(profilePresenter: ProfileViewPresenterProtocol?) {
         self.profilePresenter = profilePresenter
     }
@@ -45,6 +54,23 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    func fetchUsers() {
+        userService.fetchUsers { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let users):
+                self.users = users
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func getAuthorName(for authorID: String, from authors: [User]) -> String? {
+        let author = authors.first(where: { $0.id == authorID })
+        return author?.name
     }
     
     func arePurchasedNFTsEmpty() -> Bool {

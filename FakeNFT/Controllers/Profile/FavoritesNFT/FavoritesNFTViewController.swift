@@ -64,6 +64,7 @@ final class FavoritesNFTViewController: UIViewController, FavoritesNFTViewContro
     }
 }
 
+//MARK: UICollectionViewDataSource
 extension FavoritesNFTViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         presenter?.favoritesNFTs.count ?? 0
@@ -84,6 +85,7 @@ extension FavoritesNFTViewController: UICollectionViewDataSource {
     }
 }
 
+//MARK: UICollectionViewDelegate
 extension FavoritesNFTViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         CGSize(width: (collectionView.bounds.width - 39) / 2, height: 80)
@@ -102,6 +104,7 @@ extension FavoritesNFTViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+//MARK: FavoritesNFTCollectionViewCellDelegate
 extension FavoritesNFTViewController: FavoritesNFTCollectionViewCellDelegate {
     func didTapLike(_ cell: FavoritesNFTCollectionViewCell) {
         guard let indexPath = favoritesNFTView.nftCollectionView.indexPath(for: cell),

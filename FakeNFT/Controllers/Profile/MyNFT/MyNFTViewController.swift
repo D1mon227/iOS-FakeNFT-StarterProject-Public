@@ -24,6 +24,7 @@ final class MyNFTViewController: UIViewController, MyNFTViewControllerProtocol {
         setupNavigationBar()
         setupTableView()
         presenter?.fetchNFTs()
+        presenter?.fetchUsers()
         setupTitle()
     }
     
@@ -89,7 +90,8 @@ extension MyNFTViewController: UITableViewDataSource {
                            doesNftHasLike: doesNftHasLike(for: nfts),
                            nftName: nfts.name,
                            rating: nfts.rating,
-                           author: nfts.author,
+                           author: presenter?.getAuthorName(for: nfts.author ?? "",
+                                                            from: presenter?.users ?? []),
                            price: String(nfts.price ?? 0.0) + " ETH")
         
         return cell
