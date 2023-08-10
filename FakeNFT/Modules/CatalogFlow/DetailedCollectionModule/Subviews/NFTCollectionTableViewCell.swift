@@ -1,7 +1,13 @@
 
 import UIKit
 
+struct NFTCollectionTableViewCellViewModel {
+    let nftModels: [NFTCollectionViewCellViewModel]
+}
+
 final class NFTCollectionTableViewCell: UITableViewCell {
+    
+    private var nftModels: [NFTCollectionViewCellViewModel] = []
     
     private lazy var collectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -14,7 +20,10 @@ final class NFTCollectionTableViewCell: UITableViewCell {
         return view
     }()
     
-    
+    func configureWith(viewModel: NFTCollectionTableViewCellViewModel) {
+        nftModels = viewModel.nftModels
+        collectionView.reloadData()
+    }
     
     func setupCollectionView() {
         //collectionView.addSubview(<#T##view: UIView##UIView#>)
@@ -26,19 +35,24 @@ final class NFTCollectionTableViewCell: UITableViewCell {
         ])
     }
     
+    
 }
 
-struct NFTCollectionViewCellModel {
-    let nftIcon: String?
-    let nftStarsCount: Int
-    let nftNameLabel: String
-    let price: Float
-    
-    init(nftResponse: NftResponse) {
-        self.nftIcon = nftResponse.images.first
-        self.nftNameLabel = nftResponse.name
-        self.nftStarsCount = nftResponse.rating
-        self.price = nftResponse.price
+extension NFTCollectionTableViewCell: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        nftModels.count
     }
     
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NFTCollectionViewCell.identifier,
+                                                            for: indexPath) as? NFTCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        
+        let viewModel = nftModels[indexPath.row]
+        cell.configure(with: viewModel)
+        
+        return cell
+    }
+
 }
