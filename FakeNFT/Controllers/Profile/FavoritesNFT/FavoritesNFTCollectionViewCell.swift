@@ -63,7 +63,7 @@ final class FavoritesNFTCollectionViewCell: UICollectionViewCell {
                        nftName: String?,
                        rating: Int?,
                        price: String?) {
-        nftImage.kf.setImage(with: image)
+        nftImage.setImage(with: image)
         favoriteButton.tintColor = favoriteButtonColor
         nftLabel.text = nftName
         updateRatingStars(rating: rating)

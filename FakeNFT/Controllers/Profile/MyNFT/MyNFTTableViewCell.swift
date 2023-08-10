@@ -106,7 +106,7 @@ final class MyNFTTableViewCell: UITableViewCell {
                        rating: Int?,
                        author: String?,
                        price: String?) {
-        nftImage.kf.setImage(with: image)
+        nftImage.setImage(with: image)
         if doesNftHasLike == true {
             favoriteButton.tintColor = .redUniversal
         } else {
