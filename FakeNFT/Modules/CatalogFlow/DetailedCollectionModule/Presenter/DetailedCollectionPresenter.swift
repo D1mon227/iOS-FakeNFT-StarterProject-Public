@@ -7,7 +7,7 @@ final class DetailedCollectionPresenter {
     private let response: NftCollectionResponse
     private let authorService: NFTAuthorServiceProtocol
     private let nftService: NftServiceProtocol
-    private var nftsModels = [NFTCollectionCollectionViewCellModel]()
+    private var nftsModels = [NFTCollectionViewCellModel]()
     
     init(response: NftCollectionResponse,
          authorService: NFTAuthorServiceProtocol,
@@ -42,16 +42,19 @@ private extension DetailedCollectionPresenter {
      
     func getNft(by ids: [String]) {
         // dispatch group
+        let group = DispatchGroup()
+        group.enter()
         ids.forEach { id in
+            defer { group.leave() }
             nftService.getNft(by: id) { [weak self] result in
                 guard let self else { return }
                 switch result {
                 case .success(let response):
-                    
                     let viewModel = self.makeViewModel(nftResponse: response)
                     self.nftsModels.append(viewModel)
-                    
+                    group.leave()
                 case .failure(let error): break
+                    group.leave()
                 }
             }
         }
@@ -66,7 +69,7 @@ private extension DetailedCollectionPresenter {
         
     }
     
-    func makeViewModel(nftResponse: NftResponse) -> NFTCollectionCollectionViewCellModel {
-        NFTCollectionCollectionViewCellModel(nftResponse: nftResponse)
+    func makeViewModel(nftResponse: NftResponse) -> NFTCollectionViewCellModel {
+        NFTCollectionViewCellModel(nftResponse: nftResponse)
     }
 }
