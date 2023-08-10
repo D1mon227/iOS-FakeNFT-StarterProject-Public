@@ -10,7 +10,6 @@ import Foundation
 protocol PaymentPresenterProtocol {
     func fetchCurrencies()
     func performPayment(selectedPaymentIndex: Int)
-
 }
 
 protocol PaymentViewNavigationDelegate: AnyObject {
@@ -20,7 +19,7 @@ protocol PaymentViewNavigationDelegate: AnyObject {
 class PaymentPresenter: PaymentPresenterProtocol {
     weak var view: PaymentViewProtocol?
     var model: PaymentModelProtocol?
-
+    
     
     init(view: PaymentViewProtocol, model: PaymentModelProtocol) {
         self.view = view

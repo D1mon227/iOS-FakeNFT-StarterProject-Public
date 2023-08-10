@@ -264,9 +264,17 @@ final class CartViewController: UIViewController, UITableViewDataSource{
     func payButtonTapped() {
         guard let customNC = navigationController as? CustomNavigationController else { return }
         let payVC = PaymentViewController()
-        payVC.title = "Payment"
+        
+        let titleAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.boldSystemFont(ofSize: 17) // Use any bold font you prefer
+        ]
+        
+        payVC.navigationItem.title = NSAttributedString(string: "Выберите способ оплаты", attributes: titleAttributes).string
+        
         customNC.pushViewController(payVC, animated: true)
     }
+    
+    
     
     @objc private func sortButtonTapped() {
         showMenu()
@@ -281,21 +289,21 @@ final class CartViewController: UIViewController, UITableViewDataSource{
     func deleteNFT() {
         
         guard let indexToDelete = indexNFTToDelete else {
-                return
-            }
-            
-            myOrders.remove(at: indexToDelete)
-            presenter?.changeCart(newArray: myOrders, completion: {
-                self.fetchDataFromAPI()
-            })
+            return
+        }
         
-//        guard let indexToDelete = indexNFTToDelete else {
-//            return
-//        }
-//        cartArray.remove(at: indexToDelete)
-//        cartTable.reloadData()
-//
-//        print("DELETE \(indexNFTToDelete ?? 0) NFT")
+        myOrders.remove(at: indexToDelete)
+        presenter?.changeCart(newArray: myOrders, completion: {
+            self.fetchDataFromAPI()
+        })
+        
+        //        guard let indexToDelete = indexNFTToDelete else {
+        //            return
+        //        }
+        //        cartArray.remove(at: indexToDelete)
+        //        cartTable.reloadData()
+        //
+        //        print("DELETE \(indexNFTToDelete ?? 0) NFT")
         blurView.removeFromSuperview()
         imageToDelete.removeFromSuperview()
         deleteText.removeFromSuperview()
