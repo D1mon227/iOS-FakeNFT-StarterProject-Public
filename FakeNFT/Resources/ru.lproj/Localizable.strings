@@ -19,6 +19,7 @@
 "profile.aboutDeveloper" = "О разработчике";
 "profile.name" = "Имя";
 "profile.changePhoto" = "Сменить\nфото";
+"profile.uploadPhoto" = "Загрузить изображение";
 "profile.description" = "Описание";
 "profile.website" = "Сайт";
 "profile.byAuthor" = "От";

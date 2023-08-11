@@ -19,6 +19,7 @@
 "profile.aboutDeveloper" = "About the developer";
 "profile.name" = "Name";
 "profile.changePhoto" = "Change\nphoto";
+"profile.uploadPhoto" = "Upload image";
 "profile.description" = "Description";
 "profile.website" = "Website";
 "profile.byAuthor" = "By";
