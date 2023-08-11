@@ -70,16 +70,17 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
         }
     }
     
-    func changeLike(_ id: String?) {
-        guard let id = id,
-              var likes = likes else { return }
-        if doesNftHasLike(id: id) {
+    func changeLike(_ id: String) {
+        guard var likes = likes else { return }
+        if likes.contains(id) {
             likes.removeAll { $0 == id }
+            self.likes = likes
         } else {
             likes.append(id)
+            self.likes = likes
         }
             
-        likeService.changeLike(newLike: Like(likes: likes)) { [weak self] result in
+        likeService.changeLike(newLike: Like(likes: self.likes)) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let newProfile):

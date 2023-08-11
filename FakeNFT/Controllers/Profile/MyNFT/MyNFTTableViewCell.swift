@@ -187,6 +187,6 @@ final class MyNFTTableViewCell: UITableViewCell {
 
 extension MyNFTTableViewCell {
     func setLiked(_ likedByUser: Bool) {
-        favoriteButton.tintColor = likedByUser ? UIColor.white : UIColor.redUniversal
+        favoriteButton.tintColor = likedByUser ? UIColor.redUniversal : UIColor.white
     }
 }

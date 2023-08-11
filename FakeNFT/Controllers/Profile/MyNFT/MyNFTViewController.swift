@@ -105,7 +105,7 @@ extension MyNFTViewController: MyNFTTableViewCellDelegate {
         guard let indexPath = myNFTView.myNFTTableView.indexPath(for: cell),
               let presenter = presenter else { return }
         let nftID = presenter.purchasedNFTs[indexPath.row].id
-        presenter.changeLike(nftID)
+        presenter.changeLike(nftID ?? "")
         cell.setLiked(presenter.doesNftHasLike(id: nftID))
     }
 }
