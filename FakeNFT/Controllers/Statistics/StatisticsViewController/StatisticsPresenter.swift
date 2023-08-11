@@ -28,7 +28,8 @@ final class StatisticsPresenter {
 			case let .success(users):
 				self.model = users
 				if let ui = self.ui, let model = self.model {
-					ui.updateUI(with: model)
+					let sortedModel = sortData(by: .byRating, dataToSort: model)
+					ui.updateUI(with: sortedModel)
 				}
 			case let .failure(error):
 				print("Error fetching data:", error)
@@ -53,7 +54,7 @@ final class StatisticsPresenter {
 		case .byName:
 			return dataToSort.sorted { $0.name < $1.name }
 		case .byRating:
-			return dataToSort.sorted { Int($0.rating) ?? 0 > Int($1.rating) ?? 0 }
+			return dataToSort.sorted { Int($0.rating) ?? 0 < Int($1.rating) ?? 0 }
 		default:
 			return dataToSort
 		}

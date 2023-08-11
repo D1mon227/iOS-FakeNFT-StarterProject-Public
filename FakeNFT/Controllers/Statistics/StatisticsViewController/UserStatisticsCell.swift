@@ -68,13 +68,13 @@ final class UserStatisticsCell: UITableViewCell {
 		}
 	}
 	
-	func configure(with user: User, cellNumber: Int) {
-		cellNumberLabel.text = "\(cellNumber)"
+	func configure(with user: User) {
+		cellNumberLabel.text = user.rating
 		
 		let firstName = getFirstName(from: user.name)
 		userNameLabel.text = firstName
 		
-		nftCountLabel.text = user.rating
+		nftCountLabel.text = String("\(user.nfts.count)")
 		
 		if let imageUrl = user.avatar {
 			userImageView.kf.setImage(with: imageUrl, placeholder: UIImage(named: "placeholderImage"))
@@ -130,7 +130,7 @@ extension StatisticsView: UITableViewDataSource, UITableViewDelegate {
 		}
 		let item = users[indexPath.row]
 		
-		cell.configure(with: item, cellNumber: indexPath.row + 1)
+		cell.configure(with: item)
 		cell.selectionStyle = .none
 		return cell
 	}
