@@ -15,6 +15,14 @@ final class EditingProfileView {
         return element
     }()
     
+    lazy var uploadPhotoButton: UIButton = {
+        let element = UIButton(type: .system)
+        element.setTitle(LocalizableConstants.Profile.uploadPhoto, for: .normal)
+        element.titleLabel?.font = .bodyRegular
+        element.setTitleColor(.blackDay, for: .normal)
+        return element
+    }()
+    
     lazy var frontImage: UIImageView = {
         let element = UIImageView()
         element.backgroundColor = .black.withAlphaComponent(0.6)

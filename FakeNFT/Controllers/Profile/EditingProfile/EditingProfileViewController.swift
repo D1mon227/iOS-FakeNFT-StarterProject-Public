@@ -1,6 +1,7 @@
 import UIKit
 import SnapKit
 import Kingfisher
+import ProgressHUD
 
 final class EditingProfileViewController: UIViewController, EditingProfileViewControllerProtocol {
     var presenter: EditingProfileViewPresenterProtocol?
@@ -41,10 +42,42 @@ final class EditingProfileViewController: UIViewController, EditingProfileViewCo
     
     private func setupTarget() {
         editingProfileView.closeButton.addTarget(self, action: #selector(dismissVC), for: .touchUpInside)
+        editingProfileView.editingPhotoButton.addTarget(self, action: #selector(editPhoto), for: .touchUpInside)
+        editingProfileView.uploadPhotoButton.addTarget(self, action: #selector(uploadNewPhoto), for: .touchUpInside)
     }
     
     @objc private func dismissVC() {
         dismiss(animated: true)
+    }
+    
+    @objc private func editPhoto() {
+        editingProfileView.editingPhotoButton.removeFromSuperview()
+        editingProfileView.frontImage.removeFromSuperview()
+        view.addSubview(editingProfileView.uploadPhotoButton)
+        editingProfileView.uploadPhotoButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(editingProfileView.profileImage.snp.bottom).offset(4)
+        }
+    }
+    
+    @objc private func uploadNewPhoto() {
+        UIBlockingProgressHUD.show()
+        editingProfileView.uploadPhotoButton.removeFromSuperview()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            UIBlockingProgressHUD.dismiss()
+            self.view.addSubview(self.editingProfileView.frontImage)
+            self.view.addSubview(self.editingProfileView.editingPhotoButton)
+            self.editingProfileView.frontImage.snp.makeConstraints { make in
+                make.width.height.equalTo(70)
+                make.centerX.equalToSuperview()
+                make.top.equalTo(self.editingProfileView.closeButton.snp.bottom).offset(22)
+            }
+            
+            self.editingProfileView.editingPhotoButton.snp.makeConstraints { make in
+                make.center.equalTo(self.editingProfileView.profileImage)
+                make.width.height.equalTo(70)
+            }
+        }
     }
     
     func reloadTableView() {
