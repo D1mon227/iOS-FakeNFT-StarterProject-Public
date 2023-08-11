@@ -13,6 +13,7 @@ final class MyNFTTableViewCell: UITableViewCell {
     private lazy var favoriteButton: UIButton = {
         let element = UIButton(type: .system)
         element.setImage(Resourses.Images.Cell.like, for: .normal)
+        element.addTarget(self, action: #selector(tappedLike), for: .touchUpInside)
         return element
     }()
     
@@ -89,6 +90,7 @@ final class MyNFTTableViewCell: UITableViewCell {
     }()
     
     private var starImageViews: [UIImageView] = []
+    weak var delegate: MyNFTTableViewCellDelegate?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -98,6 +100,10 @@ final class MyNFTTableViewCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc private func tappedLike() {
+        delegate?.didTapLike(self)
     }
     
     func configureCell(image: URL?,
@@ -176,5 +182,11 @@ final class MyNFTTableViewCell: UITableViewCell {
             make.centerY.equalTo(nftInfoVerticalStack)
             make.leading.equalTo(nftInfoVerticalStack.snp.trailing).offset(39)
         }
+    }
+}
+
+extension MyNFTTableViewCell {
+    func setLiked(_ likedByUser: Bool) {
+        favoriteButton.tintColor = likedByUser ? UIColor.white : UIColor.redUniversal
     }
 }

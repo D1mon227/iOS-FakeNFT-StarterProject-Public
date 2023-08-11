@@ -59,7 +59,7 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
     
     @objc private func switchToMyNFTViewController() {
         guard let customNC = navigationController as? CustomNavigationController else { return }
-        let myNFTVC = MyNFTViewController(profilePresenter: presenter)
+        let myNFTVC = MyNFTViewController(profilePresenter: presenter, likes: presenter?.profile?.likes)
         customNC.pushViewController(myNFTVC, animated: true)
     }
     

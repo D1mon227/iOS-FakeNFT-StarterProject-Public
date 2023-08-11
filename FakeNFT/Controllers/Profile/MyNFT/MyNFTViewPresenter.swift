@@ -5,6 +5,7 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
     var profilePresenter: ProfileViewPresenterProtocol?
     private let nftService = NFTService.shared
     private let userService = UserService.shared
+    private let likeService = LikeService.shared
     private let userDefaults = UserDefaults.standard
     private let sortUserDefaultsKey = "MyNFtSortKey"
     
@@ -21,6 +22,7 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
         }
     }
     
+    var likes: [String]?
     var purchasedNFTs: [NFT] = [] {
         didSet {
             DispatchQueue.main.async {
@@ -68,6 +70,26 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
         }
     }
     
+    func changeLike(_ id: String?) {
+        guard let id = id,
+              var likes = likes else { return }
+        if doesNftHasLike(id: id) {
+            likes.removeAll { $0 == id }
+        } else {
+            likes.append(id)
+        }
+            
+        likeService.changeLike(newLike: Like(likes: likes)) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let newProfile):
+                self.profilePresenter?.profile = newProfile
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     func getAuthorName(for authorID: String, from authors: [User]) -> String? {
         let author = authors.first(where: { $0.id == authorID })
         return author?.name
@@ -89,6 +111,16 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
         }
 
         return filteredNFTs
+    }
+    
+    func doesNftHasLike(id: String?) -> Bool {
+        guard let id = id,
+              let likes = likes else { return false }
+        if likes.contains(id) {
+            return true
+        } else {
+            return false
+        }
     }
     
     func sortNFT(by: Sort) {

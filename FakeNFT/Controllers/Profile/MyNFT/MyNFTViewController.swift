@@ -7,11 +7,12 @@ final class MyNFTViewController: UIViewController, MyNFTViewControllerProtocol {
     private let myNFTView = MyNFTView()
     private let alertService = AlertService()
     
-    init(profilePresenter: ProfileViewPresenterProtocol?) {
+    init(profilePresenter: ProfileViewPresenterProtocol?, likes: [String]?) {
         super.init(nibName: nil, bundle: nil)
         self.profilePresenter = profilePresenter
         self.presenter = MyNFTViewPresenter(profilePresenter: profilePresenter)
         self.presenter?.view = self
+        self.presenter?.likes = likes
     }
     
     required init?(coder: NSCoder) {
@@ -86,8 +87,9 @@ extension MyNFTViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MyNFTTableViewCell", for: indexPath) as? MyNFTTableViewCell,
               let nfts = presenter?.purchasedNFTs[indexPath.row] else { return UITableViewCell() }
         
+        cell.delegate = self
         cell.configureCell(image: nfts.images?[0],
-                           doesNftHasLike: doesNftHasLike(for: nfts),
+                           doesNftHasLike: presenter?.doesNftHasLike(id: nfts.id),
                            nftName: nfts.name,
                            rating: nfts.rating,
                            author: presenter?.getAuthorName(for: nfts.author ?? "",
@@ -96,14 +98,15 @@ extension MyNFTViewController: UITableViewDataSource {
         
         return cell
     }
-    
-    private func doesNftHasLike(for item: NFT) -> Bool {
-        guard let profile = profilePresenter?.profile?.likes else { return false }
-        if profile.contains(item.id ?? "") {
-            return true
-        } else {
-            return false
-        }
+}
+
+extension MyNFTViewController: MyNFTTableViewCellDelegate {
+    func didTapLike(_ cell: MyNFTTableViewCell) {
+        guard let indexPath = myNFTView.myNFTTableView.indexPath(for: cell),
+              let presenter = presenter else { return }
+        let nftID = presenter.purchasedNFTs[indexPath.row].id
+        presenter.changeLike(nftID)
+        cell.setLiked(presenter.doesNftHasLike(id: nftID))
     }
 }
 
