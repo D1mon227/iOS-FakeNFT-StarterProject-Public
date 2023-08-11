@@ -82,11 +82,12 @@ final class EditingProfileViewController: UIViewController, EditingProfileViewCo
     
     func reloadTableView() {
         guard let avatar = presenter?.editingInfo?.avatar else { return }
-        editingProfileView.editingTableView.reloadData()
         editingProfileView.profileImage.kf.setImage(with: avatar)
+        editingProfileView.editingTableView.reloadData()
     }
 }
 
+//MARK: UITableViewDataSource
 extension EditingProfileViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         3
@@ -129,6 +130,7 @@ extension EditingProfileViewController: UITableViewDataSource {
     }
 }
 
+//MARK: UITableViewDelegate
 extension EditingProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "EditingProfileTableViewHeader") as? EditingProfileTableViewHeader else { return UIView() }
@@ -165,6 +167,7 @@ extension EditingProfileViewController: UITableViewDelegate {
     }
 }
 
+//MARK: SetupViews
 extension EditingProfileViewController {
     private func setupViews() {
         view.backgroundColor = .backgroundDay

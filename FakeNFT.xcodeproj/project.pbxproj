@@ -319,6 +319,18 @@
 			path = Delegates;
 			sourceTree = "<group>";
 		};
+		7355B6402A868CE10009FB6F /* ProfileMainScreen */ = {
+			isa = PBXGroup;
+			children = (
+				7362C54E2A7938FD004CBE1D /* Protocols */,
+				7362C52D2A753D03004CBE1D /* ProfileView.swift */,
+				7362C54C2A7938B6004CBE1D /* ProfileViewPresenter.swift */,
+				73EA4B042A73C770000B4B55 /* ProfileViewController.swift */,
+				7362C5302A7565F2004CBE1D /* ProfileTableViewCell.swift */,
+			);
+			path = ProfileMainScreen;
+			sourceTree = "<group>";
+		};
 		7362C52F2A7564CF004CBE1D /* EditingProfile */ = {
 			isa = PBXGroup;
 			children = (
@@ -437,11 +449,7 @@
 		73EA4B062A73C774000B4B55 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				7362C54E2A7938FD004CBE1D /* Protocols */,
-				7362C52D2A753D03004CBE1D /* ProfileView.swift */,
-				7362C54C2A7938B6004CBE1D /* ProfileViewPresenter.swift */,
-				73EA4B042A73C770000B4B55 /* ProfileViewController.swift */,
-				7362C5302A7565F2004CBE1D /* ProfileTableViewCell.swift */,
+				7355B6402A868CE10009FB6F /* ProfileMainScreen */,
 				7362C52F2A7564CF004CBE1D /* EditingProfile */,
 				7362C53A2A769ED6004CBE1D /* MyNFT */,
 				7362C5412A785DFA004CBE1D /* FavoritesNFT */,
