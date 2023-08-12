@@ -12,6 +12,7 @@ final class ProfileView {
         let element = UILabel()
         element.font = .headline3
         element.textColor = .blackDay
+        element.numberOfLines = 0
         return element
     }()
     
