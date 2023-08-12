@@ -31,7 +31,8 @@ final class EditingProfileViewPresenter: EditingProfileViewPresenterProtocol {
         if newProfile.isEqual(to: oldProfile) {
             return
         } else {
-            profileService.editProfile(newProfile: newProfile) { result in
+            profileService.editProfile(newProfile: newProfile) { [weak self] result in
+                guard let self = self else { return }
                 switch result {
                 case .success(let newProfile):
                     self.profilePresenter?.profile = newProfile

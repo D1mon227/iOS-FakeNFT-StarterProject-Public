@@ -21,11 +21,10 @@ final class EditingProfileViewController: UIViewController, EditingProfileViewCo
         self.profilePresenter = profilePresenter
         self.presenter = EditingProfileViewPresenter(profilePresenter: profilePresenter)
         self.presenter?.view = self
-        self.presenter?.newProfile = NewProfile()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         presenter?.editProfile()
     }
     

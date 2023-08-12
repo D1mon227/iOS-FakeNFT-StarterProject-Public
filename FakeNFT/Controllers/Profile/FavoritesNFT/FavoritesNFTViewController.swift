@@ -56,7 +56,8 @@ final class FavoritesNFTViewController: UIViewController, FavoritesNFTViewContro
     }
     
     private func setupTitle() {
-        if presenter?.areFavoritesNFTsEmpty() ?? false {
+        guard let presenter = presenter else { return }
+        if presenter.areFavoritesNFTsEmpty() {
             self.title = nil
         } else {
             self.title = LocalizableConstants.Profile.nftFavorites

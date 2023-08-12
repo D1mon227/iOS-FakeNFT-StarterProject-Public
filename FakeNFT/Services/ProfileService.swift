@@ -18,7 +18,7 @@ final class ProfileService {
         }
     }
     
-    func editProfile(newProfile: NewProfile?, completion: @escaping (Result<Profile, Error>) -> Void) {
+    func editProfile(newProfile: NewProfile, completion: @escaping (Result<Profile, Error>) -> Void) {
         
         UIBlockingProgressHUD.show()
         let request = ProfileRequest(httpMethod: .put, dto: newProfile)

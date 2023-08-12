@@ -1,7 +1,7 @@
 import Foundation
 
 final class ProfileViewPresenter: ProfileViewPresenterProtocol {
-    var view: ProfileViewControllerProtocol?
+    weak var view: ProfileViewControllerProtocol?
     private let profileService = ProfileService.shared
     
     var profile: Profile? {
