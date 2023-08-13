@@ -1,5 +1,7 @@
+import UIKit
+
 protocol DetailedCollectionViewProtocol: AnyObject {
-    func updateViewModel(with detailedDescriptionModel: CollectionDetailsTableViewCellModel)
-    func updateViewModel(with nftsViewModel: NFTCollectionTableViewCellViewModel)
+    func updateViewModel(with viewModels: [DetailedCollectionTableViewCellProtocol])
+    func present(_ vc: UIViewController)
 }
 

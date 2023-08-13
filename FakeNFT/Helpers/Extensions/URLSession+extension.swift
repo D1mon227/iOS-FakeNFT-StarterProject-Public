@@ -1,7 +1,7 @@
 import Foundation
 
-private enum NetworkError: Error {
-    case codeError
+enum NetworkError: Error {
+    case codeError(statusCode: Int)
 }
 
 extension URLSession {
@@ -20,7 +20,7 @@ extension URLSession {
                 } else if let error = error {
                     completion(.failure(error))
                 } else {
-                    completion(.failure(NetworkError.codeError))
+                    completion(.failure(NetworkError.codeError(statusCode: response.statusCode)))
                 }
             }
         })

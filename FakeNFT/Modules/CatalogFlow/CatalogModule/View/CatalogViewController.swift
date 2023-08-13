@@ -106,7 +106,12 @@ extension CatalogViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.didSelectCell(at: indexPath.row)
+        guard let cell = tableView.cellForRow(at: indexPath) as? CatalogTableViewCell,
+              let id = cell.viewModel?.id else {
+            return
+        }
+        
+        presenter.didSelectCell(with: id)
     }
 }
 
