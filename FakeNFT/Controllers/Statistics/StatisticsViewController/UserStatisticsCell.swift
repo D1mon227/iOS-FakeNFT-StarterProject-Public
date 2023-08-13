@@ -11,7 +11,7 @@ import Kingfisher
 final class UserStatisticsCell: UITableViewCell {
 	static let identifier = "userStatisticsCell"
 	
-	private lazy var cellNumberLabel: UILabel = {
+	private let cellNumberLabel: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.font = UIFont.caption1
@@ -36,14 +36,14 @@ final class UserStatisticsCell: UITableViewCell {
 		return imageView
 	}()
 	
-	private lazy var userNameLabel: UILabel = {
+	private let userNameLabel: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.font = UIFont.headline3
 		return label
 	}()
 	
-	private lazy var nftCountLabel: UILabel = {
+	private let nftCountLabel: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.font = UIFont.headline3

@@ -7,8 +7,8 @@ protocol IUserDetailsViewNavigationDelegate: AnyObject {
 }
 
 final class UserDetailsPresenter {
-	var ui: UserDetailsView?
 	weak var navigationDelegate: IUserDetailsViewNavigationDelegate?
+	private var ui: UserDetailsView?
 	private var model: User?
 	
 	init(user: User?) {

@@ -24,14 +24,14 @@ final class FavoritesNFTTableViewCell: UITableViewCell {
 		return imageView
 	}()
 	
-	private lazy var countFavoritesNFTLabel: UILabel = {
+	private let countFavoritesNFTLabel: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.font = UIFont.bodyBold
 		return label
 	}()
 	
-	lazy var titleFavoritesNFTLabel: UILabel = {
+	let titleFavoritesNFTLabel: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.font = UIFont.bodyBold

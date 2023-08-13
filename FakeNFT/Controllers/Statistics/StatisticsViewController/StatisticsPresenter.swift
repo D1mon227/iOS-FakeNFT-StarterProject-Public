@@ -8,11 +8,10 @@ protocol IStatisticsViewNavigationDelegate: AnyObject {
 }
 
 final class StatisticsPresenter {
-	var ui: IStatisticsView?
 	weak var navigationDelegate: IStatisticsViewNavigationDelegate?
 	private var model: [User]?
+	private var ui: IStatisticsView?
 	private let networkClient = DefaultNetworkClient()
-	private let alertService = AlertService()
 	
 	func fetchUserFromServer() {
 		self.ui?.activatedIndicator()
@@ -22,12 +21,10 @@ final class StatisticsPresenter {
 			self.ui?.deactivatedIndicator()
 			
 			switch result {
-				
-			case let .success(users):
+			case .success(let users):
 				self.model = users
 				sortData(by: .byRating)
-				
-			case let .failure(error):
+			case .failure(let error):
 				print("Error fetching data:", error)
 			}
 		}

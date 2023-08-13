@@ -28,7 +28,7 @@ final class NFTCollectionCell: UICollectionViewCell {
 		return imageView
 	}()
 	
-	private lazy var stackView: UIStackView = {
+	private let stackView: UIStackView = {
 		let stackView = UIStackView()
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.axis = .horizontal
@@ -44,14 +44,14 @@ final class NFTCollectionCell: UICollectionViewCell {
 		return imageView
 	}()
 	
-	private lazy var nftNameLabel: UILabel = {
+	private let nftNameLabel: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.font = UIFont.bodyBold
 		return label
 	}()
 	
-	private lazy var nftPriceLabel: UILabel = {
+	private let nftPriceLabel: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.font = UIFont.caption3

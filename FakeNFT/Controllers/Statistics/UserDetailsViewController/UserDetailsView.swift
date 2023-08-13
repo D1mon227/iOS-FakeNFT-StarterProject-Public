@@ -8,8 +8,8 @@ protocol IUserDetailsView: AnyObject {
 final class UserDetailsView: UIView {
 	var user: User?
 	var presenter: UserDetailsPresenter?
-	weak var navigationController: UINavigationController?
 	let cellTitles = [LocalizableConstants.Statistics.nftCollection]
+	weak var navigationController: UINavigationController?
 	
 	private let userImageView: UIImageView = {
 		let imageView = UIImageView()
@@ -20,14 +20,14 @@ final class UserDetailsView: UIView {
 		return imageView
 	}()
 	
-	private lazy var userNameLabel: UILabel = {
+	private let userNameLabel: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.font = UIFont.headline3
 		return label
 	}()
 	
-	private lazy var userDescriptionLabel: UILabel = {
+	private let userDescriptionLabel: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.font = UIFont.caption2
@@ -48,7 +48,7 @@ final class UserDetailsView: UIView {
 		return button
 	}()
 	
-	private lazy var favoritesNFTTableView: UITableView = {
+	private let favoritesNFTTableView: UITableView = {
 		let tableView = UITableView(frame: .zero, style: .plain)
 		tableView.translatesAutoresizingMaskIntoConstraints = false
 		tableView.separatorStyle = .none

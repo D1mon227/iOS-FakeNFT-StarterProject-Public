@@ -5,9 +5,9 @@ protocol INFTCollectionPresenter {
 }
 
 final class NFTCollectionPresenter {
-	var ui: INFTCollectionView?
-	let networkClient = DefaultNetworkClient()
-	var order: [Order] = []
+	private var ui: INFTCollectionView?
+	private var order: [Order] = []
+	private let networkClient = DefaultNetworkClient()
 	
 	func fetchNFTsForUser(nftIds: [String]) {
 		DispatchQueue.main.async {
@@ -23,9 +23,9 @@ final class NFTCollectionPresenter {
 			networkClient.send(request: request, type: NFT.self) { result in
 				
 				switch result {
-				case let .success(nft):
+				case .success(let nft):
 					userNFTs.append(nft)
-				case let .failure(error):
+				case .failure(let error):
 					print("Error fetching NFT for ID \(nftId): \(error)")
 				}
 				dispatchGroup.leave()
@@ -42,9 +42,9 @@ final class NFTCollectionPresenter {
 		let request = GetLikesForUserRequest()
 		networkClient.send(request: request, type: Profile.self) {  result in
 			switch result {
-			case let .success(likes):
+			case .success(let likes):
 				self.ui?.showFavorites(with: likes)
-			case let .failure(error):
+			case .failure(let error):
 				print("Error fetching data:", error)
 			}
 		}
@@ -54,10 +54,10 @@ final class NFTCollectionPresenter {
 		let request = GetOrdersForUserRequest()
 		networkClient.send(request: request, type: Order.self) {  result in
 			switch result {
-			case let .success(order):
+			case .success(let order):
 				self.ui?.showCart(with: order)
 				self.order.append(order)
-			case let .failure(error):
+			case .failure(let error):
 				print("Error fetching data:", error)
 			}
 		}
@@ -82,11 +82,9 @@ final class NFTCollectionPresenter {
 			if let nftIndex = updatedOrder.nfts.firstIndex(of: nftID) {
 				updatedOrder.nfts.remove(at: nftIndex)
 				order[orderIndex] = updatedOrder
-				print("Removed nftID: \(nftID)")
 			} else {
 				updatedOrder.nfts.append(nftID)
 				order[orderIndex] = updatedOrder
-				print("Added nftID: \(nftID)")
 			}
 			
 			putOrderFromServer(order: updatedOrder)

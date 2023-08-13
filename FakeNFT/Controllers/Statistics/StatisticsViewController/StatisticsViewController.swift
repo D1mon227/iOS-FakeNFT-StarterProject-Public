@@ -1,7 +1,6 @@
 import UIKit
 
 final class StatisticsViewController: UIViewController, IStatisticsViewNavigationDelegate {
-	private let users: [User] = []
 	private let statisticsPresenter: StatisticsPresenter
 	private let customView = StatisticsView()
 	private let alertService = AlertService()
@@ -44,7 +43,6 @@ private extension StatisticsViewController {
 	
 	func showSortingOptions() {
 		let sortingOptions: [Sort] = [.byName, .byRating, .close]
-		
 		alertService.showAlert(title: LocalizableConstants.Sort.sort, actions: sortingOptions, controller: self) { [weak self] selectedOption in
 			self!.statisticsPresenter.sortData(by: selectedOption)
 		}

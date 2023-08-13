@@ -10,10 +10,10 @@ protocol IStatisticsView: AnyObject {
 }
 
 final class StatisticsView: UIView {
-	 var presenter: StatisticsPresenter?
-	 var users: [User] = []
+	var presenter: StatisticsPresenter?
+	var users: [User] = []
 	
-	private lazy var userStatisticsTableView: UITableView = {
+	private let userStatisticsTableView: UITableView = {
 		let tableView = UITableView(frame: .zero, style: .plain)
 		tableView.translatesAutoresizingMaskIntoConstraints = false
 		tableView.separatorStyle = .none
@@ -24,7 +24,7 @@ final class StatisticsView: UIView {
 		return tableView
 	}()
 	
-	 private let activityIndicator: UIActivityIndicatorView = {
+	private let activityIndicator: UIActivityIndicatorView = {
 		let activityIndicator = UIActivityIndicatorView(style: .large)
 		activityIndicator.translatesAutoresizingMaskIntoConstraints = false
 		return activityIndicator
