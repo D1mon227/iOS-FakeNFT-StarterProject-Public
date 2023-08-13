@@ -20,7 +20,6 @@ final class OnboardingPageViewController: UIPageViewController {
     override init(transitionStyle style: UIPageViewController.TransitionStyle, navigationOrientation: UIPageViewController.NavigationOrientation, options: [UIPageViewController.OptionsKey : Any]? = nil) {
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal)
         dataSource = self
-        delegate = self
         if let first = controllers.first { setViewControllers([first],
                                                              direction: .forward,
                                                              animated: true,
@@ -59,10 +58,4 @@ extension OnboardingPageViewController: UIPageViewControllerDataSource {
         
         return controllers[nextIndex]
     }
-    
-    
-}
-
-extension OnboardingPageViewController: UIPageViewControllerDelegate {
-    
 }

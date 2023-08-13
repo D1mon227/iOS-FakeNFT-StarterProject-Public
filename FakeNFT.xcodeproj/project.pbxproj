@@ -22,6 +22,9 @@
 		3F6806D129CBBE6B00B4F915 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6806D029CBBE6B00B4F915 /* NetworkClient.swift */; };
 		3F6806D329CBBE9600B4F915 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6806D229CBBE9600B4F915 /* NetworkRequest.swift */; };
 		3F6806D529CBBEC700B4F915 /* NetworkTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6806D429CBBEC700B4F915 /* NetworkTask.swift */; };
+		732A443A2A88FFBE00A593C2 /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732A44392A88FFBE00A593C2 /* AnalyticsService.swift */; };
+		732A444A2A8910BF00A593C2 /* YandexMobileMetrica in Frameworks */ = {isa = PBXBuildFile; productRef = 732A44492A8910BF00A593C2 /* YandexMobileMetrica */; };
+		732A444C2A8910BF00A593C2 /* YandexMobileMetricaCrashes in Frameworks */ = {isa = PBXBuildFile; productRef = 732A444B2A8910BF00A593C2 /* YandexMobileMetricaCrashes */; };
 		3FC8C39129D2453B0081F015 /* ProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC8C39029D2453B0081F015 /* ProfileRequest.swift */; };
 		7343AE322A82947F00FBD728 /* LikeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7343AE312A82947F00FBD728 /* LikeService.swift */; };
 		7355B63F2A863E0C0009FB6F /* MyNFTTableViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7355B63E2A863E0C0009FB6F /* MyNFTTableViewCellDelegate.swift */; };
@@ -111,6 +114,7 @@
 		3F6806D029CBBE6B00B4F915 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		3F6806D229CBBE9600B4F915 /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
 		3F6806D429CBBEC700B4F915 /* NetworkTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTask.swift; sourceTree = "<group>"; };
+		732A44392A88FFBE00A593C2 /* AnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		3FC8C39029D2453B0081F015 /* ProfileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRequest.swift; sourceTree = "<group>"; };
 		7343AE312A82947F00FBD728 /* LikeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeService.swift; sourceTree = "<group>"; };
 		7355B63E2A863E0C0009FB6F /* MyNFTTableViewCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNFTTableViewCellDelegate.swift; sourceTree = "<group>"; };
@@ -172,7 +176,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				732A444C2A8910BF00A593C2 /* YandexMobileMetricaCrashes in Frameworks */,
 				73EA4B002A73C511000B4B55 /* SnapKit in Frameworks */,
+				732A444A2A8910BF00A593C2 /* YandexMobileMetrica in Frameworks */,
 				3F603CD029DB4A74000C43D7 /* Kingfisher in Frameworks */,
 				3F603CCD29DB4A53000C43D7 /* ProgressHUD in Frameworks */,
 			);
@@ -264,6 +270,7 @@
 			children = (
 				3FC8C38F29D245250081F015 /* Requests */,
 				7362C5482A786ACE004CBE1D /* AlertService.swift */,
+				732A44392A88FFBE00A593C2 /* AnalyticsService.swift */,
 				737D031C2A80703700DCB5B1 /* OnboardingManager.swift */,
 				7362C5552A7A7262004CBE1D /* ProfileService.swift */,
 				737D03132A7FB5AE00DCB5B1 /* NFTService.swift */,
@@ -531,6 +538,8 @@
 				3F603CCC29DB4A53000C43D7 /* ProgressHUD */,
 				3F603CCF29DB4A74000C43D7 /* Kingfisher */,
 				73EA4AFF2A73C511000B4B55 /* SnapKit */,
+				732A44492A8910BF00A593C2 /* YandexMobileMetrica */,
+				732A444B2A8910BF00A593C2 /* YandexMobileMetricaCrashes */,
 			);
 			productName = FakeNFT;
 			productReference = 3F68069329CBBAF100B4F915 /* FakeNFT.app */;
@@ -609,6 +618,7 @@
 				3F603CCB29DB4A53000C43D7 /* XCRemoteSwiftPackageReference "ProgressHUD" */,
 				3F603CCE29DB4A74000C43D7 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				73EA4AFE2A73C510000B4B55 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				732A44482A8910BF00A593C2 /* XCRemoteSwiftPackageReference "metrica-sdk-ios" */,
 			);
 			productRefGroup = 3F68069429CBBAF100B4F915 /* Products */;
 			projectDirPath = "";
@@ -688,6 +698,7 @@
 				737D03212A80709100DCB5B1 /* OnboardingViewController.swift in Sources */,
 				73D526D72A84C4020056116E /* UIBlockingProgressHUD.swift in Sources */,
 				3F68069729CBBAF100B4F915 /* AppDelegate.swift in Sources */,
+				732A443A2A88FFBE00A593C2 /* AnalyticsService.swift in Sources */,
 				3F68069929CBBAF100B4F915 /* SceneDelegate.swift in Sources */,
 				3FC8C39129D2453B0081F015 /* ProfileRequest.swift in Sources */,
 				7362C5682A7C0460004CBE1D /* MyNFTViewControllerProtocol.swift in Sources */,
@@ -1073,6 +1084,14 @@
 				minimumVersion = 7.0.0;
 			};
 		};
+		732A44482A8910BF00A593C2 /* XCRemoteSwiftPackageReference "metrica-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/yandexmobile/metrica-sdk-ios";
+			requirement = {
+				kind = exactVersion;
+				version = 4.5.2;
+			};
+		};
 		73EA4AFE2A73C510000B4B55 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -1093,6 +1112,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3F603CCE29DB4A74000C43D7 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		732A44492A8910BF00A593C2 /* YandexMobileMetrica */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 732A44482A8910BF00A593C2 /* XCRemoteSwiftPackageReference "metrica-sdk-ios" */;
+			productName = YandexMobileMetrica;
+		};
+		732A444B2A8910BF00A593C2 /* YandexMobileMetricaCrashes */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 732A44482A8910BF00A593C2 /* XCRemoteSwiftPackageReference "metrica-sdk-ios" */;
+			productName = YandexMobileMetricaCrashes;
 		};
 		73EA4AFF2A73C511000B4B55 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
