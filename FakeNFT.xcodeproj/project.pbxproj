@@ -50,6 +50,11 @@
 		7362C56A2A7D47B7004CBE1D /* FavoritesNFTViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7362C5692A7D47B7004CBE1D /* FavoritesNFTViewPresenter.swift */; };
 		7362C56E2A7D47F6004CBE1D /* FavoritesNFTViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7362C56D2A7D47F6004CBE1D /* FavoritesNFTViewControllerProtocol.swift */; };
 		7362C5702A7D481C004CBE1D /* FavoritesNFTViewPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7362C56F2A7D481C004CBE1D /* FavoritesNFTViewPresenterProtocol.swift */; };
+		73659CE82A8913B30016A7D3 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 73659CE72A8913B30016A7D3 /* ProgressHUD */; };
+		73659CEB2A8913C20016A7D3 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 73659CEA2A8913C20016A7D3 /* Kingfisher */; };
+		73659CEE2A8913D00016A7D3 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 73659CED2A8913D00016A7D3 /* SnapKit */; };
+		73659CF12A8913E20016A7D3 /* YandexMobileMetrica in Frameworks */ = {isa = PBXBuildFile; productRef = 73659CF02A8913E20016A7D3 /* YandexMobileMetrica */; };
+		73659CF32A8913E20016A7D3 /* YandexMobileMetricaCrashes in Frameworks */ = {isa = PBXBuildFile; productRef = 73659CF22A8913E20016A7D3 /* YandexMobileMetricaCrashes */; };
 		737D03142A7FB5AE00DCB5B1 /* NFTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737D03132A7FB5AE00DCB5B1 /* NFTService.swift */; };
 		737D03162A7FDB8500DCB5B1 /* EditingProfileViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737D03152A7FDB8500DCB5B1 /* EditingProfileViewPresenter.swift */; };
 		737D03192A7FDBA600DCB5B1 /* EditingProfileViewPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737D03182A7FDBA600DCB5B1 /* EditingProfileViewPresenterProtocol.swift */; };
@@ -171,6 +176,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73659CF32A8913E20016A7D3 /* YandexMobileMetricaCrashes in Frameworks */,
+				73659CEE2A8913D00016A7D3 /* SnapKit in Frameworks */,
+				73659CF12A8913E20016A7D3 /* YandexMobileMetrica in Frameworks */,
+				73659CEB2A8913C20016A7D3 /* Kingfisher in Frameworks */,
+				73659CE82A8913B30016A7D3 /* ProgressHUD in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -525,6 +535,11 @@
 			);
 			name = FakeNFT;
 			packageProductDependencies = (
+				73659CE72A8913B30016A7D3 /* ProgressHUD */,
+				73659CEA2A8913C20016A7D3 /* Kingfisher */,
+				73659CED2A8913D00016A7D3 /* SnapKit */,
+				73659CF02A8913E20016A7D3 /* YandexMobileMetrica */,
+				73659CF22A8913E20016A7D3 /* YandexMobileMetricaCrashes */,
 			);
 			productName = FakeNFT;
 			productReference = 3F68069329CBBAF100B4F915 /* FakeNFT.app */;
@@ -600,6 +615,10 @@
 			);
 			mainGroup = 3F68068A29CBBAF100B4F915;
 			packageReferences = (
+				73659CE62A8913B30016A7D3 /* XCRemoteSwiftPackageReference "ProgressHUD" */,
+				73659CE92A8913C20016A7D3 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				73659CEC2A8913D00016A7D3 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				73659CEF2A8913E20016A7D3 /* XCRemoteSwiftPackageReference "metrica-sdk-ios" */,
 			);
 			productRefGroup = 3F68069429CBBAF100B4F915 /* Products */;
 			projectDirPath = "";
@@ -1047,6 +1066,69 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		73659CE62A8913B30016A7D3 /* XCRemoteSwiftPackageReference "ProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/relatedcode/ProgressHUD";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 13.0.0;
+			};
+		};
+		73659CE92A8913C20016A7D3 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+		73659CEC2A8913D00016A7D3 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = exactVersion;
+				version = 5.6.0;
+			};
+		};
+		73659CEF2A8913E20016A7D3 /* XCRemoteSwiftPackageReference "metrica-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/yandexmobile/metrica-sdk-ios";
+			requirement = {
+				kind = exactVersion;
+				version = 4.5.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		73659CE72A8913B30016A7D3 /* ProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 73659CE62A8913B30016A7D3 /* XCRemoteSwiftPackageReference "ProgressHUD" */;
+			productName = ProgressHUD;
+		};
+		73659CEA2A8913C20016A7D3 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 73659CE92A8913C20016A7D3 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		73659CED2A8913D00016A7D3 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 73659CEC2A8913D00016A7D3 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		73659CF02A8913E20016A7D3 /* YandexMobileMetrica */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 73659CEF2A8913E20016A7D3 /* XCRemoteSwiftPackageReference "metrica-sdk-ios" */;
+			productName = YandexMobileMetrica;
+		};
+		73659CF22A8913E20016A7D3 /* YandexMobileMetricaCrashes */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 73659CEF2A8913E20016A7D3 /* XCRemoteSwiftPackageReference "metrica-sdk-ios" */;
+			productName = YandexMobileMetricaCrashes;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3F68068B29CBBAF100B4F915 /* Project object */;
 }
