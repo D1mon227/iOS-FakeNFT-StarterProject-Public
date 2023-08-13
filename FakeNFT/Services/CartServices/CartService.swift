@@ -1,37 +1,37 @@
 //
-//  FavoriteNftsService.swift
+//  CartService.swift
 //  FakeNFT
 //
-//  Created by Екатерина Иванова on 10.08.2023.
+//  Created by Екатерина Иванова on 13.08.2023.
 //
 
 import Foundation
 
-extension ProfileService {
-    enum ProfileServiceError: Error {
+extension CartService {
+    enum CartServiceError: Error {
         case parseError, networkError, notEnoughDataForRequest
     }
 }
 
-protocol ProfileServiceProtocol {
-    func getProfile(id: String,
-                    completion: @escaping (Result<ProfileModel, Error>) -> Void)
-    func putProfile(user: ProfileModel,
-                    completion: @escaping (Result<ProfileModel, Error>) -> Void)
+protocol CartServiceProtocol {
+    func getOrder(id: String,
+                    completion: @escaping (Result<CartModel, Error>) -> Void)
+    func putOrder(cart: CartModel,
+                  completion: @escaping (Result<CartModel, Error>) -> Void)
 }
 
-final class ProfileService: ProfileServiceProtocol {
+final class CartService: CartServiceProtocol {
     private let urlSession = URLSession.shared
     
-    func getProfile(id: String,
-                    completion: @escaping (Result<ProfileModel, Error>) -> Void) {
+    func getOrder(id: String,
+                    completion: @escaping (Result<CartModel, Error>) -> Void) {
         assert(Thread.isMainThread)
 
-        let modelRequest = ProfileRequest.getProfileById(id: id)
+        let modelRequest = CartRequest.getOrder(id: id)
         
         //обработать ошибку
         let request = try! makeRequest(for: modelRequest)
-        urlSession.objectTask(for: request) { (result: Result<ProfileModel, Error>) in
+        urlSession.objectTask(for: request) { (result: Result<CartModel, Error>) in
    
             DispatchQueue.main.async {
                 
@@ -46,20 +46,21 @@ final class ProfileService: ProfileServiceProtocol {
 
     }
     
-    func putProfile(user: ProfileModel, completion: @escaping (Result<ProfileModel, Error>) -> Void) {
+    func putOrder(cart: CartModel,
+                  completion: @escaping (Result<CartModel, Error>) -> Void) {
         assert(Thread.isMainThread)
         
-        let modelRequest = ProfileRequest.putProfile(user: user)
+        let modelRequest = CartRequest.putOrder(cart: cart)
         
         //обработать ошибку
         let request = try! makeRequest(for: modelRequest)
-        urlSession.objectTask(for: request) { (result: Result<ProfileModel, Error>) in
+        urlSession.objectTask(for: request) { (result: Result<CartModel, Error>) in
 
             DispatchQueue.main.async {
                 
                 switch result {
-                case .success(let user):
-                    completion(.success(user))
+                case .success(let cart):
+                    completion(.success(cart))
                 case .failure(let error):
                     completion(.failure(error))
                 }
@@ -69,13 +70,14 @@ final class ProfileService: ProfileServiceProtocol {
     
     private func makeRequest(for networkRequestModel: NetworkRequest) throws -> URLRequest {
         guard let endpoint = networkRequestModel.endpoint else {
-            throw ProfileServiceError.notEnoughDataForRequest
+            throw CartServiceError.notEnoughDataForRequest
         }
         var urlRequest = URLRequest(url: endpoint)
         urlRequest.httpMethod = networkRequestModel.httpMethod.rawValue
         return urlRequest
     }
  }
+
 
 
 

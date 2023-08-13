@@ -74,8 +74,11 @@ extension CatalogPresenter: CatalogPresenterProtocol {
         
     }
     
-    func didSelectCell(at index: Int) {
-        let response = responses[index]
+    func didSelectCell(with id: String) {
+        guard let response = responses.first(where: { $0.id == id }) else {
+            return
+        }
+            
         let viewController = CatalogModulesFactory.makeDetailedCollectionModule(response: response)
         view?.push(viewController)
     }

@@ -12,9 +12,14 @@ final class CatalogModulesFactory {
     static func makeDetailedCollectionModule(response: NftCollectionResponse) -> DetailedCollectionViewController {
         let nftService = NftService()
         let profileService = ProfileService()
+        let cartService = CartService()
+        let services = DetailedCollectionPresenter.Services(profileService: profileService,
+                                                            nftService: nftService,
+                                                            cartService: cartService)
+
         let presenter = DetailedCollectionPresenter(response: response,
-                                                    profileService: profileService,
-                                                    nftService: nftService)
+                                                    services: services
+        )
         let viewController = DetailedCollectionViewController(presenter: presenter)
         presenter.view = viewController
         

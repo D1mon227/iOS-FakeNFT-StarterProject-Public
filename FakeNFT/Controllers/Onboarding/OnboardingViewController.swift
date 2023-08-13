@@ -16,7 +16,7 @@ final class OnboardingViewController: UIViewController {
     private lazy var closeButton: UIButton = {
         let element = UIButton(type: .system)
         element.setImage(Resourses.Images.Button.closeButton, for: .normal)
-        element.tintColor = .white
+        element.tintColor = .backgroundDay
         element.addTarget(self, action: #selector(switchToTabbarVC), for: .touchUpInside)
         return element
     }()
@@ -24,14 +24,14 @@ final class OnboardingViewController: UIViewController {
     private lazy var titleLabel: UILabel = {
         let element = UILabel()
         element.font = .headline5
-        element.textColor = .white
+        element.textColor = .backgroundDay
         return element
     }()
     
     private lazy var descriptionLabel: UILabel = {
         let element = UILabel()
         element.font = .caption1
-        element.textColor = .white
+        element.textColor = .backgroundDay
         element.textAlignment = .left
         element.numberOfLines = 0
         return element
@@ -40,11 +40,11 @@ final class OnboardingViewController: UIViewController {
     private lazy var letsStartButton: UIButton = {
         let element = UIButton(type: .system)
         element.setTitle(LocalizableConstants.Onboarding.letsStartButton, for: .normal)
-        element.setTitleColor(.white, for: .normal)
+        element.setTitleColor(.backgroundDay, for: .normal)
         element.titleLabel?.font = .bodyBold
         element.layer.cornerRadius = 16
         element.addTarget(self, action: #selector(switchToTabbarVC), for: .touchUpInside)
-        element.backgroundColor = .black
+        element.backgroundColor = .blackDay
         return element
     }()
     
@@ -144,7 +144,7 @@ extension OnboardingViewController {
     private func updatePageControlBackground(_ page: Int?) {
         guard let page = page else { return }
         
-        pageControlImageViews[page].backgroundColor = .white
+        pageControlImageViews[page].backgroundColor = .backgroundDay
     }
     
     private func setupConstraints() {

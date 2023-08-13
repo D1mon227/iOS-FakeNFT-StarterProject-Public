@@ -1,22 +1,31 @@
 
 import Foundation
 
+extension DetailedCollectionPresenter {
+    struct Services {
+        let profileService: ProfileServiceProtocol
+        let nftService: NftServiceProtocol
+        let cartService: CartServiceProtocol
+    }
+}
+
 final class DetailedCollectionPresenter {
     
     weak var view: DetailedCollectionViewProtocol?
     
     private let response: NftCollectionResponse
-    private let profileService: ProfileServiceProtocol
-    private let nftService: NftServiceProtocol
+    private let services: Services
     private var nftsModels = [NFTCollectionViewCellViewModel]()
+    private var cartModel: CartModel?
+    private var userLikes: Set<String> = []
+    private var user: ProfileModel?
+    private var viewModels: [DetailedCollectionTableViewCellProtocol] = []
     private let group = DispatchGroup()
     
     init(response: NftCollectionResponse,
-         profileService: ProfileServiceProtocol,
-         nftService: NftServiceProtocol) {
+         services: Services) {
         self.response = response
-        self.profileService = profileService
-        self.nftService = nftService
+        self.services = services
     }
 }
 
@@ -26,18 +35,85 @@ extension DetailedCollectionPresenter: DetailedCollectionPresenterProtocol {
         getNftAuthor()
         getNft(by: response.nfts)
     }
+    
+    func didTapOnLink(url: URL?) {
+        guard let url else { return }
+        let urlRequest = URLRequest(url: url)
+        let presenter = WebViewPresenter(urlRequest: urlRequest)
+        let vc = WebViewController(presenter: presenter)
+        vc.hidesBottomBarWhenPushed = true
+        presenter.view = vc
+        view?.present(vc)
+    }
+    
+    func didTapCartButton(id: String) {
+        guard let cartModel else { return }
+        var newCartModel: CartModel
+        if cartModel.nfts.contains(id) {
+            let nfts = cartModel.nfts.filter { $0 != id }
+            newCartModel = CartModel(nfts: nfts, id: cartModel.id)
+            self.cartModel = newCartModel
+        } else {
+          
+            newCartModel = CartModel(nfts: cartModel.nfts + [id], id: cartModel.id)
+            self.cartModel = newCartModel
+        }
+        
+        self.nftsModels = self.nftsModels.map { model in
+            let newModel = model.makeNewModel(isCartAdded: cartModel.nfts.contains(model.nftId))
+            print(cartModel.nfts.contains(model.nftId))
+            return newModel
+        }
+        
+        let viewModel = NFTCollectionTableViewCellViewModel(nftModels: self.nftsModels)
+        if viewModels.count > 1 {
+            viewModels[1] = viewModel
+        } else {
+            viewModels.append(viewModel)
+        }
+        view?.updateViewModel(with: viewModels)
+        
+        
+        putCartOrder(newCartModel: newCartModel)
+    }
+    
+    func didTapLikeButton(id: String) {
+        if userLikes.contains(id) {
+            userLikes.remove(id)
+        } else {
+            userLikes.insert(id)
+        }
+        
+        self.nftsModels = self.nftsModels.map { model in
+            let newModel = model.makeNewModel(isFavorite: userLikes.contains(model.nftId))
+            return newModel
+        }
+        
+        let viewModel = NFTCollectionTableViewCellViewModel(nftModels: self.nftsModels)
+        if viewModels.count > 1 {
+            viewModels[1] = viewModel
+        } else {
+            viewModels.append(viewModel)
+        }
+        view?.updateViewModel(with: viewModels)
+        
+        
+        putFavorites()
+    }
 }
 
 private extension DetailedCollectionPresenter {
     
     func getNftAuthor() {
-        profileService.getProfile(id: response.author) { [weak self] result in
+        services.profileService.getProfile(id: "1") { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let user):
+                self.user = user
                 let detailedCollectionViewModel = makeViewModel(user: user)
-                view?.updateViewModel(with: detailedCollectionViewModel)
-            case .failure(let error): break
+                viewModels.insert(detailedCollectionViewModel, at: 0)
+                view?.updateViewModel(with: viewModels)
+            case .failure(let error): print("error getNftAuthor", error)
             }
         }
     }
@@ -46,7 +122,7 @@ private extension DetailedCollectionPresenter {
         ids.forEach { id in
             group.enter()
             
-            nftService.getNft(by: id) { [weak self] result in
+            services.nftService.getNft(by: id) { [weak self] result in
                 
                 guard let self else { return }
                 switch result {
@@ -54,7 +130,7 @@ private extension DetailedCollectionPresenter {
                     let viewModel = NFTCollectionViewCellViewModel(nftResponse: response)
                     self.nftsModels.append(viewModel)
                     
-                case .failure(let error): break
+                case .failure(let error):
                     print(error)
                 }
                 group.leave()
@@ -63,34 +139,121 @@ private extension DetailedCollectionPresenter {
         
         group.notify(queue: DispatchQueue.main) { [weak self] in
             self?.getProfile(by: "1")
+            self?.getCartOrders()
         }
         
     }
     
-    func getProfile(by id: String) {
-        profileService.getProfile(id: id) { [weak self] result in
+    func getCartOrders() {
+        services.cartService.getOrder(id: "1") { [weak self] result in
             guard let self else { return }
             switch result {
-            case .success(let user):
-                let set = Set(user.likes)
+            case .success(let cart):
+                self.cartModel = cart
+                let set = Set(cart.nfts)
                 self.nftsModels = self.nftsModels.map { model in
-                    var newModel = model.makeNewModel(isFavorite: set.contains(model.nftId))
+                    let newModel = model.makeNewModel(isCartAdded: set.contains(model.nftId))
+                    print(set.contains(model.nftId))
                     return newModel
                 }
                 let viewModel = NFTCollectionTableViewCellViewModel(nftModels: self.nftsModels)
-                self.view?.updateViewModel(with: viewModel)
-            case .failure(let error): break
+                if viewModels.count > 1 {
+                    viewModels[1] = viewModel
+                } else {
+                    viewModels.append(viewModel)
+                }
+                view?.updateViewModel(with: viewModels)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func putCartOrder(newCartModel: CartModel) {
+        
+        services.cartService.putOrder(cart: newCartModel) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let cart):
+                let set = Set(cart.nfts)
+                self.nftsModels = self.nftsModels.map { model in
+                    let newModel = model.makeNewModel(isCartAdded: set.contains(model.nftId))
+                    print(set.contains(model.nftId))
+                    return newModel
+                }
+                let viewModel = NFTCollectionTableViewCellViewModel(nftModels: self.nftsModels)
+                if viewModels.count > 1 {
+                    viewModels[1] = viewModel
+                } else {
+                    viewModels.append(viewModel)
+                }
+                view?.updateViewModel(with: viewModels)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func putFavorites() {
+        guard let user else { return }
+        let profile = ProfileModel(name: user.name,
+                                   avatar: user.avatar,
+                                   description: user.description,
+                                   website: user.website,
+                                   nfts: user.nfts,
+                                   likes: Array(userLikes),
+                                   id: user.id)
+        services.profileService.putProfile(user: profile) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success:
+                print("putFavorites success")
+                break
+            case .failure(let error):
+                if let error = error as? NetworkError {
+                    switch error {
+                    case .codeError(let statusCode):
+                        print("putFavorites error", statusCode)
+                    }
+                    
+                }
+                
+            }
+        }
+    }
+    
+    func getProfile(by id: String) {
+        services.profileService.getProfile(id: id) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let user):
+                userLikes = Set(user.likes)
+                let set = Set(user.likes)
+                self.nftsModels = self.nftsModels.map { model in
+                    let newModel = model.makeNewModel(isFavorite: set.contains(model.nftId))
+                    return newModel
+                }
+                let viewModel = NFTCollectionTableViewCellViewModel(nftModels: self.nftsModels)
+                if viewModels.count > 1 {
+                    viewModels[1] = viewModel
+                } else {
+                    viewModels.append(viewModel)
+                }
+                view?.updateViewModel(with: viewModels)
+            case .failure(let error):
+                print(error)
             }
         }
     }
     
     func makeViewModel(user: ProfileModel) -> CollectionDetailsTableViewCellModel {
         return CollectionDetailsTableViewCellModel(collectionId: response.id,
-                                                   user: user,
                                                    collectionDescription: response.description,
-                                                   collectionName: response.name)
+                                                   collectionName: response.name,
+                                                   imageStringUrl: response.cover.makeUrl(),
+                                                   user: user)
         
     }
-
+    
 }
 
