@@ -27,6 +27,7 @@ enum Resourses {
         
         enum Profile {
             static let profileImage = UIImage(named: "profile Image")
+            static let profilePlaceholser = UIImage(named: "placeholderImage")
         }
         
         enum TabBar {

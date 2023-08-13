@@ -2,7 +2,10 @@ import UIKit
 
 @main
 final class AppDelegate: UIResponder, UIApplicationDelegate {
+    private let analyticsService = AnalyticsService.shared
+    
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        analyticsService.activate()
         return true
     }
 
