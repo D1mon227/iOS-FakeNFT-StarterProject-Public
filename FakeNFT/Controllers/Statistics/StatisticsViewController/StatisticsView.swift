@@ -1,18 +1,19 @@
 import UIKit
 
-protocol IStatisticsView: AnyObject, UITableViewDelegate, UITableViewDataSource {
-	func setDelegateDataSource(delegate: UITableViewDelegate & UITableViewDataSource)
+protocol IStatisticsView: AnyObject {
+	func setDelegateDataSource()
 	func updateUI(with data: [User])
 	func getUsers() -> [User]
 	func updateTable()
-	var activityIndicator: UIActivityIndicatorView { get }
+	func activatedIndicator()
+	func deactivatedIndicator()
 }
 
 final class StatisticsView: UIView {
-	var presenter: StatisticsPresenter?
-	var users: [User] = []
+	 var presenter: StatisticsPresenter?
+	 var users: [User] = []
 	
-	lazy var userStatisticsTableView: UITableView = {
+	private lazy var userStatisticsTableView: UITableView = {
 		let tableView = UITableView(frame: .zero, style: .plain)
 		tableView.translatesAutoresizingMaskIntoConstraints = false
 		tableView.separatorStyle = .none
@@ -23,7 +24,7 @@ final class StatisticsView: UIView {
 		return tableView
 	}()
 	
-	let activityIndicator: UIActivityIndicatorView = {
+	 private let activityIndicator: UIActivityIndicatorView = {
 		let activityIndicator = UIActivityIndicatorView(style: .large)
 		activityIndicator.translatesAutoresizingMaskIntoConstraints = false
 		return activityIndicator
@@ -52,13 +53,27 @@ extension StatisticsView: IStatisticsView {
 		return users
 	}
 	
-	func setDelegateDataSource(delegate: UITableViewDataSource & UITableViewDelegate) {
-		userStatisticsTableView.delegate = delegate
-		userStatisticsTableView.dataSource = delegate
+	func setDelegateDataSource() {
+		userStatisticsTableView.delegate = self
+		userStatisticsTableView.dataSource = self
 	}
 	
 	func updateTable() {
 		userStatisticsTableView.reloadData()
+	}
+	
+	func activatedIndicator() {
+		DispatchQueue.main.async { [weak self] in
+			guard let self else { return }
+			self.activityIndicator.startAnimating()
+		}
+	}
+	
+	func deactivatedIndicator() {
+		DispatchQueue.main.async { [weak self] in
+			guard let self else { return }
+			self.activityIndicator.stopAnimating()
+		}
 	}
 }
 

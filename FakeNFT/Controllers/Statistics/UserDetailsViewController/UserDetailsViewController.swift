@@ -1,12 +1,7 @@
 import UIKit
 
 final class UserDetailsViewController: UIViewController, IUserDetailsViewNavigationDelegate {
-	func showNFTCollection(with presenter: NFTCollectionPresenter) {
-		let userDetailsViewController = NFTCollectionViewController(with: presenter)
-		navigationController?.pushViewController(userDetailsViewController, animated: true)
-	}
-	
-	var userDetailsPresenter: UserDetailsPresenter
+	private let userDetailsPresenter: UserDetailsPresenter
 	private let customView = UserDetailsView()
 	
 	init(with presenter: UserDetailsPresenter) {
@@ -28,5 +23,10 @@ final class UserDetailsViewController: UIViewController, IUserDetailsViewNavigat
 		customView.presenter = userDetailsPresenter
 		userDetailsPresenter.navigationDelegate = self
 		customView.navigationController = self.navigationController
+	}
+	
+	func showNFTCollection(with presenter: NFTCollectionPresenter) {
+		let userDetailsViewController = NFTCollectionViewController(with: presenter)
+		navigationController?.pushViewController(userDetailsViewController, animated: true)
 	}
 }

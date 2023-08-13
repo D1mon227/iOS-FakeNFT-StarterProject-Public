@@ -1,11 +1,12 @@
 import UIKit
 
-protocol INFTCollectionView: AnyObject, UICollectionViewDelegate, UICollectionViewDataSource {
-	func setDelegateDataSource(delegate: UICollectionViewDelegate & UICollectionViewDataSource)
+protocol INFTCollectionView: AnyObject {
+	func setDelegateDataSource()
 	func updateUI(with data: [NFT])
-	func fetchLikes(with data: Profile)
-	func fetchOrders(with data: Order)
-	var activityIndicator: UIActivityIndicatorView { get }
+	func showFavorites(with data: Profile)
+	func showCart(with data: Order)
+	func activatedIndicator()
+	func deactivatedIndicator()
 }
 
 final class NFTCollectionView: UIView {
@@ -19,7 +20,7 @@ final class NFTCollectionView: UIView {
 		static let spacing: CGFloat = 0
 	}
 	
-	let nftCollectionView: UICollectionView = {
+	private let nftCollectionView: UICollectionView = {
 		let layout = UICollectionViewFlowLayout()
 		layout.scrollDirection = .vertical
 		layout.minimumInteritemSpacing = Metrics.spacing
@@ -33,18 +34,18 @@ final class NFTCollectionView: UIView {
 		return cv
 	}()
 	
-	let activityIndicator: UIActivityIndicatorView = {
+	private let activityIndicator: UIActivityIndicatorView = {
 		let activityIndicator = UIActivityIndicatorView(style: .large)
 		activityIndicator.translatesAutoresizingMaskIntoConstraints = false
 		return activityIndicator
 	}()
 	
-	let emptyLabel: UILabel = {
+	private let emptyLabel: UILabel = {
 		let label = UILabel()
 		label.textAlignment = .center
 		label.font = UIFont.bodyBold
 		label.translatesAutoresizingMaskIntoConstraints = false
-		label.text = "У Вас ещё нет NFT"
+		label.text = LocalizableConstants.Profile.noNFT
 		return label
 	}()
 	
@@ -59,9 +60,9 @@ final class NFTCollectionView: UIView {
 }
 
 extension NFTCollectionView: INFTCollectionView {
-	func setDelegateDataSource(delegate: UICollectionViewDelegate & UICollectionViewDataSource) {
-		nftCollectionView.delegate = delegate
-		nftCollectionView.dataSource = delegate
+	func setDelegateDataSource() {
+		nftCollectionView.delegate = self
+		nftCollectionView.dataSource = self
 	}
 	
 	func updateUI(with data: [NFT]) {
@@ -73,7 +74,7 @@ extension NFTCollectionView: INFTCollectionView {
 		}
 	}
 	
-	func fetchLikes(with data: Profile) {
+	func showFavorites(with data: Profile) {
 		profile = data
 		DispatchQueue.main.async { [weak self] in
 			guard let self else { return }
@@ -81,11 +82,25 @@ extension NFTCollectionView: INFTCollectionView {
 		}
 	}
 	
-	func fetchOrders(with data: Order) {
+	func showCart(with data: Order) {
 		order = data
 		DispatchQueue.main.async { [weak self] in
 			guard let self else { return }
 			self.nftCollectionView.reloadData()
+		}
+	}
+	
+	func activatedIndicator() {
+		DispatchQueue.main.async { [weak self] in
+			guard let self else { return }
+			self.activityIndicator.startAnimating()
+		}
+	}
+	
+	func deactivatedIndicator() {
+		DispatchQueue.main.async { [weak self] in
+			guard let self else { return }
+			self.activityIndicator.stopAnimating()
 		}
 	}
 }

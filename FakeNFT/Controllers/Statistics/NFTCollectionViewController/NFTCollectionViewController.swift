@@ -2,7 +2,7 @@ import UIKit
 
 final class NFTCollectionViewController: UIViewController {
 	private let customView = NFTCollectionView()
-	var nftCollectionPresenter: NFTCollectionPresenter
+	private let nftCollectionPresenter: NFTCollectionPresenter
 	
 	init(with presenter: NFTCollectionPresenter) {
 		self.nftCollectionPresenter = presenter
@@ -22,8 +22,8 @@ final class NFTCollectionViewController: UIViewController {
 		super.viewDidLoad()
 		self.nftCollectionPresenter.viewDidLoad(ui: self.customView)
 		customView.presenter = nftCollectionPresenter
-		self.nftCollectionPresenter.fetchLikesFromServer()
-		self.nftCollectionPresenter.fetchOrdersFromServer()
+		nftCollectionPresenter.fetchLikesFromServer()
+		nftCollectionPresenter.fetchOrdersFromServer()
 	}
 	
 	func showNFTCollection(with presenter: NFTCollectionPresenter) {

@@ -1,15 +1,15 @@
 import UIKit
 
-protocol IUserDetailsView: AnyObject, UITableViewDelegate, UITableViewDataSource {
-	func setDelegateDataSource(delegate: UITableViewDataSource & UITableViewDelegate)
+protocol IUserDetailsView: AnyObject {
+	func setDelegateDataSource()
 	func updateUI(with data: User)
 }
 
 final class UserDetailsView: UIView {
 	var user: User?
-	let cellTitles = [LocalizableConstants.Statistics.nftCollection]
 	var presenter: UserDetailsPresenter?
 	weak var navigationController: UINavigationController?
+	let cellTitles = [LocalizableConstants.Statistics.nftCollection]
 	
 	private let userImageView: UIImageView = {
 		let imageView = UIImageView()
@@ -48,7 +48,7 @@ final class UserDetailsView: UIView {
 		return button
 	}()
 	
-	lazy var favoritesNFTTableView: UITableView = {
+	private lazy var favoritesNFTTableView: UITableView = {
 		let tableView = UITableView(frame: .zero, style: .plain)
 		tableView.translatesAutoresizingMaskIntoConstraints = false
 		tableView.separatorStyle = .none
@@ -105,9 +105,9 @@ extension UserDetailsView: IUserDetailsView {
 		configure()
 	}
 	
-	func setDelegateDataSource(delegate: UITableViewDataSource & UITableViewDelegate) {
-		favoritesNFTTableView.delegate = delegate
-		favoritesNFTTableView.dataSource = delegate
+	func setDelegateDataSource() {
+		favoritesNFTTableView.delegate = self
+		favoritesNFTTableView.dataSource = self
 	}
 }
 

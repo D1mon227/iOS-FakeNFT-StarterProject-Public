@@ -17,21 +17,21 @@ final class FavoritesNFTTableViewCell: UITableViewCell {
 		return view
 	}()
 	
-	let disclosureIndicatorImageView: UIImageView = {
+	private let disclosureIndicatorImageView: UIImageView = {
 		let imageView = UIImageView(image: UIImage(systemName: "chevron.right"))
 		imageView.translatesAutoresizingMaskIntoConstraints = false
 		imageView.tintColor = .blackDay
 		return imageView
 	}()
 	
-	lazy var titleFavoritesNFTLabel: UILabel = {
+	private lazy var countFavoritesNFTLabel: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.font = UIFont.bodyBold
 		return label
 	}()
 	
-	private lazy var countFavoritesNFTLabel: UILabel = {
+	lazy var titleFavoritesNFTLabel: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.font = UIFont.bodyBold

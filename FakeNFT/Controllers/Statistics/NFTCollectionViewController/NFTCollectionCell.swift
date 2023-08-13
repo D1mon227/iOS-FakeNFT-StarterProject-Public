@@ -10,7 +10,7 @@ import Kingfisher
 
 final class NFTCollectionCell: UICollectionViewCell {
 	static let identifier = "NFTCollectionCell"
-	var onButtonTapped: (() -> Void)?
+	var onCartButtonTapped: (() -> Void)?
 	
 	private let containerView: UIView = {
 		let view = UIView()
@@ -81,7 +81,7 @@ final class NFTCollectionCell: UICollectionViewCell {
 	
 	@objc
 	private func cartButtonTapped(_ sender: UIButton) {
-		onButtonTapped?()
+		onCartButtonTapped?()
 	}
 	
 	override init(frame: CGRect) {
@@ -199,7 +199,7 @@ extension NFTCollectionView: UICollectionViewDataSource, UICollectionViewDelegat
 		if let id = order?.id {
 			cell.configure(with: item)
 			
-			cell.onButtonTapped = {
+			cell.onCartButtonTapped = {
 				self.presenter?.tapOnTheCell(for: item.id, id: id)
 			}
 		}

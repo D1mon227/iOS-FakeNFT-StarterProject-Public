@@ -8,8 +8,8 @@ protocol IUserDetailsViewNavigationDelegate: AnyObject {
 
 final class UserDetailsPresenter {
 	var ui: UserDetailsView?
-	private var model: User?
 	weak var navigationDelegate: IUserDetailsViewNavigationDelegate?
+	private var model: User?
 	
 	init(user: User?) {
 		self.model = user
@@ -27,7 +27,7 @@ final class UserDetailsPresenter {
 extension UserDetailsPresenter: IUserDetailsPresenter {
 	func viewDidLoad(ui: UserDetailsView) {
 		self.ui = ui
-		self.ui?.setDelegateDataSource(delegate: ui)
+		self.ui?.setDelegateDataSource()
 		guard let user = model else { return }
 		self.ui?.updateUI(with: user)
 	}

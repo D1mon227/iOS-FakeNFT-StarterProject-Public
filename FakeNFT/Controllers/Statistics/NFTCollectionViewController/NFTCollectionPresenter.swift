@@ -11,7 +11,7 @@ final class NFTCollectionPresenter {
 	
 	func fetchNFTsForUser(nftIds: [String]) {
 		DispatchQueue.main.async {
-			self.ui?.activityIndicator.startAnimating()
+			self.ui?.activatedIndicator()
 		}
 		
 		let dispatchGroup = DispatchGroup()
@@ -33,7 +33,7 @@ final class NFTCollectionPresenter {
 		}
 		
 		dispatchGroup.notify(queue: .main) { [weak self] in
-			self?.ui?.activityIndicator.stopAnimating()
+			self?.ui?.deactivatedIndicator()
 			self?.ui?.updateUI(with: userNFTs)
 		}
 	}
@@ -43,7 +43,7 @@ final class NFTCollectionPresenter {
 		networkClient.send(request: request, type: Profile.self) {  result in
 			switch result {
 			case let .success(likes):
-				self.ui?.fetchLikes(with: likes)
+				self.ui?.showFavorites(with: likes)
 			case let .failure(error):
 				print("Error fetching data:", error)
 			}
@@ -55,7 +55,7 @@ final class NFTCollectionPresenter {
 		networkClient.send(request: request, type: Order.self) {  result in
 			switch result {
 			case let .success(order):
-				self.ui?.fetchOrders(with: order)
+				self.ui?.showCart(with: order)
 				self.order.append(order)
 			case let .failure(error):
 				print("Error fetching data:", error)
@@ -90,7 +90,7 @@ final class NFTCollectionPresenter {
 			}
 			
 			putOrderFromServer(order: updatedOrder)
-			ui?.fetchOrders(with: updatedOrder)
+			ui?.showCart(with: updatedOrder)
 		}
 	}
 }
@@ -98,6 +98,6 @@ final class NFTCollectionPresenter {
 extension NFTCollectionPresenter: INFTCollectionPresenter {
 	func viewDidLoad(ui: NFTCollectionView) {
 		self.ui = ui
-		self.ui?.setDelegateDataSource(delegate: ui)
+		self.ui?.setDelegateDataSource()
 	}
 }
