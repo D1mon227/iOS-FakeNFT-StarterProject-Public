@@ -46,12 +46,17 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
     
     private func setupTargets() {
         profileView.websiteButton.addTarget(self, action: #selector(switchToAuthorInformation), for: .touchUpInside)
+        profileView.websiteButton.addTarget(self, action: #selector(sendReport), for: .touchUpInside)
     }
     
     @objc private func switchToAuthorInformation() {
         guard let customNC = navigationController as? CustomNavigationController,
               let webViewController = presenter?.switchToAuthorInformation() else { return }
         customNC.pushViewController(webViewController, animated: true)
+    }
+    
+    @objc private func sendReport() {
+        analyticsService.report(event: .click, screen: .profileVC, item: .profileWebsite)
     }
     
     @objc private func swithToEditingVC() {
@@ -115,6 +120,7 @@ extension ProfileViewController: UITableViewDelegate {
         case 1:
             switchToFavoritesNFTViewController()
         case 2:
+            analyticsService.report(event: .click, screen: .profileVC, item: .aboutDeveloper)
             switchToAuthorInformation()
         default:
             break

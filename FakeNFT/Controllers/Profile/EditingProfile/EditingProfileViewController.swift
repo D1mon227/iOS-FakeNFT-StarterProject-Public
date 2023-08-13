@@ -69,6 +69,7 @@ final class EditingProfileViewController: UIViewController, EditingProfileViewCo
     
     @objc private func uploadNewPhoto() {
         UIBlockingProgressHUD.show()
+        analyticsService.report(event: .click, screen: .editingProfileVC, item: .uploadPhoto)
         editingProfileView.uploadPhotoButton.removeFromSuperview()
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             UIBlockingProgressHUD.dismiss()
