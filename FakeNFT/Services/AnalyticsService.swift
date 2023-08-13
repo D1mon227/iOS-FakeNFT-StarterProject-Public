@@ -13,8 +13,6 @@ enum Screen: String {
     case editingProfileVC
     case myNFTsVC
     case favoritesNFTsVC
-    case profileWebsiteVC
-    case aboutDeveloperVC
     
     //Catalog
     case catalogVC
@@ -31,7 +29,6 @@ enum Screen: String {
     case statisticsVC
     case userCardVC
     case userCollectionVC
-    case userWebsiteVC
 }
 
 enum Item: String {
@@ -42,15 +39,23 @@ enum Item: String {
     case aboutDeveloper
     case profileWebsite
     case changePhoto
+    case uploadPhoto
     
     //Catalog
-    case author
-    case collection
+    case authorWebsite
+    
+    //Cart
+    case checkout
+    case pay
+    case returnToCatalog
+    case tryAgain
+    case userAgreement
+    case removeNFT
+    case currency
     
     //Statisctics
-    case userOnfo
+    case userInfo
     case userWebsite
-    case nftCollection
     
     //Sort
     case sort
@@ -60,13 +65,12 @@ enum Item: String {
     case sortByRating
     case sortByTitle
     
-    //Like
-    case like
-    
     //Joined
+    case like
     case nftInfo
     case addToCart
     case currencyWebsite
+    case nftCollection
 }
 
 final class AnalyticsService {
