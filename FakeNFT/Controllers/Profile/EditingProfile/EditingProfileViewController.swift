@@ -7,14 +7,7 @@ final class EditingProfileViewController: UIViewController, EditingProfileViewCo
     var presenter: EditingProfileViewPresenterProtocol?
     private var profilePresenter: ProfileViewPresenterProtocol?
     private let editingProfileView = EditingProfileView()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupViews()
-        setupEditingTableView()
-        setupTarget()
-        presenter?.getProfileInfo()
-    }
+    private let analyticsService = AnalyticsService.shared
     
     init(profilePresenter: ProfileViewPresenterProtocol?) {
         super.init(nibName: nil, bundle: nil)
@@ -23,13 +16,27 @@ final class EditingProfileViewController: UIViewController, EditingProfileViewCo
         self.presenter?.view = self
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        analyticsService.report(event: .open, screen: .editingProfileVC, item: nil)
+        setupViews()
+        setupEditingTableView()
+        setupTarget()
+        presenter?.getProfileInfo()
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         presenter?.editProfile()
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        analyticsService.report(event: .close, screen: .editingProfileVC, item: nil)
     }
     
     private func setupEditingTableView() {
@@ -57,6 +64,7 @@ final class EditingProfileViewController: UIViewController, EditingProfileViewCo
             make.centerX.equalToSuperview()
             make.top.equalTo(editingProfileView.profileImage.snp.bottom).offset(4)
         }
+        analyticsService.report(event: .click, screen: .editingProfileVC, item: .changePhoto)
     }
     
     @objc private func uploadNewPhoto() {

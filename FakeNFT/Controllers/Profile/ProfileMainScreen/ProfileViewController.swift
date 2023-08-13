@@ -5,15 +5,7 @@ import Kingfisher
 final class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     var presenter: ProfileViewPresenterProtocol?
     private let profileView = ProfileView()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        presenter?.fetchProfile()
-        setupNavigationBar()
-        setupViews()
-        setupTargets()
-        setupProfileTableView()
-    }
+    private let analyticsService = AnalyticsService.shared
     
     init(presenter: ProfileViewPresenterProtocol?) {
         super.init(nibName: nil, bundle: nil)
@@ -22,6 +14,16 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        analyticsService.report(event: .open, screen: .profileVC, item: nil)
+        presenter?.fetchProfile()
+        setupNavigationBar()
+        setupViews()
+        setupTargets()
+        setupProfileTableView()
     }
     
     func updateProfileDetails(profile: Profile?) {
@@ -54,18 +56,21 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
     
     @objc private func swithToEditingVC() {
         let editingProfileVC = EditingProfileViewController(profilePresenter: presenter)
+        analyticsService.report(event: .click, screen: .profileVC, item: .editProfile)
         present(editingProfileVC, animated: true)
     }
     
     @objc private func switchToMyNFTViewController() {
         guard let customNC = navigationController as? CustomNavigationController else { return }
         let myNFTVC = MyNFTViewController(profilePresenter: presenter, likes: presenter?.profile?.likes)
+        analyticsService.report(event: .click, screen: .profileVC, item: .myNFTs)
         customNC.pushViewController(myNFTVC, animated: true)
     }
     
     @objc private func switchToFavoritesNFTViewController() {
         guard let customNC = navigationController as? CustomNavigationController else { return }
         let favoritesNFTVC = FavoritesNFTViewController(profilePresenter: presenter, likes: presenter?.profile?.likes)
+        analyticsService.report(event: .click, screen: .profileVC, item: .favoriteNFTs)
         customNC.pushViewController(favoritesNFTVC, animated: true)
     }
 }

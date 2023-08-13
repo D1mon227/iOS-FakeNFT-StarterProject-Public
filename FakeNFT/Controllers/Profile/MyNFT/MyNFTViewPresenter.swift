@@ -6,6 +6,7 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
     private let nftService = NFTService.shared
     private let userService = UserService.shared
     private let likeService = LikeService.shared
+    private let analyticsService = AnalyticsService.shared
     private let userDefaults = UserDefaults.standard
     private let sortUserDefaultsKey = "MyNFtSortKey"
     
@@ -130,12 +131,15 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
         switch by {
         case .byPrice:
             nfts.sort { $0.price ?? 0.0 > $1.price ?? 0.0 }
+            analyticsService.report(event: .click, screen: .myNFTsVC, item: .sortByPrice)
             currentSort = .byPrice
         case .byRating:
             nfts.sort { $0.rating ?? 0 > $1.rating ?? 0 }
+            analyticsService.report(event: .click, screen: .myNFTsVC, item: .sortByRating)
             currentSort = .byRating
         case .byTitle:
             nfts.sort { $0.name ?? "" < $1.name ?? "" }
+            analyticsService.report(event: .click, screen: .myNFTsVC, item: .sortByTitle)
             currentSort = .byTitle
         default:
             break

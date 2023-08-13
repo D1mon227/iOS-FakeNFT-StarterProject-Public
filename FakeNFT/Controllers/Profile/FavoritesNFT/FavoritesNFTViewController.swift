@@ -5,6 +5,7 @@ final class FavoritesNFTViewController: UIViewController, FavoritesNFTViewContro
     var presenter: FavoritesNFTViewPresenterProtocol?
     private var profilePresenter: ProfileViewPresenterProtocol?
     private let favoritesNFTView = FavoritesNFTView()
+    private let analyticsService = AnalyticsService.shared
     
     init(profilePresenter: ProfileViewPresenterProtocol?, likes: [String]?) {
         super.init(nibName: nil, bundle: nil)
@@ -21,9 +22,15 @@ final class FavoritesNFTViewController: UIViewController, FavoritesNFTViewContro
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .backgroundDay
+        analyticsService.report(event: .open, screen: .favoritesNFTsVC, item: nil)
         setupCollectionView()
         presenter?.fetchNFTs()
         setupTitle()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        analyticsService.report(event: .close, screen: .favoritesNFTsVC, item: nil)
     }
     
     private func setupCollectionView() {
@@ -112,6 +119,7 @@ extension FavoritesNFTViewController: FavoritesNFTCollectionViewCellDelegate {
               let presenter = presenter else { return }
         let nftID = presenter.favoritesNFTs[indexPath.row].id
         presenter.changeLike(nftID)
+        analyticsService.report(event: .click, screen: .favoritesNFTsVC, item: .like)
         
         favoritesNFTView.nftCollectionView.performBatchUpdates {
             presenter.favoritesNFTs.remove(at: indexPath.row)

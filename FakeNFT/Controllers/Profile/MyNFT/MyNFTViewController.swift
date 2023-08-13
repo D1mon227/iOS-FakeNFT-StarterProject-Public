@@ -6,6 +6,7 @@ final class MyNFTViewController: UIViewController, MyNFTViewControllerProtocol {
     private var profilePresenter: ProfileViewPresenterProtocol?
     private let myNFTView = MyNFTView()
     private let alertService = AlertService()
+    private let analyticsService = AnalyticsService.shared
     
     init(profilePresenter: ProfileViewPresenterProtocol?, likes: [String]?) {
         super.init(nibName: nil, bundle: nil)
@@ -22,11 +23,17 @@ final class MyNFTViewController: UIViewController, MyNFTViewControllerProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .backgroundDay
+        analyticsService.report(event: .open, screen: .myNFTsVC, item: nil)
         setupNavigationBar()
         setupTableView()
         presenter?.fetchNFTs()
         presenter?.fetchUsers()
         setupTitle()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        analyticsService.report(event: .close, screen: .myNFTsVC, item: nil)
     }
     
     private func setupTableView() {
@@ -68,6 +75,7 @@ final class MyNFTViewController: UIViewController, MyNFTViewControllerProtocol {
     }
     
     @objc private func sort() {
+        analyticsService.report(event: .click, screen: .myNFTsVC, item: .sort)
         alertService.showAlert(title: LocalizableConstants.Sort.sort,
                                actions: [.byPrice, .byRating, .byTitle, .close],
                                controller: self) { [weak self] option in
@@ -106,6 +114,7 @@ extension MyNFTViewController: MyNFTTableViewCellDelegate {
               let presenter = presenter else { return }
         let nftID = presenter.purchasedNFTs[indexPath.row].id
         presenter.changeLike(nftID ?? "")
+        analyticsService.report(event: .click, screen: .myNFTsVC, item: .like)
         cell.setLiked(presenter.doesNftHasLike(id: nftID))
     }
 }
