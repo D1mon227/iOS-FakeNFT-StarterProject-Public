@@ -97,13 +97,10 @@ final class NFTCollectionPresenter {
 			if let nftIndex = updatedOrder.nfts.firstIndex(of: nftID) {
 				updatedOrder.nfts.remove(at: nftIndex)
 				order[orderIndex] = updatedOrder
-				print(nftID)
 			} else {
 				updatedOrder.nfts.append(nftID)
 				order[orderIndex] = updatedOrder
-				print(nftID)
 			}
-			print(updatedOrder)
 			putOrderToServer(order: updatedOrder)
 			ui?.showCart(with: updatedOrder)
 		}
@@ -117,7 +114,6 @@ final class NFTCollectionPresenter {
 		}
 
 		let allLikes: Likes = Likes(likes: likes.flatMap { $0.likes })
-		print(allLikes)
 		putLikesToServer(likes: allLikes)
 		ui?.showFavorites(with: allLikes)
 	}
