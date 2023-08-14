@@ -11,6 +11,7 @@ import Kingfisher
 final class NFTCollectionCell: UICollectionViewCell {
 	static let identifier = "NFTCollectionCell"
 	var onCartButtonTapped: (() -> Void)?
+	var onFavoriteButtonTapped: (() -> Void)?
 	
 	private let containerView: UIView = {
 		let view = UIView()
@@ -77,7 +78,9 @@ final class NFTCollectionCell: UICollectionViewCell {
 	}()
 	
 	@objc
-	private func favoritesButtonTapped(_ sender: UIButton) { }
+	private func favoritesButtonTapped(_ sender: UIButton) {
+		onFavoriteButtonTapped?()
+	}
 	
 	@objc
 	private func cartButtonTapped(_ sender: UIButton) {
@@ -191,23 +194,27 @@ extension NFTCollectionView: UICollectionViewDataSource, UICollectionViewDelegat
 		guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NFTCollectionCell.identifier, for: indexPath) as? NFTCollectionCell else {
 			return UICollectionViewCell()
 		}
-		let item = collectionNFT[indexPath.row]
-		configureFavoritesButton(cell, for: item)
-		configureCartButton(cell, for: item)
-		cell.configure(with: item)
+		let nft = collectionNFT[indexPath.row]
+		configureFavoritesButton(cell, for: nft)
+		configureCartButton(cell, for: nft)
+		cell.configure(with: nft)
 		
 		if let id = order?.id {
-			cell.configure(with: item)
+			cell.configure(with: nft)
 			
 			cell.onCartButtonTapped = {
-				self.presenter?.tapOnTheCell(for: item.id, id: id)
+				self.presenter?.tapOnTheCell(for: nft.id, profile: id)
+			}
+			
+			cell.onFavoriteButtonTapped = {
+				self.presenter?.tapOnTheCell(for: nft.id)
 			}
 		}
 		return cell
 	}
 	
-	func configureFavoritesButton(_ cell: NFTCollectionCell, for item: NFT) {
-		if let profileLikes = profile, profileLikes.likes.contains(item.id) {
+	func configureFavoritesButton(_ cell: NFTCollectionCell, for nft: NFT) {
+		if let profileLikes = likes, profileLikes.likes.contains(nft.id) {
 			cell.favoritesButton.tintColor = .redUniversal
 		} else {
 			cell.favoritesButton.tintColor = UIColor.white

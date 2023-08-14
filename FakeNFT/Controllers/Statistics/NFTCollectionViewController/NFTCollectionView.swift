@@ -3,7 +3,7 @@ import UIKit
 protocol INFTCollectionView: AnyObject {
 	func setDelegateDataSource()
 	func updateUI(with data: [NFT])
-	func showFavorites(with data: Profile)
+	func showFavorites(with data: Likes)
 	func showCart(with data: Order)
 	func activatedIndicator()
 	func deactivatedIndicator()
@@ -11,7 +11,7 @@ protocol INFTCollectionView: AnyObject {
 
 final class NFTCollectionView: UIView {
 	var collectionNFT: [NFT] = []
-	var profile: Profile?
+	var likes: Likes?
 	var order: Order?
 	var presenter: NFTCollectionPresenter?
 	
@@ -74,8 +74,8 @@ extension NFTCollectionView: INFTCollectionView {
 		}
 	}
 	
-	func showFavorites(with data: Profile) {
-		profile = data
+	func showFavorites(with data: Likes) {
+		likes = data
 		DispatchQueue.main.async { [weak self] in
 			guard let self else { return }
 			self.nftCollectionView.reloadData()
