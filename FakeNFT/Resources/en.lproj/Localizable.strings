@@ -1,3 +1,12 @@
+//MARK: Onboarding
+"onboarding.firstTitle" = "Explore";
+"onboarding.firstDescription" = "Join us and discover a new world of unique NFT for collectors";
+"onboarding.secondTitle" = "Collect";
+"onboarding.secondDescription" = "Replenish your collection with exclusive pictures created by the neural network!";
+"onboarding.thirdTitle" = "Compete";
+"onboarding.thirdDescription" = "See the statistics of others and show everyone that you have the most valuable collection";
+"onboarding.letsStartButton" = "What's inside?";
+
 //MARK: TabBar
 "tabBar.profile" = "Profile";
 "tabBar.catalog" = "Catalog";
@@ -10,6 +19,7 @@
 "profile.aboutDeveloper" = "About the developer";
 "profile.name" = "Name";
 "profile.changePhoto" = "Change\nphoto";
+"profile.uploadPhoto" = "Upload image";
 "profile.description" = "Description";
 "profile.website" = "Website";
 "profile.byAuthor" = "By";

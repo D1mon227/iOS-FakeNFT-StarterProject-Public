@@ -1,6 +1,16 @@
 import Foundation
 
 enum LocalizableConstants {
+    enum Onboarding {
+        static let firstTitle = NSLocalizedString("onboarding.firstTitle", comment: "")
+        static let firstDescription = NSLocalizedString("onboarding.firstDescription", comment: "")
+        static let secondTitle = NSLocalizedString("onboarding.secondTitle", comment: "")
+        static let secondDescription = NSLocalizedString("onboarding.secondDescription", comment: "")
+        static let thirdTitle = NSLocalizedString("onboarding.thirdTitle", comment: "")
+        static let thirdDescription = NSLocalizedString("onboarding.thirdDescription", comment: "")
+        static let letsStartButton = NSLocalizedString("onboarding.letsStartButton", comment: "")
+    }
+    
     enum TabBar {
         static let profile = NSLocalizedString("tabBar.profile", comment: "")
         static let catalog = NSLocalizedString("tabBar.catalog", comment: "")
@@ -14,6 +24,7 @@ enum LocalizableConstants {
         static let aboutDeveloper = NSLocalizedString("profile.aboutDeveloper", comment: "")
         static let name = NSLocalizedString("profile.name", comment: "")
         static let changePhoto = NSLocalizedString("profile.changePhoto", comment: "")
+        static let uploadPhoto = NSLocalizedString("profile.uploadPhoto", comment: "")
         static let description = NSLocalizedString("profile.description", comment: "")
         static let website = NSLocalizedString("profile.website", comment: "")
         static let byAuthor = NSLocalizedString("profile.byAuthor", comment: "")

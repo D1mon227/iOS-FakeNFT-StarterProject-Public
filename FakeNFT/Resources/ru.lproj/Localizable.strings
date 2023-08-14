@@ -1,3 +1,12 @@
+//MARK: Onboarding
+"onboarding.firstTitle" = "Исследуйте";
+"onboarding.firstDescription" = "Присоединяйтесь и откройте новый мир уникальных NFT для коллекционеров";
+"onboarding.secondTitle" = "Коллекционируйте";
+"onboarding.secondDescription" = "Пополняйте свою коллекцию эксклюзивными картинками, созданными нейросетью!";
+"onboarding.thirdTitle" = "Состязайтесь";
+"onboarding.thirdDescription" = "Смотрите статистику других и покажите всем, что у вас самая ценная коллекция";
+"onboarding.letsStartButton" = "Что внутри?";
+
 //MARK: TabBar
 "tabBar.profile" = "Профиль";
 "tabBar.catalog" = "Каталог";
@@ -10,6 +19,7 @@
 "profile.aboutDeveloper" = "О разработчике";
 "profile.name" = "Имя";
 "profile.changePhoto" = "Сменить\nфото";
+"profile.uploadPhoto" = "Загрузить изображение";
 "profile.description" = "Описание";
 "profile.website" = "Сайт";
 "profile.byAuthor" = "От";

@@ -16,3 +16,4 @@ struct User: Decodable {
 	let rating: String
 	let id: String
 }
+

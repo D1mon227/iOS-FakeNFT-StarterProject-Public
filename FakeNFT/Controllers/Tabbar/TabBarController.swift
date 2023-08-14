@@ -1,9 +1,10 @@
 import UIKit
 
 final class TabBarController: UITabBarController {
-    
+	
     override func viewDidLoad() {
         super.viewDidLoad()
+        tabBar.backgroundColor = .backgroundDay
         setupTabBar()
     }
     
@@ -11,7 +12,8 @@ final class TabBarController: UITabBarController {
         let profileVC = CustomNavigationController(rootViewController: ProfileViewController())
         let catalogVC = CustomNavigationController(rootViewController: CatalogViewController())
         let cartVC = CustomNavigationController(rootViewController: CartViewController())
-        let statisticsVC = CustomNavigationController(rootViewController: StatisticsViewController())
+		let statisticsVC = CustomNavigationController(rootViewController: StatisticsViewController())
+
         
         profileVC.tabBarItem = UITabBarItem(title: LocalizableConstants.TabBar.profile,
                                             image: Resourses.Images.TabBar.profileTabBar,
