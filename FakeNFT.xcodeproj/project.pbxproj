@@ -441,9 +441,9 @@
 		73EA4B012A73C6E2000B4B55 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				73EA4B1C2A7471D2000B4B55 /* CustomNavigationViewController.swift */,
 				1FEA5B4C2A81495100946DD9 /* WebViewModule */,
 				737D031F2A80707A00DCB5B1 /* Onboarding */,
-				73EA4B1C2A7471D2000B4B55 /* CustomNavigationViewController.swift */,
 				737D031E2A80706400DCB5B1 /* Tabbar */,
 				73EA4B062A73C774000B4B55 /* Profile */,
 				73EA4B0C2A73C7A7000B4B55 /* Cart */,
