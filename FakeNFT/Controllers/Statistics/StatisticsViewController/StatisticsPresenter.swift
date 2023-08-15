@@ -1,3 +1,5 @@
+import Foundation
+
 protocol IStatisticsPresenter {
 	func viewDidLoad(ui: IStatisticsView)
 	func navigateToUserDetails(with presenter: UserDetailsPresenter)
@@ -12,6 +14,18 @@ final class StatisticsPresenter {
 	private var model: [User]?
 	private var ui: IStatisticsView?
 	private let networkClient = DefaultNetworkClient()
+	private var currentSortOption: Sort {
+		get {
+			if let savedOption = UserDefaults.standard.string(forKey: "SavedSortOption"),
+			   let sortOption = Sort(rawValue: savedOption) {
+				return sortOption
+			}
+			return .byRating
+		}
+		set {
+			UserDefaults.standard.set(newValue.rawValue, forKey: "SavedSortOption")
+		}
+	}
 	
 	func fetchUserFromServer() {
 		self.ui?.activatedIndicator()
@@ -23,7 +37,7 @@ final class StatisticsPresenter {
 			switch result {
 			case .success(let users):
 				self.model = users
-				sortData(by: .byRating)
+				sortData(by: currentSortOption)
 			case .failure(let error):
 				print("Error fetching data:", error)
 			}
@@ -41,10 +55,12 @@ final class StatisticsPresenter {
 		navigationDelegate?.showUserDetails(with: presenter)
 	}
 	
-	func sortData(by: Sort)  {
+	func sortData(by sortOption: Sort)  {
+		currentSortOption = sortOption
+		
 		guard var dataToSort = model else { return }
 		
-		switch by {
+		switch sortOption {
 		case .byName:
 			dataToSort.sort { $0.name < $1.name }
 		case .byRating:
