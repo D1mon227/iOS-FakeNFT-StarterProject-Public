@@ -16,9 +16,9 @@ protocol PaymentViewNavigationDelegate: AnyObject {
     func showWebViewController(withURL url: URL)
 }
 
-class PaymentPresenter: PaymentPresenterProtocol {
-    weak var view: PaymentViewProtocol?
-    var model: PaymentModelProtocol?
+final class PaymentPresenter: PaymentPresenterProtocol {
+    private weak var view: PaymentViewProtocol?
+    private let model: PaymentModelProtocol?
     
     
     init(view: PaymentViewProtocol, model: PaymentModelProtocol) {
@@ -27,9 +27,9 @@ class PaymentPresenter: PaymentPresenterProtocol {
     }
     
     func fetchCurrencies() {
-        model?.getCurrenciesFromAPI { currencies in
+        model?.getCurrenciesFromAPI { [weak self] currencies in
             DispatchQueue.main.async {
-                self.view?.updateCurrencies(currencies)
+                self?.view?.updateCurrencies(currencies)
             }
         }
     }
@@ -39,13 +39,21 @@ class PaymentPresenter: PaymentPresenterProtocol {
             return
         }
         
-        model?.getCurrenciesFromAPI { currencies in
+        model?.getCurrenciesFromAPI { [weak self] currencies in
+            guard let self = self else {
+                return
+            }
+            
             guard selectedPaymentIndex < currencies.count else {
                 return
             }
             
             let selectedPayment = currencies[selectedPaymentIndex]
-            self.model?.getPaymentResult(currencyID: selectedPayment.id) { payment in
+            self.model?.getPaymentResult(currencyID: selectedPayment.id) { [weak self] payment in
+                guard let self = self else {
+                    return
+                }
+                
                 DispatchQueue.main.async {
                     if payment.success {
                         self.view?.showSuccessPayment()
@@ -56,4 +64,5 @@ class PaymentPresenter: PaymentPresenterProtocol {
             }
         }
     }
+
 }

@@ -15,10 +15,8 @@ protocol PaymentModelProtocol {
 
 final class PaymentModel: PaymentModelProtocol {
 
-    var urlString = "https://64858e8ba795d24810b71189.mockapi.io/api/v1/currencies"
-    
-//    var urlString = "https://64858e8ba795d24810b71189.mockapi.io/api/v1/nft"
-    
+    private let urlString = "https://64858e8ba795d24810b71189.mockapi.io/api/v1/currencies"
+        
     func getCurrenciesFromAPI(completion: @escaping ([PaymentStruct]) -> Void) {
         guard let url = URL(string: urlString) else { return }
         var request = URLRequest(url: url)

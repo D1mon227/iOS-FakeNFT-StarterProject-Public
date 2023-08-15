@@ -198,7 +198,7 @@ final class CartViewController: UIViewController, UITableViewDataSource{
         if let navBar = navigationController?.navigationBar {
             navBar.barTintColor = .white  // Change this to the desired background color
             let sortButton = UIButton(type: .custom)
-            sortButton.setImage(UIImage(named: "Vector"), for: .normal)
+            sortButton.setImage(UIImage(named: "Sort"), for: .normal)
             sortButton.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
             sortButton.addTarget(self, action: #selector(sortButtonTapped), for: .touchUpInside)
             
@@ -230,6 +230,7 @@ final class CartViewController: UIViewController, UITableViewDataSource{
             countOfNFTS.isHidden = true
             priceOfNFTS.isHidden = true
             payButton.isHidden = true
+            navigationController?.navigationBar.isHidden = true
         } else {
             tableView.isHidden = false
             cartInfo.isHidden = false
@@ -237,6 +238,7 @@ final class CartViewController: UIViewController, UITableViewDataSource{
             countOfNFTS.isHidden = false
             priceOfNFTS.isHidden = false
             payButton.isHidden = false
+            navigationController?.navigationBar.isHidden = false
         }
         return cartArray.count
     }
@@ -297,13 +299,6 @@ final class CartViewController: UIViewController, UITableViewDataSource{
             self.fetchDataFromAPI()
         })
         
-        //        guard let indexToDelete = indexNFTToDelete else {
-        //            return
-        //        }
-        //        cartArray.remove(at: indexToDelete)
-        //        cartTable.reloadData()
-        //
-        //        print("DELETE \(indexNFTToDelete ?? 0) NFT")
         blurView.removeFromSuperview()
         imageToDelete.removeFromSuperview()
         deleteText.removeFromSuperview()

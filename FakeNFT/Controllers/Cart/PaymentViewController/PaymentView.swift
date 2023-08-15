@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PaymentView: UIView {
+final class PaymentView: UIView {
     
     weak var delegate: PaymentViewDelegate? // Delegate for communication with the view controller
     
@@ -19,7 +19,7 @@ class PaymentView: UIView {
     
     var isCellSelected: Int = 0
     
-    let paymentCollection: UICollectionView = {
+    private let paymentCollection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -28,13 +28,13 @@ class PaymentView: UIView {
         return collection
     }()
     
-    let collectionViewContainer: UIView = {
+    private let collectionViewContainer: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    let paymentButton: UIButton = {
+    private let paymentButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .black
         button.layer.cornerRadius = 12
@@ -43,10 +43,11 @@ class PaymentView: UIView {
         button.setTitle("Оплатить", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.isEnabled = false
         return button
     }()
     
-    let cartInfo: UIView = {
+    private let cartInfo: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 0.97, green: 0.97, blue: 0.97, alpha: 1)
         view.layer.cornerRadius = 12
@@ -55,7 +56,7 @@ class PaymentView: UIView {
         return view
     }()
     
-    let userAgreementText: UILabel = {
+    private let userAgreementText: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         label.numberOfLines = 0
@@ -65,7 +66,7 @@ class PaymentView: UIView {
         return label
     }()
     
-    let userAgreementLink: UILabel = {
+    private let userAgreementLink: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         label.numberOfLines = 0
@@ -86,6 +87,13 @@ class PaymentView: UIView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
+    }
+    
+    func updateCurrencies(_ currencies: [PaymentStruct]) {
+        // Update your collection view data
+        paymentCollection.reloadData()
+        print("Number of items in paymentArray: \(paymentArray.count)")
+        
     }
     
     private func commonInit() {
@@ -161,14 +169,6 @@ class PaymentView: UIView {
         ])
     }
     
-    
-    
-    func updateCurrencies(_ currencies: [PaymentStruct]) {
-        // Update your collection view data
-        paymentCollection.reloadData()
-        print("Number of items in paymentArray: \(paymentArray.count)")
-        
-    }
 }
 
 
@@ -194,16 +194,14 @@ extension PaymentView: UICollectionViewDataSource {
 extension PaymentView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         isCellSelected = indexPath.row + 1
+        paymentButton.isEnabled = true
     }
 }
-
 
 protocol PaymentViewDelegate: AnyObject {
     func payButtonTapped(selectedIndex: Int) // Add this method
     func labelTapped()
 }
-
-
 
 extension PaymentView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

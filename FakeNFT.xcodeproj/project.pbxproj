@@ -44,7 +44,6 @@
 		924DCA602A7CBE9D00995282 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924DCA5F2A7CBE9D00995282 /* PaymentViewController.swift */; };
 		924DCA622A7CF1F200995282 /* CartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924DCA612A7CF1F200995282 /* CartCell.swift */; };
 		924DCA642A7CF4C200995282 /* CartStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924DCA632A7CF4C200995282 /* CartStruct.swift */; };
-		924DCA662A7CF50900995282 /* CartMockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924DCA652A7CF50900995282 /* CartMockData.swift */; };
 		924DCA682A7CF5A700995282 /* CartPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924DCA672A7CF5A700995282 /* CartPresenter.swift */; };
 		924DCA6A2A82133B00995282 /* PaymentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924DCA692A82133B00995282 /* PaymentModel.swift */; };
 		924DCA6C2A82138D00995282 /* PaymentStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924DCA6B2A82138D00995282 /* PaymentStruct.swift */; };
@@ -112,11 +111,10 @@
 		924DCA5D2A7CB2E200995282 /* FailedPaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailedPaymentViewController.swift; sourceTree = "<group>"; };
 		924DCA5F2A7CBE9D00995282 /* PaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
 		924DCA612A7CF1F200995282 /* CartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartCell.swift; sourceTree = "<group>"; };
-		924DCA632A7CF4C200995282 /* CartStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CartStruct.swift; path = FakeNFT/Models/Network/CartStruct.swift; sourceTree = "<group>"; };
-		924DCA652A7CF50900995282 /* CartMockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CartMockData.swift; path = FakeNFT/Models/Network/CartMockData.swift; sourceTree = "<group>"; };
+		924DCA632A7CF4C200995282 /* CartStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartStruct.swift; sourceTree = "<group>"; };
 		924DCA672A7CF5A700995282 /* CartPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartPresenter.swift; sourceTree = "<group>"; };
 		924DCA692A82133B00995282 /* PaymentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentModel.swift; sourceTree = "<group>"; };
-		924DCA6B2A82138D00995282 /* PaymentStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PaymentStruct.swift; path = FakeNFT/Models/Network/PaymentStruct.swift; sourceTree = "<group>"; };
+		924DCA6B2A82138D00995282 /* PaymentStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentStruct.swift; sourceTree = "<group>"; };
 		924DCA6E2A8215EB00995282 /* PaymentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentCell.swift; sourceTree = "<group>"; };
 		924DCA702A821CED00995282 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		924DCA822A8505B100995282 /* CartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartView.swift; sourceTree = "<group>"; };
@@ -159,9 +157,6 @@
 		39356FEC2A8A77C700A9E663 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				924DCA6B2A82138D00995282 /* PaymentStruct.swift */,
-				924DCA652A7CF50900995282 /* CartMockData.swift */,
-				924DCA632A7CF4C200995282 /* CartStruct.swift */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -317,6 +312,8 @@
 		73EA4B0C2A73C7A7000B4B55 /* Cart */ = {
 			isa = PBXGroup;
 			children = (
+				924DCA6B2A82138D00995282 /* PaymentStruct.swift */,
+				924DCA632A7CF4C200995282 /* CartStruct.swift */,
 				924DCA842A8505B700995282 /* PaymentViewController */,
 				924DCA812A85054400995282 /* CartViewController */,
 				924DCA5D2A7CB2E200995282 /* FailedPaymentViewController.swift */,
@@ -566,7 +563,6 @@
 				732A443A2A88FFBE00A593C2 /* AnalyticsService.swift in Sources */,
 				3F68069929CBBAF100B4F915 /* SceneDelegate.swift in Sources */,
 				73EA4B1B2A744623000B4B55 /* LocalizableConstants.swift in Sources */,
-				924DCA662A7CF50900995282 /* CartMockData.swift in Sources */,
 				924DCA602A7CBE9D00995282 /* PaymentViewController.swift in Sources */,
 				3F6806D329CBBE9600B4F915 /* NetworkRequest.swift in Sources */,
 				924DCA642A7CF4C200995282 /* CartStruct.swift in Sources */,

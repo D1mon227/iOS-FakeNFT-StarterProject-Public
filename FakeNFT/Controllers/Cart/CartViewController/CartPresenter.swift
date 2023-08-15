@@ -11,12 +11,11 @@ protocol CartPresenterProtocol {
     func getNFTsFromAPI(nftID: String, completion: @escaping (CartStruct?) -> Void)
     func cartNFTs(completion: @escaping (OrdersStruct?) -> Void)
     func changeCart(newArray: [String], completion: @escaping () -> Void)
-    
 }
 
 final class CartPresenter: CartPresenterProtocol {
     
-    var urlString = "https://64858e8ba795d24810b71189.mockapi.io"
+    private let urlString = "https://64858e8ba795d24810b71189.mockapi.io"
     
     func getNFTsFromAPI(nftID: String, completion: @escaping (CartStruct?) -> Void) {
         guard let url = URL(string: urlString + "/api/v1/nft/" + nftID) else {
@@ -114,6 +113,6 @@ final class CartPresenter: CartPresenterProtocol {
             print("Error serializing parameters to JSON: \(error)")
         }
     }
-
+    
 }
 

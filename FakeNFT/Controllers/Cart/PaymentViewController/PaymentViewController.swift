@@ -14,15 +14,15 @@ protocol PaymentViewProtocol: AnyObject {
     func showFailedPayment()
 }
 
-class PaymentViewController: UIViewController, PaymentViewProtocol, PaymentViewDelegate {
+final class PaymentViewController: UIViewController {
     
-    var presenter: PaymentPresenterProtocol?
+    private var presenter: PaymentPresenterProtocol?
     
-    var model: PaymentModel?
+    private var model: PaymentModel?
     
-    var paymentArray: [PaymentStruct] = []
+    private var paymentArray: [PaymentStruct] = []
     
-    var isCellSelected: Int = -1
+    private var isCellSelected: Int = -1
     
     private let paymentView = PaymentView()
     
@@ -42,10 +42,10 @@ class PaymentViewController: UIViewController, PaymentViewProtocol, PaymentViewD
 }
 
 // MARK: - Private methods
-extension PaymentViewController {
+extension PaymentViewController: PaymentViewDelegate {
     
     // MARK: - Functions & Methods
-    //    / Appearance customisation
+    // Appearance customisation
     private func setupView() {
         view.addSubview(paymentView)
         paymentView.delegate = self // Make sure self is of type PaymentViewDelegate
@@ -56,12 +56,40 @@ extension PaymentViewController {
     private func setupProperties() {
         tabBarController?.tabBar.isHidden = true
     }
-    func updateCurrencies(_ currencies: [PaymentStruct]) {
-        paymentArray = currencies
-        paymentView.paymentArray = currencies // Make sure you're setting the paymentArray in the PaymentView
-        paymentView.updateCurrencies(currencies)
+    
+    @objc
+    internal func payButtonTapped(selectedIndex: Int) {
+        print("Selected cell index: \(selectedIndex)")
+        if selectedIndex != -1 {
+            let selectedPayment = paymentArray[selectedIndex - 1]
+            print("Selected payment ID: \(selectedPayment.id)")
+            presenter?.performPayment(selectedPaymentIndex: selectedIndex - 1)
+        }
     }
     
+    
+    @objc
+    internal func labelTapped() {
+        guard let url = URL(string: "https://yandex.ru/legal/practicum_termsofuse/") else {
+            print("Invalid URL")
+            return
+        }
+        
+        let webViewController = WebViewController()
+        webViewController.url = url
+        
+        present(webViewController, animated: true, completion: nil)
+    }
+    
+}
+
+extension PaymentViewController: PaymentViewProtocol {
+    
+    func updateCurrencies(_ currencies: [PaymentStruct]) {
+        paymentArray = currencies
+        paymentView.paymentArray = currencies
+        paymentView.updateCurrencies(currencies)
+    }
     
     func showSuccessPayment() {
         let successVC = SucceedPaymentViewController()
@@ -76,30 +104,6 @@ extension PaymentViewController {
         failedVC.modalTransitionStyle = .crossDissolve
         present(failedVC, animated: false, completion: nil)
     }
-    
-    @objc
-    func payButtonTapped(selectedIndex: Int) {
-        print("Selected cell index: \(selectedIndex)")
-        if selectedIndex != -1 {
-            let selectedPayment = paymentArray[selectedIndex - 1]
-            print("Selected payment ID: \(selectedPayment.id)")
-            presenter?.performPayment(selectedPaymentIndex: selectedIndex - 1)
-        }
-    }
-    
-    
-    @objc func labelTapped() {
-        guard let url = URL(string: "https://yandex.ru/legal/practicum_termsofuse/") else {
-            print("Invalid URL")
-            return
-        }
-        
-        let webViewController = WebViewController()
-        webViewController.url = url
-        
-        present(webViewController, animated: true, completion: nil)
-    }
-    
 }
 
 extension PaymentViewController: PaymentViewNavigationDelegate {

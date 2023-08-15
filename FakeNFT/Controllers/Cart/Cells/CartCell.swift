@@ -8,14 +8,14 @@
 
 import UIKit
 
-protocol CartCellDelegate {
+protocol CartCellDelegate: AnyObject {
     func showDeleteView(index: Int)
 }
 
 final class CartCell: UITableViewCell {
     
     // MARK: - Properties & Init
-    var delegate: CartCellDelegate?
+    weak var delegate: CartCellDelegate?
     
     var indexCell: Int?
     
@@ -47,27 +47,28 @@ final class CartCell: UITableViewCell {
     }()
     
     let nftPrice: UILabel = {
+        
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let starImage: UIImageView = {
+    private let starImage: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "star")
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
     
-    let starStack: UIStackView = {
+    private let starStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
     
-    let deleteButton: UIButton = {
+    private let deleteButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "CartDeleteIcon"), for: .normal)
         button.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
@@ -117,7 +118,7 @@ final class CartCell: UITableViewCell {
             nftPrice.heightAnchor.constraint(equalToConstant: 22),
             nftPrice.widthAnchor.constraint(equalToConstant: 100),
             
-            deleteButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -28),
+            deleteButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             deleteButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             deleteButton.heightAnchor.constraint(equalToConstant: 40)
         ])
@@ -145,7 +146,7 @@ final class CartCell: UITableViewCell {
     }
     
     @objc
-    func deleteButtonTapped() {
+    private func deleteButtonTapped() {
         delegate?.showDeleteView(index: indexCell ?? 0)
     }
     

@@ -31,7 +31,7 @@ final class SucceedPaymentViewController: UIViewController {
     let backButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .black
-        button.layer.cornerRadius = 12
+        button.layer.cornerRadius = 16
         button.layer.masksToBounds = true
         button.addTarget(nil, action: #selector(backTapped), for: .touchUpInside)
         button.setTitle("Вернуться в каталог", for: .normal)
@@ -70,7 +70,7 @@ final class SucceedPaymentViewController: UIViewController {
     }
     
     @objc
-    func backTapped() {
+    private func backTapped() {
         let tabBar = TabBarController()
         tabBar.modalPresentationStyle = .fullScreen
         tabBar.modalTransitionStyle = .crossDissolve
