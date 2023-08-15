@@ -26,21 +26,22 @@ final class NftService: NftServiceProtocol {
         let session = urlSession
         let modelRequest = NftRequest.getNftById(id: id)
         
-        //обработать ошибку
-        let request = try! makeRequest(for: modelRequest)
-        session.objectTask(for: request) { [weak self] (result: Result<NftResponse, Error>) in
-            guard let self = self else { return }
-            
-            DispatchQueue.main.async {
-                
-                switch result {
-                case .success(let nftItemResult):
-                    completion(.success(nftItemResult))
-                case .failure(let error):
-                    completion(.failure(error))
+        do {
+            let request = try makeRequest(for: modelRequest)
+            session.objectTask(for: request) { (result: Result<NftResponse, Error>) in
+                DispatchQueue.main.async {
+                    
+                    switch result {
+                    case .success(let nftItemResult):
+                        completion(.success(nftItemResult))
+                    case .failure(let error):
+                        completion(.failure(error))
+                    }
                 }
-            }
-        }.resume()
+            }.resume()
+        } catch {
+            //обработать ошибку
+        }
 
     }
     
@@ -53,6 +54,7 @@ final class NftService: NftServiceProtocol {
         return urlRequest
     }
  }
+
 
 
 

@@ -29,42 +29,49 @@ final class ProfileService: ProfileServiceProtocol {
 
         let modelRequest = ProfileRequest.getProfileById(id: id)
         
-        //обработать ошибку
-        let request = try! makeRequest(for: modelRequest)
-        urlSession.objectTask(for: request) { (result: Result<ProfileModel, Error>) in
-   
-            DispatchQueue.main.async {
+        do {
+            let request = try makeRequest(for: modelRequest)
+            urlSession.objectTask(for: request) { (result: Result<ProfileModel, Error>) in
                 
-                switch result {
-                case .success(let user):
-                    completion(.success(user))
-                case .failure(let error):
-                    completion(.failure(error))
+                DispatchQueue.main.async {
+                    
+                    switch result {
+                    case .success(let user):
+                        completion(.success(user))
+                    case .failure(let error):
+                        completion(.failure(error))
+                    }
                 }
-            }
-        }.resume()
+            }.resume()
+        } catch {
+            //обработать ошибку
+        }
 
     }
     
-    func putProfile(user: ProfileModel, completion: @escaping (Result<ProfileModel, Error>) -> Void) {
+    func putProfile(user: ProfileModel,
+                    completion: @escaping (Result<ProfileModel, Error>) -> Void) {
         assert(Thread.isMainThread)
         
         let modelRequest = ProfileRequest.putProfile(user: user)
         
-        //обработать ошибку
-        let request = try! makeRequest(for: modelRequest)
-        urlSession.objectTask(for: request) { (result: Result<ProfileModel, Error>) in
-
-            DispatchQueue.main.async {
+        do {
+            let request = try makeRequest(for: modelRequest)
+            urlSession.objectTask(for: request) { (result: Result<ProfileModel, Error>) in
                 
-                switch result {
-                case .success(let user):
-                    completion(.success(user))
-                case .failure(let error):
-                    completion(.failure(error))
+                DispatchQueue.main.async {
+                    
+                    switch result {
+                    case .success(let user):
+                        completion(.success(user))
+                    case .failure(let error):
+                        completion(.failure(error))
+                    }
                 }
-            }
-        }.resume()
+            }.resume()
+        } catch {
+            //обработать ошибку
+        }
     }
     
     private func makeRequest(for networkRequestModel: NetworkRequest) throws -> URLRequest {
@@ -76,6 +83,7 @@ final class ProfileService: ProfileServiceProtocol {
         return urlRequest
     }
  }
+
 
 
 

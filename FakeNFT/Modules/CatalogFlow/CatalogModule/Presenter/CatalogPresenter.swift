@@ -40,7 +40,7 @@ extension CatalogPresenter: CatalogPresenterProtocol {
     }
     
     func didTapSortingButton() {
-        let byNameAction = AlertActionModel(title: "По названию",
+        let byNameAction = AlertActionModel(title: LocalizableConstants.Sort.byName,
                                             style: .default,
                                             titleTextColor: .systemBlue,
                                             handler: { [weak self] _ in
@@ -48,7 +48,7 @@ extension CatalogPresenter: CatalogPresenterProtocol {
             self?.sortByName()
         })
         
-        let byCountAction = AlertActionModel(title: "По количеству NFT",
+        let byCountAction = AlertActionModel(title: LocalizableConstants.Sort.byNFTQuantity,
                                              style: .default,
                                              titleTextColor: .systemBlue,
                                              handler: { [weak self] _ in
@@ -56,7 +56,7 @@ extension CatalogPresenter: CatalogPresenterProtocol {
             self?.sortByCount()
         })
         
-        let closeAction = AlertActionModel(title: "Закрыть",
+        let closeAction = AlertActionModel(title: LocalizableConstants.Sort.close,
                                            style: .cancel,
                                            titleTextColor: .systemBlue,
                                            handler: { [weak self] _ in
@@ -64,7 +64,7 @@ extension CatalogPresenter: CatalogPresenterProtocol {
             self?.sortByCount()
         })
         
-        let model = AlertModel(title: "Сортировка",
+        let model = AlertModel(title: LocalizableConstants.Sort.sort,
                                message: nil,
                                actions: [byNameAction, byCountAction, closeAction],
                                preferredStyle: .actionSheet,
