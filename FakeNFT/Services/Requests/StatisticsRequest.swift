@@ -1,5 +1,5 @@
 //
-//  GetUsersRequest.swift
+//  StatisticsRequest.swift
 //  FakeNFT
 //
 //  Created by Артем Крикуненко on 03.08.2023.

@@ -96,15 +96,33 @@ final class NFTCollectionCell: UICollectionViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
-	func configure(with nft: NFT) {
+	func configure(with nft: NFT, likes: Likes?, order: Order?) {
 		if let imageUrl = nft.images {
 			nftImageView.kf.setImage(with: imageUrl.first)
 		}
+		configureFavoritesButton(for: nft, likes: likes)
+		configureCartButton(for: nft, order: order)
 		
 		removeRatingStars()
 		setRatingStars(rating: nft.rating)
 		nftNameLabel.text = nft.name
 		nftPriceLabel.text = "\(nft.price) ETH"
+	}
+	
+	private func configureFavoritesButton(for nft: NFT, likes: Likes?) {
+		if let profileLikes = likes, profileLikes.likes.contains(nft.id) {
+			favoritesButton.tintColor = .redUniversal
+		} else {
+			favoritesButton.tintColor = UIColor.white
+		}
+	}
+
+	private func configureCartButton(for nft: NFT, order: Order?) {
+		if let order = order, order.nfts.contains(nft.id) {
+			cartButton.setImage(Resourses.Images.Cell.cartFill, for: .normal)
+		} else {
+			cartButton.setImage(Resourses.Images.Cell.cart, for: .normal)
+		}
 	}
 	
 	private func setRatingStars(rating: Int) {
@@ -195,13 +213,9 @@ extension NFTCollectionView: UICollectionViewDataSource, UICollectionViewDelegat
 			return UICollectionViewCell()
 		}
 		let nft = collectionNFT[indexPath.row]
-		configureFavoritesButton(cell, for: nft)
-		configureCartButton(cell, for: nft)
-		cell.configure(with: nft)
+		cell.configure(with: nft, likes: likes, order: order)
 		
 		if let id = order?.id {
-			cell.configure(with: nft)
-			
 			cell.onCartButtonTapped = {
 				self.presenter?.tapOnTheCell(for: nft.id, profile: id)
 			}
@@ -211,21 +225,5 @@ extension NFTCollectionView: UICollectionViewDataSource, UICollectionViewDelegat
 			}
 		}
 		return cell
-	}
-	
-	func configureFavoritesButton(_ cell: NFTCollectionCell, for nft: NFT) {
-		if let profileLikes = likes, profileLikes.likes.contains(nft.id) {
-			cell.favoritesButton.tintColor = .redUniversal
-		} else {
-			cell.favoritesButton.tintColor = UIColor.white
-		}
-	}
-	
-	func configureCartButton(_ cell: NFTCollectionCell, for item: NFT) {
-		if let order = order, order.nfts.contains(item.id) {
-			cell.cartButton.setImage(Resourses.Images.Cell.cartFill, for: .normal)
-		} else {
-			cell.cartButton.setImage(Resourses.Images.Cell.cart, for: .normal)
-		}
 	}
 }

@@ -13,7 +13,7 @@ final class NFTCollectionView: UIView {
 	var collectionNFT: [NFT] = []
 	var likes: Likes?
 	var order: Order?
-	var presenter: NFTCollectionPresenter?
+	weak var presenter: NFTCollectionPresenter?
 	
 	enum Metrics {
 		static let collectionItemSize = CGSize(width: 108, height: 192)
