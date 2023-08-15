@@ -108,6 +108,19 @@ extension MyNFTViewController: UITableViewDataSource {
     }
 }
 
+//MARK: UITableViewDelegate
+extension MyNFTViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 140
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        guard let nftModel = presenter?.purchasedNFTs[indexPath.row] else { return }
+    }
+}
+
+//MARK: MyNFTTableViewCellDelegate
 extension MyNFTViewController: MyNFTTableViewCellDelegate {
     func didTapLike(_ cell: MyNFTTableViewCell) {
         guard let indexPath = myNFTView.myNFTTableView.indexPath(for: cell),
@@ -116,17 +129,6 @@ extension MyNFTViewController: MyNFTTableViewCellDelegate {
         presenter.changeLike(nftID ?? "")
         analyticsService.report(event: .click, screen: .myNFTsVC, item: .like)
         cell.setLiked(presenter.doesNftHasLike(id: nftID))
-    }
-}
-
-//MARK: UITableViewDelegate
-extension MyNFTViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 140
-    }
-    
-    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        false
     }
 }
 

@@ -180,7 +180,8 @@ final class MyNFTTableViewCell: UITableViewCell {
         
         nftPriceVerticalStack.snp.makeConstraints { make in
             make.centerY.equalTo(nftInfoVerticalStack)
-            make.leading.equalTo(nftInfoVerticalStack.snp.trailing).offset(39)
+            make.trailing.equalToSuperview().offset(-39)
+            make.width.greaterThanOrEqualTo(75)
         }
     }
 }
