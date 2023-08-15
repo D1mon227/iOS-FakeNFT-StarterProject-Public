@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1FEA5B4E2A81497100946DD9 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEA5B4D2A81497100946DD9 /* WebViewController.swift */; };
 		1FEA5B502A81498900946DD9 /* WebViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEA5B4F2A81498900946DD9 /* WebViewPresenter.swift */; };
+		1FEA5B7C2A8BE98600946DD9 /* NetworkErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEA5B7B2A8BE98600946DD9 /* NetworkErrorView.swift */; };
 		3F478ECF29DB474E00F6D39E /* UIColor + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F478ECE29DB474E00F6D39E /* UIColor + Extension.swift */; };
 		3F478ED129DB476500F6D39E /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F478ED029DB476500F6D39E /* Fonts.swift */; };
 		3F603CCD29DB4A53000C43D7 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 3F603CCC29DB4A53000C43D7 /* ProgressHUD */; };
@@ -65,6 +66,7 @@
 /* Begin PBXFileReference section */
 		1FEA5B4D2A81497100946DD9 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		1FEA5B4F2A81498900946DD9 /* WebViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewPresenter.swift; sourceTree = "<group>"; };
+		1FEA5B7B2A8BE98600946DD9 /* NetworkErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorView.swift; sourceTree = "<group>"; };
 		3F478ECE29DB474E00F6D39E /* UIColor + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Extension.swift"; sourceTree = "<group>"; };
 		3F478ED029DB476500F6D39E /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		3F68069329CBBAF100B4F915 /* FakeNFT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FakeNFT.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -139,6 +141,14 @@
 				1FEA5B4F2A81498900946DD9 /* WebViewPresenter.swift */,
 			);
 			path = WebViewModule;
+			sourceTree = "<group>";
+		};
+		1FEA5B7A2A8BE95E00946DD9 /* NetworkError */ = {
+			isa = PBXGroup;
+			children = (
+				1FEA5B7B2A8BE98600946DD9 /* NetworkErrorView.swift */,
+			);
+			path = NetworkError;
 			sourceTree = "<group>";
 		};
 		3F68068A29CBBAF100B4F915 = {
@@ -261,6 +271,7 @@
 		73EA4B012A73C6E2000B4B55 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1FEA5B7A2A8BE95E00946DD9 /* NetworkError */,
 				1FEA5B4C2A81495100946DD9 /* WebViewModule */,
 				737D031F2A80707A00DCB5B1 /* Onboarding */,
 				73EA4B1C2A7471D2000B4B55 /* CustomNavigationViewController.swift */,
@@ -501,6 +512,7 @@
 				73EA4B0B2A73C7A4000B4B55 /* CartViewController.swift in Sources */,
 				73EA4B1D2A7471D2000B4B55 /* CustomNavigationViewController.swift in Sources */,
 				C50E6CC72A7E931400B852F9 /* GetUsersRequest.swift in Sources */,
+				1FEA5B7C2A8BE98600946DD9 /* NetworkErrorView.swift in Sources */,
 				73EA4B052A73C770000B4B55 /* ProfileViewController.swift in Sources */,
 				73EA4B0E2A73C7C4000B4B55 /* StatisticsViewController.swift in Sources */,
 				737D03232A80776700DCB5B1 /* OnboardingPageViewController.swift in Sources */,
