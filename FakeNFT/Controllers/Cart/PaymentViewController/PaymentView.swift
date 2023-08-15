@@ -36,11 +36,12 @@ final class PaymentView: UIView {
     
     private let paymentButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .black
+        button.backgroundColor = .blackDay
+        button.setTitleColor(.backgroundDay, for: .normal)
         button.layer.cornerRadius = 12
         button.layer.masksToBounds = true
         button.addTarget(self, action: #selector(didTapPaymentButton), for: .touchUpInside) // Ensure this line is added
-        button.setTitle("Оплатить", for: .normal)
+        button.setTitle(NSLocalizedString("cart.pay", comment: "payment"), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.isEnabled = false
@@ -49,7 +50,7 @@ final class PaymentView: UIView {
     
     private let cartInfo: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red: 0.97, green: 0.97, blue: 0.97, alpha: 1)
+        view.backgroundColor = .lightGreyDay
         view.layer.cornerRadius = 12
         view.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -61,7 +62,7 @@ final class PaymentView: UIView {
         label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         label.numberOfLines = 0
         label.textAlignment = .left
-        label.text = "Совершая покупку, вы соглашаетесь с условиями"
+        label.text = NSLocalizedString("cart.terms", comment: "terms")
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -72,7 +73,7 @@ final class PaymentView: UIView {
         label.numberOfLines = 0
         label.textColor = .link
         label.textAlignment = .left
-        label.text = "Пользовательского соглашения"
+        label.text = NSLocalizedString("cart.conditions", comment: "")
         label.isUserInteractionEnabled = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -97,7 +98,7 @@ final class PaymentView: UIView {
     }
     
     private func commonInit() {
-        backgroundColor = .white
+        backgroundColor = .backgroundDay
         
         setupViewHierarchy()
         setupConstraints()    }

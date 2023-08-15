@@ -34,8 +34,13 @@ final class PaymentCell: UICollectionViewCell {
         didSet {
             if isSelected {
                 layer.borderWidth = 1
+                layer.borderColor = UIColor.blackDay.cgColor
+                layer.backgroundColor = UIColor.lightGreyDay.cgColor
             } else {
                 layer.borderWidth = 0
+                layer.backgroundColor = UIColor.clear.cgColor // Set the default background color
+                layer.backgroundColor = UIColor.lightGreyDay.cgColor
+                
             }
         }
     }
@@ -51,7 +56,7 @@ final class PaymentCell: UICollectionViewCell {
     }
     
     private func setupView() {
-        backgroundColor = UIColor(red: 0.97, green: 0.97, blue: 0.97, alpha: 1)
+        backgroundColor = .lightGreyDay
         NSLayoutConstraint.activate([
             image.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
             image.centerYAnchor.constraint(equalTo: centerYAnchor),

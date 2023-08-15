@@ -23,18 +23,20 @@ final class SucceedPaymentViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 22, weight: .bold)
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.text = "Успех! Оплата прошла,\nпоздравляем с покупкой!"
+        label.text = NSLocalizedString("cart.successfulPayment", comment: "")
+        label.textColor = .blackDay
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     let backButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .black
+        button.backgroundColor = .blackDay
+        button.setTitleColor(.backgroundDay, for: .normal)
         button.layer.cornerRadius = 16
         button.layer.masksToBounds = true
         button.addTarget(nil, action: #selector(backTapped), for: .touchUpInside)
-        button.setTitle("Вернуться в каталог", for: .normal)
+        button.setTitle(NSLocalizedString("cart.backToCatalog", comment: ""), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -49,7 +51,7 @@ final class SucceedPaymentViewController: UIViewController {
     }
     
     private func setupView() {
-        view.backgroundColor = .white
+        view.backgroundColor = .backgroundDay
         NSLayoutConstraint.activate([
             image.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             image.centerXAnchor.constraint(equalTo: view.centerXAnchor),

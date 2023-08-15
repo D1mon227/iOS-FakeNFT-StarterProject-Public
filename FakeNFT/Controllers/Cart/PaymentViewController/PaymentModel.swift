@@ -10,13 +10,13 @@ import Foundation
 protocol PaymentModelProtocol {
     func getCurrenciesFromAPI(completion: @escaping ([PaymentStruct]) -> Void)
     func getPaymentResult(currencyID: String, completion: @escaping (Payment) -> Void)
-
+    
 }
 
 final class PaymentModel: PaymentModelProtocol {
-
+    
     private let urlString = "https://64858e8ba795d24810b71189.mockapi.io/api/v1/currencies"
-        
+    
     func getCurrenciesFromAPI(completion: @escaping ([PaymentStruct]) -> Void) {
         guard let url = URL(string: urlString) else { return }
         var request = URLRequest(url: url)

@@ -18,23 +18,25 @@ final class FailedPaymentViewController: UIViewController {
         return image
     }()
     
-    let successText: UILabel = {
+    let failText: UILabel = {
         let label = UILabel()
+        label.textColor = .blackDay
         label.font = UIFont.systemFont(ofSize: 22, weight: .bold)
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.text = "Упс! Что-то пошло не так :(\nПопробуйте ещё раз!"
+        label.text = NSLocalizedString("cart.failedPayment", comment: "")
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     let backButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .black
+        button.backgroundColor = .blackDay
+        button.setTitleColor(.backgroundDay, for: .normal)
         button.layer.cornerRadius = 16
         button.layer.masksToBounds = true
         button.addTarget(nil, action: #selector(backTapped), for: .touchUpInside)
-        button.setTitle("Попробовать еще раз", for: .normal)
+        button.setTitle(NSLocalizedString("cart.tryAgain", comment: ""), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -49,13 +51,13 @@ final class FailedPaymentViewController: UIViewController {
     }
     
     private func setupView() {
-        view.backgroundColor = .white
+        view.backgroundColor = .backgroundDay
         NSLayoutConstraint.activate([
             image.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             image.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            successText.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 20),
-            successText.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 36),
-            successText.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -36),
+            failText.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 20),
+            failText.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 36),
+            failText.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -36),
             backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             backButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             backButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
@@ -65,7 +67,7 @@ final class FailedPaymentViewController: UIViewController {
     
     private func setupProperties() {
         view.addSubview(image)
-        view.addSubview(successText)
+        view.addSubview(failText)
         view.addSubview(backButton)
     }
     

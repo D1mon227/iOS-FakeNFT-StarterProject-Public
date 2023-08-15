@@ -19,21 +19,22 @@ final class CartViewController: UIViewController, UITableViewDataSource{
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        view.backgroundColor = .backgroundDay
         addPlaceholder()
         setupView()
         setupNavigationBar()
         presenter = CartPresenter()
         fetchDataFromAPI()
         cartTable.dataSource = self
+        cartTable.backgroundColor = .backgroundDay
     }
     
     // MARK: - UI Setup
     
     private func setupView() {
-        view.backgroundColor = .white
+        view.backgroundColor = .backgroundDay
         
         view.addSubview(cartTable)
-        
         view.addSubview(cartInfo)
         view.addSubview(payButton)
         view.addSubview(countOfNFTS)
@@ -70,7 +71,7 @@ final class CartViewController: UIViewController, UITableViewDataSource{
     // MARK: - Components
     
     private lazy var placeholderView: UIView = {
-        let message = "Корзина пуста"
+        let message = NSLocalizedString("cart.emptyCart", comment: "")
         return UIView.placeholderView(message: message)
     }()
     
@@ -120,17 +121,17 @@ final class CartViewController: UIViewController, UITableViewDataSource{
         label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.text = "Delete from basket ?"
+        label.text = NSLocalizedString("cart.deleteQuestion", comment: "")
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     let deleteButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .black
+        button.backgroundColor = .blackDay
         button.layer.cornerRadius = 12
         button.layer.masksToBounds = true
-        button.setTitle("Delete", for: .normal)
+        button.setTitle(NSLocalizedString("cart.delete", comment: ""), for: .normal)
         button.setTitleColor(.red, for: .normal)
         button.addTarget(nil, action: #selector(deleteNFT), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -139,26 +140,29 @@ final class CartViewController: UIViewController, UITableViewDataSource{
     
     let cancelButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .black
+        button.backgroundColor = .blackDay
         button.layer.cornerRadius = 12
         button.layer.masksToBounds = true
+        button.setTitleColor(.backgroundDay, for: .normal)
         button.addTarget(nil, action: #selector(cancel), for: .touchUpInside)
-        button.setTitle("Cancel", for: .normal)
+        button.setTitle(NSLocalizedString("cart.goBack", comment: ""), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     let payButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .black
+        button.backgroundColor = .blackDay
+        button.setTitleColor(.backgroundDay, for: .normal)
         button.layer.cornerRadius = 12
         button.layer.masksToBounds = true
         button.addTarget(nil, action: #selector(payButtonTapped), for: .touchUpInside)
-        button.setTitle("К оплате", for: .normal)
+        button.setTitle(NSLocalizedString("cart.checkout", comment: ""), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
     
     let cartTable: UITableView = {
         let table = UITableView()
@@ -187,7 +191,8 @@ final class CartViewController: UIViewController, UITableViewDataSource{
     
     let cartInfo: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red: 0.97, green: 0.97, blue: 0.97, alpha: 1)
+        view.backgroundColor = .lightGreyDay
+        //        view.backgroundColor = UIColor(red: 0.97, green: 0.97, blue: 0.97, alpha: 1)
         view.layer.cornerRadius = 12
         view.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -196,9 +201,10 @@ final class CartViewController: UIViewController, UITableViewDataSource{
     
     private func setupNavigationBar() {
         if let navBar = navigationController?.navigationBar {
-            navBar.barTintColor = .white  // Change this to the desired background color
+            navBar.backgroundColor = .clear  // Change this to the desired background color
+            navBar.tintColor = .clear
             let sortButton = UIButton(type: .custom)
-            sortButton.setImage(UIImage(named: "Sort"), for: .normal)
+            sortButton.setImage(UIImage(named: NSLocalizedString("sort.sort", comment: "")), for: .normal)
             sortButton.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
             sortButton.addTarget(self, action: #selector(sortButtonTapped), for: .touchUpInside)
             
@@ -210,6 +216,7 @@ final class CartViewController: UIViewController, UITableViewDataSource{
     // MARK: - Appearance
     
     private func addPlaceholder() {
+        view.backgroundColor = .blackDay
         view.addSubview(placeholderView)
         placeholderView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -271,7 +278,7 @@ final class CartViewController: UIViewController, UITableViewDataSource{
             .font: UIFont.boldSystemFont(ofSize: 17) // Use any bold font you prefer
         ]
         
-        payVC.navigationItem.title = NSAttributedString(string: "Выберите способ оплаты", attributes: titleAttributes).string
+        payVC.navigationItem.title = NSAttributedString(string: NSLocalizedString("cart.paymentMethod", comment: ""), attributes: titleAttributes).string
         
         customNC.pushViewController(payVC, animated: true)
     }
@@ -323,7 +330,7 @@ final class CartViewController: UIViewController, UITableViewDataSource{
     }
     
     private func showMenu() {
-        let alertController = UIAlertController(title: "Sort Cart", message: nil, preferredStyle: .actionSheet)
+        let alertController = UIAlertController(title: NSLocalizedString("sort.sort", comment: ""), message: nil, preferredStyle: .actionSheet)
         
         for sortingOption in Sort.allCases {
             if sortingOption != .byTitle && sortingOption != .close && sortingOption != .byNFTQuantity {
@@ -334,7 +341,7 @@ final class CartViewController: UIViewController, UITableViewDataSource{
             }
         }
         
-        let cancelAction = UIAlertAction(title: "Close", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: NSLocalizedString("sort.close", comment: ""), style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
         
         present(alertController, animated: true, completion: nil)
@@ -360,6 +367,7 @@ final class CartViewController: UIViewController, UITableViewDataSource{
     // Summurize info about all NFT's in cart
     private func fillInfo() {
         countOfNFTS.text = "\(cartArray.count) NFT"
+        countOfNFTS.textColor = .blackDay
         var price = 0.0
         cartArray.forEach { cart in
             price += cart.nftPrice
@@ -374,7 +382,7 @@ extension UIView {
     static func placeholderView(message: String) -> UIView {
         let label = UILabel()
         label.font = .systemFont(ofSize: 17, weight: .bold)
-        label.textColor = .black
+        label.textColor = .blackDay
         label.text = message
         label.numberOfLines = 0
         label.textAlignment = .center

@@ -88,6 +88,7 @@ final class CartCell: UITableViewCell {
     // MARK: - Functions & Methods
     
     private func setupView() {
+        contentView.backgroundColor = .backgroundDay
         contentView.addSubview(nftImage)
         contentView.addSubview(nftName)
         contentView.addSubview(starStack)
