@@ -63,3 +63,8 @@
 "network.noInternet" = "Отсутствует соединение с интернетом";
 "network.error" = "Упс! Что-то пошло не так. Попробуйте позже";
 "network.button" = "Повторить попытку";
+
+//MARK: NFTCard
+"nftcard.addToCart" = "Добавить в корзину";
+"nftcard.price" = "Цена";
+"nftcard.sellerWebsite" = "Перейти на сайт продавца";

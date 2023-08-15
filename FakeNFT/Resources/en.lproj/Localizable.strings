@@ -63,3 +63,8 @@
 "network.noInternet" = "No internet connection";
 "network.error" = "Oops! Something went wrong. Please try again later";
 "network.button" = "Try again";
+
+//MARK: NFTCard
+"nftcard.addToCart" = "Add to cart";
+"nftcard.price" = "Price";
+"nftcard.sellerWebsite" = "Go to the seller's website";
