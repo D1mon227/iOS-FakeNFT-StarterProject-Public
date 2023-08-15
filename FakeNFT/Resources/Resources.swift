@@ -53,5 +53,10 @@ enum Resourses {
         enum Sort {
             static let sort = UIImage(named: "Sort")
         }
+        
+        enum NetworkError {
+            static let noInternet = UIImage(systemName: "noInternet")
+            static let errorNetwork = UIImage(systemName: "errorNetwork")
+        }
     }
 }

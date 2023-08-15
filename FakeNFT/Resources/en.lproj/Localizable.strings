@@ -58,3 +58,8 @@
 //MARK: Statistics
 "statistics.nftCollection" = "NFT Collection";
 "statistics.userWebsite" = "Go to the user's website";
+
+//MARK: NetworkErrorView
+"network.noInternet" = "No internet connection";
+"network.error" = "Oops! Something went wrong. Please try again later";
+"network.button" = "Try again";

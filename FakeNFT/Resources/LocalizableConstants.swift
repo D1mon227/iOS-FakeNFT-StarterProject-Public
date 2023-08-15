@@ -68,4 +68,9 @@ enum LocalizableConstants {
         static let nftCollection = NSLocalizedString("statistics.nftCollection", comment: "")
         static let userWebsite = NSLocalizedString("statistics.userWebsite", comment: "")
     }
+    
+    enum NetworkErrorView {
+        static let noInternet = NSLocalizedString("network.noInternet", comment: "")
+        static let error = NSLocalizedString("network.error", comment: "")
+    }
 }
