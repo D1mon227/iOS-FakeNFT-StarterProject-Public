@@ -29,20 +29,23 @@ final class CartService: CartServiceProtocol {
 
         let modelRequest = CartRequest.getOrder(id: id)
         
-        //обработать ошибку
-        let request = try! makeRequest(for: modelRequest)
-        urlSession.objectTask(for: request) { (result: Result<CartModel, Error>) in
-   
-            DispatchQueue.main.async {
+        do {
+            let request = try makeRequest(for: modelRequest)
+            urlSession.objectTask(for: request) { (result: Result<CartModel, Error>) in
                 
-                switch result {
-                case .success(let user):
-                    completion(.success(user))
-                case .failure(let error):
-                    completion(.failure(error))
+                DispatchQueue.main.async {
+                    
+                    switch result {
+                    case .success(let user):
+                        completion(.success(user))
+                    case .failure(let error):
+                        completion(.failure(error))
+                    }
                 }
-            }
-        }.resume()
+            }.resume()
+        } catch {
+            //обработать ошибку
+        }
 
     }
     
@@ -52,20 +55,23 @@ final class CartService: CartServiceProtocol {
         
         let modelRequest = CartRequest.putOrder(cart: cart)
         
-        //обработать ошибку
-        let request = try! makeRequest(for: modelRequest)
-        urlSession.objectTask(for: request) { (result: Result<CartModel, Error>) in
-
-            DispatchQueue.main.async {
+        do {
+            let request = try makeRequest(for: modelRequest)
+            urlSession.objectTask(for: request) { (result: Result<CartModel, Error>) in
                 
-                switch result {
-                case .success(let cart):
-                    completion(.success(cart))
-                case .failure(let error):
-                    completion(.failure(error))
+                DispatchQueue.main.async {
+                    
+                    switch result {
+                    case .success(let cart):
+                        completion(.success(cart))
+                    case .failure(let error):
+                        completion(.failure(error))
+                    }
                 }
-            }
-        }.resume()
+            }.resume()
+        } catch {
+            //обработать ошибку
+        }
     }
     
     private func makeRequest(for networkRequestModel: NetworkRequest) throws -> URLRequest {
@@ -77,6 +83,7 @@ final class CartService: CartServiceProtocol {
         return urlRequest
     }
  }
+
 
 
 

@@ -9,6 +9,9 @@ struct NFTCollectionViewCellViewModel {
     let isFavorite: Bool
     let isCartAdded: Bool
     
+//    let favoriteButtonImageName: String
+//    let cartButtonImageName: String
+    
     init(nftResponse: NftResponse) {
         self.nftId = nftResponse.id
         self.nftIcon = nftResponse.images.first?.makeUrl()
@@ -51,7 +54,7 @@ struct NFTCollectionViewCellViewModel {
                                               nftStarsCount: self.nftStarsCount,
                                               nftName: self.nftName,
                                               nftPrice: self.nftPrice,
-                                              isFavorite: self.isFavorite,
+                                              isFavorite: isFavorite,
                                               isCartAdded: isCartAdded)
     }
 }

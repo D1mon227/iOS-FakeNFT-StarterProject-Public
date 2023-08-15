@@ -16,10 +16,10 @@ final class DetailedCollectionPresenter {
     private let response: NftCollectionResponse
     private let services: Services
     private var nftsModels = [NFTCollectionViewCellViewModel]()
-    private var cartModel: CartModel?
+    private var detailsCollectionModel: CollectionDetailsTableViewCellModel?
+    private var nftsInCart: Set<String> = []
     private var userLikes: Set<String> = []
     private var user: ProfileModel?
-    private var viewModels: [DetailedCollectionTableViewCellProtocol] = []
     private let group = DispatchGroup()
     
     init(response: NftCollectionResponse,
@@ -32,8 +32,12 @@ final class DetailedCollectionPresenter {
 extension DetailedCollectionPresenter: DetailedCollectionPresenterProtocol {
     
     func viewDidLoad() {
+        view?.showLoadingIndicator()
+        
         getNftAuthor()
         getNft(by: response.nfts)
+        
+        view?.hideLoadingIndicator()
     }
     
     func didTapOnLink(url: URL?) {
@@ -47,34 +51,21 @@ extension DetailedCollectionPresenter: DetailedCollectionPresenterProtocol {
     }
     
     func didTapCartButton(id: String) {
-        guard let cartModel else { return }
-        var newCartModel: CartModel
-        if cartModel.nfts.contains(id) {
-            let nfts = cartModel.nfts.filter { $0 != id }
-            newCartModel = CartModel(nfts: nfts, id: cartModel.id)
-            self.cartModel = newCartModel
+
+        if nftsInCart.contains(id) {
+            nftsInCart.remove(id)
         } else {
-          
-            newCartModel = CartModel(nfts: cartModel.nfts + [id], id: cartModel.id)
-            self.cartModel = newCartModel
+            nftsInCart.insert(id)
         }
         
         self.nftsModels = self.nftsModels.map { model in
-            let newModel = model.makeNewModel(isCartAdded: cartModel.nfts.contains(model.nftId))
-            print(cartModel.nfts.contains(model.nftId))
+            let newModel = model.makeNewModel(isCartAdded: nftsInCart.contains(model.nftId))
             return newModel
         }
         
-        let viewModel = NFTCollectionTableViewCellViewModel(nftModels: self.nftsModels)
-        if viewModels.count > 1 {
-            viewModels[1] = viewModel
-        } else {
-            viewModels.append(viewModel)
-        }
-        view?.updateViewModel(with: viewModels)
+        view?.updateNftsModel(with: nftsModels)
         
-        
-        putCartOrder(newCartModel: newCartModel)
+        putCartOrder(newCartModel: CartModel(nfts: Array(nftsInCart), id: "1"))
     }
     
     func didTapLikeButton(id: String) {
@@ -88,15 +79,8 @@ extension DetailedCollectionPresenter: DetailedCollectionPresenterProtocol {
             let newModel = model.makeNewModel(isFavorite: userLikes.contains(model.nftId))
             return newModel
         }
-        
-        let viewModel = NFTCollectionTableViewCellViewModel(nftModels: self.nftsModels)
-        if viewModels.count > 1 {
-            viewModels[1] = viewModel
-        } else {
-            viewModels.append(viewModel)
-        }
-        view?.updateViewModel(with: viewModels)
-        
+
+        view?.updateNftsModel(with: nftsModels)
         
         putFavorites()
     }
@@ -110,9 +94,9 @@ private extension DetailedCollectionPresenter {
             switch result {
             case .success(let user):
                 self.user = user
-                let detailedCollectionViewModel = makeViewModel(user: user)
-                viewModels.insert(detailedCollectionViewModel, at: 0)
-                view?.updateViewModel(with: viewModels)
+                detailsCollectionModel = makeViewModel(user: user)
+                guard let detailsCollectionModel else { return }
+                view?.updateDetailsCollectionModel(with: detailsCollectionModel)
             case .failure(let error): print("error getNftAuthor", error)
             }
         }
@@ -149,20 +133,14 @@ private extension DetailedCollectionPresenter {
             guard let self else { return }
             switch result {
             case .success(let cart):
-                self.cartModel = cart
-                let set = Set(cart.nfts)
+                self.nftsInCart = Set(cart.nfts)
+               
                 self.nftsModels = self.nftsModels.map { model in
-                    let newModel = model.makeNewModel(isCartAdded: set.contains(model.nftId))
-                    print(set.contains(model.nftId))
+                    let newModel = model.makeNewModel(isCartAdded: self.nftsInCart.contains(model.nftId))
                     return newModel
                 }
-                let viewModel = NFTCollectionTableViewCellViewModel(nftModels: self.nftsModels)
-                if viewModels.count > 1 {
-                    viewModels[1] = viewModel
-                } else {
-                    viewModels.append(viewModel)
-                }
-                view?.updateViewModel(with: viewModels)
+
+                view?.updateNftsModel(with: nftsModels)
             case .failure(let error):
                 print(error)
             }
@@ -170,24 +148,9 @@ private extension DetailedCollectionPresenter {
     }
     
     func putCartOrder(newCartModel: CartModel) {
-        
-        services.cartService.putOrder(cart: newCartModel) { [weak self] result in
-            guard let self else { return }
+        services.cartService.putOrder(cart: newCartModel) { result in
             switch result {
-            case .success(let cart):
-                let set = Set(cart.nfts)
-                self.nftsModels = self.nftsModels.map { model in
-                    let newModel = model.makeNewModel(isCartAdded: set.contains(model.nftId))
-                    print(set.contains(model.nftId))
-                    return newModel
-                }
-                let viewModel = NFTCollectionTableViewCellViewModel(nftModels: self.nftsModels)
-                if viewModels.count > 1 {
-                    viewModels[1] = viewModel
-                } else {
-                    viewModels.append(viewModel)
-                }
-                view?.updateViewModel(with: viewModels)
+            case .success: break
             case .failure(let error):
                 print(error)
             }
@@ -203,21 +166,12 @@ private extension DetailedCollectionPresenter {
                                    nfts: user.nfts,
                                    likes: Array(userLikes),
                                    id: user.id)
-        services.profileService.putProfile(user: profile) { [weak self] result in
-            guard let self else { return }
+        services.profileService.putProfile(user: profile) { result in
             switch result {
             case .success:
-                print("putFavorites success")
                 break
             case .failure(let error):
-                if let error = error as? NetworkError {
-                    switch error {
-                    case .codeError(let statusCode):
-                        print("putFavorites error", statusCode)
-                    }
-                    
-                }
-                
+               print("error", error)
             }
         }
     }
@@ -228,18 +182,12 @@ private extension DetailedCollectionPresenter {
             switch result {
             case .success(let user):
                 userLikes = Set(user.likes)
-                let set = Set(user.likes)
+      
                 self.nftsModels = self.nftsModels.map { model in
-                    let newModel = model.makeNewModel(isFavorite: set.contains(model.nftId))
+                    let newModel = model.makeNewModel(isFavorite: self.userLikes.contains(model.nftId))
                     return newModel
                 }
-                let viewModel = NFTCollectionTableViewCellViewModel(nftModels: self.nftsModels)
-                if viewModels.count > 1 {
-                    viewModels[1] = viewModel
-                } else {
-                    viewModels.append(viewModel)
-                }
-                view?.updateViewModel(with: viewModels)
+                view?.updateNftsModel(with: nftsModels)
             case .failure(let error):
                 print(error)
             }
@@ -256,4 +204,5 @@ private extension DetailedCollectionPresenter {
     }
     
 }
+
 

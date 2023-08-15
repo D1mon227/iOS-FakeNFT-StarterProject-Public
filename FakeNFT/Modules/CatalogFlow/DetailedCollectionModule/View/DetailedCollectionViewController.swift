@@ -1,10 +1,36 @@
 import UIKit
 
+extension DetailedCollectionViewController {
+    enum Layout {
+        static let littleCellSize = CGSize(width: 108, height: 192)
+        static let bigCellHeight: CGFloat = 500
+        static let spacingBetweenCells: CGFloat = 8
+    }
+}
+
 final class DetailedCollectionViewController: UIViewController {
     
     private let presenter: DetailedCollectionPresenterProtocol
-    private lazy var tableView = UITableView()
-    private var viewModels: [DetailedCollectionTableViewCellProtocol] = []
+    
+    private let collectionViewFlowLayout = {
+        let layout = UICollectionViewFlowLayout()
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        layout.minimumInteritemSpacing = Layout.spacingBetweenCells
+        return layout
+    }()
+    
+    private lazy var collectionView: UICollectionView = {
+        let screenWidth = UIScreen.main.bounds.width
+        
+        let view = UICollectionView(frame: .zero,
+                                    collectionViewLayout: collectionViewFlowLayout)
+        view.isScrollEnabled = true
+        view.backgroundColor = .backgroundDay
+        return view
+    }()
+    
+    private var nftModels: [NFTCollectionViewCellViewModel] = []
+    private var detailsCollectionModel: CollectionDetailsTableViewCellModel?
     
     init(presenter: DetailedCollectionPresenterProtocol) {
         self.presenter = presenter
@@ -17,75 +43,117 @@ final class DetailedCollectionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter.viewDidLoad()
         setupViews()
-        setupTableView()
+        setupCollectionView()
+        presenter.viewDidLoad()
     }
 }
 
 extension DetailedCollectionViewController: DetailedCollectionViewProtocol {
-    func updateViewModel(with viewModels: [DetailedCollectionTableViewCellProtocol]) {
-        self.viewModels = viewModels
-        tableView.reloadData()
+    func showLoadingIndicator() {
+        UIBlockingProgressHUD.show()
+    }
+    
+    func hideLoadingIndicator() {
+        UIBlockingProgressHUD.dismiss()
+    }
+    
+    func updateDetailsCollectionModel(with viewModel: CollectionDetailsTableViewCellModel) {
+        self.detailsCollectionModel = viewModel
+        collectionView.reloadData()
+    }
+    
+    func updateNftsModel(with viewModels: [NFTCollectionViewCellViewModel]) {
+        self.nftModels = viewModels
+        collectionView.reloadData()
     }
     
     func present(_ vc: UIViewController) {
         navigationController?.pushViewController(vc, animated: true)
     }
+    
 }
 
 private extension DetailedCollectionViewController {
     func setupViews() {
-        view.addSubview(tableView)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(collectionView)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
     
-    func setupTableView() {
+    func setupCollectionView() {
         if #available(iOS 11.0, *) {
-            tableView.contentInsetAdjustmentBehavior = .never
+            collectionView.contentInsetAdjustmentBehavior = .never
         }
-        tableView.separatorStyle = .none
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(CollectionDetailsCell.self,
-                           forCellReuseIdentifier: CollectionDetailsCell.identifier)
-        tableView.register(NFTCollectionTableViewCell.self,
-                           forCellReuseIdentifier: NFTCollectionTableViewCell.identifier)
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        collectionView.register(CollectionDetailsCell.self,
+                                forCellWithReuseIdentifier: CollectionDetailsCell.identifier)
+        collectionView.register(NFTCollectionViewCell.self,
+                                forCellWithReuseIdentifier: NFTCollectionViewCell.identifier)
     }
 }
 
-extension DetailedCollectionViewController: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModels.count
+extension DetailedCollectionViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
+        guard detailsCollectionModel != nil else { return 0 }
+        return section == 0 ? 1 : nftModels.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let viewModel = viewModels[indexPath.row]
-        if let cell = tableView.dequeueReusableCell(withIdentifier: CollectionDetailsCell.identifier) as? CollectionDetailsCell,
-           let detailedCollectionViewModel = viewModel as? CollectionDetailsTableViewCellModel {
-            cell.configure(with: detailedCollectionViewModel)
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        switch indexPath.section {
+        case 0:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionDetailsCell.identifier, for: indexPath) as? CollectionDetailsCell else {
+                return UICollectionViewCell()
+            }
+            
+            guard let detailsCollectionModel else { return cell }
+            
+            cell.configure(with: detailsCollectionModel)
             cell.delegate = self
-            cell.selectionStyle = .none
             return cell
-        } else if let cell = tableView.dequeueReusableCell(withIdentifier: NFTCollectionTableViewCell.identifier) as? NFTCollectionTableViewCell,
-                  let nftsViewModel = viewModel as? NFTCollectionTableViewCellViewModel {
-            cell.configure(with: nftsViewModel)
+        default:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NFTCollectionViewCell.identifier,
+                                                                for: indexPath) as? NFTCollectionViewCell else {
+                return UICollectionViewCell()
+            }
+            let viewModel = nftModels[indexPath.row]
             cell.delegate = self
+            cell.configure(with: viewModel)
             return cell
         }
-        
-        return UITableViewCell()
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        UITableView.automaticDimension
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if indexPath.section == 0 {
+            let screenWidth = UIScreen.main.bounds.width
+            return CGSize(width: screenWidth, height: Layout.bigCellHeight)
+        } else {
+            return CGSize(width: Layout.littleCellSize.width, height: Layout.littleCellSize.height)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        if section == 0 { return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) }
+        let sectionInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
+        return sectionInsets
     }
     
 }
@@ -96,7 +164,7 @@ extension DetailedCollectionViewController: CollectionDetailsCellProtocol {
     }
 }
 
-extension DetailedCollectionViewController: NFTCollectionTableViewCellDelegate {
+extension DetailedCollectionViewController: NFTCollectionViewCellDelegate {
     func didTapNFTLikeButton(id: String) {
         presenter.didTapLikeButton(id: id)
     }
@@ -104,6 +172,7 @@ extension DetailedCollectionViewController: NFTCollectionTableViewCellDelegate {
     func didTapNFTCartButton(id: String) {
         presenter.didTapCartButton(id: id)
     }
-
+    
 }
+
 

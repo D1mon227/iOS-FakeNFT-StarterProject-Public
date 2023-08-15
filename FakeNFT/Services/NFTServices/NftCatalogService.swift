@@ -12,34 +12,29 @@ protocol NftCatalogServiceProtocol {
 
 final class NftCatalogService: NftCatalogServiceProtocol {
     private let urlSession = URLSession.shared
-    private var task: URLSessionTask?
     
     func getNftItems(completion: @escaping (Result<[NftCollectionResponse], Error>) -> Void) {
         assert(Thread.isMainThread)
-        task?.cancel()
         
         let session = urlSession
         let modelRequest = NftCollectionRequest.getAllCollections
         
-        //обработать ошибку
-        let request = try! makeRequest(for: modelRequest)
-        let task = session.objectTask(for: request) { [weak self] (result: Result<[NftCollectionResponse], Error>) in
-            guard let self = self else { return }
-            
-            DispatchQueue.main.async {
-                
-                switch result {
-                case .success(let nftItemResult):
-                    completion(.success(nftItemResult))
-                case .failure(let error):
-                    completion(.failure(error))
+        do {
+            let request = try makeRequest(for: modelRequest)
+            session.objectTask(for: request) { (result: Result<[NftCollectionResponse], Error>) in
+                DispatchQueue.main.async {
+                    
+                    switch result {
+                    case .success(let nftItemResult):
+                        completion(.success(nftItemResult))
+                    case .failure(let error):
+                        completion(.failure(error))
+                    }
                 }
-            }
-
-            self.task = nil
+            }.resume()
+        } catch {
+            //обработать ошибку
         }
-        self.task = task
-        task.resume()
     }
     
     private func makeRequest(for networkRequestModel: NetworkRequest) throws -> URLRequest {
@@ -51,6 +46,7 @@ final class NftCatalogService: NftCatalogServiceProtocol {
         return urlRequest
     }
  }
+
 
 
 

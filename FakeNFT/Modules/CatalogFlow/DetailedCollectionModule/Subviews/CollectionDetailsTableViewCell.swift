@@ -16,7 +16,7 @@ extension CollectionDetailsCell {
     }
 }
 
-final class CollectionDetailsCell: UITableViewCell {
+final class CollectionDetailsCell: UICollectionViewCell {
     
     weak var delegate: DetailedCollectionViewController?
     
@@ -33,22 +33,27 @@ final class CollectionDetailsCell: UITableViewCell {
     
     private let nftCollectionNameLabel: UILabel = {
         let label = UILabel()
+        label.text = "Name"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 22, weight: .bold)
         label.numberOfLines = 1
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
         return label
     }()
     
     private let nftCollectionAuthorLabel: UILabel = {
         let label = UILabel()
+        label.text = "Автор коллекции:"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 13)
         label.numberOfLines = 1
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
         return label
     }()
     
     private let nftCollectionDescriptionLabel: UILabel = {
         let label = UILabel()
+        label.text = "Описание"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 13)
         label.numberOfLines = 0
@@ -60,9 +65,17 @@ final class CollectionDetailsCell: UITableViewCell {
     private var gradientLayer: CAGradientLayer?
     private var viewModel: CollectionDetailsTableViewCellModel?
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setupViews()
+    }
+    
+    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+        let targetSize = CGSize(width: layoutAttributes.frame.width, height: 0)
+        layoutAttributes.frame.size = contentView.systemLayoutSizeFitting(targetSize,
+                                                                          withHorizontalFittingPriority: .required,
+                                                                          verticalFittingPriority: .fittingSizeLevel)
+        return layoutAttributes
     }
     
     required init?(coder: NSCoder) {
@@ -80,6 +93,8 @@ final class CollectionDetailsCell: UITableViewCell {
         nftCollectionDescriptionLabel.text = viewModel.collectionDescription
         
         addTappableString()
+        setNeedsLayout()
+        layoutIfNeeded()
     }
     
     func addTappableString() {
@@ -148,8 +163,7 @@ private extension CollectionDetailsCell {
             addGradientSublayer()
             return
         }
-        guard let sublayers = nftCollectionCover.layer.sublayers,
-              !sublayers.contains(where: {$0 is CAGradientLayer }) else {
+        guard !sublayers.contains(where: {$0 is CAGradientLayer }) else {
             return
         }
         addGradientSublayer()
@@ -166,3 +180,4 @@ private extension CollectionDetailsCell {
     }
     
 }
+

@@ -1,7 +1,7 @@
 import UIKit
 import Kingfisher
 
-protocol NFTCollectionViewCellDelegateProtocol: AnyObject {
+protocol NFTCollectionViewCellDelegate: AnyObject {
     func didTapNFTLikeButton(id: String)
     func didTapNFTCartButton(id: String)
 }
@@ -16,6 +16,7 @@ extension NFTCollectionViewCell {
         static let nftPriceLabelBottomOffset: CGFloat = 20
         static let nftStarsCountHeight: CGFloat = 12
         static let nftStarsCountWidth: CGFloat = 68
+        static let nftPriceLabelHeight: CGFloat = 12
     }
 }
 
@@ -33,6 +34,7 @@ final class NFTCollectionViewCell: UICollectionViewCell {
     
     private let nftNameLabel: UILabel = {
         let label = UILabel()
+        label.text = "Name"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         label.numberOfLines = 0
@@ -41,6 +43,7 @@ final class NFTCollectionViewCell: UICollectionViewCell {
     
     private let nftPriceLabel: UILabel = {
         let label = UILabel()
+        label.text = "Price"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 10)
         label.numberOfLines = 0
@@ -51,7 +54,7 @@ final class NFTCollectionViewCell: UICollectionViewCell {
         let button = UIButton()
         button.frame.size = CGSize(width: 40.0, height: 40.0)
         button.translatesAutoresizingMaskIntoConstraints = false
-
+        
         return button
     }()
     
@@ -59,17 +62,19 @@ final class NFTCollectionViewCell: UICollectionViewCell {
         let button = UIButton()
         button.frame.size = CGSize(width: 40.0, height: 40.0)
         button.translatesAutoresizingMaskIntoConstraints = false
-       
+        button.tintColor = .backgroundDay
+        
         return button
     }()
     
     private var starRatingView: StarRatingView = StarRatingView(rating: 0)
+    private(set) var height: CGFloat?
     
     // MARK: - Properties
     
     private var gradientLayer: CAGradientLayer?
     private(set) var viewModel: NFTCollectionViewCellViewModel?
-    weak var delegate: NFTCollectionViewCellDelegateProtocol?
+    weak var delegate: NFTCollectionViewCellDelegate?
     
     // MARK: - Lifecycle
     
@@ -105,34 +110,10 @@ final class NFTCollectionViewCell: UICollectionViewCell {
         
         setIsLiked(viewModel.isFavorite)
         setIsCartAdded(viewModel.isCartAdded)
-       
     }
-    
-    private func setIsLiked(_ state: Bool) {
-        let likeImage = state ? UIImage(named: "active") : UIImage(named: "noActive")
-        nftLikeButton.setImage(likeImage, for: .normal)
-    }
-    
-    private func setIsCartAdded(_ state: Bool) {
-        let cartImage = state ? UIImage(named: "cart.fill") : UIImage(named: "cart")
-        nftCartButton.setImage(cartImage, for: .normal)
-    }
-    
-    @objc
-    private func likeButtonClicked() {
-        guard let viewModel else { return }
-        delegate?.didTapNFTLikeButton(id: viewModel.nftId)
-    }
-    
-    @objc
-    private func cartButtonClicked() {
-        guard let viewModel else { return }
-        delegate?.didTapNFTCartButton(id: viewModel.nftId)
-    }
-    
 }
 
-extension NFTCollectionViewCell {
+private extension NFTCollectionViewCell {
     
     // MARK: - Layout methods
     
@@ -156,7 +137,8 @@ extension NFTCollectionViewCell {
             nftIcon.widthAnchor.constraint(equalToConstant: Layout.nftIconCoverWidth),
             
             //nftStarsCount
-            starRatingView.topAnchor.constraint(equalTo: nftIcon.bottomAnchor,constant: Layout.nftStarsCountTopOffset),
+            starRatingView.topAnchor.constraint(equalTo: nftIcon.bottomAnchor,
+                                                constant: Layout.nftStarsCountTopOffset),
             starRatingView.leadingAnchor.constraint(equalTo: nftIcon.leadingAnchor),
             starRatingView.heightAnchor.constraint(equalToConstant: Layout.nftStarsCountHeight),
             starRatingView.widthAnchor.constraint(equalToConstant: Layout.nftStarsCountWidth),
@@ -172,7 +154,7 @@ extension NFTCollectionViewCell {
             nftPriceLabel.leadingAnchor.constraint(equalTo: nftIcon.leadingAnchor),
             // здесь нужно указать константу
             nftPriceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Layout.nftPriceLabelBottomOffset),
-            nftPriceLabel.heightAnchor.constraint(equalToConstant: 12),
+            nftPriceLabel.heightAnchor.constraint(equalToConstant: Layout.nftPriceLabelHeight),
             
             //nftLikeButton
             nftLikeButton.topAnchor.constraint(equalTo: nftIcon.topAnchor),
@@ -185,7 +167,7 @@ extension NFTCollectionViewCell {
         ])
     }
     
-    private func showGradientAnimation() {
+    func showGradientAnimation() {
         guard let sublayers = nftIcon.layer.sublayers else {
             addGradientSublayer()
             return
@@ -210,4 +192,35 @@ extension NFTCollectionViewCell {
         nftCartButton.addTarget(self, action: #selector(cartButtonClicked), for: .touchUpInside)
         nftLikeButton.addTarget(self, action: #selector(likeButtonClicked), for: .touchUpInside)
     }
+    
+    func setIsLiked(_ state: Bool) {
+        let likeImage = state ? UIImage(named: "heart.fill") : UIImage(named: "heart")
+        nftLikeButton.setImage(likeImage, for: .normal)
+    }
+    
+//        func setIsLiked() {
+//            let likeImage = viewModel. Resourses.Images.Cell.like
+//            let image = likeImage
+//                nftLikeButton.setImage(likeImage, for: .normal)
+//            }
+    
+    func setIsCartAdded(_ state: Bool) {
+        let cartImage = state ? Resourses.Images.Cell.cartFill : Resourses.Images.Cell.cart
+        let rendered = cartImage?.withRenderingMode(.alwaysTemplate)
+        nftCartButton.setImage(rendered, for: .normal)
+        nftCartButton.tintColor = .blackDay
+    }
+    
+    @objc
+    func likeButtonClicked() {
+        guard let viewModel else { return }
+        delegate?.didTapNFTLikeButton(id: viewModel.nftId)
+    }
+    
+    @objc
+    func cartButtonClicked() {
+        guard let viewModel else { return }
+        delegate?.didTapNFTCartButton(id: viewModel.nftId)
+    }
 }
+

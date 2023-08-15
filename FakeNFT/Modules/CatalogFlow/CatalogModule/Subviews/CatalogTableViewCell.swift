@@ -4,8 +4,8 @@ import Kingfisher
 extension CatalogTableViewCell {
     enum Layout {
         static let nftCategoryLabelTopOffset: CGFloat = 4
-        static let nftCategoryLabelBottomOffset: CGFloat = 43
-        static let nftCategoryCoverHeight: CGFloat = 179
+        static let nftCategoryLabelBottomOffset: CGFloat = 15
+        static let nftCategoryCoverHeight: CGFloat = 140
     }
 }
 
@@ -18,6 +18,8 @@ final class CatalogTableViewCell: UITableViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 12
         imageView.layer.masksToBounds = true
+        imageView.contentMode = .scaleAspectFill
+        
         return imageView
     }()
     
@@ -94,8 +96,7 @@ private extension CatalogTableViewCell {
             addGradientSublayer()
             return
         }
-        guard let sublayers = nftCategoryCover.layer.sublayers,
-              !sublayers.contains(where: {$0 is CAGradientLayer }) else {
+        guard !sublayers.contains(where: { $0 is CAGradientLayer }) else {
             return
         }
         addGradientSublayer()
