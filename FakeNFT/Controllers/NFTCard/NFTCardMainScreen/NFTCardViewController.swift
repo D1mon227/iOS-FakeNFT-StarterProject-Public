@@ -32,6 +32,11 @@ final class NFTCardViewController: UIViewController, NFTCardViewControllerProtoc
         
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        nftCardView.sellerWebsiteButton.layer.borderColor = UIColor.blackDay.cgColor
+    }
+    
     func updateNFTDetails(nftModel: NFT?) {
         nftCardView.firstNFTCover.setImage(with: nftModel?.images?[0])
         nftCardView.secondNFTCover.setImage(with: nftModel?.images?[1])
