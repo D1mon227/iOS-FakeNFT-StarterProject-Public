@@ -83,6 +83,12 @@ final class MyNFTViewController: UIViewController, MyNFTViewControllerProtocol {
             self.presenter?.sortNFT(by: option)
         }
     }
+    
+    private func switchToNFTCardVC(nftModel: NFT?, isLiked: Bool) {
+        guard let customNC = navigationController as? CustomNavigationController else { return }
+        let nftCardVC = NFTCardViewController(nftModel: nftModel, isLiked: isLiked)
+        customNC.pushViewController(nftCardVC, animated: true)
+    }
 }
 
 //MARK: UITableViewDataSource
@@ -117,6 +123,8 @@ extension MyNFTViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         guard let nftModel = presenter?.purchasedNFTs[indexPath.row] else { return }
+        switchToNFTCardVC(nftModel: nftModel,
+                          isLiked: presenter?.doesNftHasLike(id: nftModel.id) ?? false)
     }
 }
 
