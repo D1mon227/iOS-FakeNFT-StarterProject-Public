@@ -106,7 +106,8 @@ final class NFTCollectionCell: UICollectionViewCell {
 		removeRatingStars()
 		setRatingStars(rating: nft.rating)
 		nftNameLabel.text = nft.name
-		nftPriceLabel.text = "\(nft.price) ETH"
+		let formattedPrice = String(format: "%.2f ETH", nft.price).replacingOccurrences(of: ".", with: ",")
+		nftPriceLabel.text = formattedPrice
 	}
 	
 	private func configureFavoritesButton(for nft: NFT, likes: Likes?) {
