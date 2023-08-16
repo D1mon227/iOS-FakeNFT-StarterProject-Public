@@ -7,4 +7,5 @@ protocol FavoritesNFTViewPresenterProtocol: AnyObject {
     func fetchNFTs()
     func areFavoritesNFTsEmpty() -> Bool
     func changeLike(_ id: String?)
+    func convert(price: Double) -> String
 }

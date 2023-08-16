@@ -16,6 +16,15 @@ final class FavoritesNFTViewPresenter: FavoritesNFTViewPresenterProtocol {
         }
     }
     
+    private let numberFormatter: NumberFormatter = {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.decimalSeparator = ","
+        numberFormatter.minimumFractionDigits = 1
+        numberFormatter.maximumFractionDigits = 2
+        return numberFormatter
+    }()
+    
     init(profilePresenter: ProfileViewPresenterProtocol?) {
         self.profilePresenter = profilePresenter
     }
@@ -53,6 +62,10 @@ final class FavoritesNFTViewPresenter: FavoritesNFTViewPresenterProtocol {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    func convert(price: Double) -> String {
+        numberFormatter.string(from: NSNumber(value: price)) ?? ""
     }
     
     private func removeLike(_ id: String?) {

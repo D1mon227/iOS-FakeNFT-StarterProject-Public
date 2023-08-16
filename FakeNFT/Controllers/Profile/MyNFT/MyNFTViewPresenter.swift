@@ -41,6 +41,15 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
         }
     }
     
+    private let numberFormatter: NumberFormatter = {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.decimalSeparator = ","
+        numberFormatter.minimumFractionDigits = 1
+        numberFormatter.maximumFractionDigits = 2
+        return numberFormatter
+    }()
+    
     init(profilePresenter: ProfileViewPresenterProtocol?) {
         self.profilePresenter = profilePresenter
     }
@@ -105,16 +114,6 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
         }
     }
     
-    private func filterPurchasedNFTs(profile: Profile, allNFTs: [NFT]) -> [NFT] {
-        guard let profileNFTIds = profile.nfts else { return [] }
-
-        let filteredNFTs = allNFTs.filter { nft in
-            return profileNFTIds.contains(nft.id ?? "")
-        }
-
-        return filteredNFTs
-    }
-    
     func doesNftHasLike(id: String?) -> Bool {
         guard let id = id,
               let likes = likes else { return false }
@@ -146,5 +145,19 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
         }
         
         self.purchasedNFTs = nfts
+    }
+    
+    func convert(price: Double) -> String {
+        numberFormatter.string(from: NSNumber(value: price)) ?? ""
+    }
+    
+    private func filterPurchasedNFTs(profile: Profile, allNFTs: [NFT]) -> [NFT] {
+        guard let profileNFTIds = profile.nfts else { return [] }
+
+        let filteredNFTs = allNFTs.filter { nft in
+            return profileNFTIds.contains(nft.id ?? "")
+        }
+
+        return filteredNFTs
     }
 }

@@ -430,9 +430,9 @@
 			children = (
 				7322088E2A8CBC4300CAB88E /* Delegates */,
 				732208902A8CBC4300CAB88E /* Protocols */,
+				7322088C2A8CBC4300CAB88E /* FavoritesNFTView.swift */,
 				7322088A2A8CBC4300CAB88E /* FavoritesNFTViewPresenter.swift */,
 				7322088B2A8CBC4300CAB88E /* FavoritesNFTViewController.swift */,
-				7322088C2A8CBC4300CAB88E /* FavoritesNFTView.swift */,
 				7322088D2A8CBC4300CAB88E /* FavoritesNFTCollectionViewCell.swift */,
 			);
 			path = FavoritesNFT;
