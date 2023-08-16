@@ -366,8 +366,8 @@
 			isa = PBXGroup;
 			children = (
 				730B23962A8C292600F5D832 /* NFTCardView.swift */,
-				730B23982A8C296400F5D832 /* NFTCardViewController.swift */,
 				730B239A2A8C298900F5D832 /* NFTCardViewPresenter.swift */,
+				730B23982A8C296400F5D832 /* NFTCardViewController.swift */,
 				730B239C2A8C29A500F5D832 /* NFTCardTableViewCell.swift */,
 				730B239E2A8C29C500F5D832 /* NFTCardCollectionViewCell.swift */,
 			);
@@ -379,10 +379,10 @@
 			children = (
 				7322087A2A8CBC4300CAB88E /* Delegates */,
 				7322087E2A8CBC4300CAB88E /* Protocols */,
+				7322087D2A8CBC4300CAB88E /* MyNFTView.swift */,
 				732208782A8CBC4300CAB88E /* MyNFTViewPresenter.swift */,
 				732208792A8CBC4300CAB88E /* MyNFTViewController.swift */,
 				7322087C2A8CBC4300CAB88E /* MyNFTTableViewCell.swift */,
-				7322087D2A8CBC4300CAB88E /* MyNFTView.swift */,
 			);
 			path = MyNFT;
 			sourceTree = "<group>";
@@ -408,10 +408,10 @@
 			isa = PBXGroup;
 			children = (
 				732208862A8CBC4300CAB88E /* Protocols */,
-				732208822A8CBC4300CAB88E /* ProfileTableViewCell.swift */,
 				732208832A8CBC4300CAB88E /* ProfileView.swift */,
-				732208842A8CBC4300CAB88E /* ProfileViewController.swift */,
 				732208852A8CBC4300CAB88E /* ProfileViewPresenter.swift */,
+				732208842A8CBC4300CAB88E /* ProfileViewController.swift */,
+				732208822A8CBC4300CAB88E /* ProfileTableViewCell.swift */,
 			);
 			path = ProfileMainScreen;
 			sourceTree = "<group>";
@@ -461,8 +461,8 @@
 				732208982A8CBC4300CAB88E /* Protocols */,
 				732208972A8CBC4300CAB88E /* EditingProfileView.swift */,
 				732208942A8CBC4300CAB88E /* EditingProfileViewPresenter.swift */,
-				732208952A8CBC4300CAB88E /* EditingProfileTableViewHeader.swift */,
 				732208962A8CBC4300CAB88E /* EditingProfileViewController.swift */,
+				732208952A8CBC4300CAB88E /* EditingProfileTableViewHeader.swift */,
 				7322089B2A8CBC4300CAB88E /* EditingProfileTableViewCell.swift */,
 			);
 			path = EditingProfile;
