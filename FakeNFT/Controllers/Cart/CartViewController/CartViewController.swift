@@ -154,7 +154,7 @@ final class CartViewController: UIViewController, UITableViewDataSource{
         let button = UIButton()
         button.backgroundColor = .blackDay
         button.setTitleColor(.backgroundDay, for: .normal)
-        button.layer.cornerRadius = 12
+        button.layer.cornerRadius = 16
         button.layer.masksToBounds = true
         button.addTarget(nil, action: #selector(payButtonTapped), for: .touchUpInside)
         button.setTitle(NSLocalizedString("cart.checkout", comment: ""), for: .normal)

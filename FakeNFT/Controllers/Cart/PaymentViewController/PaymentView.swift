@@ -38,7 +38,7 @@ final class PaymentView: UIView {
         let button = UIButton()
         button.backgroundColor = .blackDay
         button.setTitleColor(.backgroundDay, for: .normal)
-        button.layer.cornerRadius = 12
+        button.layer.cornerRadius = 16
         button.layer.masksToBounds = true
         button.addTarget(self, action: #selector(didTapPaymentButton), for: .touchUpInside) // Ensure this line is added
         button.setTitle(NSLocalizedString("cart.pay", comment: "payment"), for: .normal)
