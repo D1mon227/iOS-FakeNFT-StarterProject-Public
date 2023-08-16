@@ -1,8 +1,18 @@
 import UIKit
 
 enum Resourses {
-    enum BaseURL {
-        static let baseURL = "https://64c5171bc853c26efada7b56.mockapi.io/api/v1/"
+    enum Network {
+        static let baseURL = "https://64c5171bc853c26efada7b56.mockapi.io"
+        
+        enum Paths {
+            static let nftCollection = "/api/v1/collections"
+            static let nft = "/api/v1/nft"
+            static let currencies = "/api/v1/currencies"
+            static let orders = "/api/v1/orders/1"
+            static let orderPayment = "/api/v1/orders/1/payment"
+            static let profile = "/api/v1/profile/1"
+            static let users = "/api/v1/users"
+        }
     }
     
     enum Images {
