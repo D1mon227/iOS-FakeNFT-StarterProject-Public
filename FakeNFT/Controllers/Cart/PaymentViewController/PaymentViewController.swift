@@ -75,10 +75,10 @@ extension PaymentViewController: PaymentViewDelegate {
             return
         }
         
-        let webViewController = WebViewController()
-        webViewController.url = url
-        
-        present(webViewController, animated: true, completion: nil)
+//        let webViewController = WebViewController()
+//        webViewController.url = url
+//
+//        present(webViewController, animated: true, completion: nil)
     }
     
 }
@@ -106,13 +106,13 @@ extension PaymentViewController: PaymentViewProtocol {
     }
 }
 
-extension PaymentViewController: PaymentViewNavigationDelegate {
-    func showWebViewController(withURL url: URL) {
-        let webViewController = WebViewController()
-        webViewController.url = url
-        present(webViewController, animated: true, completion: nil)
-    }
-}
+//extension PaymentViewController: PaymentViewNavigationDelegate {
+//    func showWebViewController(withURL url: URL) {
+//        let webViewController = WebViewController()
+//        webViewController.url = url
+//        present(webViewController, animated: true, completion: nil)
+//    }
+//}
 
 
 extension PaymentViewController: UICollectionViewDelegate {
