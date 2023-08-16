@@ -188,6 +188,7 @@ extension NFTCardViewController {
             imageView.snp.makeConstraints { make in
                 make.width.height.equalTo(12)
             }
+            
             imageView.tintColor = .lightGreyDay
             nftCardView.nftRatingStack.addArrangedSubview(imageView)
             starImageViews.append(imageView)
