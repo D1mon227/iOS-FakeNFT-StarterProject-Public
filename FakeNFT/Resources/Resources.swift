@@ -1,6 +1,10 @@
 import UIKit
 
 enum Resourses {
+    enum BaseURL {
+        static let baseURL = "https://64c5171bc853c26efada7b56.mockapi.io/api/v1/"
+    }
+    
     enum Images {
         enum Onboarding {
             static let firstScreen = UIImage(named: "firstScreen")

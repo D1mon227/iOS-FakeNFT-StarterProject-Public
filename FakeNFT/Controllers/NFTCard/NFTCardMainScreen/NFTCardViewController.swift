@@ -28,6 +28,7 @@ final class NFTCardViewController: UIViewController, NFTCardViewControllerProtoc
         setupTableView()
         setupCollectionView()
         nftCardView.coverNFTScrollView.delegate = self
+        presenter?.fetchCurrencies()
         
     }
     
@@ -47,6 +48,12 @@ final class NFTCardViewController: UIViewController, NFTCardViewControllerProtoc
     
     func updateLikeButton(isLiked: Bool) {
         isLiked ? setupNavigationBar(tintColor: .redUniversal) : setupNavigationBar(tintColor: .white)
+    }
+    
+    func reloadTableView() {
+        DispatchQueue.main.async {
+            self.nftCardView.currencyTableView.reloadData()
+        }
     }
     
     private func updateRatingStars(rating: Int?) {
@@ -83,16 +90,17 @@ extension NFTCardViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        8
+        presenter?.currencies?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "NFTCardTableViewCell", for: indexPath) as? NFTCardTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "NFTCardTableViewCell", for: indexPath) as? NFTCardTableViewCell,
+              let currency = presenter?.currencies?[indexPath.row] else { return UITableViewCell() }
         
-        cell.configureCell(nftImage: Resourses.Images.Crypto.apeCoin,
-                           currencyName: "Bitcoin",
-                           shortCurrencyName: "BTC",
-                           priceInCrypto: "BTC")
+        cell.configureCell(currencyImage: currency.image,
+                           currencyName: currency.title,
+                           shortCurrencyName: currency.name,
+                           priceInCrypto: currency.name)
         return cell
     }
 }
