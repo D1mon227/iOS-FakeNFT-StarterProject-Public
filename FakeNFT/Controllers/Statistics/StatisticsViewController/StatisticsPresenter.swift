@@ -11,16 +11,16 @@ protocol IStatisticsViewNavigationDelegate: AnyObject {
 
 final class StatisticsPresenter {
 	weak var navigationDelegate: IStatisticsViewNavigationDelegate?
-	private var model: [User]?
+	private var model: [User] = []
 	private var ui: IStatisticsView?
 	private let networkClient = DefaultNetworkClient()
 	private var currentSortOption: Sort {
 		get {
-			if let savedOption = UserDefaults.standard.string(forKey: "SavedSortOption"),
-			   let sortOption = Sort(rawValue: savedOption) {
-				return sortOption
+			if let savedSort = UserDefaults.standard.string(forKey: "SavedSortOption") {
+				return Sort(rawValue: savedSort) ?? .byRating
+			} else {
+				return .byRating
 			}
-			return .byRating
 		}
 		set {
 			UserDefaults.standard.set(newValue.rawValue, forKey: "SavedSortOption")
@@ -56,20 +56,18 @@ final class StatisticsPresenter {
 	}
 	
 	func sortData(by sortOption: Sort)  {
-		currentSortOption = sortOption
-		
-		guard var dataToSort = model else { return }
-		
 		switch sortOption {
 		case .byName:
-			dataToSort.sort { $0.name < $1.name }
+			model.sort { $0.name < $1.name }
+			currentSortOption = .byName
 		case .byRating:
-			dataToSort.sort { Int($0.rating) ?? 0 < Int($1.rating) ?? 0 }
+			model.sort { Int($0.rating) ?? 0 < Int($1.rating) ?? 0 }
+			currentSortOption = .byRating
 		default:
-			break
+			print("Не обработал")
 		}
 		
-		ui?.updateUI(with: dataToSort)
+		ui?.updateUI(with: model)
 	}
 }
 
@@ -77,7 +75,6 @@ extension StatisticsPresenter: IStatisticsPresenter {
 	func viewDidLoad(ui: IStatisticsView) {
 		self.ui = ui
 		self.ui?.setDelegateDataSource()
-		guard let users = model else { return }
-		self.ui?.updateUI(with: users)
+		self.ui?.updateUI(with: model)
 	}
 }
