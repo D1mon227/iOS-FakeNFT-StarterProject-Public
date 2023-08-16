@@ -110,7 +110,6 @@ final class NFTCardView {
         element.titleLabel?.font = .caption1
         element.setTitleColor(.blackDay, for: .normal)
         element.layer.cornerRadius = 16
-        element.layer.borderColor = UIColor.blackDay.cgColor
         element.layer.borderWidth = 1
         return element
     }()
