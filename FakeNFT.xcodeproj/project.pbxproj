@@ -38,6 +38,9 @@
 		737D031D2A80703700DCB5B1 /* OnboardingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737D031C2A80703700DCB5B1 /* OnboardingManager.swift */; };
 		737D03212A80709100DCB5B1 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737D03202A80709100DCB5B1 /* OnboardingViewController.swift */; };
 		737D03232A80776700DCB5B1 /* OnboardingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737D03222A80776700DCB5B1 /* OnboardingPageViewController.swift */; };
+		73C3EB5B2A8D390900E047E0 /* CurrencyRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C3EB5A2A8D390900E047E0 /* CurrencyRequest.swift */; };
+		73C3EB5D2A8D393100E047E0 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C3EB5C2A8D393100E047E0 /* Currency.swift */; };
+		73C3EB5F2A8D394B00E047E0 /* CurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C3EB5E2A8D394B00E047E0 /* CurrencyService.swift */; };
 		73D526D72A84C4020056116E /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D526D62A84C4020056116E /* UIBlockingProgressHUD.swift */; };
 		73D526D92A84C4420056116E /* UIImageView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D526D82A84C4420056116E /* UIImageView + Extension.swift */; };
 		73EA4B002A73C511000B4B55 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 73EA4AFF2A73C511000B4B55 /* SnapKit */; };
@@ -103,6 +106,9 @@
 		737D031C2A80703700DCB5B1 /* OnboardingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingManager.swift; sourceTree = "<group>"; };
 		737D03202A80709100DCB5B1 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		737D03222A80776700DCB5B1 /* OnboardingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageViewController.swift; sourceTree = "<group>"; };
+		73C3EB5A2A8D390900E047E0 /* CurrencyRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyRequest.swift; sourceTree = "<group>"; };
+		73C3EB5C2A8D393100E047E0 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
+		73C3EB5E2A8D394B00E047E0 /* CurrencyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyService.swift; sourceTree = "<group>"; };
 		73D526D62A84C4020056116E /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
 		73D526D82A84C4420056116E /* UIImageView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView + Extension.swift"; sourceTree = "<group>"; };
 		73EA4B022A73C703000B4B55 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -228,6 +234,7 @@
 				3FC8C38F29D245250081F015 /* Requests */,
 				7362C5482A786ACE004CBE1D /* AlertService.swift */,
 				732A44392A88FFBE00A593C2 /* AnalyticsService.swift */,
+				73C3EB5E2A8D394B00E047E0 /* CurrencyService.swift */,
 				737D031C2A80703700DCB5B1 /* OnboardingManager.swift */,
 			);
 			path = Services;
@@ -236,6 +243,7 @@
 		3F6806C929CBBCAF00B4F915 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				73C3EB5C2A8D393100E047E0 /* Currency.swift */,
 				730B23A02A8C2A6E00F5D832 /* NFT.swift */,
 				C50E6CC42A7E930000B852F9 /* User.swift */,
 			);
@@ -263,6 +271,7 @@
 		3FC8C38F29D245250081F015 /* Requests */ = {
 			isa = PBXGroup;
 			children = (
+				73C3EB5A2A8D390900E047E0 /* CurrencyRequest.swift */,
 				C50E6CC62A7E931400B852F9 /* GetUsersRequest.swift */,
 			);
 			path = Requests;
@@ -548,6 +557,7 @@
 				1FEA5B502A81498900946DD9 /* WebViewPresenter.swift in Sources */,
 				3F478ED129DB476500F6D39E /* Fonts.swift in Sources */,
 				73EA4B122A73DBF0000B4B55 /* Resources.swift in Sources */,
+				73C3EB5F2A8D394B00E047E0 /* CurrencyService.swift in Sources */,
 				730B239B2A8C298900F5D832 /* NFTCardViewPresenter.swift in Sources */,
 				737D031D2A80703700DCB5B1 /* OnboardingManager.swift in Sources */,
 				C50E6CC52A7E930000B852F9 /* User.swift in Sources */,
@@ -560,6 +570,7 @@
 				3F68069929CBBAF100B4F915 /* SceneDelegate.swift in Sources */,
 				73EA4B1B2A744623000B4B55 /* LocalizableConstants.swift in Sources */,
 				3F6806D329CBBE9600B4F915 /* NetworkRequest.swift in Sources */,
+				73C3EB5D2A8D393100E047E0 /* Currency.swift in Sources */,
 				730B23972A8C292600F5D832 /* NFTCardView.swift in Sources */,
 				73EA4B032A73C703000B4B55 /* TabBarController.swift in Sources */,
 				73EA4B0B2A73C7A4000B4B55 /* CartViewController.swift in Sources */,
@@ -570,6 +581,7 @@
 				73EA4B052A73C770000B4B55 /* ProfileViewController.swift in Sources */,
 				730B23922A8C28A500F5D832 /* NFTCardViewPresenterProtocol.swift in Sources */,
 				73EA4B0E2A73C7C4000B4B55 /* StatisticsViewController.swift in Sources */,
+				73C3EB5B2A8D390900E047E0 /* CurrencyRequest.swift in Sources */,
 				730B23A12A8C2A6E00F5D832 /* NFT.swift in Sources */,
 				737D03232A80776700DCB5B1 /* OnboardingPageViewController.swift in Sources */,
 				3F6806D129CBBE6B00B4F915 /* NetworkClient.swift in Sources */,

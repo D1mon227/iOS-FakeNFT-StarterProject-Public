@@ -4,6 +4,7 @@ import SnapKit
 final class NFTCardTableViewCell: UITableViewCell {
     private lazy var nftImage: UIImageView = {
         let element = UIImageView()
+        element.backgroundColor = .black
         element.layer.cornerRadius = 6
         return element
     }()
@@ -56,14 +57,14 @@ final class NFTCardTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureCell(nftImage: UIImage?,
+    func configureCell(currencyImage: URL?,
                        currencyName: String?,
                        shortCurrencyName: String?,
                        priceInCrypto: String?) {
         guard let currencyName = currencyName,
         let shortCurrencyName = shortCurrencyName,
         let priceInCrypto = priceInCrypto else { return }
-        self.nftImage.image = nftImage
+        self.nftImage.setImage(with: currencyImage)
         currencyNameLabel.text = "\(currencyName) (\(shortCurrencyName))"
         nftPriceInCrypto.text = "0,1 " + "(\(priceInCrypto))"
     }
