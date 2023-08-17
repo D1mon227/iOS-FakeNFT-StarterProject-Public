@@ -8,14 +8,15 @@
 import UIKit
 
 struct NFTNetworkErrorViewModel {
-    let networkErrorImageName: String
+    let networkErrorImage: UIImage?
     let notificationNetworkTitle: String
+    let reloadButtonTapped: () -> Void
 }
 
 extension NetworkErrorView {
     enum Layout {
-        static let networkErrorImageHeight: CGFloat = 80
-        static let networkErrorImageWidth: CGFloat = 80
+        static let networkErrorImageHeight: CGFloat = 150
+        static let networkErrorImageWidth: CGFloat = 150
     }
 }
 
@@ -29,14 +30,6 @@ final class NetworkErrorView: UIView {
     
     // MARK: - Properties
     
-    private let networkErrorView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        return view
-        
-    }()
-    
     private var networkErrorImage: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -47,6 +40,10 @@ final class NetworkErrorView: UIView {
     private var notificationNetworkLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        label.numberOfLines = 0
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
+        label.textAlignment = .center
         
         return label
     }()
@@ -54,6 +51,15 @@ final class NetworkErrorView: UIView {
     private let reloadNetworkButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle(LocalizableConstants.NetworkErrorView.button, for: .normal)
+        button.setTitleColor(UIColor.backgroundDay, for: .normal)
+        button.backgroundColor = .blackDay
+        button.titleLabel?.textAlignment = .center
+        button.layer.cornerRadius = 9
+        button.contentEdgeInsets.left = 10
+        button.contentEdgeInsets.right = 10
+        button.contentEdgeInsets.top = 10
+        button.contentEdgeInsets.bottom = 10
         
         return button
     }()
@@ -63,48 +69,56 @@ final class NetworkErrorView: UIView {
     init(model: NFTNetworkErrorViewModel) {
         self.model = model
         super.init(frame: .zero)
-        addSubview(networkErrorView)
+        backgroundColor = .backgroundDay
+        notificationNetworkLabel.textColor = .blackDay
         setupView()
+        setupConstraints()
         updateData()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     // MARK: - Private methods
     
     private func updateData() {
-        networkErrorImage.image = UIImage(named: model.networkErrorImageName)
+        if let imageName = model.networkErrorImage {
+            let renderedImage = imageName.withRenderingMode(.alwaysTemplate)
+            networkErrorImage.image = renderedImage
+            networkErrorImage.tintColor = .blackDay
+        }
         notificationNetworkLabel.text = model.notificationNetworkTitle
     }
     
     private func setupView() {
-        networkErrorView.addSubview(networkErrorImage)
-        networkErrorView.addSubview(notificationNetworkLabel)
-        networkErrorView.addSubview(reloadNetworkButton)
+        addSubview(networkErrorImage)
+        addSubview(notificationNetworkLabel)
+        addSubview(reloadNetworkButton)
+        
+        reloadNetworkButton.addTarget(self, action: #selector(reloadNetworkButtonTapped), for: .touchUpInside)
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            //networkErrorView
-            networkErrorView.topAnchor.constraint(equalTo: topAnchor),
-            networkErrorView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            networkErrorView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            networkErrorView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            
             //networkErrorImage
-            networkErrorImage.centerXAnchor.constraint(equalTo: networkErrorView.centerXAnchor),
-            networkErrorImage.centerYAnchor.constraint(equalTo: networkErrorView.centerYAnchor),
+            networkErrorImage.centerXAnchor.constraint(equalTo: centerXAnchor),
+            networkErrorImage.centerYAnchor.constraint(equalTo: centerYAnchor),
             networkErrorImage.heightAnchor.constraint(equalToConstant: Layout.networkErrorImageHeight),
             networkErrorImage.widthAnchor.constraint(equalToConstant: Layout.networkErrorImageWidth),
             //notificationNetworkLabel
-            notificationNetworkLabel.topAnchor.constraint(equalTo: networkErrorImage.bottomAnchor),
-            notificationNetworkLabel.centerXAnchor.constraint(equalTo: networkErrorImage.centerXAnchor),
-            notificationNetworkLabel.centerYAnchor.constraint(equalTo: networkErrorImage.centerYAnchor),
+            notificationNetworkLabel.topAnchor.constraint(equalTo: networkErrorImage.bottomAnchor, constant: 20),
+            notificationNetworkLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            notificationNetworkLabel.leadingAnchor.constraint(equalTo: trailingAnchor, constant: 20),
+            notificationNetworkLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             //reloadNetworkButton
-            reloadNetworkButton.topAnchor.constraint(equalTo: notificationNetworkLabel.bottomAnchor),
-            reloadNetworkButton.centerXAnchor.constraint(equalTo: networkErrorImage.centerXAnchor),
-            reloadNetworkButton.centerYAnchor.constraint(equalTo: networkErrorImage.centerYAnchor),
+            reloadNetworkButton.topAnchor.constraint(equalTo: notificationNetworkLabel.bottomAnchor, constant: 20),
+            reloadNetworkButton.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
+    }
+    
+    @objc func reloadNetworkButtonTapped() {
+        model.reloadButtonTapped()
     }
 }
