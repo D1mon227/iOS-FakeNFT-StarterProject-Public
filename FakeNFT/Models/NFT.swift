@@ -16,4 +16,8 @@ struct NFT: Decodable {
 	let price: Float
 	let author: String
 	let id: String
+	
+	var formattedPrice: String {
+		return String(format: "%.2f ETH", price).replacingOccurrences(of: ".", with: ",")
+	}
 }

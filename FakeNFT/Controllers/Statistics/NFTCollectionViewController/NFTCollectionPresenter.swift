@@ -2,30 +2,39 @@ import UIKit
 
 protocol INFTCollectionPresenter {
 	func viewDidLoad(ui: NFTCollectionView)
+	func tapOnTheCell(for nftID: String)
+	func tapOnTheCell(for nftID: String, profile: String)
 }
 
 final class NFTCollectionPresenter {
-	private var ui: INFTCollectionView?
+	private weak var ui: INFTCollectionView?
+	private let networkClient: DefaultNetworkClient?
 	private var order: [Order] = []
 	private var likes: [Likes] = []
-	private let networkClient = DefaultNetworkClient()
+	private var userNFTs: [NFT] = []
+	private var model: User?
 	
-	func fetchNFTsForUser(nftIds: [String]) {
+	init(networkClient: DefaultNetworkClient?, model: User?) {
+		self.networkClient = networkClient
+		self.model = model
+	}
+	
+	func fetchNFTsForUser() {
 		DispatchQueue.main.async {
 			self.ui?.activatedIndicator()
 		}
 		
 		let dispatchGroup = DispatchGroup()
-		var userNFTs: [NFT] = []
 		
+		guard let nftIds = model?.nfts  else { return }
 		for nftId in nftIds {
 			dispatchGroup.enter()
 			let request = GetNFTsForUserRequest(nftId: nftId)
-			networkClient.send(request: request, type: NFT.self) { result in
+			networkClient?.send(request: request, type: NFT.self) { result in
 				
 				switch result {
 				case .success(let nft):
-					userNFTs.append(nft)
+					self.userNFTs.append(nft)
 				case .failure(let error):
 					print("Error fetching NFT for ID \(nftId): \(error)")
 				}
@@ -34,14 +43,15 @@ final class NFTCollectionPresenter {
 		}
 		
 		dispatchGroup.notify(queue: .main) { [weak self] in
-			self?.ui?.deactivatedIndicator()
-			self?.ui?.updateUI(with: userNFTs)
+			guard let self = self else { return }
+			self.ui?.deactivatedIndicator()
+			self.ui?.updateUI(with: self.userNFTs)
 		}
 	}
 	
 	func fetchLikesFromServer() {
 		let request = GetLikesForUserRequest()
-		networkClient.send(request: request, type: Profile.self) {  result in
+		networkClient?.send(request: request, type: Profile.self) {  result in
 			switch result {
 			case .success(let profile):
 				let likes = Likes(likes: profile.likes)
@@ -55,7 +65,7 @@ final class NFTCollectionPresenter {
 	
 	func fetchOrdersFromServer() {
 		let request = GetOrdersForUserRequest()
-		networkClient.send(request: request, type: Order.self) {  result in
+		networkClient?.send(request: request, type: Order.self) {  result in
 			switch result {
 			case .success(let order):
 				self.ui?.showCart(with: order)
@@ -68,7 +78,7 @@ final class NFTCollectionPresenter {
 	
 	func putOrderToServer(order: Order) {
 		let putRequest = PutOrderRequest(dto: order)
-		networkClient.send(request: putRequest) { result in
+		networkClient?.send(request: putRequest) { result in
 			switch result {
 			case .success(_): break
 				
@@ -80,7 +90,7 @@ final class NFTCollectionPresenter {
 	
 	func putLikesToServer(likes: Likes) {
 		let putRequest = PutLikesRequest(dto: likes)
-		networkClient.send(request: putRequest) { result in
+		networkClient?.send(request: putRequest) { result in
 			switch result {
 			case .success(_): break
 				
@@ -91,20 +101,20 @@ final class NFTCollectionPresenter {
 	}
 	
 	func tapOnTheCell(for nftID: String, profile: String) {
-		if let orderIndex = order.firstIndex(where: { $0.id == profile }) {
-			var updatedOrder = order[orderIndex]
-			
-			if let nftIndex = updatedOrder.nfts.firstIndex(of: nftID) {
-				updatedOrder.nfts.remove(at: nftIndex)
-				order[orderIndex] = updatedOrder
-			} else {
-				updatedOrder.nfts.append(nftID)
-				order[orderIndex] = updatedOrder
-			}
-			putOrderToServer(order: updatedOrder)
-			ui?.showCart(with: updatedOrder)
+		guard let orderIndex = order.firstIndex(where: { $0.id == profile }) else { return }
+		var updatedOrder = order[orderIndex]
+		
+		if let nftIndex = updatedOrder.nfts.firstIndex(of: nftID) {
+			updatedOrder.nfts.remove(at: nftIndex)
+			order[orderIndex] = updatedOrder
+		} else {
+			updatedOrder.nfts.append(nftID)
+			order[orderIndex] = updatedOrder
 		}
+		putOrderToServer(order: updatedOrder)
+		ui?.showCart(with: updatedOrder)
 	}
+	
 	
 	func tapOnTheCell(for nftID: String) {
 		if let index = likes.firstIndex(where: { $0.likes.contains(nftID) }) {
@@ -112,16 +122,24 @@ final class NFTCollectionPresenter {
 		} else {
 			likes.append(Likes(likes: [nftID]))
 		}
-
+		
 		let allLikes: Likes = Likes(likes: likes.flatMap { $0.likes })
 		putLikesToServer(likes: allLikes)
 		ui?.showFavorites(with: allLikes)
 	}
+	//	func getButtonStates(for nft: NFT) -> (isLiked: Bool, isInCart: Bool) {
+	////		let isLiked = likes.likes.contains(nft.id)
+	////		let isInCart = order.nfts.contains(nft.id)
+	//		return (isLiked, isInCart)
+	//	}
 }
 
 extension NFTCollectionPresenter: INFTCollectionPresenter {
 	func viewDidLoad(ui: NFTCollectionView) {
 		self.ui = ui
 		self.ui?.setDelegateDataSource()
+		fetchNFTsForUser()
+		fetchLikesFromServer()
+		fetchOrdersFromServer()
 	}
 }

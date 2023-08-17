@@ -1,26 +1,20 @@
 protocol IUserDetailsPresenter {
 	func viewDidLoad(ui: UserDetailsView)
-}
-
-protocol IUserDetailsViewNavigationDelegate: AnyObject {
-	func showNFTCollection(with presenter: NFTCollectionPresenter)
+	func tapOnTheCell(user: User)
 }
 
 final class UserDetailsPresenter {
-	weak var navigationDelegate: IUserDetailsViewNavigationDelegate?
-	private var ui: UserDetailsView?
+	private weak var ui: UserDetailsView?
+	private let appCoordinator: AppCoordinator?
 	private var model: User?
 	
-	init(user: User?) {
-		self.model = user
+	init(model: User?, appCoordinator: AppCoordinator?) {
+		self.model = model
+		self.appCoordinator = appCoordinator
 	}
 	
-	func tapOnTheCell(user: User?) {
-		let nftCollectionPresenter = NFTCollectionPresenter()
-		navigationDelegate?.showNFTCollection(with: nftCollectionPresenter)
-		if let nftIds = user?.nfts {
-			nftCollectionPresenter.fetchNFTsForUser(nftIds: nftIds)
-		}
+	func tapOnTheCell(user: User) {
+		appCoordinator?.showNFTCollectionScreen(user: user)
 	}
 }
 

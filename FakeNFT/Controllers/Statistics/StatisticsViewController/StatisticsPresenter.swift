@@ -1,19 +1,16 @@
 import Foundation
+import UIKit
 
 protocol IStatisticsPresenter {
 	func viewDidLoad(ui: IStatisticsView)
-	func navigateToUserDetails(with presenter: UserDetailsPresenter)
-}
-
-protocol IStatisticsViewNavigationDelegate: AnyObject {
-	func showUserDetails(with presenter: UserDetailsPresenter)
+	func tapOnTheCell(user: User)
+	func sortData(by sortOption: Sort)
 }
 
 final class StatisticsPresenter {
-	weak var navigationDelegate: IStatisticsViewNavigationDelegate?
-	private var model: [User] = []
-	private var ui: IStatisticsView?
-	private let networkClient = DefaultNetworkClient()
+	private weak var ui: IStatisticsView?
+	private let networkClient: DefaultNetworkClient?
+	private let appCoordinator: AppCoordinator?
 	private var currentSortOption: Sort {
 		get {
 			if let savedSort = UserDefaults.standard.string(forKey: "SavedSortOption") {
@@ -26,11 +23,17 @@ final class StatisticsPresenter {
 			UserDefaults.standard.set(newValue.rawValue, forKey: "SavedSortOption")
 		}
 	}
+	private var model: [User] = []
+
+	init(networkClient: DefaultNetworkClient?, appCoordinator: AppCoordinator?) {
+		self.networkClient = networkClient
+		self.appCoordinator = appCoordinator
+	}
 	
 	func fetchUserFromServer() {
 		self.ui?.activatedIndicator()
 		let request = GetUsersRequest()
-		networkClient.send(request: request, type: [User].self) { [weak self] result in
+		networkClient?.send(request: request, type: [User].self) { [weak self] result in
 			guard let self else { return }
 			self.ui?.deactivatedIndicator()
 			
@@ -44,17 +47,10 @@ final class StatisticsPresenter {
 		}
 	}
 	
-	func tapOnTheCell(user: User?) {
-		if let user = user {
-			let userDetailsPresenter = UserDetailsPresenter(user: user)
-			self.navigateToUserDetails(with: userDetailsPresenter)
-		}
+	func tapOnTheCell(user: User) {
+		appCoordinator?.showUserDetails(user: user)
 	}
-	
-	func navigateToUserDetails(with presenter: UserDetailsPresenter) {
-		navigationDelegate?.showUserDetails(with: presenter)
-	}
-	
+
 	func sortData(by sortOption: Sort)  {
 		switch sortOption {
 		case .byName:
@@ -76,5 +72,6 @@ extension StatisticsPresenter: IStatisticsPresenter {
 		self.ui = ui
 		self.ui?.setDelegateDataSource()
 		self.ui?.updateUI(with: model)
+		fetchUserFromServer()
 	}
 }

@@ -6,10 +6,10 @@ protocol IUserDetailsView: AnyObject {
 }
 
 final class UserDetailsView: UIView {
-	var user: User?
-	var presenter: UserDetailsPresenter?
 	let cellTitles = [LocalizableConstants.Statistics.nftCollection]
+	var presenter: IUserDetailsPresenter?
 	weak var navigationController: UINavigationController?
+	var user: User?
 	
 	private let userImageView: UIImageView = {
 		let imageView = UIImageView()

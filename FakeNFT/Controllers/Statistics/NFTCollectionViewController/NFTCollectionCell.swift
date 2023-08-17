@@ -96,34 +96,26 @@ final class NFTCollectionCell: UICollectionViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
-	func configure(with nft: NFT, likes: Likes?, order: Order?) {
+	func configure(with nft: NFT, isLiked: Bool, isInCart: Bool,  order: Order?) {
 		if let imageUrl = nft.images {
 			nftImageView.kf.setImage(with: imageUrl.first)
 		}
-		configureFavoritesButton(for: nft, likes: likes)
-		configureCartButton(for: nft, order: order)
+		configureFavoritesButton(isLiked: isLiked)
+		configureCartButton(isInCart: isInCart)
 		
 		removeRatingStars()
 		setRatingStars(rating: nft.rating)
 		nftNameLabel.text = nft.name
-		let formattedPrice = String(format: "%.2f ETH", nft.price).replacingOccurrences(of: ".", with: ",")
-		nftPriceLabel.text = formattedPrice
+		nftPriceLabel.text = nft.formattedPrice
 	}
 	
-	private func configureFavoritesButton(for nft: NFT, likes: Likes?) {
-		if let profileLikes = likes, profileLikes.likes.contains(nft.id) {
-			favoritesButton.tintColor = .redUniversal
-		} else {
-			favoritesButton.tintColor = UIColor.white
+	private func configureFavoritesButton(isLiked: Bool) {
+			favoritesButton.tintColor = isLiked ? .redUniversal : .white
 		}
-	}
 
-	private func configureCartButton(for nft: NFT, order: Order?) {
-		if let order = order, order.nfts.contains(nft.id) {
-			cartButton.setImage(Resourses.Images.Cell.cartFill, for: .normal)
-		} else {
-			cartButton.setImage(Resourses.Images.Cell.cart, for: .normal)
-		}
+	private func configureCartButton(isInCart: Bool) {
+		let cartImage = isInCart ? Resourses.Images.Cell.cartFill : Resourses.Images.Cell.cart
+		cartButton.setImage(cartImage, for: .normal)
 	}
 	
 	private func setRatingStars(rating: Int) {
@@ -214,7 +206,9 @@ extension NFTCollectionView: UICollectionViewDataSource, UICollectionViewDelegat
 			return UICollectionViewCell()
 		}
 		let nft = collectionNFT[indexPath.row]
-		cell.configure(with: nft, likes: likes, order: order)
+		let isLiked = likes?.likes.contains(nft.id)
+		let isInCart = order?.nfts.contains(nft.id)
+		cell.configure(with: nft, isLiked: isLiked ?? true, isInCart: isInCart ?? true, order: order)
 		
 		if let id = order?.id {
 			cell.onCartButtonTapped = {

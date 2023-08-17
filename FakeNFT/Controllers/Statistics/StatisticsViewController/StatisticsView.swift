@@ -10,7 +10,7 @@ protocol IStatisticsView: AnyObject {
 }
 
 final class StatisticsView: UIView {
-	weak var presenter: StatisticsPresenter?
+	var presenter: IStatisticsPresenter?
 	var users: [User] = []
 	
 	private let userStatisticsTableView: UITableView = {
