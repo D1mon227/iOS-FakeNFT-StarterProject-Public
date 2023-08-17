@@ -65,7 +65,6 @@
 		732208BE2A8CBCB700CAB88E /* UsersRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732208BC2A8CBCB700CAB88E /* UsersRequest.swift */; };
 		732208C32A8CBCDC00CAB88E /* LikeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732208BF2A8CBCDC00CAB88E /* LikeService.swift */; };
 		732208C42A8CBCDC00CAB88E /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732208C02A8CBCDC00CAB88E /* UserService.swift */; };
-		732208C52A8CBCDC00CAB88E /* NFTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732208C12A8CBCDC00CAB88E /* NFTService.swift */; };
 		732208C62A8CBCDC00CAB88E /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732208C22A8CBCDC00CAB88E /* ProfileService.swift */; };
 		732A443A2A88FFBE00A593C2 /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732A44392A88FFBE00A593C2 /* AnalyticsService.swift */; };
 		732A444A2A8910BF00A593C2 /* YandexMobileMetrica in Frameworks */ = {isa = PBXBuildFile; productRef = 732A44492A8910BF00A593C2 /* YandexMobileMetrica */; };
@@ -588,6 +587,7 @@
 			isa = PBXGroup;
 			children = (
 				C5D3AAD12A7B3B79005A3694 /* User.swift */,
+				732208C12A8CBCDC00CAB88E /* NFTService.swift */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -751,7 +751,6 @@
 				732208B82A8CBC9E00CAB88E /* Profile.swift in Sources */,
 				730B23992A8C296400F5D832 /* NFTCardViewController.swift in Sources */,
 				1FEA5B502A81498900946DD9 /* WebViewPresenter.swift in Sources */,
-				732208C52A8CBCDC00CAB88E /* NFTService.swift in Sources */,
 				732208AF2A8CBC4300CAB88E /* FavoritesNFTViewControllerProtocol.swift in Sources */,
 				732208B32A8CBC4300CAB88E /* EditingProfileView.swift in Sources */,
 				732208BA2A8CBCAC00CAB88E /* ProfileRequest.swift in Sources */,
