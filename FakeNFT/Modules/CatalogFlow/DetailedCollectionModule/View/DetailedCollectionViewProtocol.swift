@@ -2,9 +2,9 @@ import UIKit
 
 protocol DetailedCollectionViewProtocol: AnyObject, LoadableProtocol {
     func present(_ vc: UIViewController)
-    func updateDetailsCollectionModel(with viewModel: CollectionDetailsTableViewCellModel)
+    func updateDetailsCollectionModel(with viewModel: CollectionDetailsCollectionViewCellModel)
     func updateNftsModel(with viewModels: [NFTCollectionViewCellViewModel])
-    func showNetworkError(model: NFTNetworkErrorViewModel)
+    func showNetworkError(model: NetworkErrorViewModel)
     func hideNetworkError()
 }
 

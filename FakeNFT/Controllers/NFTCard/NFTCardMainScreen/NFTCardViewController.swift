@@ -7,14 +7,20 @@ final class NFTCardViewController: UIViewController, NFTCardViewControllerProtoc
     private var starImageViews: [UIImageView] = []
     private var coverPageControlImageViews: [UIImageView] = []
     private var currentPageIndex: Int = 0
+    private var nftModel: NFT?
+    private var isLiked: Bool
     
     init(nftModel: NFT?, isLiked: Bool) {
+      
+        self.nftModel = nftModel
+        self.isLiked = isLiked
         super.init(nibName: nil, bundle: nil)
         setupRatingStack()
         self.presenter = NFTCardViewPresenter()
         self.presenter?.view = self
         self.presenter?.isLiked = isLiked
         self.presenter?.nftModel = nftModel
+
     }
     
     required init?(coder: NSCoder) {
@@ -32,6 +38,13 @@ final class NFTCardViewController: UIViewController, NFTCardViewControllerProtoc
         updateLikeButton(isLiked: presenter?.isLiked ?? false)
         presenter?.fetchCurrencies()
         presenter?.fetchNFTs()
+        nftCardView.coverNFTScrollView.delegate = self
+        self.presenter = NFTCardViewPresenter()
+        self.presenter?.view = self
+        self.presenter?.isLiked = isLiked
+        self.presenter?.nftModel = nftModel
+        presenter?.fetchCurrencies()
+
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

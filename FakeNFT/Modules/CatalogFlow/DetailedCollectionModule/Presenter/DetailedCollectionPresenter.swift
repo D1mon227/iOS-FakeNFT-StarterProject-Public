@@ -16,7 +16,8 @@ final class DetailedCollectionPresenter {
     private let response: NftCollectionResponse
     private let services: Services
     private var nftsModels = [NFTCollectionViewCellViewModel]()
-    private var detailsCollectionModel: CollectionDetailsTableViewCellModel?
+    private var nftsResponses = [NftResponse]()
+    private var detailsCollectionModel: CollectionDetailsCollectionViewCellModel?
     private var nftsInCart: Set<String> = []
     private var userLikes: Set<String> = []
     private var user: ProfileModel?
@@ -32,6 +33,7 @@ final class DetailedCollectionPresenter {
 extension DetailedCollectionPresenter: DetailedCollectionPresenterProtocol {
     
     func viewDidLoad() {
+        subscribe()
         view?.showLoadingIndicator()
         getNftAuthor()
         getNft(by: response.nfts)
@@ -102,12 +104,62 @@ extension DetailedCollectionPresenter: DetailedCollectionPresenterProtocol {
         sendAnalytics(event: .click, item: .like)
     }
     
-    func didChooseNft() {
+    func didChooseNft(with id: String) {
+        guard let response = nftsResponses.first(where: { $0.id == id }) else {
+            return
+        }
         
+        let nft = NFT(createdAt: response.createdAt,
+                      name: response.name,
+                      images: response.images.compactMap { $0.makeUrl() },
+                      rating: response.rating,
+                      description: response.description,
+                      price: Double(response.price),
+                      author: response.author,
+                      id: response.id)
+        
+        let isLiked = userLikes.contains(id)
+        
+        let viewController = NFTCardViewController(nftModel: nft, isLiked: isLiked)
+        view?.present(viewController)
+
+        sendAnalytics(event: .click, item: .nftInfo)
+
     }
 }
 
 private extension DetailedCollectionPresenter {
+    
+    func subscribe() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleNotification(_:)),
+                                               name: NetworkReachabilityManager.shared.networkReachabilityManagerNotification,
+                                               object: nil)
+    }
+    
+    @objc
+    func handleNotification(_ notification: Notification) {
+         guard let userInfo = notification.userInfo as? [String: Any] else {
+             return
+        }
+        
+        guard let connectionAvailable = userInfo["connectionAvailable"] as? Bool else {
+            return
+        }
+        
+        if connectionAvailable {
+            self.resetState()
+        } else {
+            let model = NetworkErrorViewModel(networkErrorImage:
+                                                    Resourses.Images.NetworkError.noInternet,
+                                                 notificationNetworkTitle: LocalizableConstants.NetworkErrorView.noInternet)  { [weak self] in
+                guard let self else { return }
+                self.resetState()
+            }
+            self.view?.showNetworkError(model: model)
+        }
+        self.view?.hideLoadingIndicator()
+    }
     
     func getNftAuthor() {
         services.profileService.getProfile(id: "1") { [weak self] result in
@@ -135,6 +187,7 @@ private extension DetailedCollectionPresenter {
                 guard let self else { return }
                 switch result {
                 case .success(let response):
+                    nftsResponses.append(response)
                     let viewModel = NFTCollectionViewCellViewModel(nftResponse: response)
                     self.nftsModels.append(viewModel)
                     self.view?.hideNetworkError()
@@ -231,8 +284,8 @@ private extension DetailedCollectionPresenter {
         }
     }
     
-    func makeViewModel(user: ProfileModel) -> CollectionDetailsTableViewCellModel {
-        return CollectionDetailsTableViewCellModel(collectionId: response.id,
+    func makeViewModel(user: ProfileModel) -> CollectionDetailsCollectionViewCellModel {
+        return CollectionDetailsCollectionViewCellModel(collectionId: response.id,
                                                    collectionDescription: response.description,
                                                    collectionName: response.name,
                                                    imageStringUrl: response.cover.makeUrl(),
@@ -265,14 +318,11 @@ private extension DetailedCollectionPresenter {
     }
     
     func showRequestError() {
-        let model = NFTNetworkErrorViewModel(networkErrorImage:
+        let model = NetworkErrorViewModel(networkErrorImage:
                                                 Resourses.Images.NetworkError.errorNetwork,
                                              notificationNetworkTitle: LocalizableConstants.NetworkErrorView.error) { [weak self] in
             guard let self else { return }
-            self.cleanData()
-            self.view?.showLoadingIndicator()
-            self.getNftAuthor()
-            self.getNft(by: response.nfts)
+            self.resetState()
         }
         
         self.view?.showNetworkError(model: model)
@@ -284,6 +334,14 @@ private extension DetailedCollectionPresenter {
         nftsModels = []
         detailsCollectionModel = nil
         user = nil
+    }
+    
+    func resetState() {
+        self.cleanData()
+        self.view?.showLoadingIndicator()
+        self.getNftAuthor()
+        self.getNft(by: response.nfts)
+        self.view?.hideNetworkError()
     }
     
 }
