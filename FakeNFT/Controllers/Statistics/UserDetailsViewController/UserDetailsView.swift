@@ -85,17 +85,9 @@ final class UserDetailsView: UIView {
 	}
 	
 	@objc private func websiteUserButtonTapped(_ sender: UIButton) {
-		if let url = user?.website {
-			let request = URLRequest(url: url)
-			
-			let webPresenter = WebViewPresenter(urlRequest: request)
-			let webViewController = WebViewController(presenter: webPresenter)
-			webPresenter.view = webViewController
-			
-			if let navigationController = self.navigationController {
-				navigationController.pushViewController(webViewController, animated: true)
-			}
-		}
+		guard let url = user?.website else { return }
+		let request = URLRequest(url: url)
+		presenter?.appCoordinator?.showWebViewScreen(url: request)
 	}
 }
 

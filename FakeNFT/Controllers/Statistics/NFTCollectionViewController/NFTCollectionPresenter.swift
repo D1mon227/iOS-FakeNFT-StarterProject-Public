@@ -1,4 +1,4 @@
-import UIKit
+import Foundation
 
 protocol INFTCollectionPresenter {
 	func viewDidLoad(ui: NFTCollectionView)

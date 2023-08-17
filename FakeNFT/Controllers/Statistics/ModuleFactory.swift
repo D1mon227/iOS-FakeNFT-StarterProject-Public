@@ -21,6 +21,13 @@ struct ModuleFactory {
 		let view = NFTCollectionViewController(with: presenter)
 		return view
 	}
+	
+	static func makeWebViewModule(with url: URLRequest) -> WebViewController {
+		let presenter = WebViewPresenter(urlRequest: url)
+		let view = WebViewController(presenter: presenter)
+		presenter.view = view
+		return view
+	}
 }
 
 

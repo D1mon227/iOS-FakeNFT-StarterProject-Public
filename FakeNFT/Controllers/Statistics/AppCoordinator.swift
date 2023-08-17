@@ -20,4 +20,9 @@ final class AppCoordinator {
 		navigationController.pushViewController(nftCollectionViewController, animated: true)
 	}
 	
+	func showWebViewScreen(url: URLRequest) {
+		let webViewController = ModuleFactory.makeWebViewModule(with: url)
+		guard let navigationController = tabBarController.selectedViewController as? UINavigationController else { return }
+		navigationController.pushViewController(webViewController, animated: true)
+	}
 }

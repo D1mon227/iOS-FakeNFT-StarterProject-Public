@@ -1,11 +1,12 @@
 protocol IUserDetailsPresenter {
+	var appCoordinator: AppCoordinator? { get }
 	func viewDidLoad(ui: UserDetailsView)
 	func tapOnTheCell(user: User)
 }
 
 final class UserDetailsPresenter {
 	private weak var ui: UserDetailsView?
-	private let appCoordinator: AppCoordinator?
+	internal let appCoordinator: AppCoordinator?
 	private var model: User?
 	
 	init(model: User?, appCoordinator: AppCoordinator?) {
