@@ -4,5 +4,9 @@ struct NftResponse: Codable {
     let images: [String]
     let rating: Int
     let price: Float
+    
+    var formattedPrice: String {
+        return String(format: "%.2f ETH", price).replacingOccurrences(of: ".", with: ",")
+    }
 }
 
