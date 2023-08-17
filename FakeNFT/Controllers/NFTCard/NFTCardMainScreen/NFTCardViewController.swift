@@ -198,9 +198,13 @@ extension NFTCardViewController {
         nftCardView.generalScrollView.addSubview(nftCardView.currencyTableView)
         nftCardView.generalScrollView.addSubview(nftCardView.sellerWebsiteButton)
         nftCardView.generalScrollView.addSubview(nftCardView.nftCollectionView)
+        setupCoverNFTScrollView()
+        setupConstraints()
+    }
+    
+    private func setupCoverNFTScrollView() {
         nftCardView.coverNFTScrollView.contentSize = CGSize(width: view.frame.width * 3, height: 375)
         nftCardView.coverNFTScrollView.delegate = self
-        setupConstraints()
     }
     
     private func setupCoverPageControlStack() {
