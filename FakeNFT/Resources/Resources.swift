@@ -13,6 +13,17 @@ enum Resourses {
             static let profile = "/api/v1/profile/1"
             static let users = "/api/v1/users"
         }
+        
+        enum NFTUrls {
+            static let bitcoin =  "https://bitcoin.org/ru/"
+            static let dogecoin = "https://dogecoin.com"
+            static let tether = "https://tether.to/ru/"
+            static let apecoin = "https://apecoin.com"
+            static let solana = "https://solana.com/ru"
+            static let ethereum = "https://ethereum.org/en/"
+            static let cardano = "https://cardano.org"
+            static let shibainu = "https://www.shibatoken.com"
+        }
     }
     
     enum Images {
