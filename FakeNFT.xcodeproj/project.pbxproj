@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1F2A25652A8E243F00F8B1AD /* UIViewController+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2A25642A8E243F00F8B1AD /* UIViewController+extension.swift */; };
+		1F2A256E2A8E81A900F8B1AD /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 1F2A256D2A8E81A900F8B1AD /* Reachability */; };
+		1F2A25712A8E81F800F8B1AD /* NetworkReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2A25702A8E81F800F8B1AD /* NetworkReachabilityManager.swift */; };
 		1FEA5B4E2A81497100946DD9 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEA5B4D2A81497100946DD9 /* WebViewController.swift */; };
 		1FEA5B502A81498900946DD9 /* WebViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEA5B4F2A81498900946DD9 /* WebViewPresenter.swift */; };
 		1FEA5B7C2A8BE98600946DD9 /* NetworkErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEA5B7B2A8BE98600946DD9 /* NetworkErrorView.swift */; };
@@ -79,6 +81,7 @@
 
 /* Begin PBXFileReference section */
 		1F2A25642A8E243F00F8B1AD /* UIViewController+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+extension.swift"; sourceTree = "<group>"; };
+		1F2A25702A8E81F800F8B1AD /* NetworkReachabilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkReachabilityManager.swift; sourceTree = "<group>"; };
 		1FEA5B4D2A81497100946DD9 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		1FEA5B4F2A81498900946DD9 /* WebViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewPresenter.swift; sourceTree = "<group>"; };
 		1FEA5B7B2A8BE98600946DD9 /* NetworkErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorView.swift; sourceTree = "<group>"; };
@@ -138,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				732A444C2A8910BF00A593C2 /* YandexMobileMetricaCrashes in Frameworks */,
+				1F2A256E2A8E81A900F8B1AD /* Reachability in Frameworks */,
 				73EA4B002A73C511000B4B55 /* SnapKit in Frameworks */,
 				732A444A2A8910BF00A593C2 /* YandexMobileMetrica in Frameworks */,
 				3F603CD029DB4A74000C43D7 /* Kingfisher in Frameworks */,
@@ -162,6 +166,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F2A256F2A8E81E500F8B1AD /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				1F2A25702A8E81F800F8B1AD /* NetworkReachabilityManager.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		1FEA5B4C2A81495100946DD9 /* WebViewModule */ = {
 			isa = PBXGroup;
 			children = (
@@ -237,6 +249,7 @@
 		3F6806C629CBBC4E00B4F915 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				1F2A256F2A8E81E500F8B1AD /* Network */,
 				3FC8C38F29D245250081F015 /* Requests */,
 				7362C5482A786ACE004CBE1D /* AlertService.swift */,
 				732A44392A88FFBE00A593C2 /* AnalyticsService.swift */,
@@ -433,6 +446,7 @@
 				73EA4AFF2A73C511000B4B55 /* SnapKit */,
 				732A44492A8910BF00A593C2 /* YandexMobileMetrica */,
 				732A444B2A8910BF00A593C2 /* YandexMobileMetricaCrashes */,
+				1F2A256D2A8E81A900F8B1AD /* Reachability */,
 			);
 			productName = FakeNFT;
 			productReference = 3F68069329CBBAF100B4F915 /* FakeNFT.app */;
@@ -512,6 +526,7 @@
 				3F603CCE29DB4A74000C43D7 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				73EA4AFE2A73C510000B4B55 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				732A44482A8910BF00A593C2 /* XCRemoteSwiftPackageReference "metrica-sdk-ios" */,
+				1F2A256C2A8E81A900F8B1AD /* XCRemoteSwiftPackageReference "Reachability" */,
 			);
 			productRefGroup = 3F68069429CBBAF100B4F915 /* Products */;
 			projectDirPath = "";
@@ -584,6 +599,7 @@
 				730B23972A8C292600F5D832 /* NFTCardView.swift in Sources */,
 				73EA4B032A73C703000B4B55 /* TabBarController.swift in Sources */,
 				1F2A25652A8E243F00F8B1AD /* UIViewController+extension.swift in Sources */,
+				1F2A25712A8E81F800F8B1AD /* NetworkReachabilityManager.swift in Sources */,
 				73EA4B0B2A73C7A4000B4B55 /* CartViewController.swift in Sources */,
 				73C3EB612A8E7C3700E047E0 /* NFTService.swift in Sources */,
 				73EA4B1D2A7471D2000B4B55 /* CustomNavigationViewController.swift in Sources */,
@@ -942,6 +958,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1F2A256C2A8E81A900F8B1AD /* XCRemoteSwiftPackageReference "Reachability" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ashleymills/Reachability.swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		3F603CCB29DB4A53000C43D7 /* XCRemoteSwiftPackageReference "ProgressHUD" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/relatedcode/ProgressHUD";
@@ -977,6 +1001,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1F2A256D2A8E81A900F8B1AD /* Reachability */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1F2A256C2A8E81A900F8B1AD /* XCRemoteSwiftPackageReference "Reachability" */;
+			productName = Reachability;
+		};
 		3F603CCC29DB4A53000C43D7 /* ProgressHUD */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3F603CCB29DB4A53000C43D7 /* XCRemoteSwiftPackageReference "ProgressHUD" */;

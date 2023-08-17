@@ -7,7 +7,9 @@
 
 import UIKit
 
-struct NFTNetworkErrorViewModel {
+import UIKit
+
+struct NetworkErrorViewModel {
     let networkErrorImage: UIImage?
     let notificationNetworkTitle: String
     let reloadButtonTapped: () -> Void
@@ -17,12 +19,6 @@ extension NetworkErrorView {
     enum Layout {
         static let networkErrorImageHeight: CGFloat = 150
         static let networkErrorImageWidth: CGFloat = 150
-    }
-}
-
-extension NetworkErrorView {
-    enum NFTNetworkError: Error {
-        case codeError, invalidUrl, networkTaskError
     }
 }
 
@@ -44,7 +40,6 @@ final class NetworkErrorView: UIView {
         label.numberOfLines = 0
         label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.textAlignment = .center
-        
         return label
     }()
     
@@ -64,9 +59,9 @@ final class NetworkErrorView: UIView {
         return button
     }()
     
-    private var model: NFTNetworkErrorViewModel
+    private var model: NetworkErrorViewModel
     
-    init(model: NFTNetworkErrorViewModel) {
+    init(model: NetworkErrorViewModel) {
         self.model = model
         super.init(frame: .zero)
         backgroundColor = .backgroundDay
@@ -115,6 +110,8 @@ final class NetworkErrorView: UIView {
             //reloadNetworkButton
             reloadNetworkButton.topAnchor.constraint(equalTo: notificationNetworkLabel.bottomAnchor, constant: 20),
             reloadNetworkButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            reloadNetworkButton.leadingAnchor.constraint(equalTo: trailingAnchor, constant: 20),
+            reloadNetworkButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
         ])
     }
     
