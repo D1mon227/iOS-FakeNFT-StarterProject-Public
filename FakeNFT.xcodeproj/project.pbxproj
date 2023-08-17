@@ -10,6 +10,7 @@
 		1F2A25652A8E243F00F8B1AD /* UIViewController+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2A25642A8E243F00F8B1AD /* UIViewController+extension.swift */; };
 		1F2A256E2A8E81A900F8B1AD /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 1F2A256D2A8E81A900F8B1AD /* Reachability */; };
 		1F2A25712A8E81F800F8B1AD /* NetworkReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2A25702A8E81F800F8B1AD /* NetworkReachabilityManager.swift */; };
+		1F3E72992A8E9BC4007EBD36 /* AlertProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3E72982A8E9BC4007EBD36 /* AlertProtocol.swift */; };
 		1FEA5B4E2A81497100946DD9 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEA5B4D2A81497100946DD9 /* WebViewController.swift */; };
 		1FEA5B502A81498900946DD9 /* WebViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEA5B4F2A81498900946DD9 /* WebViewPresenter.swift */; };
 		1FEA5B7C2A8BE98600946DD9 /* NetworkErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEA5B7B2A8BE98600946DD9 /* NetworkErrorView.swift */; };
@@ -82,6 +83,7 @@
 /* Begin PBXFileReference section */
 		1F2A25642A8E243F00F8B1AD /* UIViewController+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+extension.swift"; sourceTree = "<group>"; };
 		1F2A25702A8E81F800F8B1AD /* NetworkReachabilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkReachabilityManager.swift; sourceTree = "<group>"; };
+		1F3E72982A8E9BC4007EBD36 /* AlertProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertProtocol.swift; sourceTree = "<group>"; };
 		1FEA5B4D2A81497100946DD9 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		1FEA5B4F2A81498900946DD9 /* WebViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewPresenter.swift; sourceTree = "<group>"; };
 		1FEA5B7B2A8BE98600946DD9 /* NetworkErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorView.swift; sourceTree = "<group>"; };
@@ -412,6 +414,7 @@
 				73D526D62A84C4020056116E /* UIBlockingProgressHUD.swift */,
 				73D526D82A84C4420056116E /* UIImageView + Extension.swift */,
 				1F2A25642A8E243F00F8B1AD /* UIViewController+extension.swift */,
+				1F3E72982A8E9BC4007EBD36 /* AlertProtocol.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -574,6 +577,7 @@
 				7362C5492A786ACE004CBE1D /* AlertService.swift in Sources */,
 				730B23942A8C28DD00F5D832 /* NFTCardViewControllerProtocol.swift in Sources */,
 				1FEA5B4E2A81497100946DD9 /* WebViewController.swift in Sources */,
+				1F3E72992A8E9BC4007EBD36 /* AlertProtocol.swift in Sources */,
 				73EA4B082A73C789000B4B55 /* CatalogViewController.swift in Sources */,
 				73C3EB632A8E7C6100E047E0 /* NFTsRequest.swift in Sources */,
 				3F478ECF29DB474E00F6D39E /* UIColor + Extension.swift in Sources */,
