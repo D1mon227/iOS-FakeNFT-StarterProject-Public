@@ -8,6 +8,15 @@
 import UIKit
 
 extension UIViewController {
+    static let numberFormatter: NumberFormatter = {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.decimalSeparator = ","
+        numberFormatter.minimumFractionDigits = 1
+        numberFormatter.maximumFractionDigits = 2
+        return numberFormatter
+    }()
+    
     func addNetworkErrorView(model: NetworkErrorViewModel) {
         view.subviews.forEach { view in
             if view is NetworkErrorView {
@@ -32,5 +41,9 @@ extension UIViewController {
                 view.removeFromSuperview()
             }
         }
+    }
+    
+    func convert(price: Double) -> String {
+        UIViewController.numberFormatter.string(from: NSNumber(value: price)) ?? ""
     }
 }
