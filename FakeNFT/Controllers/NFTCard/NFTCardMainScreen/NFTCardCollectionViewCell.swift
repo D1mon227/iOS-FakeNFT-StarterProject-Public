@@ -5,6 +5,7 @@ final class NFTCardCollectionViewCell: UICollectionViewCell {
     private lazy var nftImage: UIImageView = {
         let element = UIImageView()
         element.layer.cornerRadius = 12
+        element.layer.masksToBounds = true
         return element
     }()
     
