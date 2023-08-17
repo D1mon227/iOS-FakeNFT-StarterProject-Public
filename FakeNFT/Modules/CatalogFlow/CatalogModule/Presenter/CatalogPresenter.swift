@@ -25,18 +25,7 @@ extension CatalogPresenter: CatalogPresenterProtocol {
     func viewDidLoad() {
         view?.showLoadingIndicator()
         
-        nftCatalogService.getNftItems { [weak self] result in
-            guard let self else { return }
-            
-            switch result {
-            case .success(let items):
-                responses = items
-                self.didGetNftItems(nftItems: items)
-            case  .failure(let error):
-                self.didGetError(error: error)
-            }
-            self.view?.hideLoadingIndicator()
-        }
+        fetchNftItems()
         
     }
     
@@ -109,6 +98,21 @@ private extension CatalogPresenter {
         saveSortingType(.byName)
     }
     
+    func fetchNftItems() {
+        nftCatalogService.getNftItems { [weak self] result in
+            guard let self else { return }
+            
+            switch result {
+            case .success(let items):
+                responses = items
+                self.didGetNftItems(nftItems: items)
+            case  .failure:
+                self.showRequestError()
+            }
+            self.view?.hideLoadingIndicator()
+        }
+    }
+    
     func saveSortingType(_ sortingType: SortingType) {
         UserDefaults.standard.set(sortingType.rawValue, forKey: KeyDefaults.sortingTypeCatalog)
     }
@@ -127,8 +131,15 @@ private extension CatalogPresenter {
         }
     }
     
-    func didGetError(error: Error) {
-        
+    func showRequestError() {
+        let requestErrorModel = NetworkErrorViewModel(networkErrorImage: Resourses.Images.NetworkError.errorNetwork,
+                                                      notificationNetworkTitle: LocalizableConstants.NetworkErrorView.error) { [weak self] in
+            self?.viewModels = []
+            self?.responses = []
+            
+            self?.view?.showLoadingIndicator()
+            self?.fetchNftItems()
+        }
     }
     
     func sendAnalytics(event: Event, item: Item? = nil) {

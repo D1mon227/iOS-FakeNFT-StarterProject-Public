@@ -7,8 +7,6 @@
 
 import UIKit
 
-import UIKit
-
 struct NetworkErrorViewModel {
     let networkErrorImage: UIImage?
     let notificationNetworkTitle: String

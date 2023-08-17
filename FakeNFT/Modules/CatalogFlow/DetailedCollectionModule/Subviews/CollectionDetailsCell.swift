@@ -60,7 +60,7 @@ final class CollectionDetailsCell: UICollectionViewCell {
     }()
     
     private var gradientLayer: CAGradientLayer?
-    private var viewModel: CollectionDetailsTableViewCellModel?
+    private var viewModel: CollectionDetailsCollectionViewCellModel?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -79,7 +79,7 @@ final class CollectionDetailsCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with viewModel: CollectionDetailsTableViewCellModel) {
+    func configure(with viewModel: CollectionDetailsCollectionViewCellModel) {
         self.viewModel = viewModel
         nftCollectionCover.kf.setImage(with: viewModel.imageStringUrl) { [weak self] _ in
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {

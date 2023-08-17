@@ -3,7 +3,7 @@ import Foundation
 
 protocol DetailedCollectionTableViewCellProtocol {}
 
-struct CollectionDetailsTableViewCellModel: DetailedCollectionTableViewCellProtocol {
+struct CollectionDetailsCollectionViewCellModel: DetailedCollectionTableViewCellProtocol {
     let collectionId: String
     let website: URL?
     let authorName: String

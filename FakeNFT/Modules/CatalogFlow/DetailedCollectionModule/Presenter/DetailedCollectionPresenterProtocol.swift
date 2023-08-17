@@ -8,4 +8,5 @@ protocol DetailedCollectionPresenterProtocol {
     func didTapOnLink(url: URL?)
     func didTapCartButton(id: String)
     func didTapLikeButton(id: String)
+    func didChooseNft(with id: String)
 }

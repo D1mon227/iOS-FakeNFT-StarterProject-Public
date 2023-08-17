@@ -30,7 +30,7 @@ final class DetailedCollectionViewController: UIViewController {
     }()
     
     private var nftModels: [NFTCollectionViewCellViewModel] = []
-    private var detailsCollectionModel: CollectionDetailsTableViewCellModel?
+    private var detailsCollectionModel: CollectionDetailsCollectionViewCellModel?
     
     init(presenter: DetailedCollectionPresenterProtocol) {
         self.presenter = presenter
@@ -68,7 +68,7 @@ extension DetailedCollectionViewController: DetailedCollectionViewProtocol {
         UIBlockingProgressHUD.dismiss()
     }
     
-    func updateDetailsCollectionModel(with viewModel: CollectionDetailsTableViewCellModel) {
+    func updateDetailsCollectionModel(with viewModel: CollectionDetailsCollectionViewCellModel) {
         self.detailsCollectionModel = viewModel
         collectionView.reloadData()
     }
@@ -82,7 +82,8 @@ extension DetailedCollectionViewController: DetailedCollectionViewProtocol {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    func showNetworkError(model: NFTNetworkErrorViewModel) {
+    func showNetworkError(model: NetworkErrorViewModel) {
+        hideLoadingIndicator()
         addNetworkErrorView(model: model)
     }
     
@@ -172,6 +173,15 @@ extension DetailedCollectionViewController: UICollectionViewDataSource, UICollec
         if section == 0 { return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) }
         let sectionInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
         return sectionInsets
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? NFTCollectionViewCell else {
+            return
+        }
+        
+        guard let id = cell.viewModel?.nftId else { return }
+        presenter.didChooseNft(with: id)
     }
     
 }
