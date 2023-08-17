@@ -31,7 +31,7 @@ final class NFTCardViewController: UIViewController, NFTCardViewControllerProtoc
         updateNFTDetails(nftModel: presenter?.nftModel)
         updateLikeButton(isLiked: presenter?.isLiked ?? false)
         presenter?.fetchCurrencies()
-        
+        presenter?.fetchNFTs()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -42,6 +42,12 @@ final class NFTCardViewController: UIViewController, NFTCardViewControllerProtoc
     func reloadTableView() {
         DispatchQueue.main.async {
             self.nftCardView.currencyTableView.reloadData()
+        }
+    }
+    
+    func reloadCollectionView() {
+        DispatchQueue.main.async {
+            self.nftCardView.nftCollectionView.reloadData()
         }
     }
     
@@ -83,6 +89,12 @@ final class NFTCardViewController: UIViewController, NFTCardViewControllerProtoc
             imageView.backgroundColor = index == currentPageIndex ? .blackDay : .lightGreyDay
         }
     }
+    
+    @objc private func switchToNFTInformation(index: Int) {
+        guard let customNC = navigationController as? CustomNavigationController,
+              let webViewController = presenter?.switchToNFTInformation(index: index) else { return }
+        customNC.pushViewController(webViewController, animated: true)
+    }
 }
 
 //MARK: UITableViewDataSource
@@ -112,6 +124,11 @@ extension NFTCardViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         72
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        switchToNFTInformation(index: indexPath.row)
+    }
 }
 
 extension NFTCardViewController: UICollectionViewDataSource {
@@ -120,11 +137,13 @@ extension NFTCardViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NFTCardCollectionViewCell", for: indexPath) as? NFTCardCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NFTCardCollectionViewCell", for: indexPath) as? NFTCardCollectionViewCell,
+              let nft = presenter?.nfts?[indexPath.row] else { return UICollectionViewCell() }
         
-        cell.configureCell(nftImage: Resourses.Images.NFT.nftCard1,
-                           nftName: "Luna",
-                           nftPrice: "23")
+        cell.configureCell(nftImage: nft.images?[0],
+                           nftName: nft.name,
+                           rating: nft.rating,
+                           nftPrice: convert(price: nft.price ?? 0.0))
         return cell
     }
 }

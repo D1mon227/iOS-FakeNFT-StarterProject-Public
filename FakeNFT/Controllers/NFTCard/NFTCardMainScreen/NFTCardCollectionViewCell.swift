@@ -58,13 +58,15 @@ final class NFTCardCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureCell(nftImage: UIImage?,
+    func configureCell(nftImage: URL?,
                        nftName: String?,
+                       rating: Int?,
                        nftPrice: String?) {
         guard let nftPrice = nftPrice else { return }
-        self.nftImage.image = nftImage
+        self.nftImage.setImage(with: nftImage)
         nftNameLabel.text = nftName
-        nftPriceLabel.text = "\(nftPrice) ETH"
+        updateRatingStars(rating: rating)
+        nftPriceLabel.text = nftPrice + " ETH"
     }
     
     private func setupViews() {
@@ -86,6 +88,14 @@ final class NFTCardCollectionViewCell: UICollectionViewCell {
             imageView.tintColor = .yellowUniversal
             nftRatingStack.addArrangedSubview(imageView)
             starImageViews.append(imageView)
+        }
+    }
+    
+    private func updateRatingStars(rating: Int?) {
+        guard let rating = rating else { return }
+        
+        for i in 0..<5 {
+            starImageViews[i].tintColor = i < rating ? .yellowUniversal : .lightGreyDay
         }
     }
     
