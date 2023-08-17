@@ -14,7 +14,7 @@ struct NFTCollectionViewCellViewModel {
         self.nftIcon = nftResponse.images.first?.makeUrl()
         self.nftStarsCount = nftResponse.rating
         self.nftName = nftResponse.name
-        self.nftPrice = String(nftResponse.price)
+        self.nftPrice = String(nftResponse.formattedPrice)
         self.cartButtonImageName = nil
         self.favoriteButtonImageName = nil
     }
