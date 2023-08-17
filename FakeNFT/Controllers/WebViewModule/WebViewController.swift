@@ -107,7 +107,7 @@ final class WebViewController: UIViewController, WebViewControllerProtocol {
     func setProgressView() {
         progressView.translatesAutoresizingMaskIntoConstraints = false
         progressView.setProgress(0, animated: false)
-        progressView.tintColor = .blackDay
+        progressView.tintColor = .blueUniversal
         view.addSubview(progressView)
         
         NSLayoutConstraint.activate([
