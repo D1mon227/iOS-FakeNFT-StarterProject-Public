@@ -112,6 +112,7 @@ final class MyNFTTableViewCell: UITableViewCell {
                        rating: Int?,
                        author: String?,
                        price: String?) {
+        guard let price = price else { return }
         nftImage.setImage(with: image)
         if doesNftHasLike == true {
             favoriteButton.tintColor = .redUniversal
@@ -121,7 +122,7 @@ final class MyNFTTableViewCell: UITableViewCell {
         nftLabel.text = nftName
         updateRatingStars(rating: rating)
         authorLabel.text = author
-        self.price.text = price
+        self.price.text = price + " ETH"
     }
     
     private func setupViews() {

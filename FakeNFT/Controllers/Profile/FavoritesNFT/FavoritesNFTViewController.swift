@@ -70,6 +70,12 @@ final class FavoritesNFTViewController: UIViewController, FavoritesNFTViewContro
             self.title = LocalizableConstants.Profile.nftFavorites
         }
     }
+    
+    private func switchToNFTCardVC(nftModel: NFT?, isLiked: Bool) {
+        guard let customNC = navigationController as? CustomNavigationController else { return }
+        let nftCardVC = NFTCardViewController(nftModel: nftModel, isLiked: isLiked)
+        customNC.pushViewController(nftCardVC, animated: true)
+    }
 }
 
 //MARK: UICollectionViewDataSource
@@ -87,7 +93,7 @@ extension FavoritesNFTViewController: UICollectionViewDataSource {
                            favoriteButtonColor: .redUniversal,
                            nftName: nfts.name,
                            rating: nfts.rating,
-                           price: (presenter?.convert(price: nfts.price ?? 0.0) ?? "") + " ETH")
+                           price: (presenter?.convert(price: nfts.price ?? 0.0) ?? ""))
         
         return cell
     }
@@ -109,6 +115,12 @@ extension FavoritesNFTViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        guard let nftModel = presenter?.favoritesNFTs[indexPath.row] else { return }
+        switchToNFTCardVC(nftModel: nftModel, isLiked: true)
     }
 }
 

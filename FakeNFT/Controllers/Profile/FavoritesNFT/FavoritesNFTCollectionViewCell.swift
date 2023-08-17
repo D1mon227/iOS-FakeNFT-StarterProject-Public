@@ -63,11 +63,12 @@ final class FavoritesNFTCollectionViewCell: UICollectionViewCell {
                        nftName: String?,
                        rating: Int?,
                        price: String?) {
+        guard let price = price else { return }
         nftImage.setImage(with: image)
         favoriteButton.tintColor = favoriteButtonColor
         nftLabel.text = nftName
         updateRatingStars(rating: rating)
-        self.price.text = price
+        self.price.text = price + " ETH"
     }
     
     private func setupViews() {
