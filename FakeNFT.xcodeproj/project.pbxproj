@@ -80,7 +80,6 @@
 		73C3EB5D2A8D393100E047E0 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C3EB5C2A8D393100E047E0 /* Currency.swift */; };
 		73C3EB5F2A8D394B00E047E0 /* CurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C3EB5E2A8D394B00E047E0 /* CurrencyService.swift */; };
 		73C3EB612A8E7C3700E047E0 /* NFTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C3EB602A8E7C3700E047E0 /* NFTService.swift */; };
-		73C3EB632A8E7C6100E047E0 /* NFTsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C3EB622A8E7C6100E047E0 /* NFTsRequest.swift */; };
 		73D526D72A84C4020056116E /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D526D62A84C4020056116E /* UIBlockingProgressHUD.swift */; };
 		73D526D92A84C4420056116E /* UIImageView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D526D82A84C4420056116E /* UIImageView + Extension.swift */; };
 		73EA4B002A73C511000B4B55 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 73EA4AFF2A73C511000B4B55 /* SnapKit */; };
@@ -763,7 +762,6 @@
 				1FEA5B4E2A81497100946DD9 /* WebViewController.swift in Sources */,
 				1F3E72992A8E9BC4007EBD36 /* AlertProtocol.swift in Sources */,
 				73EA4B082A73C789000B4B55 /* CatalogViewController.swift in Sources */,
-				73C3EB632A8E7C6100E047E0 /* NFTsRequest.swift in Sources */,
 				3F478ECF29DB474E00F6D39E /* UIColor + Extension.swift in Sources */,
 				732208C62A8CBCDC00CAB88E /* ProfileService.swift in Sources */,
 				73D526D92A84C4420056116E /* UIImageView + Extension.swift in Sources */,
