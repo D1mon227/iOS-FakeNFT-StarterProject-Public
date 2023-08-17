@@ -33,7 +33,6 @@ final class CollectionDetailsCell: UICollectionViewCell {
     
     private let nftCollectionNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Name"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 22, weight: .bold)
         label.numberOfLines = 1
@@ -43,7 +42,6 @@ final class CollectionDetailsCell: UICollectionViewCell {
     
     private let nftCollectionAuthorLabel: UILabel = {
         let label = UILabel()
-        label.text = "Автор коллекции:"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 13)
         label.numberOfLines = 1
@@ -53,7 +51,6 @@ final class CollectionDetailsCell: UICollectionViewCell {
     
     private let nftCollectionDescriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "Описание"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 13)
         label.numberOfLines = 0
@@ -100,7 +97,7 @@ final class CollectionDetailsCell: UICollectionViewCell {
     func addTappableString() {
         guard let viewModel,
               let website = viewModel.website else { return }
-        let fullText = "Автор коллекции: \(String(describing: viewModel.authorName))"
+        let fullText = "\(LocalizableConstants.Catalog.author): \(String(describing: viewModel.authorName))"
         let attributedString = NSMutableAttributedString(string: fullText)
         
         let tappableRange = (fullText as NSString).range(of: viewModel.authorName)

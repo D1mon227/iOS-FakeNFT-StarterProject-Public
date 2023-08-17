@@ -80,8 +80,8 @@ enum Resourses {
         }
         
         enum NetworkError {
-            static let noInternet = UIImage(systemName: "noInternet")
-            static let errorNetwork = UIImage(systemName: "errorNetwork")
+            static let noInternet = UIImage(named: "noInternet")
+            static let errorNetwork = UIImage(named: "errorNetwork")
         }
     }
 }

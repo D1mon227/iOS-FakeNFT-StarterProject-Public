@@ -40,6 +40,7 @@ final class NetworkErrorView: UIView {
         label.numberOfLines = 0
         label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.textAlignment = .center
+
         return label
     }()
     
@@ -103,6 +104,7 @@ final class NetworkErrorView: UIView {
             networkErrorImage.heightAnchor.constraint(equalToConstant: Layout.networkErrorImageHeight),
             networkErrorImage.widthAnchor.constraint(equalToConstant: Layout.networkErrorImageWidth),
             //notificationNetworkLabel
+
             notificationNetworkLabel.topAnchor.constraint(equalTo: networkErrorImage.bottomAnchor, constant: 20),
             notificationNetworkLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             notificationNetworkLabel.leadingAnchor.constraint(equalTo: trailingAnchor, constant: 20),

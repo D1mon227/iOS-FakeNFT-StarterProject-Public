@@ -11,7 +11,7 @@ final class StarRatingView: UIView {
         stack.distribution = .fillEqually
         stack.axis = NSLayoutConstraint.Axis.horizontal
         stack.distribution  = UIStackView.Distribution.equalSpacing
-        
+        stack.spacing = 3
         return stack
     }()
     

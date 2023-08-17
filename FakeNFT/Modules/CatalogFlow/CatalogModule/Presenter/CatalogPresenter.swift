@@ -37,6 +37,15 @@ extension CatalogPresenter: CatalogPresenterProtocol {
             }
             self.view?.hideLoadingIndicator()
         }
+        
+    }
+    
+    func viewDidAppear() {
+        sendAnalytics(event: .open)
+    }
+    
+    func viewDidDisappear() {
+        sendAnalytics(event: .close)
     }
     
     func didTapSortingButton() {
@@ -44,25 +53,24 @@ extension CatalogPresenter: CatalogPresenterProtocol {
                                             style: .default,
                                             titleTextColor: .systemBlue,
                                             handler: { [weak self] _ in
-            
-            self?.sortByName()
+            guard let self else { return }
+            self.sortByName()
+            self.sendAnalytics(event: .click, item: .sortByName)
         })
         
         let byCountAction = AlertActionModel(title: LocalizableConstants.Sort.byNFTQuantity,
                                              style: .default,
                                              titleTextColor: .systemBlue,
                                              handler: { [weak self] _ in
-            
-            self?.sortByCount()
+            guard let self else { return }
+            self.sortByCount()
+            self.sendAnalytics(event: .click, item: .sortByNFTQuantity)
         })
         
         let closeAction = AlertActionModel(title: LocalizableConstants.Sort.close,
                                            style: .cancel,
                                            titleTextColor: .systemBlue,
-                                           handler: { [weak self] _ in
-            
-            self?.sortByCount()
-        })
+                                           handler: nil)
         
         let model = AlertModel(title: LocalizableConstants.Sort.sort,
                                message: nil,
@@ -78,9 +86,11 @@ extension CatalogPresenter: CatalogPresenterProtocol {
         guard let response = responses.first(where: { $0.id == id }) else {
             return
         }
-            
+        
         let viewController = CatalogModulesFactory.makeDetailedCollectionModule(response: response)
         view?.push(viewController)
+        
+        sendAnalytics(event: .click, item: .nftCollection)
     }
     
 }
@@ -104,21 +114,27 @@ private extension CatalogPresenter {
     }
     
     func didGetNftItems(nftItems: [NftCollectionResponse]) {
-            viewModels = nftItems.map { CatalogTableViewCellViewModel(nftResponse: $0) }
-    
-            if let sortingTypeString = UserDefaults.standard.string(forKey: KeyDefaults.sortingTypeCatalog),
-               let sortingType = SortingType(rawValue: sortingTypeString) {
-                switch sortingType {
-                case .byCount: sortByCount()
-                case .byName: sortByName()
-                }
-            } else {
-                view?.update(with: viewModels)
+        viewModels = nftItems.map { CatalogTableViewCellViewModel(nftResponse: $0) }
+        
+        if let sortingTypeString = UserDefaults.standard.string(forKey: KeyDefaults.sortingTypeCatalog),
+           let sortingType = SortingType(rawValue: sortingTypeString) {
+            switch sortingType {
+            case .byCount: sortByCount()
+            case .byName: sortByName()
             }
+        } else {
+            view?.update(with: viewModels)
         }
+    }
     
     func didGetError(error: Error) {
         
+    }
+    
+    func sendAnalytics(event: Event, item: Item? = nil) {
+        AnalyticsService.shared.report(event: event,
+                                       screen: .catalogVC,
+                                       item: item)
     }
     
 }
