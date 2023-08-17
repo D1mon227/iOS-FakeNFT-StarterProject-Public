@@ -6,20 +6,17 @@ struct NFTCollectionViewCellViewModel {
     let nftStarsCount: Int
     let nftName: String
     let nftPrice: String
-    let isFavorite: Bool
-    let isCartAdded: Bool
-    
-//    let favoriteButtonImageName: String
-//    let cartButtonImageName: String
+    let favoriteButtonImageName: ImageModel?
+    let cartButtonImageName: ImageModel?
     
     init(nftResponse: NftResponse) {
         self.nftId = nftResponse.id
         self.nftIcon = nftResponse.images.first?.makeUrl()
         self.nftStarsCount = nftResponse.rating
         self.nftName = nftResponse.name
-        self.isFavorite = false
-        self.isCartAdded = false
         self.nftPrice = String(nftResponse.price)
+        self.cartButtonImageName = nil
+        self.favoriteButtonImageName = nil
     }
     
     init(nftId: String,
@@ -27,34 +24,34 @@ struct NFTCollectionViewCellViewModel {
          nftStarsCount: Int,
          nftName: String,
          nftPrice: String,
-         isFavorite: Bool,
-         isCartAdded: Bool) {
+         favoriteButtonImageName: ImageModel?,
+         cartButtonImageName: ImageModel?) {
         self.nftId = nftId
         self.nftIcon = nftIcon
         self.nftStarsCount = nftStarsCount
         self.nftName = nftName
-        self.isFavorite = isFavorite
-        self.isCartAdded = isCartAdded
+        self.favoriteButtonImageName = favoriteButtonImageName
+        self.cartButtonImageName = cartButtonImageName
         self.nftPrice = nftPrice
     }
     
-    func makeNewModel(isFavorite: Bool) -> NFTCollectionViewCellViewModel {
+    func makeNewModel(favoriteButtonImageName: ImageModel) -> NFTCollectionViewCellViewModel {
         return NFTCollectionViewCellViewModel(nftId: self.nftId,
                                               nftIcon: self.nftIcon,
                                               nftStarsCount: self.nftStarsCount,
                                               nftName: self.nftName,
                                               nftPrice: self.nftPrice,
-                                              isFavorite: isFavorite,
-                                              isCartAdded: isCartAdded)
+                                              favoriteButtonImageName: favoriteButtonImageName,
+                                              cartButtonImageName: self.cartButtonImageName)
     }
     
-    func makeNewModel(isCartAdded: Bool) -> NFTCollectionViewCellViewModel {
+    func makeNewModel(cartButtonImageName: ImageModel) -> NFTCollectionViewCellViewModel {
         return NFTCollectionViewCellViewModel(nftId: self.nftId,
                                               nftIcon: self.nftIcon,
                                               nftStarsCount: self.nftStarsCount,
                                               nftName: self.nftName,
                                               nftPrice: self.nftPrice,
-                                              isFavorite: isFavorite,
-                                              isCartAdded: isCartAdded)
+                                              favoriteButtonImageName: self.favoriteButtonImageName,
+                                              cartButtonImageName: cartButtonImageName)
     }
 }

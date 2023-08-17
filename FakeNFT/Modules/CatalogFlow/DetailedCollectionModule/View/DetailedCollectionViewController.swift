@@ -47,6 +47,16 @@ final class DetailedCollectionViewController: UIViewController {
         setupCollectionView()
         presenter.viewDidLoad()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        presenter.viewDidAppear()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        presenter.viewDidDisappear()
+    }
 }
 
 extension DetailedCollectionViewController: DetailedCollectionViewProtocol {
@@ -70,6 +80,14 @@ extension DetailedCollectionViewController: DetailedCollectionViewProtocol {
     
     func present(_ vc: UIViewController) {
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func showNetworkError(model: NFTNetworkErrorViewModel) {
+        addNetworkErrorView(model: model)
+    }
+    
+    func hideNetworkError() {
+        removeNetworkErrorView()
     }
     
 }

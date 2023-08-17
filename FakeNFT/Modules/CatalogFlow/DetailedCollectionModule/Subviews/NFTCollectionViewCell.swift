@@ -11,6 +11,10 @@ extension NFTCollectionViewCell {
         static let nftIconCoverHeight: CGFloat = 108
         static let nftIconCoverWidth: CGFloat = 108
         static let nftStarsCountTopOffset: CGFloat = 4
+        static let nftLikeButtonTopOffset: CGFloat = 12
+        static let nftLikeButtonLeftOffset: CGFloat = 10
+        static let nftLikeButtonHeight: CGFloat = 18
+        static let nftLikeButtonWidth: CGFloat = 21
         static let nftNameLabelTopOffset: CGFloat = 8
         static let nftPriceLabelTopOffset: CGFloat = 8
         static let nftPriceLabelBottomOffset: CGFloat = 20
@@ -108,8 +112,8 @@ final class NFTCollectionViewCell: UICollectionViewCell {
         nftNameLabel.text = viewModel.nftName
         nftPriceLabel.text = "\(viewModel.nftPrice) ETH"
         
-        setIsLiked(viewModel.isFavorite)
-        setIsCartAdded(viewModel.isCartAdded)
+        setCartImage()
+        setLikeImage()
     }
 }
 
@@ -157,8 +161,12 @@ private extension NFTCollectionViewCell {
             nftPriceLabel.heightAnchor.constraint(equalToConstant: Layout.nftPriceLabelHeight),
             
             //nftLikeButton
-            nftLikeButton.topAnchor.constraint(equalTo: nftIcon.topAnchor),
-            nftLikeButton.trailingAnchor.constraint(equalTo: nftIcon.trailingAnchor),
+            nftLikeButton.topAnchor.constraint(equalTo: nftIcon.topAnchor,
+                                               constant: Layout.nftLikeButtonTopOffset),
+            nftLikeButton.trailingAnchor.constraint(equalTo: nftIcon.trailingAnchor,
+                                                    constant: -Layout.nftLikeButtonLeftOffset),
+            nftLikeButton.heightAnchor.constraint(equalToConstant: Layout.nftLikeButtonHeight),
+            nftLikeButton.widthAnchor.constraint(equalToConstant: Layout.nftLikeButtonWidth),
             
             //nftCartButton
             nftCartButton.topAnchor.constraint(equalTo: starRatingView.bottomAnchor,
@@ -172,7 +180,7 @@ private extension NFTCollectionViewCell {
             addGradientSublayer()
             return
         }
-        guard !sublayers.contains(where: {$0 is CAGradientLayer }) else {
+        guard !sublayers.contains(where: { $0 is CAGradientLayer }) else {
             return
         }
         addGradientSublayer()
@@ -192,23 +200,18 @@ private extension NFTCollectionViewCell {
         nftCartButton.addTarget(self, action: #selector(cartButtonClicked), for: .touchUpInside)
         nftLikeButton.addTarget(self, action: #selector(likeButtonClicked), for: .touchUpInside)
     }
-    
-    func setIsLiked(_ state: Bool) {
-        let likeImage = state ? UIImage(named: "heart.fill") : UIImage(named: "heart")
+
+    func setLikeImage() {
+        let likeImage = viewModel?.favoriteButtonImageName?.image
         nftLikeButton.setImage(likeImage, for: .normal)
+        nftLikeButton.tintColor = viewModel?.favoriteButtonImageName?.color
     }
     
-//        func setIsLiked() {
-//            let likeImage = viewModel. Resourses.Images.Cell.like
-//            let image = likeImage
-//                nftLikeButton.setImage(likeImage, for: .normal)
-//            }
-    
-    func setIsCartAdded(_ state: Bool) {
-        let cartImage = state ? Resourses.Images.Cell.cartFill : Resourses.Images.Cell.cart
+    func setCartImage() {
+        let cartImage = viewModel?.cartButtonImageName?.image
         let rendered = cartImage?.withRenderingMode(.alwaysTemplate)
         nftCartButton.setImage(rendered, for: .normal)
-        nftCartButton.tintColor = .blackDay
+        nftCartButton.tintColor = viewModel?.cartButtonImageName?.color
     }
     
     @objc
