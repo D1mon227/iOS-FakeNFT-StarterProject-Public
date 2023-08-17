@@ -10,6 +10,7 @@ final class NFTCardViewController: UIViewController, NFTCardViewControllerProtoc
     
     init(nftModel: NFT?, isLiked: Bool) {
         super.init(nibName: nil, bundle: nil)
+        setupRatingStack()
         self.presenter = NFTCardViewPresenter()
         self.presenter?.view = self
         self.presenter?.isLiked = isLiked
@@ -27,7 +28,8 @@ final class NFTCardViewController: UIViewController, NFTCardViewControllerProtoc
         setupPageControl()
         setupTableView()
         setupCollectionView()
-        nftCardView.coverNFTScrollView.delegate = self
+        updateNFTDetails(nftModel: presenter?.nftModel)
+        updateLikeButton(isLiked: presenter?.isLiked ?? false)
         presenter?.fetchCurrencies()
     }
     
@@ -36,23 +38,23 @@ final class NFTCardViewController: UIViewController, NFTCardViewControllerProtoc
         nftCardView.sellerWebsiteButton.layer.borderColor = UIColor.blackDay.cgColor
     }
     
-    func updateNFTDetails(nftModel: NFT?) {
+    func reloadTableView() {
+        DispatchQueue.main.async {
+            self.nftCardView.currencyTableView.reloadData()
+        }
+    }
+    
+    private func updateLikeButton(isLiked: Bool) {
+        isLiked ? setupNavigationBar(tintColor: .redUniversal) : setupNavigationBar(tintColor: .white)
+    }
+    
+    private func updateNFTDetails(nftModel: NFT?) {
         nftCardView.firstNFTCover.setImage(with: nftModel?.images?[0])
         nftCardView.secondNFTCover.setImage(with: nftModel?.images?[1])
         nftCardView.thirdNFTCover.setImage(with: nftModel?.images?[2])
         nftCardView.nftLabel.text = nftModel?.name
         nftCardView.price.text = "\(nftModel?.price ?? 0.0) ETH"
         updateRatingStars(rating: nftModel?.rating)
-    }
-    
-    func updateLikeButton(isLiked: Bool) {
-        isLiked ? setupNavigationBar(tintColor: .redUniversal) : setupNavigationBar(tintColor: .white)
-    }
-    
-    func reloadTableView() {
-        DispatchQueue.main.async {
-            self.nftCardView.currencyTableView.reloadData()
-        }
     }
     
     private func updateRatingStars(rating: Int?) {
@@ -169,7 +171,6 @@ extension NFTCardViewController {
         setupCoverPageControlStack()
         nftCardView.generalScrollView.addSubview(nftCardView.nftLabel)
         nftCardView.generalScrollView.addSubview(nftCardView.nftRatingStack)
-        setupRatingStack()
         nftCardView.generalScrollView.addSubview(nftCardView.nftCollectionLabel)
         nftCardView.generalScrollView.addSubview(nftCardView.priceLabel)
         nftCardView.generalScrollView.addSubview(nftCardView.price)
@@ -178,6 +179,7 @@ extension NFTCardViewController {
         nftCardView.generalScrollView.addSubview(nftCardView.sellerWebsiteButton)
         nftCardView.generalScrollView.addSubview(nftCardView.nftCollectionView)
         nftCardView.coverNFTScrollView.contentSize = CGSize(width: view.frame.width * 3, height: 375)
+        nftCardView.coverNFTScrollView.delegate = self
         setupConstraints()
     }
     
@@ -209,6 +211,15 @@ extension NFTCardViewController {
     }
     
     private func setupConstraints() {
+        nftCardView.generalScrollView.snp.makeConstraints { make in
+            make.top.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        nftCardView.coverNFTScrollView.snp.makeConstraints { make in
+            make.top.leading.trailing.equalToSuperview()
+            make.height.equalTo(375)
+        }
+        
         nftCardView.firstNFTCover.snp.makeConstraints { make in
             make.width.equalTo(view.frame.width)
             make.height.equalTo(375)
@@ -223,15 +234,6 @@ extension NFTCardViewController {
         nftCardView.thirdNFTCover.snp.makeConstraints { make in
             make.leading.equalTo(nftCardView.secondNFTCover.snp.trailing)
             make.width.equalTo(view.frame.width)
-            make.height.equalTo(375)
-        }
-        
-        nftCardView.generalScrollView.snp.makeConstraints { make in
-            make.top.leading.trailing.bottom.equalToSuperview()
-        }
-        
-        nftCardView.coverNFTScrollView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview()
             make.height.equalTo(375)
         }
         
