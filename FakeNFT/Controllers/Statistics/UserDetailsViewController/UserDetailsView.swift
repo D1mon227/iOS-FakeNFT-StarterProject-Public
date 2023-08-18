@@ -138,3 +138,32 @@ private extension UserDetailsView {
 		])
 	}
 }
+
+extension UserDetailsView: UITableViewDataSource, UITableViewDelegate {
+	
+	// MARK: - UITableViewDataSource
+	
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return cellTitles.count
+	}
+	
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: FavoritesNFTTableViewCell.identifier, for: indexPath) as? FavoritesNFTTableViewCell else {
+			return UITableViewCell()
+		}
+		cell.titleFavoritesNFTLabel.text = cellTitles[indexPath.row]
+		if let user = user {
+			cell.configure(with: user)
+		}
+		
+		cell.selectionStyle = .none
+		return cell
+	}
+	
+	// MARK: - UITableViewDelegate
+	
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		guard let selectedUser = user else { return }
+		presenter?.tapOnTheCell(user: selectedUser)
+	}
+}

@@ -110,9 +110,9 @@ final class NFTCollectionCell: UICollectionViewCell {
 	}
 	
 	private func configureFavoritesButton(isLiked: Bool) {
-			favoritesButton.tintColor = isLiked ? .redUniversal : .white
-		}
-
+		favoritesButton.tintColor = isLiked ? .redUniversal : .white
+	}
+	
 	private func configureCartButton(isInCart: Bool) {
 		let cartImage = isInCart ? Resourses.Images.Cell.cartFill : Resourses.Images.Cell.cart
 		cartButton.setImage(cartImage, for: .normal)
@@ -190,35 +190,5 @@ private extension NFTCollectionCell {
 			nftPriceLabel.topAnchor.constraint(equalTo: nftNameLabel.bottomAnchor, constant: 4),
 			nftPriceLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
 		])
-	}
-}
-
-extension NFTCollectionView: UICollectionViewDataSource, UICollectionViewDelegate {
-	
-	// MARK: - UITableViewDataSource
-	
-	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return collectionNFT.count
-	}
-	
-	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NFTCollectionCell.identifier, for: indexPath) as? NFTCollectionCell else {
-			return UICollectionViewCell()
-		}
-		let nft = collectionNFT[indexPath.row]
-		let isLiked = likes?.likes.contains(nft.id)
-		let isInCart = order?.nfts.contains(nft.id)
-		cell.configure(with: nft, isLiked: isLiked ?? true, isInCart: isInCart ?? true, order: order)
-		
-		if let id = order?.id {
-			cell.onCartButtonTapped = {
-				self.presenter?.tapOnTheCell(for: nft.id, profile: id)
-			}
-			
-			cell.onFavoriteButtonTapped = {
-				self.presenter?.tapOnTheCell(for: nft.id)
-			}
-		}
-		return cell
 	}
 }

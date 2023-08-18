@@ -119,7 +119,6 @@ final class NFTCollectionPresenter {
 		ui?.showCart(with: updatedOrder)
 	}
 	
-	
 	func tapOnTheCell(for nftID: String) {
 		if let index = likes.firstIndex(where: { $0.likes.contains(nftID) }) {
 			likes[index].likes.removeAll { $0 == nftID }
@@ -131,11 +130,6 @@ final class NFTCollectionPresenter {
 		putLikesToServer(likes: allLikes)
 		ui?.showFavorites(with: allLikes)
 	}
-	//	func getButtonStates(for nft: NFT) -> (isLiked: Bool, isInCart: Bool) {
-	////		let isLiked = likes.likes.contains(nft.id)
-	////		let isInCart = order.nfts.contains(nft.id)
-	//		return (isLiked, isInCart)
-	//	}
 }
 
 extension NFTCollectionPresenter: INFTCollectionPresenter {

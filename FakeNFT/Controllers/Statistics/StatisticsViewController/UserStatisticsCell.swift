@@ -103,34 +103,3 @@ private extension UserStatisticsCell {
 		])
 	}
 }
-
-extension StatisticsView: UITableViewDataSource, UITableViewDelegate {
-	
-	// MARK: - UITableViewDataSource
-	
-	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return users.count
-	}
-	
-	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: UserStatisticsCell.identifier, for: indexPath) as? UserStatisticsCell else {
-			return UITableViewCell()
-		}
-		let item = users[indexPath.row]
-		
-		cell.configure(with: item, cellNumber: indexPath.row + 1)
-		cell.selectionStyle = .none
-		return cell
-	}
-	
-	// MARK: - UITableViewDelegate
-	
-	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let item = users[indexPath.row]
-		presenter?.tapOnTheCell(user: item)
-	}
-	
-	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return 88
-	}
-}

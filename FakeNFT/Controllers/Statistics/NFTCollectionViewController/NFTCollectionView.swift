@@ -102,3 +102,33 @@ private extension NFTCollectionView {
 		])
 	}
 }
+
+extension NFTCollectionView: UICollectionViewDataSource, UICollectionViewDelegate {
+	
+	// MARK: - UITableViewDataSource
+	
+	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		return collectionNFT.count
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+		guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NFTCollectionCell.identifier, for: indexPath) as? NFTCollectionCell else {
+			return UICollectionViewCell()
+		}
+		let nft = collectionNFT[indexPath.row]
+		let isLiked = likes?.likes.contains(nft.id)
+		let isInCart = order?.nfts.contains(nft.id)
+		cell.configure(with: nft, isLiked: isLiked ?? false, isInCart: isInCart ?? false, order: order)
+		
+		if let id = order?.id {
+			cell.onCartButtonTapped = {
+				self.presenter?.tapOnTheCell(for: nft.id, profile: id)
+			}
+			
+			cell.onFavoriteButtonTapped = {
+				self.presenter?.tapOnTheCell(for: nft.id)
+			}
+		}
+		return cell
+	}
+}
