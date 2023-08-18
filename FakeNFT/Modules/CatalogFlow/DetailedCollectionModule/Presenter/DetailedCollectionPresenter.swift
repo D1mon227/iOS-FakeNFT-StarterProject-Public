@@ -23,6 +23,8 @@ final class DetailedCollectionPresenter {
     private var user: ProfileModel?
     private let group = DispatchGroup()
     
+    let connectionAvailableKey = NetworkReachabilityManager.shared.connectionAvailableKey
+    
     init(response: NftCollectionResponse,
          services: Services) {
         self.response = response
@@ -59,7 +61,7 @@ extension DetailedCollectionPresenter: DetailedCollectionPresenterProtocol {
     }
     
     func didTapCartButton(id: String) {
-
+        
         if nftsInCart.contains(id) {
             nftsInCart.remove(id)
         } else {
@@ -97,7 +99,7 @@ extension DetailedCollectionPresenter: DetailedCollectionPresenterProtocol {
             let newModel = model.makeNewModel(favoriteButtonImageName: imageModel)
             return newModel
         }
-
+        
         view?.updateNftsModel(with: nftsModels)
         
         putFavorites()
@@ -109,12 +111,14 @@ extension DetailedCollectionPresenter: DetailedCollectionPresenterProtocol {
             return
         }
         
+        let formattedPrice = Double(String(format: "%.2f", response.price))
+        
         let nft = NFT(createdAt: response.createdAt,
                       name: response.name,
                       images: response.images.compactMap { $0.makeUrl() },
                       rating: response.rating,
                       description: response.description,
-                      price: Double(response.price),
+                      price: formattedPrice,
                       author: response.author,
                       id: response.id)
         
@@ -122,9 +126,10 @@ extension DetailedCollectionPresenter: DetailedCollectionPresenterProtocol {
         
         let viewController = NFTCardViewController(nftModel: nft, isLiked: isLiked)
         view?.present(viewController)
-
+        
         sendAnalytics(event: .click, item: .nftInfo)
-
+        
+        
     }
 }
 
@@ -139,11 +144,11 @@ private extension DetailedCollectionPresenter {
     
     @objc
     func handleNotification(_ notification: Notification) {
-         guard let userInfo = notification.userInfo as? [String: Any] else {
-             return
+        guard let userInfo = notification.userInfo as? [String: Any] else {
+            return
         }
         
-        guard let connectionAvailable = userInfo["connectionAvailable"] as? Bool else {
+        guard let connectionAvailable = userInfo[connectionAvailableKey] as? Bool else {
             return
         }
         
@@ -151,8 +156,8 @@ private extension DetailedCollectionPresenter {
             self.resetState()
         } else {
             let model = NetworkErrorViewModel(networkErrorImage:
-                                                    Resourses.Images.NetworkError.noInternet,
-                                                 notificationNetworkTitle: LocalizableConstants.NetworkErrorView.noInternet)  { [weak self] in
+                                                Resourses.Images.NetworkError.noInternet,
+                                              notificationNetworkTitle: LocalizableConstants.NetworkErrorView.noInternet)  { [weak self] in
                 guard let self else { return }
                 self.resetState()
             }
@@ -164,7 +169,7 @@ private extension DetailedCollectionPresenter {
     func getNftAuthor() {
         services.profileService.getProfile(id: "1") { [weak self] result in
             guard let self else { return }
-
+            
             switch result {
             case .success(let user):
                 self.user = user
@@ -213,7 +218,7 @@ private extension DetailedCollectionPresenter {
             switch result {
             case .success(let cart):
                 self.nftsInCart = Set(cart.nfts)
-               
+                
                 self.nftsModels = self.nftsModels.compactMap { model in
                     let isCartAdded = self.nftsInCart.contains(model.nftId)
                     guard let imageModel = self.makeCartImageModel(isCartAdded: isCartAdded) else {
@@ -222,7 +227,7 @@ private extension DetailedCollectionPresenter {
                     let newModel = model.makeNewModel(cartButtonImageName: imageModel)
                     return newModel
                 }
-
+                
                 view?.updateNftsModel(with: nftsModels)
                 self.view?.hideNetworkError()
             case .failure:
@@ -267,7 +272,7 @@ private extension DetailedCollectionPresenter {
             switch result {
             case .success(let user):
                 self.userLikes = Set(user.likes)
-      
+                
                 self.nftsModels = self.nftsModels.compactMap { model in
                     let isFavorite = self.userLikes.contains(model.nftId)
                     guard let imageModel = self.makeLikeImageModel(isFavorite: isFavorite) else {
@@ -286,10 +291,10 @@ private extension DetailedCollectionPresenter {
     
     func makeViewModel(user: ProfileModel) -> CollectionDetailsCollectionViewCellModel {
         return CollectionDetailsCollectionViewCellModel(collectionId: response.id,
-                                                   collectionDescription: response.description,
-                                                   collectionName: response.name,
-                                                   imageStringUrl: response.cover.makeUrl(),
-                                                   user: user)
+                                                        collectionDescription: response.description,
+                                                        collectionName: response.name,
+                                                        imageStringUrl: response.cover.makeUrl(),
+                                                        user: user)
         
     }
     
@@ -319,8 +324,8 @@ private extension DetailedCollectionPresenter {
     
     func showRequestError() {
         let model = NetworkErrorViewModel(networkErrorImage:
-                                                Resourses.Images.NetworkError.errorNetwork,
-                                             notificationNetworkTitle: LocalizableConstants.NetworkErrorView.error) { [weak self] in
+                                            Resourses.Images.NetworkError.errorNetwork,
+                                          notificationNetworkTitle: LocalizableConstants.NetworkErrorView.error) { [weak self] in
             guard let self else { return }
             self.resetState()
         }

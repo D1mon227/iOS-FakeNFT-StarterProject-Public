@@ -146,6 +146,15 @@ extension CatalogViewController: CatalogViewProtocol {
     func hideLoadingIndicator() {
         UIBlockingProgressHUD.dismiss()
     }
+    
+    func showNetworkError(model: NetworkErrorViewModel) {
+        hideLoadingIndicator()
+        addNetworkErrorView(model: model)
+    }
+    
+    func hideNetworkError() {
+        removeNetworkErrorView()
+    }
 }
 
 

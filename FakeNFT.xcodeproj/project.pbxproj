@@ -41,6 +41,8 @@
 		1F2A25632A8DFD0400F8B1AD /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2A25622A8DFD0400F8B1AD /* ImageModel.swift */; };
 		1F2A256E2A8E81A900F8B1AD /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 1F2A256D2A8E81A900F8B1AD /* Reachability */; };
 		1F2A25712A8E81F800F8B1AD /* NetworkReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2A25702A8E81F800F8B1AD /* NetworkReachabilityManager.swift */; };
+		1F3E72992A8E9BC4007EBD36 /* AlertProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3E72982A8E9BC4007EBD36 /* AlertProtocol.swift */; };
+		1F3E729D2A8E9EAA007EBD36 /* UICollectionView + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3E729C2A8E9EAA007EBD36 /* UICollectionView + extension.swift */; };
 		1FEA5B3E2A80B9DB00946DD9 /* CollectionDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEA5B3D2A80B9DB00946DD9 /* CollectionDetailsCell.swift */; };
 		1FEA5B492A80DBCC00946DD9 /* CAGradientLayer+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEA5B482A80DBCC00946DD9 /* CAGradientLayer+extension.swift */; };
 		1FEA5B4E2A81497100946DD9 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEA5B4D2A81497100946DD9 /* WebViewController.swift */; };
@@ -138,12 +140,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1F2A25642A8E243F00F8B1AD /* UIViewController+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+extension.swift"; sourceTree = "<group>"; };
-		1F2A25702A8E81F800F8B1AD /* NetworkReachabilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkReachabilityManager.swift; sourceTree = "<group>"; };
-		1F3E72982A8E9BC4007EBD36 /* AlertProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertProtocol.swift; sourceTree = "<group>"; };
-		1FEA5B4D2A81497100946DD9 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
-		1FEA5B4F2A81498900946DD9 /* WebViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewPresenter.swift; sourceTree = "<group>"; };
-		1FEA5B7B2A8BE98600946DD9 /* NetworkErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorView.swift; sourceTree = "<group>"; };
 		1F09D52C2A76C3D200367A6A /* UITableViewCell+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+extension.swift"; sourceTree = "<group>"; };
 		1F09D5302A76C40300367A6A /* NftCatalogService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NftCatalogService.swift; sourceTree = "<group>"; };
 		1F09D5342A76C44500367A6A /* NftCollectionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NftCollectionResponse.swift; sourceTree = "<group>"; };
@@ -166,6 +162,8 @@
 		1F2A25642A8E243F00F8B1AD /* UIViewController+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+extension.swift"; sourceTree = "<group>"; };
 		1F2A256A2A8E6FC600F8B1AD /* NetworkReachabilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkReachabilityManager.swift; sourceTree = "<group>"; };
 		1F2A25702A8E81F800F8B1AD /* NetworkReachabilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkReachabilityManager.swift; sourceTree = "<group>"; };
+		1F3E72982A8E9BC4007EBD36 /* AlertProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertProtocol.swift; sourceTree = "<group>"; };
+		1F3E729C2A8E9EAA007EBD36 /* UICollectionView + extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView + extension.swift"; sourceTree = "<group>"; };
 		1FEA5B3D2A80B9DB00946DD9 /* CollectionDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionDetailsCell.swift; sourceTree = "<group>"; };
 		1FEA5B482A80DBCC00946DD9 /* CAGradientLayer+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CAGradientLayer+extension.swift"; sourceTree = "<group>"; };
 		1FEA5B4D2A81497100946DD9 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
@@ -320,6 +318,7 @@
 				1FEA5B482A80DBCC00946DD9 /* CAGradientLayer+extension.swift */,
 				1FEA5B512A82000F00946DD9 /* UIView+extension.swift */,
 				1FEA5B592A84A4A900946DD9 /* UICollectionViewCell.swift */,
+				1F3E729C2A8E9EAA007EBD36 /* UICollectionView + extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -803,7 +802,6 @@
 				3F478ED029DB476500F6D39E /* Fonts.swift */,
 				73D526D62A84C4020056116E /* UIBlockingProgressHUD.swift */,
 				73D526D82A84C4420056116E /* UIImageView + Extension.swift */,
-				1F2A25642A8E243F00F8B1AD /* UIViewController+extension.swift */,
 				1F3E72982A8E9BC4007EBD36 /* AlertProtocol.swift */,
 			);
 			path = Helpers;
@@ -1031,6 +1029,7 @@
 				73C3EB5D2A8D393100E047E0 /* Currency.swift in Sources */,
 				730B23972A8C292600F5D832 /* NFTCardView.swift in Sources */,
 				73EA4B032A73C703000B4B55 /* TabBarController.swift in Sources */,
+				1F3E729D2A8E9EAA007EBD36 /* UICollectionView + extension.swift in Sources */,
 				1F2A25712A8E81F800F8B1AD /* NetworkReachabilityManager.swift in Sources */,
 				1F09D54F2A7E48F100367A6A /* String+extension.swift in Sources */,
 				1FEA5B6B2A88BBF900946DD9 /* CartService.swift in Sources */,

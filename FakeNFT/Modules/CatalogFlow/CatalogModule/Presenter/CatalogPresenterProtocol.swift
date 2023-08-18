@@ -1,3 +1,4 @@
+
 protocol CatalogPresenterProtocol {
     func viewDidLoad()
     func viewDidAppear()

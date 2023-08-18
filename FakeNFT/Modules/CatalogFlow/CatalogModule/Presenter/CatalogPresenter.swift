@@ -14,6 +14,8 @@ final class CatalogPresenter {
     private var viewModels: [CatalogTableViewCellViewModel] = []
     private var responses: [NftCollectionResponse] = []
     
+    let connectionAvailableKey = NetworkReachabilityManager.shared.connectionAvailableKey
+    
     weak var view: CatalogViewProtocol?
     
     init(nftCatalogService: NftCatalogServiceProtocol) {
@@ -23,6 +25,7 @@ final class CatalogPresenter {
 
 extension CatalogPresenter: CatalogPresenterProtocol {
     func viewDidLoad() {
+        subscribe()
         view?.showLoadingIndicator()
         
         fetchNftItems()
@@ -106,6 +109,7 @@ private extension CatalogPresenter {
             case .success(let items):
                 responses = items
                 self.didGetNftItems(nftItems: items)
+                self.view?.hideNetworkError()
             case  .failure:
                 self.showRequestError()
             }
@@ -132,14 +136,14 @@ private extension CatalogPresenter {
     }
     
     func showRequestError() {
-        let requestErrorModel = NetworkErrorViewModel(networkErrorImage: Resourses.Images.NetworkError.errorNetwork,
-                                                      notificationNetworkTitle: LocalizableConstants.NetworkErrorView.error) { [weak self] in
-            self?.viewModels = []
-            self?.responses = []
-            
-            self?.view?.showLoadingIndicator()
-            self?.fetchNftItems()
+        let model = NetworkErrorViewModel(networkErrorImage:
+                                            Resourses.Images.NetworkError.errorNetwork,
+                                          notificationNetworkTitle: LocalizableConstants.NetworkErrorView.error) { [weak self] in
+            guard let self else { return }
+            self.resetState()
         }
+        
+        self.view?.showNetworkError(model: model)
     }
     
     func sendAnalytics(event: Event, item: Item? = nil) {
@@ -150,5 +154,52 @@ private extension CatalogPresenter {
     
 }
 
+private extension CatalogPresenter {
+    
+    func subscribe() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleNotification(_:)),
+                                               name: NetworkReachabilityManager.shared.networkReachabilityManagerNotification,
+                                               object: nil)
+    }
+    
+    @objc
+    func handleNotification(_ notification: Notification) {
+        guard let userInfo = notification.userInfo as? [String: Any] else {
+            return
+        }
+        
+        guard let connectionAvailable = userInfo[connectionAvailableKey] as? Bool else {
+            return
+        }
+        
+        if connectionAvailable {
+            self.resetState()
+        } else {
+            let model = NetworkErrorViewModel(networkErrorImage:
+                                                Resourses.Images.NetworkError.noInternet,
+                                              notificationNetworkTitle: LocalizableConstants.NetworkErrorView.noInternet)  { [weak self] in
+                guard let self else { return }
+                self.resetState()
+            }
+            self.view?.showNetworkError(model: model)
+        }
+        self.view?.hideLoadingIndicator()
+    }
+    
+    func cleanData() {
+        viewModels = []
+        responses = []
+    }
+    
+    func resetState() {
+        self.cleanData()
+        self.view?.showLoadingIndicator()
+        
+        self.fetchNftItems()
+        self.view?.hideNetworkError()
+    }
+    
+}
 
 
