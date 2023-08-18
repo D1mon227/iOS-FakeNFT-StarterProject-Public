@@ -12,7 +12,6 @@ final class NFTCardViewPresenter: NFTCardViewPresenterProtocol {
         didSet {
             DispatchQueue.main.async {
                 self.view?.reloadTableView()
-                UIBlockingProgressHUD.dismiss()
             }
         }
     }
@@ -21,7 +20,6 @@ final class NFTCardViewPresenter: NFTCardViewPresenterProtocol {
         didSet {
             DispatchQueue.main.async {
                 self.view?.reloadCollectionView()
-                UIBlockingProgressHUD.dismiss()
             }
         }
     }
