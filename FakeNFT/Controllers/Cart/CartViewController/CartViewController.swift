@@ -82,6 +82,19 @@ final class CartViewController: UIViewController, UITableViewDataSource{
         return UIView.placeholderView(message: message)
     }()
     
+    private var selectedSortOption: Sort {
+        get {
+            if let rawValue = UserDefaults.standard.string(forKey: "selectedSortOption"),
+               let sortOption = Sort(rawValue: rawValue) {
+                return sortOption
+            }
+            return .byName // Default sorting option
+        }
+        set {
+            UserDefaults.standard.set(newValue.rawValue, forKey: "selectedSortOption")
+        }
+    }
+    
     private func fetchDataFromAPI() {
         myOrders = []
         cartArray = []
@@ -340,17 +353,17 @@ final class CartViewController: UIViewController, UITableViewDataSource{
         
         // Add sorting actions in the desired order
         let sortByPriceAction = UIAlertAction(title: Sort.byPrice.localizedString, style: .default) { _ in
-            self.sortBy(option: .byPrice)
+            self.sortBy(selectedSortOption: .byPrice)
         }
         alertController.addAction(sortByPriceAction)
         
         let sortByRatingAction = UIAlertAction(title: Sort.byRating.localizedString, style: .default) { _ in
-            self.sortBy(option: .byRating)
+            self.sortBy(selectedSortOption: .byRating)
         }
         alertController.addAction(sortByRatingAction)
         
         let sortByNameAction = UIAlertAction(title: Sort.byName.localizedString, style: .default) { _ in
-            self.sortBy(option: .byName)
+            self.sortBy(selectedSortOption: .byName)
         }
         alertController.addAction(sortByNameAction)
         
@@ -361,8 +374,8 @@ final class CartViewController: UIViewController, UITableViewDataSource{
     }
     
     // Sorting
-    private func sortBy(option: Sort) {
-        switch option {
+    private func sortBy(selectedSortOption: Sort) {
+        switch selectedSortOption {
         case .byName:
             cartArray = cartArray.sorted(by: { $0.nftName < $1.nftName })
             cartTable.reloadData()
@@ -370,7 +383,7 @@ final class CartViewController: UIViewController, UITableViewDataSource{
             cartArray = cartArray.sorted(by: { $0.nftPrice < $1.nftPrice })
             cartTable.reloadData()
         case .byRating:
-            cartArray = cartArray.sorted(by: { $0.nftRating > $1.nftRating })
+            cartArray = cartArray.sorted(by: { $0.nftRating < $1.nftRating })
             cartTable.reloadData()
         default:
             break
