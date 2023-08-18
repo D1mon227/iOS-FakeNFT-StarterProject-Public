@@ -23,7 +23,6 @@
 		3F6806D129CBBE6B00B4F915 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6806D029CBBE6B00B4F915 /* NetworkClient.swift */; };
 		3F6806D329CBBE9600B4F915 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6806D229CBBE9600B4F915 /* NetworkRequest.swift */; };
 		3F6806D529CBBEC700B4F915 /* NetworkTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6806D429CBBEC700B4F915 /* NetworkTask.swift */; };
-		730B23922A8C28A500F5D832 /* NFTCardViewPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730B23912A8C28A500F5D832 /* NFTCardViewPresenterProtocol.swift */; };
 		730B23942A8C28DD00F5D832 /* NFTCardViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730B23932A8C28DD00F5D832 /* NFTCardViewControllerProtocol.swift */; };
 		730B23972A8C292600F5D832 /* NFTCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730B23962A8C292600F5D832 /* NFTCardView.swift */; };
 		730B23992A8C296400F5D832 /* NFTCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730B23982A8C296400F5D832 /* NFTCardViewController.swift */; };
@@ -84,8 +83,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1FEA5B4D2A81497100946DD9 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
-		1FEA5B4F2A81498900946DD9 /* WebViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewPresenter.swift; sourceTree = "<group>"; };
+		1FEA5B4D2A81497100946DD9 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WebViewController.swift; path = FakeNFT/Controllers/WebViewModule/WebViewController.swift; sourceTree = "<group>"; };
+		1FEA5B4F2A81498900946DD9 /* WebViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WebViewPresenter.swift; path = FakeNFT/Controllers/WebViewModule/WebViewPresenter.swift; sourceTree = "<group>"; };
 		1FEA5B7B2A8BE98600946DD9 /* NetworkErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorView.swift; sourceTree = "<group>"; };
 		3F478ECE29DB474E00F6D39E /* UIColor + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Extension.swift"; sourceTree = "<group>"; };
 		3F478ED029DB476500F6D39E /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
@@ -102,7 +101,6 @@
 		3F6806D029CBBE6B00B4F915 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		3F6806D229CBBE9600B4F915 /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
 		3F6806D429CBBEC700B4F915 /* NetworkTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTask.swift; sourceTree = "<group>"; };
-		730B23912A8C28A500F5D832 /* NFTCardViewPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NFTCardViewPresenterProtocol.swift; path = ../../../../../../../../../Documents/NFTCardViewPresenterProtocol.swift; sourceTree = "<group>"; };
 		730B23932A8C28DD00F5D832 /* NFTCardViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTCardViewControllerProtocol.swift; sourceTree = "<group>"; };
 		730B23962A8C292600F5D832 /* NFTCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTCardView.swift; sourceTree = "<group>"; };
 		730B23982A8C296400F5D832 /* NFTCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTCardViewController.swift; sourceTree = "<group>"; };
@@ -174,19 +172,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		39356FEC2A8A77C700A9E663 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		1FEA5B7A2A8BE95E00946DD9 /* NetworkError */ = {
 			isa = PBXGroup;
 			children = (
 				1FEA5B7B2A8BE98600946DD9 /* NetworkErrorView.swift */,
 			);
 			path = NetworkError;
+			sourceTree = "<group>";
+		};
+		39356FEC2A8A77C700A9E663 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				1FEA5B4D2A81497100946DD9 /* WebViewController.swift */,
+				1FEA5B4F2A81498900946DD9 /* WebViewPresenter.swift */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		3F68068A29CBBAF100B4F915 = {
@@ -261,6 +261,8 @@
 			children = (
 				730B23A02A8C2A6E00F5D832 /* NFT.swift */,
 				C50E6CC42A7E930000B852F9 /* User.swift */,
+				924DCA6B2A82138D00995282 /* PaymentStruct.swift */,
+				924DCA632A7CF4C200995282 /* CartStruct.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -303,7 +305,6 @@
 		730B23902A8C287F00F5D832 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				730B23912A8C28A500F5D832 /* NFTCardViewPresenterProtocol.swift */,
 				730B23932A8C28DD00F5D832 /* NFTCardViewControllerProtocol.swift */,
 			);
 			path = Protocols;
@@ -343,7 +344,6 @@
 			children = (
 				73EA4B1C2A7471D2000B4B55 /* CustomNavigationViewController.swift */,
 				1FEA5B7A2A8BE95E00946DD9 /* NetworkError */,
-				1FEA5B4C2A81495100946DD9 /* WebViewModule */,
 				737D031F2A80707A00DCB5B1 /* Onboarding */,
 				737D031E2A80706400DCB5B1 /* Tabbar */,
 				73EA4B062A73C774000B4B55 /* Profile */,
@@ -374,8 +374,6 @@
 		73EA4B0C2A73C7A7000B4B55 /* Cart */ = {
 			isa = PBXGroup;
 			children = (
-				924DCA6B2A82138D00995282 /* PaymentStruct.swift */,
-				924DCA632A7CF4C200995282 /* CartStruct.swift */,
 				924DCA842A8505B700995282 /* PaymentViewController */,
 				924DCA812A85054400995282 /* CartViewController */,
 				924DCA5D2A7CB2E200995282 /* FailedPaymentViewController.swift */,
@@ -640,7 +638,6 @@
 				C50E6CC72A7E931400B852F9 /* GetUsersRequest.swift in Sources */,
 				1FEA5B7C2A8BE98600946DD9 /* NetworkErrorView.swift in Sources */,
 				73EA4B052A73C770000B4B55 /* ProfileViewController.swift in Sources */,
-				730B23922A8C28A500F5D832 /* NFTCardViewPresenterProtocol.swift in Sources */,
 				73EA4B0E2A73C7C4000B4B55 /* StatisticsViewController.swift in Sources */,
 				730B23A12A8C2A6E00F5D832 /* NFT.swift in Sources */,
 				737D03232A80776700DCB5B1 /* OnboardingPageViewController.swift in Sources */,

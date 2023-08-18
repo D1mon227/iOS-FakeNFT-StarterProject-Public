@@ -15,6 +15,14 @@ final class PaymentCell: UICollectionViewCell {
         return image
     }()
     
+    let imageBackgroundView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 6
+        return view
+    }()
+    
     let name: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
@@ -58,6 +66,10 @@ final class PaymentCell: UICollectionViewCell {
     private func setupView() {
         backgroundColor = .lightGreyDay
         NSLayoutConstraint.activate([
+            imageBackgroundView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+            imageBackgroundView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            imageBackgroundView.heightAnchor.constraint(equalToConstant: 36),
+            imageBackgroundView.widthAnchor.constraint(equalToConstant: 36),
             image.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
             image.centerYAnchor.constraint(equalTo: centerYAnchor),
             image.heightAnchor.constraint(equalToConstant: 36),
@@ -71,6 +83,7 @@ final class PaymentCell: UICollectionViewCell {
     
     private func setupProperties() {
         layer.cornerRadius = 12
+        addSubview(imageBackgroundView)
         addSubview(image)
         addSubview(name)
         addSubview(shortName)

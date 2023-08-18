@@ -41,7 +41,7 @@ final class PaymentView: UIView {
         button.layer.cornerRadius = 16
         button.layer.masksToBounds = true
         button.addTarget(self, action: #selector(didTapPaymentButton), for: .touchUpInside) // Ensure this line is added
-        button.setTitle(NSLocalizedString("cart.pay", comment: "payment"), for: .normal)
+        button.setTitle(LocalizableConstants.Cart.pay, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.isEnabled = false
@@ -62,7 +62,7 @@ final class PaymentView: UIView {
         label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         label.numberOfLines = 0
         label.textAlignment = .left
-        label.text = NSLocalizedString("cart.terms", comment: "terms")
+        label.text = LocalizableConstants.Cart.terms
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -73,7 +73,7 @@ final class PaymentView: UIView {
         label.numberOfLines = 0
         label.textColor = .link
         label.textAlignment = .left
-        label.text = NSLocalizedString("cart.conditions", comment: "")
+        label.text = LocalizableConstants.Cart.conditions
         label.isUserInteractionEnabled = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -148,15 +148,15 @@ final class PaymentView: UIView {
             paymentCollection.topAnchor.constraint(equalTo: collectionViewContainer.topAnchor), // Align with container's top
             paymentCollection.bottomAnchor.constraint(equalTo: collectionViewContainer.bottomAnchor), // Align with container's bottom
             
-            cartInfo.bottomAnchor.constraint(equalTo: bottomAnchor),
-            cartInfo.leadingAnchor.constraint(equalTo: leadingAnchor),
-            cartInfo.trailingAnchor.constraint(equalTo: trailingAnchor),
-            cartInfo.heightAnchor.constraint(equalToConstant: 186),
-            
             paymentButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             paymentButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             paymentButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
             paymentButton.heightAnchor.constraint(equalToConstant: 60),
+            
+            cartInfo.bottomAnchor.constraint(equalTo: bottomAnchor),
+            cartInfo.leadingAnchor.constraint(equalTo: leadingAnchor),
+            cartInfo.trailingAnchor.constraint(equalTo: trailingAnchor),
+            cartInfo.topAnchor.constraint(equalTo: paymentButton.bottomAnchor, constant: -140), // Use paymentButton.bottomAnchor instead of view.paymentButton.topAnchor
             
             userAgreementText.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             userAgreementText.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
@@ -201,24 +201,26 @@ extension PaymentView: UICollectionViewDelegate {
 
 protocol PaymentViewDelegate: AnyObject {
     func payButtonTapped(selectedIndex: Int) // Add this method
-    func labelTapped()
+    func labelTapped() -> WebViewController?
 }
 
 extension PaymentView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = (collectionView.bounds.width - 46) / 2 // Calculate cell width with spacing
-        return CGSize(width: 168, height: 46)
+        let collectionViewWidth = collectionView.bounds.width
+        let spacing: CGFloat = 16.0 // Adjust this value as needed
+        let cellWidth = (collectionViewWidth - spacing * 3) / 2 // Adjust the spacing as needed
+        
+        return CGSize(width: cellWidth, height: 46)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 7
+        return 7 // Adjust this value as needed
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 16
+        return 16 // Adjust this value as needed
     }
 }
-
 
 
 

@@ -13,7 +13,7 @@ final class FailedPaymentViewController: UIViewController {
     
     let image: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "failedImage")
+        image.image = Resourses.Images.SuccessFailPayment.failedPayment
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -24,7 +24,7 @@ final class FailedPaymentViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 22, weight: .bold)
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.text = NSLocalizedString("cart.failedPayment", comment: "")
+        label.text = LocalizableConstants.Cart.failedPayment
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -35,8 +35,8 @@ final class FailedPaymentViewController: UIViewController {
         button.setTitleColor(.backgroundDay, for: .normal)
         button.layer.cornerRadius = 16
         button.layer.masksToBounds = true
-        button.addTarget(nil, action: #selector(backTapped), for: .touchUpInside)
-        button.setTitle(NSLocalizedString("cart.tryAgain", comment: ""), for: .normal)
+        button.addTarget(self, action: #selector(backTapped), for: .touchUpInside)
+        button.setTitle(LocalizableConstants.Cart.tryAgain, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -49,6 +49,18 @@ final class FailedPaymentViewController: UIViewController {
         setupProperties()
         setupView()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.isHidden = false
+        tabBarController?.tabBar.isHidden = false
+    }
+    
     
     private func setupView() {
         view.backgroundColor = .backgroundDay
@@ -71,12 +83,10 @@ final class FailedPaymentViewController: UIViewController {
         view.addSubview(backButton)
     }
     
-    @objc
-    private func backTapped() {
-        let tabBar = TabBarController()
-        tabBar.modalPresentationStyle = .fullScreen
-        tabBar.modalTransitionStyle = .crossDissolve
-        present(tabBar, animated: true)
+    @objc private func backTapped() {
+        print("backTapped method triggered")
+        guard let customNC = navigationController as? CustomNavigationController else { return }
+        customNC.popToRootViewController(animated: true)
     }
-    
 }
+

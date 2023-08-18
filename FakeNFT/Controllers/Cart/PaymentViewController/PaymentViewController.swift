@@ -14,7 +14,13 @@ protocol PaymentViewProtocol: AnyObject {
     func showFailedPayment()
 }
 
-final class PaymentViewController: UIViewController {
+final class PaymentViewController: UIViewController, PaymentViewNavigationDelegate {
+    
+    func showWebViewController(withURL url: URL) {
+        let webViewController = WebViewController(presenter: WebViewPresenter(urlRequest: URLRequest(url: url)))
+        present(webViewController, animated: true, completion: nil)
+    }
+    
     
     private var presenter: PaymentPresenterProtocol?
     
@@ -68,17 +74,18 @@ extension PaymentViewController: PaymentViewDelegate {
     }
     
     
-    @objc
-    internal func labelTapped() {
+    internal func labelTapped() -> WebViewController? {
         guard let url = URL(string: "https://yandex.ru/legal/practicum_termsofuse/") else {
             print("Invalid URL")
-            return
+            return nil
         }
         
-//        let webViewController = WebViewController()
-//        webViewController.url = url
-//
-//        present(webViewController, animated: true, completion: nil)
+        let webViewPresenter = WebViewPresenter(urlRequest: URLRequest(url: url))
+        let webViewController = WebViewController(presenter: webViewPresenter)
+        webViewPresenter.view = webViewController
+        
+        present(webViewController, animated: true, completion: nil)
+        return webViewController
     }
     
 }
@@ -92,27 +99,24 @@ extension PaymentViewController: PaymentViewProtocol {
     }
     
     func showSuccessPayment() {
+        guard let customNC = navigationController as? CustomNavigationController else { return }
         let successVC = SucceedPaymentViewController()
         successVC.modalPresentationStyle = .fullScreen
         successVC.modalTransitionStyle = .crossDissolve
-        present(successVC, animated: false, completion: nil)
+        customNC.pushViewController(successVC, animated: true)
+        customNC.setNavigationBarHidden(true, animated: true)
     }
     
     func showFailedPayment() {
+        guard let customNC = navigationController as? CustomNavigationController else { return }
         let failedVC = FailedPaymentViewController()
         failedVC.modalPresentationStyle = .fullScreen
         failedVC.modalTransitionStyle = .crossDissolve
-        present(failedVC, animated: false, completion: nil)
+        customNC.pushViewController(failedVC, animated: true)
+        customNC.setNavigationBarHidden(true, animated: true)
     }
+    
 }
-
-//extension PaymentViewController: PaymentViewNavigationDelegate {
-//    func showWebViewController(withURL url: URL) {
-//        let webViewController = WebViewController()
-//        webViewController.url = url
-//        present(webViewController, animated: true, completion: nil)
-//    }
-//}
 
 
 extension PaymentViewController: UICollectionViewDelegate {

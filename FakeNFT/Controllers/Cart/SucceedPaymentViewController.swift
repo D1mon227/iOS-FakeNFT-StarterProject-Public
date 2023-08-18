@@ -13,7 +13,7 @@ final class SucceedPaymentViewController: UIViewController {
     
     let image: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "successImage")
+        image.image = Resourses.Images.SuccessFailPayment.succeedPayment
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -23,7 +23,7 @@ final class SucceedPaymentViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 22, weight: .bold)
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.text = NSLocalizedString("cart.successfulPayment", comment: "")
+        label.text = LocalizableConstants.Cart.successfulPayment
         label.textColor = .blackDay
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -36,7 +36,7 @@ final class SucceedPaymentViewController: UIViewController {
         button.layer.cornerRadius = 16
         button.layer.masksToBounds = true
         button.addTarget(nil, action: #selector(backTapped), for: .touchUpInside)
-        button.setTitle(NSLocalizedString("cart.backToCatalog", comment: ""), for: .normal)
+        button.setTitle(LocalizableConstants.Cart.backToCatalog, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -48,6 +48,17 @@ final class SucceedPaymentViewController: UIViewController {
         super.viewDidLoad()
         setupProperties()
         setupView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.isHidden = false
+        tabBarController?.tabBar.isHidden = false
     }
     
     private func setupView() {
@@ -73,11 +84,11 @@ final class SucceedPaymentViewController: UIViewController {
     
     @objc
     private func backTapped() {
-        let tabBar = TabBarController()
-        tabBar.modalPresentationStyle = .fullScreen
-        tabBar.modalTransitionStyle = .crossDissolve
-        present(tabBar, animated: true, completion: nil)
-        
+        let tabBarController = TabBarController()
+        tabBarController.selectedIndex = 1 // Set the index of the CatalogViewController
+        tabBarController.modalPresentationStyle = .fullScreen
+        tabBarController.modalTransitionStyle = .crossDissolve
+        present(tabBarController, animated: true, completion: nil)
     }
     
 }

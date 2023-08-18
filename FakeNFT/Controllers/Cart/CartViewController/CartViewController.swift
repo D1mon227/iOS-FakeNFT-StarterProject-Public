@@ -29,6 +29,13 @@ final class CartViewController: UIViewController, UITableViewDataSource{
         cartTable.backgroundColor = .backgroundDay
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = false
+        tabBarController?.tabBar.isHidden = false
+        cartTable.reloadData()
+    }
+    
     // MARK: - UI Setup
     
     private func setupView() {
@@ -192,7 +199,6 @@ final class CartViewController: UIViewController, UITableViewDataSource{
     let cartInfo: UIView = {
         let view = UIView()
         view.backgroundColor = .lightGreyDay
-        //        view.backgroundColor = UIColor(red: 0.97, green: 0.97, blue: 0.97, alpha: 1)
         view.layer.cornerRadius = 12
         view.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -256,7 +262,7 @@ final class CartViewController: UIViewController, UITableViewDataSource{
         }
         let rating = cartArray[indexPath.row].nftRating
         let name = cartArray[indexPath.row].nftName
-        let price = "\(cartArray[indexPath.row].nftPrice) ETH"
+        let price = String("\(cartArray[indexPath.row].nftPrice) ETH").replacingOccurrences(of: ".", with: ",")
         let imageURL = URL(string: cartArray[indexPath.row].nftImages.first ?? "")
         cell.setupRating(rating: rating)
         cell.nftName.text = name
@@ -330,18 +336,25 @@ final class CartViewController: UIViewController, UITableViewDataSource{
     }
     
     private func showMenu() {
-        let alertController = UIAlertController(title: NSLocalizedString("sort.sort", comment: ""), message: nil, preferredStyle: .actionSheet)
+        let alertController = UIAlertController(title: LocalizableConstants.Sort.sort, message: nil, preferredStyle: .actionSheet)
         
-        for sortingOption in Sort.allCases {
-            if sortingOption != .byTitle && sortingOption != .close && sortingOption != .byNFTQuantity {
-                let action = UIAlertAction(title: sortingOption.localizedString, style: .default) { _ in
-                    self.sortBy(option: sortingOption)
-                }
-                alertController.addAction(action)
-            }
+        // Add sorting actions in the desired order
+        let sortByPriceAction = UIAlertAction(title: Sort.byPrice.localizedString, style: .default) { _ in
+            self.sortBy(option: .byPrice)
         }
+        alertController.addAction(sortByPriceAction)
         
-        let cancelAction = UIAlertAction(title: NSLocalizedString("sort.close", comment: ""), style: .cancel, handler: nil)
+        let sortByRatingAction = UIAlertAction(title: Sort.byRating.localizedString, style: .default) { _ in
+            self.sortBy(option: .byRating)
+        }
+        alertController.addAction(sortByRatingAction)
+        
+        let sortByNameAction = UIAlertAction(title: Sort.byName.localizedString, style: .default) { _ in
+            self.sortBy(option: .byName)
+        }
+        alertController.addAction(sortByNameAction)
+        
+        let cancelAction = UIAlertAction(title: LocalizableConstants.Sort.close, style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
         
         present(alertController, animated: true, completion: nil)
@@ -354,7 +367,7 @@ final class CartViewController: UIViewController, UITableViewDataSource{
             cartArray = cartArray.sorted(by: { $0.nftName < $1.nftName })
             cartTable.reloadData()
         case .byPrice:
-            cartArray = cartArray.sorted(by: { $0.nftPrice > $1.nftPrice })
+            cartArray = cartArray.sorted(by: { $0.nftPrice < $1.nftPrice })
             cartTable.reloadData()
         case .byRating:
             cartArray = cartArray.sorted(by: { $0.nftRating > $1.nftRating })
@@ -372,7 +385,8 @@ final class CartViewController: UIViewController, UITableViewDataSource{
         cartArray.forEach { cart in
             price += cart.nftPrice
         }
-        priceOfNFTS.text = "\(String(format: "%.2f", price)) ETH"
+        let formattedPrice = String(format: "%.2f ETH", price).replacingOccurrences(of: ".", with: ",")
+        priceOfNFTS.text = formattedPrice
     }
 }
 

@@ -40,7 +40,7 @@ final class CartCell: UITableViewCell {
     
     let nftPriceTitle: UILabel = {
         let label = UILabel()
-        label.text = "Price"
+        label.text = LocalizableConstants.Cart.price
         label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -54,13 +54,6 @@ final class CartCell: UITableViewCell {
         return label
     }()
     
-    private let starImage: UIImageView = {
-        let image = UIImageView()
-        image.image = UIImage(named: "star")
-        image.translatesAutoresizingMaskIntoConstraints = false
-        return image
-    }()
-    
     private let starStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
@@ -70,7 +63,7 @@ final class CartCell: UITableViewCell {
     
     private let deleteButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "CartDeleteIcon"), for: .normal)
+        button.setImage(Resourses.Images.Cell.cartFill, for: .normal)
         button.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -133,15 +126,29 @@ final class CartCell: UITableViewCell {
         }
         
         for _ in 0..<rating {
-            let starImageView = UIImageView(image: UIImage(named: "star"))
+            let starImageView = UIImageView(image: Resourses.Images.Cell.star)
+            starImageView.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint.activate([
+                starImageView.widthAnchor.constraint(equalToConstant: 14),
+                starImageView.heightAnchor.constraint(equalToConstant: 14)
+            ])
+            
             starImageView.tintColor = .systemYellow
             starStack.addArrangedSubview(starImageView)
         }
         
         let emptyStarsCount = 5 - rating
         for _ in 0..<emptyStarsCount {
-            let emptyStarImageView = UIImageView(image: UIImage(named: "grayStar"))
-            emptyStarImageView.tintColor = .gray
+            let emptyStarImageView = UIImageView(image: Resourses.Images.Cell.star)
+            emptyStarImageView.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint.activate([
+                emptyStarImageView.widthAnchor.constraint(equalToConstant: 14),
+                emptyStarImageView.heightAnchor.constraint(equalToConstant: 14)
+            ])
+            
+            emptyStarImageView.tintColor = .lightGreyDay
             starStack.addArrangedSubview(emptyStarImageView)
         }
     }
