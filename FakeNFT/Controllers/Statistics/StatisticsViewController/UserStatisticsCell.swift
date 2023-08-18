@@ -59,22 +59,10 @@ final class UserStatisticsCell: UITableViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
-	func getFirstName(from fullName: String) -> String {
-		let nameComponents = fullName.components(separatedBy: " ")
-		if let firstName = nameComponents.first {
-			return firstName
-		} else {
-			return fullName
-		}
-	}
-	
-	func configure(with user: User) {
-		cellNumberLabel.text = user.rating
-		
-		let firstName = getFirstName(from: user.name)
-		userNameLabel.text = firstName
-		
-		nftCountLabel.text = String("\(user.nfts.count)")
+	func configure(with user: User, cellNumber: Int) {
+		cellNumberLabel.text = "\(cellNumber)"
+		userNameLabel.text = user.firstName
+		nftCountLabel.text = user.rating
 		
 		if let imageUrl = user.avatar {
 			userImageView.kf.setImage(with: imageUrl, placeholder: UIImage(named: "placeholderImage"))
@@ -130,7 +118,7 @@ extension StatisticsView: UITableViewDataSource, UITableViewDelegate {
 		}
 		let item = users[indexPath.row]
 		
-		cell.configure(with: item)
+		cell.configure(with: item, cellNumber: indexPath.row + 1)
 		cell.selectionStyle = .none
 		return cell
 	}

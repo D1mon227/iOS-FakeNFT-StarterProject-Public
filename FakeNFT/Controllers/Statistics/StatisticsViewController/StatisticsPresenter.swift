@@ -75,7 +75,7 @@ final class StatisticsPresenter {
 			model.sort { $0.name < $1.name }
 			currentSortOption = .byName
 		case .byRating:
-			model.sort { Int($0.rating) ?? 0 < Int($1.rating) ?? 0 }
+			model.sort { Int($0.rating) ?? 0 > Int($1.rating) ?? 0 }
 			currentSortOption = .byRating
 		default:
 			print("Не обработал")

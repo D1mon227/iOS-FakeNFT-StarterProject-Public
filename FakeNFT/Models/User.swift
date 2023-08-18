@@ -15,4 +15,9 @@ struct User: Decodable {
 	let nfts: [String]
 	let rating: String
 	let id: String
+	
+	var firstName: String {
+		   let nameComponents = name.components(separatedBy: " ")
+		   return nameComponents.first ?? name
+	   }
 }
