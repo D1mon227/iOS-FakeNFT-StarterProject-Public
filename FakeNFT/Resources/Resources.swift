@@ -1,6 +1,31 @@
 import UIKit
 
 enum Resourses {
+    enum Network {
+        static let baseURL = "https://64c5171bc853c26efada7b56.mockapi.io"
+        
+        enum Paths {
+            static let nftCollection = "/api/v1/collections"
+            static let nft = "/api/v1/nft"
+            static let currencies = "/api/v1/currencies"
+            static let orders = "/api/v1/orders/1"
+            static let orderPayment = "/api/v1/orders/1/payment"
+            static let profile = "/api/v1/profile/1"
+            static let users = "/api/v1/users"
+        }
+        
+        enum NFTUrls {
+            static let bitcoin =  "https://bitcoin.org/ru/"
+            static let dogecoin = "https://dogecoin.com"
+            static let tether = "https://tether.to/ru/"
+            static let apecoin = "https://apecoin.com"
+            static let solana = "https://solana.com/ru"
+            static let ethereum = "https://ethereum.org/en/"
+            static let cardano = "https://cardano.org"
+            static let shibainu = "https://www.shibatoken.com"
+        }
+    }
+    
     enum Images {
         enum Onboarding {
             static let firstScreen = UIImage(named: "firstScreen")
@@ -27,6 +52,7 @@ enum Resourses {
         
         enum Profile {
             static let profileImage = UIImage(named: "profile Image")
+            static let profilePlaceholser = UIImage(named: "placeholderImage")
         }
         
         enum TabBar {
@@ -51,6 +77,11 @@ enum Resourses {
         
         enum Sort {
             static let sort = UIImage(named: "Sort")
+        }
+        
+        enum NetworkError {
+            static let noInternet = UIImage(systemName: "noInternet")
+            static let errorNetwork = UIImage(systemName: "errorNetwork")
         }
     }
 }

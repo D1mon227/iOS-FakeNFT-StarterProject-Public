@@ -19,6 +19,7 @@
 "profile.aboutDeveloper" = "About the developer";
 "profile.name" = "Name";
 "profile.changePhoto" = "Change\nphoto";
+"profile.uploadPhoto" = "Upload image";
 "profile.description" = "Description";
 "profile.website" = "Website";
 "profile.byAuthor" = "By";
@@ -57,3 +58,13 @@
 //MARK: Statistics
 "statistics.nftCollection" = "NFT Collection";
 "statistics.userWebsite" = "Go to the user's website";
+
+//MARK: NetworkErrorView
+"network.noInternet" = "No internet connection";
+"network.error" = "Oops! Something went wrong. Please try again later";
+"network.button" = "Try again";
+
+//MARK: NFTCard
+"nftcard.addToCart" = "Add to cart";
+"nftcard.price" = "Price";
+"nftcard.sellerWebsite" = "Go to the seller's website";

@@ -20,7 +20,6 @@ final class OnboardingPageViewController: UIPageViewController {
     override init(transitionStyle style: UIPageViewController.TransitionStyle, navigationOrientation: UIPageViewController.NavigationOrientation, options: [UIPageViewController.OptionsKey : Any]? = nil) {
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal)
         dataSource = self
-        delegate = self
         if let first = controllers.first { setViewControllers([first],
                                                              direction: .forward,
                                                              animated: true,
@@ -39,7 +38,8 @@ extension OnboardingPageViewController: UIPageViewControllerDataSource {
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let viewControllerIndex = controllers.firstIndex(of: viewController as! OnboardingViewController) else { return nil }
+        guard let vc = viewController as? OnboardingViewController,
+              let viewControllerIndex = controllers.firstIndex(of: vc) else { return nil }
         
         let previousIndex = viewControllerIndex - 1
         
@@ -49,7 +49,8 @@ extension OnboardingPageViewController: UIPageViewControllerDataSource {
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let viewControllerIndex = controllers.firstIndex(of: viewController as! OnboardingViewController) else { return nil }
+        guard let vc = viewController as? OnboardingViewController,
+              let viewControllerIndex = controllers.firstIndex(of: vc) else { return nil }
         
         let nextIndex = viewControllerIndex + 1
         
@@ -57,10 +58,4 @@ extension OnboardingPageViewController: UIPageViewControllerDataSource {
         
         return controllers[nextIndex]
     }
-    
-    
-}
-
-extension OnboardingPageViewController: UIPageViewControllerDelegate {
-    
 }

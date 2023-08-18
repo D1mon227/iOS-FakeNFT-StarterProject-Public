@@ -24,6 +24,7 @@ enum LocalizableConstants {
         static let aboutDeveloper = NSLocalizedString("profile.aboutDeveloper", comment: "")
         static let name = NSLocalizedString("profile.name", comment: "")
         static let changePhoto = NSLocalizedString("profile.changePhoto", comment: "")
+        static let uploadPhoto = NSLocalizedString("profile.uploadPhoto", comment: "")
         static let description = NSLocalizedString("profile.description", comment: "")
         static let website = NSLocalizedString("profile.website", comment: "")
         static let byAuthor = NSLocalizedString("profile.byAuthor", comment: "")
@@ -66,5 +67,17 @@ enum LocalizableConstants {
     enum Statistics {
         static let nftCollection = NSLocalizedString("statistics.nftCollection", comment: "")
         static let userWebsite = NSLocalizedString("statistics.userWebsite", comment: "")
+    }
+    
+    enum NetworkErrorView {
+        static let noInternet = NSLocalizedString("network.noInternet", comment: "")
+        static let error = NSLocalizedString("network.error", comment: "")
+        static let button = NSLocalizedString("network.button", comment: "")
+    }
+    
+    enum NFTCard {
+        static let addToCart = NSLocalizedString("nftcard.addToCart", comment: "")
+        static let price = NSLocalizedString("nftcard.price", comment: "")
+        static let sellerWebsite = NSLocalizedString("nftcard.sellerWebsite", comment: "")
     }
 }
