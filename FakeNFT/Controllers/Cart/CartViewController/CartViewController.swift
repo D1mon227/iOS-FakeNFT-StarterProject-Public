@@ -96,25 +96,38 @@ final class CartViewController: UIViewController, UITableViewDataSource{
     }
     
     private func fetchDataFromAPI() {
+        UIBlockingProgressHUD.show()
         myOrders = []
         cartArray = []
-        presenter?.cartNFTs { orders in
-            if let orders = orders {
+        presenter?.cartNFTs { result in
+            switch result {
+            case .success(let orders):
                 self.myOrders = orders.nfts
-                self.myOrders.forEach { i in
-                    self.presenter?.getNFTsFromAPI(nftID: i) { cart in
-                        if let cart = cart {
+                var fetchCount = self.myOrders.count
+                self.myOrders.forEach { nftID in
+                    self.presenter?.getNFTsFromAPI(nftID: nftID) { result in
+                        switch result {
+                        case .success(let cart):
                             self.cartArray.append(cart)
+                        case .failure(let error):
+                            print("Error fetching NFT details: \(error)")
+                        }
+                        fetchCount -= 1
+                        if fetchCount == 0 {
                             DispatchQueue.main.async {
+                                UIBlockingProgressHUD.dismiss()
                                 self.cartTable.reloadData()
                             }
-                        } else {
-                            print("Error fetching cart data")
                         }
                     }
                 }
-            } else {
-                print("Error fetching orders")
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    UIBlockingProgressHUD.dismiss()
+                    // Show error alert with retry option
+                    self.showErrorAlertAndRetry(message: "Please check your internet connection and try again")
+                }
+                print("Error fetching orders: \(error)")
             }
         }
     }
@@ -486,3 +499,25 @@ extension CartViewController: CartCellDelegate {
     }
     
 }
+
+extension CartViewController {
+    func showErrorAlertAndRetry(message: String) {
+        let alertController = UIAlertController(title: "Failed to fetch cart",
+                                                message: message,
+                                                preferredStyle: .alert)
+        
+        let retryAction = UIAlertAction(title: NSLocalizedString("Retry", comment: ""),
+                                        style: .default) { _ in
+            self.fetchDataFromAPI() // Retry fetching data
+        }
+        alertController.addAction(retryAction)
+        
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""),
+                                         style: .cancel,
+                                         handler: nil)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+}
+

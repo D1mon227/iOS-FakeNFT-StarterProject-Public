@@ -126,6 +126,7 @@ final class PaymentView: UIView {
     @objc private func didTapPaymentButton() {
         delegate?.payButtonTapped(selectedIndex: isCellSelected) // Pass the selected index
         print("didTapPaymentButton called")
+        paymentButton.isEnabled = false
     }
     
     

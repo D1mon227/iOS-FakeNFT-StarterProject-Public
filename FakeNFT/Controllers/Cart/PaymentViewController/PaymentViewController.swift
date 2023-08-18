@@ -12,6 +12,7 @@ protocol PaymentViewProtocol: AnyObject {
     func updateCurrencies(_ currencies: [PaymentStruct])
     func showSuccessPayment()
     func showFailedPayment()
+    func showErrorFetchingCurrencies(message: String)
 }
 
 final class PaymentViewController: UIViewController, PaymentViewNavigationDelegate {
@@ -19,6 +20,10 @@ final class PaymentViewController: UIViewController, PaymentViewNavigationDelega
     func showWebViewController(withURL url: URL) {
         let webViewController = WebViewController(presenter: WebViewPresenter(urlRequest: URLRequest(url: url)))
         present(webViewController, animated: true, completion: nil)
+    }
+    
+    func showErrorFetchingCurrencies(message: String) {
+        showFetchErrorAlertAndRetry(message: message)
     }
     
     
@@ -123,5 +128,27 @@ extension PaymentViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         isCellSelected = indexPath.row + 1// Update the selected index
         print("Selected cell index: \(isCellSelected)")
+    }
+}
+
+
+extension PaymentViewController {
+    private func showFetchErrorAlertAndRetry(message: String) {
+        let alertController = UIAlertController(title: "No internet",
+                                                message: "Please check your internet connection and try again",
+                                                preferredStyle: .alert)
+        
+        let retryAction = UIAlertAction(title: NSLocalizedString("Retry", comment: ""),
+                                        style: .default) { [weak self] _ in
+            self?.presenter?.fetchCurrencies() // Retry fetching data
+        }
+        alertController.addAction(retryAction)
+        
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""),
+                                         style: .cancel,
+                                         handler: nil)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
     }
 }
