@@ -1,6 +1,6 @@
 import UIKit
 
-final class StatisticsViewController: UIViewController {
+final class StatisticsViewController: UIViewController, StatisticViewControllerDelegate {
 	private var statisticsPresenter: IStatisticsPresenter
 	private let customView = StatisticsView()
 	private let alertService = AlertService()
@@ -23,7 +23,12 @@ final class StatisticsViewController: UIViewController {
 		super.viewDidLoad()
 		self.statisticsPresenter.viewDidLoad(ui: self.customView)
 		customView.presenter = statisticsPresenter
+		statisticsPresenter.navigationDelegate = self
 		configureNavigationBar()
+	}
+	
+	func showAlert(model: AlertActionSheetModel) {
+		alertService.showAlert(with: model, controller: self)
 	}
 }
 
@@ -34,14 +39,7 @@ private extension StatisticsViewController {
 		navigationItem.rightBarButtonItem = customBarButtonItem
 	}
 	
-	func showSortingOptions() {
-		let sortingOptions: [Sort] = [.byName, .byRating, .close]
-		alertService.showAlert(title: LocalizableConstants.Sort.sort, actions: sortingOptions, controller: self) { [weak self] selectedOption in
-			self?.statisticsPresenter.sortData(by: selectedOption)
-		}
-	}
-	
 	@objc func sortButtonTapped() {
-		showSortingOptions()
+		statisticsPresenter.didTapSortButton()
 	}
 }

@@ -59,4 +59,10 @@ struct AlertActionModel: AlertActionProtocol {
     }
 }
 
+struct AlertActionSheetModel {
+	let title: String?
+	let actions: [Sort]
+	let completion: (Sort) -> Void
+}
+
 

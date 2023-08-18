@@ -5,8 +5,6 @@ protocol INFTCollectionView: AnyObject {
 	func updateUI(with data: [NFT])
 	func showFavorites(with data: Likes)
 	func showCart(with data: Order)
-	func activatedIndicator()
-	func deactivatedIndicator()
 }
 
 final class NFTCollectionView: UIView {
@@ -67,41 +65,18 @@ extension NFTCollectionView: INFTCollectionView {
 	
 	func updateUI(with data: [NFT]) {
 		collectionNFT = data
-		DispatchQueue.main.async { [weak self] in
-			guard let self else { return }
-			self.nftCollectionView.reloadData()
-			emptyLabel.isHidden = !collectionNFT.isEmpty
-		}
+		self.nftCollectionView.reloadData()
+		emptyLabel.isHidden = !collectionNFT.isEmpty
 	}
 	
 	func showFavorites(with data: Likes) {
 		likes = data
-		DispatchQueue.main.async { [weak self] in
-			guard let self else { return }
-			self.nftCollectionView.reloadData()
-		}
+		self.nftCollectionView.reloadData()
 	}
 	
 	func showCart(with data: Order) {
 		order = data
-		DispatchQueue.main.async { [weak self] in
-			guard let self else { return }
-			self.nftCollectionView.reloadData()
-		}
-	}
-	
-	func activatedIndicator() {
-		DispatchQueue.main.async { [weak self] in
-			guard let self else { return }
-			self.activityIndicator.startAnimating()
-		}
-	}
-	
-	func deactivatedIndicator() {
-		DispatchQueue.main.async { [weak self] in
-			guard let self else { return }
-			self.activityIndicator.stopAnimating()
-		}
+		self.nftCollectionView.reloadData()
 	}
 }
 

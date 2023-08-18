@@ -3,10 +3,6 @@ import UIKit
 protocol IStatisticsView: AnyObject {
 	func setDelegateDataSource()
 	func updateUI(with data: [User])
-	func getUsers() -> [User]
-	func updateTable()
-	func activatedIndicator()
-	func deactivatedIndicator()
 }
 
 final class StatisticsView: UIView {
@@ -43,37 +39,12 @@ final class StatisticsView: UIView {
 extension StatisticsView: IStatisticsView {
 	func updateUI(with data: [User]) {
 		users = data
-		DispatchQueue.main.async { [weak self] in
-			guard let self else { return }
-			self.userStatisticsTableView.reloadData()
-		}
-	}
-	
-	func getUsers() -> [User] {
-		return users
+		self.userStatisticsTableView.reloadData()
 	}
 	
 	func setDelegateDataSource() {
 		userStatisticsTableView.delegate = self
 		userStatisticsTableView.dataSource = self
-	}
-	
-	func updateTable() {
-		userStatisticsTableView.reloadData()
-	}
-	
-	func activatedIndicator() {
-		DispatchQueue.main.async { [weak self] in
-			guard let self else { return }
-			self.activityIndicator.startAnimating()
-		}
-	}
-	
-	func deactivatedIndicator() {
-		DispatchQueue.main.async { [weak self] in
-			guard let self else { return }
-			self.activityIndicator.stopAnimating()
-		}
 	}
 }
 

@@ -20,9 +20,7 @@ final class NFTCollectionPresenter {
 	}
 	
 	func fetchNFTsForUser() {
-		DispatchQueue.main.async {
-			self.ui?.activatedIndicator()
-		}
+		UIBlockingProgressHUD.show()
 		
 		let dispatchGroup = DispatchGroup()
 		
@@ -30,8 +28,8 @@ final class NFTCollectionPresenter {
 		for nftId in nftIds {
 			dispatchGroup.enter()
 			let request = GetNFTsForUserRequest(nftId: nftId)
-			networkClient?.send(request: request, type: NFT.self) { result in
-				
+			networkClient?.send(request: request, type: NFT.self) { [weak self] result in
+				guard let self = self else { return }
 				switch result {
 				case .success(let nft):
 					self.userNFTs.append(nft)
@@ -44,18 +42,21 @@ final class NFTCollectionPresenter {
 		
 		dispatchGroup.notify(queue: .main) { [weak self] in
 			guard let self = self else { return }
-			self.ui?.deactivatedIndicator()
+			UIBlockingProgressHUD.dismiss()
 			self.ui?.updateUI(with: self.userNFTs)
 		}
 	}
 	
 	func fetchLikesFromServer() {
 		let request = GetLikesForUserRequest()
-		networkClient?.send(request: request, type: Profile.self) {  result in
+		networkClient?.send(request: request, type: Profile.self) { [weak self] result in
+			guard let self = self else { return }
 			switch result {
 			case .success(let profile):
 				let likes = Likes(likes: profile.likes)
-				self.ui?.showFavorites(with: likes)
+				DispatchQueue.main.async {
+					self.ui?.showFavorites(with: likes)
+				}
 				self.likes.append(likes)
 			case .failure(let error):
 				print("Error fetching data:", error)
@@ -65,10 +66,13 @@ final class NFTCollectionPresenter {
 	
 	func fetchOrdersFromServer() {
 		let request = GetOrdersForUserRequest()
-		networkClient?.send(request: request, type: Order.self) {  result in
+		networkClient?.send(request: request, type: Order.self) { [weak self] result in
+			guard let self = self else { return }
 			switch result {
 			case .success(let order):
-				self.ui?.showCart(with: order)
+				DispatchQueue.main.async {
+					self.ui?.showCart(with: order)
+				}
 				self.order.append(order)
 			case .failure(let error):
 				print("Error fetching data:", error)

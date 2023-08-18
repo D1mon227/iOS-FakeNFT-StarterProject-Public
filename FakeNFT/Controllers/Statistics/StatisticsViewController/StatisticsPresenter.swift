@@ -1,12 +1,19 @@
 import Foundation
 
 protocol IStatisticsPresenter {
+	var navigationDelegate: StatisticViewControllerDelegate? { get set }
 	func viewDidLoad(ui: IStatisticsView)
 	func tapOnTheCell(user: User)
 	func sortData(by sortOption: Sort)
+	func didTapSortButton()
+}
+
+protocol StatisticViewControllerDelegate: AnyObject {
+	func showAlert(model: AlertActionSheetModel)
 }
 
 final class StatisticsPresenter {
+	weak var navigationDelegate: StatisticViewControllerDelegate?
 	private weak var ui: IStatisticsView?
 	private let networkClient: DefaultNetworkClient?
 	private let appCoordinator: AppCoordinator?
@@ -23,18 +30,18 @@ final class StatisticsPresenter {
 		}
 	}
 	private var model: [User] = []
-
+	
 	init(networkClient: DefaultNetworkClient?, appCoordinator: AppCoordinator?) {
 		self.networkClient = networkClient
 		self.appCoordinator = appCoordinator
 	}
 	
 	func fetchUserFromServer() {
-		self.ui?.activatedIndicator()
+		UIBlockingProgressHUD.show()
 		let request = GetUsersRequest()
 		networkClient?.send(request: request, type: [User].self) { [weak self] result in
 			guard let self else { return }
-			self.ui?.deactivatedIndicator()
+			UIBlockingProgressHUD.dismiss()
 			
 			switch result {
 			case .success(let users):
@@ -49,7 +56,19 @@ final class StatisticsPresenter {
 	func tapOnTheCell(user: User) {
 		appCoordinator?.showUserDetails(user: user)
 	}
-
+	
+	func didTapSortButton() {
+		showSortingOptions()
+	}
+	
+	func showSortingOptions() {
+		let sortingOptions: [Sort] = [.byName, .byRating, .close]
+		let alertModel = AlertActionSheetModel(title: LocalizableConstants.Sort.sort, actions: sortingOptions) { [weak self] selectedOption in
+			self?.sortData(by: selectedOption)
+		}
+		navigationDelegate?.showAlert(model: alertModel)
+	}
+	
 	func sortData(by sortOption: Sort)  {
 		switch sortOption {
 		case .byName:
@@ -61,8 +80,10 @@ final class StatisticsPresenter {
 		default:
 			print("Не обработал")
 		}
-		
-		ui?.updateUI(with: model)
+		DispatchQueue.main.async { [weak self] in
+			guard let self else { return }
+			self.ui?.updateUI(with: model)
+		}
 	}
 }
 

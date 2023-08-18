@@ -27,21 +27,21 @@ enum Sort: String, CaseIterable {
 }
 
 final class AlertService {
-    func showAlert(title: String?, actions: [Sort], controller: UIViewController, completion: @escaping (Sort) -> Void) {
+    func showAlert(with model: AlertActionSheetModel, controller: UIViewController) {
         
-        let alert = UIAlertController(title: title,
+		let alert = UIAlertController(title: model.title,
                                       message: nil,
                                       preferredStyle: .actionSheet)
         
-        for action in actions {
+		for action in model.actions {
             if action == .close {
                 let action = UIAlertAction(title: action.localizedString, style: .cancel) { _ in
-                    completion(action)
+					model.completion(action)
                 }
                 alert.addAction(action)
             } else {
                 let action = UIAlertAction(title: action.localizedString, style: .default) { _ in
-                    completion(action)
+					model.completion(action)
                 }
                 alert.addAction(action)
             }
