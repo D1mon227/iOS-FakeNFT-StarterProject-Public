@@ -15,6 +15,7 @@ final class LikeService {
             case .failure(let error):
                 completion(.failure(error))
             }
+            UIBlockingProgressHUD.dismiss()
         }
     }
 }

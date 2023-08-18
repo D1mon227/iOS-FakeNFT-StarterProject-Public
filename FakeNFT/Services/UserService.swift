@@ -6,6 +6,7 @@ final class UserService {
     
     func fetchUsers(completion: @escaping (Result<[User], Error>) -> Void) {
         
+        UIBlockingProgressHUD.show()
         let request = UsersRequest(httpMethod: .get, dto: nil)
         networkClient.send(request: request, type: [User].self) { result in
             switch result {
@@ -14,6 +15,7 @@ final class UserService {
             case .failure(let error):
                 completion(.failure(error))
             }
+            UIBlockingProgressHUD.dismiss()
         }
     }
 }

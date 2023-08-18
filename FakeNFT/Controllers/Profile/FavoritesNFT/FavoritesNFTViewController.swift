@@ -93,7 +93,7 @@ extension FavoritesNFTViewController: UICollectionViewDataSource {
                            favoriteButtonColor: .redUniversal,
                            nftName: nfts.name,
                            rating: nfts.rating,
-                           price: (presenter?.convert(price: nfts.price ?? 0.0) ?? ""))
+                           price: convert(price: nfts.price ?? 0.0))
         
         return cell
     }

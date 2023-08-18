@@ -108,7 +108,7 @@ extension MyNFTViewController: UITableViewDataSource {
                            rating: nfts.rating,
                            author: presenter?.getAuthorName(for: nfts.author ?? "",
                                                             from: presenter?.users ?? []),
-                           price: (presenter?.convert(price: nfts.price ?? 0.0) ?? ""))
+                           price: convert(price: nfts.price ?? 0.0))
         
         return cell
     }

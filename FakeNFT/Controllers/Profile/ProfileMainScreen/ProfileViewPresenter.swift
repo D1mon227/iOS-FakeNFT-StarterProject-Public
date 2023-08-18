@@ -8,7 +8,6 @@ final class ProfileViewPresenter: ProfileViewPresenterProtocol {
         didSet {
             DispatchQueue.main.async {
                 self.view?.updateProfileDetails(profile: self.profile)
-                UIBlockingProgressHUD.dismiss()
             }
         }
     }

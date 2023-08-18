@@ -28,7 +28,6 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
         didSet {
             DispatchQueue.main.async {
                 self.view?.reloadViews()
-                UIBlockingProgressHUD.dismiss()
             }
         }
     }
@@ -40,15 +39,6 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
             }
         }
     }
-    
-    private let numberFormatter: NumberFormatter = {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        numberFormatter.decimalSeparator = ","
-        numberFormatter.minimumFractionDigits = 1
-        numberFormatter.maximumFractionDigits = 2
-        return numberFormatter
-    }()
     
     init(profilePresenter: ProfileViewPresenterProtocol?) {
         self.profilePresenter = profilePresenter
@@ -145,10 +135,6 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
         }
         
         self.purchasedNFTs = nfts
-    }
-    
-    func convert(price: Double) -> String {
-        numberFormatter.string(from: NSNumber(value: price)) ?? ""
     }
     
     private func filterPurchasedNFTs(profile: Profile, allNFTs: [NFT]) -> [NFT] {
