@@ -8,11 +8,6 @@
 import Reachability
 import Foundation
 
-struct InternetConnection {
-    let connection: Reachability.Connection
-    let internetAvailable: Bool
-}
-
 final class NetworkReachabilityManager {
     
     static var shared = NetworkReachabilityManager()
@@ -20,6 +15,7 @@ final class NetworkReachabilityManager {
 
     private let notificationCenter = NotificationCenter.default
     private var reachability = try? Reachability()
+    let connectionAvailableKey = "connectionAvailable"
     
     var internetAvailable: Bool {
         reachability?.connection == .wifi || reachability?.connection == .cellular
@@ -38,7 +34,7 @@ final class NetworkReachabilityManager {
 private extension NetworkReachabilityManager {
     
     @objc func networkStatusChanged(_ notification: Notification) {
-        let notificationData = ["connectionAvailable": internetAvailable]
+        let notificationData = [connectionAvailableKey: internetAvailable]
         notificationCenter.post(name: networkReachabilityManagerNotification,
                                 object: nil,
                                 userInfo: notificationData)

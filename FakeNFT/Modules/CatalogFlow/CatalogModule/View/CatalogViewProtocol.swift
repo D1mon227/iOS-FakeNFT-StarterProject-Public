@@ -6,4 +6,6 @@ protocol CatalogViewProtocol: AnyObject, LoadableProtocol {
     func displayAlert(model: AlertProtocol)
     func showLoadingIndicator()
     func hideLoadingIndicator()
+    func showNetworkError(model: NetworkErrorViewModel)
+    func hideNetworkError()
 }

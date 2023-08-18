@@ -11,7 +11,7 @@ final class NFTCardViewController: UIViewController, NFTCardViewControllerProtoc
     private var isLiked: Bool
     
     init(nftModel: NFT?, isLiked: Bool) {
-      
+        
         self.nftModel = nftModel
         self.isLiked = isLiked
         super.init(nibName: nil, bundle: nil)
@@ -20,7 +20,7 @@ final class NFTCardViewController: UIViewController, NFTCardViewControllerProtoc
         self.presenter?.view = self
         self.presenter?.isLiked = isLiked
         self.presenter?.nftModel = nftModel
-
+        
     }
     
     required init?(coder: NSCoder) {
@@ -44,7 +44,11 @@ final class NFTCardViewController: UIViewController, NFTCardViewControllerProtoc
         self.presenter?.isLiked = isLiked
         self.presenter?.nftModel = nftModel
         presenter?.fetchCurrencies()
-
+        
+        if #available(iOS 11.0, *) {
+            nftCardView.generalScrollView.contentInsetAdjustmentBehavior = .never
+        }
+        
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
