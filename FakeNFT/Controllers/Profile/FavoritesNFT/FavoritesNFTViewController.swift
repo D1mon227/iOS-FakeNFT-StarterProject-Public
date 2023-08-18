@@ -90,7 +90,6 @@ extension FavoritesNFTViewController: UICollectionViewDataSource {
         
         cell.delegate = self
         cell.configureCell(image: nfts.images?[0],
-                           favoriteButtonColor: .redUniversal,
                            nftName: nfts.name,
                            rating: nfts.rating,
                            price: convert(price: nfts.price ?? 0.0))

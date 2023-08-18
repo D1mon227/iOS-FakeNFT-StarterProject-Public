@@ -13,6 +13,7 @@ final class FavoritesNFTCollectionViewCell: UICollectionViewCell {
     private lazy var favoriteButton: UIButton = {
         let element = UIButton(type: .system)
         element.setImage(Resourses.Images.Cell.like, for: .normal)
+        element.tintColor = .redUniversal
         element.addTarget(self, action: #selector(tappedLike), for: .touchUpInside)
         return element
     }()
@@ -59,13 +60,11 @@ final class FavoritesNFTCollectionViewCell: UICollectionViewCell {
     }
     
     func configureCell(image: URL?,
-                       favoriteButtonColor: UIColor?,
                        nftName: String?,
                        rating: Int?,
                        price: String?) {
         guard let price = price else { return }
         nftImage.setImage(with: image)
-        favoriteButton.tintColor = favoriteButtonColor
         nftLabel.text = nftName
         updateRatingStars(rating: rating)
         self.price.text = price + " ETH"

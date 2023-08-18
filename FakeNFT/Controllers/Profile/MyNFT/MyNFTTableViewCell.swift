@@ -112,13 +112,10 @@ final class MyNFTTableViewCell: UITableViewCell {
                        rating: Int?,
                        author: String?,
                        price: String?) {
-        guard let price = price else { return }
+        guard let price = price,
+              let doesNftHasLike = doesNftHasLike else { return }
         nftImage.setImage(with: image)
-        if doesNftHasLike == true {
-            favoriteButton.tintColor = .redUniversal
-        } else {
-            favoriteButton.tintColor = .white
-        }
+        doesNftHasLike ? changeLikeButtonColorToRed() : changeLikeButtonColorToWhite()
         nftLabel.text = nftName
         updateRatingStars(rating: rating)
         authorLabel.text = author
@@ -159,6 +156,14 @@ final class MyNFTTableViewCell: UITableViewCell {
         for i in 0..<5 {
             starImageViews[i].tintColor = i < rating ? .yellowUniversal : .lightGreyDay
         }
+    }
+    
+    private func changeLikeButtonColorToWhite() {
+        favoriteButton.tintColor = .white
+    }
+    
+    private func changeLikeButtonColorToRed() {
+        favoriteButton.tintColor = .redUniversal
     }
     
     private func setupConstraints() {
