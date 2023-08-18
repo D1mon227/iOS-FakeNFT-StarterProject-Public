@@ -1,7 +1,7 @@
 import UIKit
 
 final class UserDetailsViewController: UIViewController {
-	var userDetailsPresenter: IUserDetailsPresenter
+	private var userDetailsPresenter: IUserDetailsPresenter
 	private let customView = UserDetailsView()
 	
 	init(with presenter: IUserDetailsPresenter) {

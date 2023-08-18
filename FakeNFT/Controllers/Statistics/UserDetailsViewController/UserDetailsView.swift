@@ -87,7 +87,7 @@ final class UserDetailsView: UIView {
 	@objc private func websiteUserButtonTapped(_ sender: UIButton) {
 		guard let url = user?.website else { return }
 		let request = URLRequest(url: url)
-		presenter?.appCoordinator?.showWebViewScreen(url: request)
+		presenter?.appCoordinator.showWebViewScreen(url: request)
 	}
 }
 

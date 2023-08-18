@@ -13,6 +13,24 @@ final class NFTCollectionCell: UICollectionViewCell {
 	var onCartButtonTapped: (() -> Void)?
 	var onFavoriteButtonTapped: (() -> Void)?
 	
+	lazy var favoritesButton: UIButton = {
+		let button = UIButton(type: .system)
+		button.translatesAutoresizingMaskIntoConstraints = false
+		button.setImage(Resourses.Images.Cell.like, for: .normal)
+		button.tintColor = UIColor.white
+		button.addTarget(self, action: #selector(favoritesButtonTapped), for: .touchUpInside)
+		return button
+	}()
+	
+	lazy var cartButton: UIButton = {
+		let button = UIButton(type: .system)
+		button.translatesAutoresizingMaskIntoConstraints = false
+		button.setImage(Resourses.Images.Cell.cart, for: .normal)
+		button.tintColor = UIColor.blackDay
+		button.addTarget(self, action: #selector(cartButtonTapped), for: .touchUpInside)
+		return button
+	}()
+	
 	private let containerView: UIView = {
 		let view = UIView()
 		view.translatesAutoresizingMaskIntoConstraints = false
@@ -59,34 +77,6 @@ final class NFTCollectionCell: UICollectionViewCell {
 		return label
 	}()
 	
-	lazy var favoritesButton: UIButton = {
-		let button = UIButton(type: .system)
-		button.translatesAutoresizingMaskIntoConstraints = false
-		button.setImage(Resourses.Images.Cell.like, for: .normal)
-		button.tintColor = UIColor.white
-		button.addTarget(self, action: #selector(favoritesButtonTapped), for: .touchUpInside)
-		return button
-	}()
-	
-	lazy var cartButton: UIButton = {
-		let button = UIButton(type: .system)
-		button.translatesAutoresizingMaskIntoConstraints = false
-		button.setImage(Resourses.Images.Cell.cart, for: .normal)
-		button.tintColor = UIColor.blackDay
-		button.addTarget(self, action: #selector(cartButtonTapped), for: .touchUpInside)
-		return button
-	}()
-	
-	@objc
-	private func favoritesButtonTapped(_ sender: UIButton) {
-		onFavoriteButtonTapped?()
-	}
-	
-	@objc
-	private func cartButtonTapped(_ sender: UIButton) {
-		onCartButtonTapped?()
-	}
-	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		configureView()
@@ -107,6 +97,16 @@ final class NFTCollectionCell: UICollectionViewCell {
 		setRatingStars(rating: nft.rating)
 		nftNameLabel.text = nft.name
 		nftPriceLabel.text = nft.formattedPrice
+	}
+	
+	@objc
+	private func favoritesButtonTapped(_ sender: UIButton) {
+		onFavoriteButtonTapped?()
+	}
+	
+	@objc
+	private func cartButtonTapped(_ sender: UIButton) {
+		onCartButtonTapped?()
 	}
 	
 	private func configureFavoritesButton(isLiked: Bool) {

@@ -1,21 +1,21 @@
 protocol IUserDetailsPresenter {
-	var appCoordinator: AppCoordinator? { get }
+	var appCoordinator: AppCoordinator { get }
 	func viewDidLoad(ui: UserDetailsView)
 	func tapOnTheCell(user: User)
 }
 
 final class UserDetailsPresenter {
 	private weak var ui: UserDetailsView?
-	internal let appCoordinator: AppCoordinator?
 	private var model: User?
+	let appCoordinator: AppCoordinator
 	
-	init(model: User?, appCoordinator: AppCoordinator?) {
+	init(model: User?, appCoordinator: AppCoordinator) {
 		self.model = model
 		self.appCoordinator = appCoordinator
 	}
 	
 	func tapOnTheCell(user: User) {
-		appCoordinator?.showNFTCollectionScreen(user: user)
+		appCoordinator.showNFTCollectionScreen(user: user)
 	}
 }
 

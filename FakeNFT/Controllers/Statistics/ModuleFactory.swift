@@ -7,17 +7,16 @@ struct ModuleFactory {
 		let view = StatisticsViewController(with: presenter)
 		return view
 	}
-
+	
 	static func makeUserDetailsModule(with user: User, appCoordinator: AppCoordinator) -> UIViewController {
 		let presenter = UserDetailsPresenter(model: user, appCoordinator: appCoordinator)
 		let view = UserDetailsViewController(with: presenter)
-		view.userDetailsPresenter = presenter
 		return view
 	}
 	
-	static func makeNFTCollectionModule(with user: User) -> UIViewController {
+	static func makeNFTCollectionModule(with user: User, appCoordinator: AppCoordinator) -> UIViewController {
 		let networkClient = DefaultNetworkClient()
-		let presenter = NFTCollectionPresenter(networkClient: networkClient, model: user)
+		let presenter = NFTCollectionPresenter(appCoordinator: appCoordinator, networkClient: networkClient, model: user)
 		let view = NFTCollectionViewController(with: presenter)
 		return view
 	}
@@ -26,6 +25,11 @@ struct ModuleFactory {
 		let presenter = WebViewPresenter(urlRequest: url)
 		let view = WebViewController(presenter: presenter)
 		presenter.view = view
+		return view
+	}
+	
+	static func makeNFTCardModule(with nft: NFT) -> UIViewController {
+		let view = NFTCardViewController(nftModel: nft, isLiked: false)
 		return view
 	}
 }

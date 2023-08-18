@@ -15,7 +15,7 @@ final class AppCoordinator {
 	
 	
 	func showNFTCollectionScreen(user: User) {
-		let nftCollectionViewController = ModuleFactory.makeNFTCollectionModule(with: user)
+		let nftCollectionViewController = ModuleFactory.makeNFTCollectionModule(with: user, appCoordinator: self)
 		guard let navigationController = tabBarController.selectedViewController as? UINavigationController else { return }
 		navigationController.pushViewController(nftCollectionViewController, animated: true)
 	}
@@ -24,5 +24,11 @@ final class AppCoordinator {
 		let webViewController = ModuleFactory.makeWebViewModule(with: url)
 		guard let navigationController = tabBarController.selectedViewController as? UINavigationController else { return }
 		navigationController.pushViewController(webViewController, animated: true)
+	}
+	
+	func showNFTCardScreen(nft: NFT) {
+		let nftCardViewController = ModuleFactory.makeNFTCardModule(with: nft)
+		guard let navigationController = tabBarController.selectedViewController as? UINavigationController else { return }
+		navigationController.pushViewController(nftCardViewController, animated: true)
 	}
 }

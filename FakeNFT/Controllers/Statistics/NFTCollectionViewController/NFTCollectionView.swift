@@ -131,4 +131,11 @@ extension NFTCollectionView: UICollectionViewDataSource, UICollectionViewDelegat
 		}
 		return cell
 	}
+	
+	// MARK: - UITableViewDelegate
+	
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		let selectedUser = collectionNFT[indexPath.row]
+		presenter?.tapOnTheCell(nft: selectedUser)
+	}
 }
