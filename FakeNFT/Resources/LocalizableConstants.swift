@@ -1,6 +1,27 @@
 import Foundation
 
 enum LocalizableConstants {
+    enum Auth {
+        static let entryTitle = NSLocalizedString("auth.entryTitle", comment: "")
+        static let emailPlaceholder = NSLocalizedString("auth.emailPlaceholder", comment: "")
+        static let passwordPlaceholder = NSLocalizedString("auth.passwordPlaceholder", comment: "")
+        static let enterButton = NSLocalizedString("auth.enterButton", comment: "")
+        static let forgotPassword = NSLocalizedString("auth.forgotPassword", comment: "")
+        static let demo = NSLocalizedString("auth.demo", comment: "")
+        static let registrationButton = NSLocalizedString("auth.registrationButton", comment: "")
+        static let registrationTitle = NSLocalizedString("auth.registrationTitle", comment: "")
+        static let usernameAlreadyExistsLabel = NSLocalizedString("auth.usernameAlreadyExistsLabel", comment: "")
+        static let uncorrectUsernameOrPasswordLabel = NSLocalizedString("auth.uncorrectUsernameOrPasswordLabel", comment: "")
+        static let resetPasswordTitle = NSLocalizedString("auth.resetPasswordTitle", comment: "")
+        static let resetPasswordButton = NSLocalizedString("auth.resetPasswordButton", comment: "")
+        static let instructionsForResetPassword = NSLocalizedString("auth.instructionsForResetPassword", comment: "")
+        
+        enum Alert {
+            static let title = NSLocalizedString("alert.title", comment: "")
+            static let message = NSLocalizedString("alert.message", comment: "")
+        }
+    }
+    
     enum Onboarding {
         static let firstTitle = NSLocalizedString("onboarding.firstTitle", comment: "")
         static let firstDescription = NSLocalizedString("onboarding.firstDescription", comment: "")

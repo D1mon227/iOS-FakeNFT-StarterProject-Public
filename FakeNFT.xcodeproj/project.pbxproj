@@ -43,6 +43,10 @@
 		733B35982A90D1AA0068C2C6 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733B35972A90D1AA0068C2C6 /* RegistrationViewController.swift */; };
 		733B359B2A90D2040068C2C6 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 733B359A2A90D2040068C2C6 /* FirebaseAuth */; };
 		733B359E2A90D2C00068C2C6 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733B359D2A90D2C00068C2C6 /* ForgotPasswordViewController.swift */; };
+		733B35A02A90D4500068C2C6 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733B359F2A90D4500068C2C6 /* AuthView.swift */; };
+		733B35A22A90E7910068C2C6 /* AuthViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733B35A12A90E7910068C2C6 /* AuthViewPresenter.swift */; };
+		733B35A52A90E7C20068C2C6 /* AuthViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733B35A42A90E7C20068C2C6 /* AuthViewControllerProtocol.swift */; };
+		733B35A72A90E7D20068C2C6 /* AuthViewPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733B35A62A90E7D20068C2C6 /* AuthViewPresenterProtocol.swift */; };
 		7362C5492A786ACE004CBE1D /* AlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7362C5482A786ACE004CBE1D /* AlertService.swift */; };
 		737D031D2A80703700DCB5B1 /* OnboardingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737D031C2A80703700DCB5B1 /* OnboardingManager.swift */; };
 		737D03212A80709100DCB5B1 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737D03202A80709100DCB5B1 /* OnboardingViewController.swift */; };
@@ -120,6 +124,10 @@
 		733B35952A90D17A0068C2C6 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		733B35972A90D1AA0068C2C6 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		733B359D2A90D2C00068C2C6 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		733B359F2A90D4500068C2C6 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
+		733B35A12A90E7910068C2C6 /* AuthViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewPresenter.swift; sourceTree = "<group>"; };
+		733B35A42A90E7C20068C2C6 /* AuthViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewControllerProtocol.swift; sourceTree = "<group>"; };
+		733B35A62A90E7D20068C2C6 /* AuthViewPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewPresenterProtocol.swift; sourceTree = "<group>"; };
 		7362C5482A786ACE004CBE1D /* AlertService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertService.swift; sourceTree = "<group>"; };
 		737D031C2A80703700DCB5B1 /* OnboardingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingManager.swift; sourceTree = "<group>"; };
 		737D03202A80709100DCB5B1 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
@@ -362,6 +370,9 @@
 		733B35942A90D15D0068C2C6 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				733B35A32A90E7AB0068C2C6 /* Protocols */,
+				733B359F2A90D4500068C2C6 /* AuthView.swift */,
+				733B35A12A90E7910068C2C6 /* AuthViewPresenter.swift */,
 				733B35952A90D17A0068C2C6 /* AuthViewController.swift */,
 			);
 			path = Auth;
@@ -373,6 +384,15 @@
 				733B359D2A90D2C00068C2C6 /* ForgotPasswordViewController.swift */,
 			);
 			path = ForgotPassword;
+			sourceTree = "<group>";
+		};
+		733B35A32A90E7AB0068C2C6 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				733B35A62A90E7D20068C2C6 /* AuthViewPresenterProtocol.swift */,
+				733B35A42A90E7C20068C2C6 /* AuthViewControllerProtocol.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		737D031E2A80706400DCB5B1 /* Tabbar */ = {
@@ -624,12 +644,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				733B35962A90D17A0068C2C6 /* AuthViewController.swift in Sources */,
+				733B35A72A90E7D20068C2C6 /* AuthViewPresenterProtocol.swift in Sources */,
 				7362C5492A786ACE004CBE1D /* AlertService.swift in Sources */,
 				730B23942A8C28DD00F5D832 /* NFTCardViewControllerProtocol.swift in Sources */,
 				1FEA5B4E2A81497100946DD9 /* WebViewController.swift in Sources */,
 				1F3E72992A8E9BC4007EBD36 /* AlertProtocol.swift in Sources */,
 				73EA4B082A73C789000B4B55 /* CatalogViewController.swift in Sources */,
 				73C3EB632A8E7C6100E047E0 /* NFTsRequest.swift in Sources */,
+				733B35A22A90E7910068C2C6 /* AuthViewPresenter.swift in Sources */,
 				3F478ECF29DB474E00F6D39E /* UIColor + Extension.swift in Sources */,
 				73D526D92A84C4420056116E /* UIImageView + Extension.swift in Sources */,
 				730B23992A8C296400F5D832 /* NFTCardViewController.swift in Sources */,
@@ -643,11 +665,13 @@
 				3F6806D529CBBEC700B4F915 /* NetworkTask.swift in Sources */,
 				737D03212A80709100DCB5B1 /* OnboardingViewController.swift in Sources */,
 				730B239F2A8C29C500F5D832 /* NFTCardCollectionViewCell.swift in Sources */,
+				733B35A52A90E7C20068C2C6 /* AuthViewControllerProtocol.swift in Sources */,
 				73D526D72A84C4020056116E /* UIBlockingProgressHUD.swift in Sources */,
 				3F68069729CBBAF100B4F915 /* AppDelegate.swift in Sources */,
 				732A443A2A88FFBE00A593C2 /* AnalyticsService.swift in Sources */,
 				3F68069929CBBAF100B4F915 /* SceneDelegate.swift in Sources */,
 				73EA4B1B2A744623000B4B55 /* LocalizableConstants.swift in Sources */,
+				733B35A02A90D4500068C2C6 /* AuthView.swift in Sources */,
 				3F6806D329CBBE9600B4F915 /* NetworkRequest.swift in Sources */,
 				73C3EB5D2A8D393100E047E0 /* Currency.swift in Sources */,
 				730B23972A8C292600F5D832 /* NFTCardView.swift in Sources */,
