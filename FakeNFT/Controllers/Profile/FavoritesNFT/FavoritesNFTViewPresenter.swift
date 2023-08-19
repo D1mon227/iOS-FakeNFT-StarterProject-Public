@@ -20,11 +20,7 @@ final class FavoritesNFTViewPresenter: FavoritesNFTViewPresenterProtocol {
     }
     
     func areFavoritesNFTsEmpty() -> Bool {
-        if favoritesNFTs.isEmpty {
-            return true
-        } else {
-            return false
-        }
+        favoritesNFTs.isEmpty ? true : false
     }
     
     func changeLike(_ id: String?) {

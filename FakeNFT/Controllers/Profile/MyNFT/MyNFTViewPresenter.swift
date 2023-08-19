@@ -97,21 +97,13 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
     }
     
     func arePurchasedNFTsEmpty() -> Bool {
-        if purchasedNFTs.isEmpty {
-            return true
-        } else {
-            return false
-        }
+        purchasedNFTs.isEmpty ? true : false
     }
     
     func doesNftHasLike(id: String?) -> Bool {
         guard let id = id,
               let likes = likes else { return false }
-        if likes.contains(id) {
-            return true
-        } else {
-            return false
-        }
+        return likes.contains(id) ? true : false
     }
     
     func sortNFT(by: Sort) {
