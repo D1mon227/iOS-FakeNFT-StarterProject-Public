@@ -19,11 +19,65 @@ final class AuthViewController: UIViewController, AuthViewControllerProtocol {
         super.viewDidLoad()
         setupViews()
         setupDelegates()
+        setupTargets()
+    }
+    
+    func checkAuthorization(successfulAuthorization: Bool) {
+        UIBlockingProgressHUD.dismiss()
+        successfulAuthorization ? switchToOnboarding() : print("bf")
+    }
+    
+    func checkLoginPasswordMistake(incorrect: Bool) {
+        UIBlockingProgressHUD.dismiss()
+        incorrect ? showMistakeLabel() : hideMistakeLabel()
     }
     
     private func setupDelegates() {
         authView.emailTextField.delegate = self
         authView.passwordTextField.delegate = self
+    }
+    
+    private func setupTargets() {
+        authView.enterButton.addTarget(self, action: #selector(authorizeUser), for: .touchUpInside)
+        authView.forgotPasswordButton.addTarget(self, action: #selector(switchToResetPasswordVC), for: .touchUpInside)
+    }
+    
+    private func switchToOnboarding() {
+        let onboarding = OnboardingPageViewController()
+        onboarding.modalPresentationStyle = .fullScreen
+        onboarding.modalTransitionStyle = .flipHorizontal
+        present(onboarding, animated: true)
+    }
+    
+    private func showMistakeLabel() {
+        UIView.animate(withDuration: 0.5) { [weak self] in
+            guard let self = self else { return }
+            view.addSubview(self.authView.loginPasswordMistakeLabel)
+            self.authView.loginPasswordMistakeLabel.snp.makeConstraints { make in
+                make.top.equalTo(self.authView.passwordTextField.snp.bottom).offset(16)
+                make.leading.trailing.equalToSuperview().inset(16)
+            }
+            self.authView.emailTextField.layer.borderWidth = 1
+            self.authView.emailTextField.layer.borderColor = UIColor.redUniversal.cgColor
+            self.authView.passwordTextField.layer.borderWidth = 1
+            self.authView.passwordTextField.layer.borderColor = UIColor.redUniversal.cgColor
+        }
+    }
+    
+    private func hideMistakeLabel() {
+        authView.emailTextField.layer.borderWidth = 0
+        authView.passwordTextField.layer.borderWidth = 0
+        authView.loginPasswordMistakeLabel.removeFromSuperview()
+    }
+    
+    @objc private func authorizeUser() {
+        presenter?.authorizeUser()
+    }
+    
+    @objc private func switchToResetPasswordVC() {
+        guard let customNC = navigationController as? CustomNavigationController else { return }
+        let resetPasswordVC = ResetPasswordViewController()
+        customNC.pushViewController(resetPasswordVC, animated: true)
     }
 }
 
@@ -31,8 +85,20 @@ extension AuthViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        UIView.animate(withDuration: 0.5) { [weak self] in
+            guard let self = self else { return }
+            self.hideMistakeLabel()
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        presenter?.setupEmailAndPassword(email: authView.emailTextField.text, password: authView.passwordTextField.text)
+    }
 }
 
+//MARK: SetupViews
 extension AuthViewController {
     private func setupViews() {
         view.backgroundColor = .backgroundDay
@@ -48,20 +114,20 @@ extension AuthViewController {
     
     private func setupConstraints() {
         authView.entryLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(132)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(88)
             make.leading.trailing.equalToSuperview().inset(16)
         }
         
         authView.emailTextField.snp.makeConstraints { make in
             make.top.equalTo(authView.entryLabel.snp.bottom).offset(50)
             make.leading.trailing.equalToSuperview().inset(16)
-            make.height.equalTo(44)
+            make.height.equalTo(46)
         }
         
         authView.passwordTextField.snp.makeConstraints { make in
             make.top.equalTo(authView.emailTextField.snp.bottom).offset(18)
             make.leading.trailing.equalToSuperview().inset(16)
-            make.height.equalTo(44)
+            make.height.equalTo(46)
         }
         
         authView.enterButton.snp.makeConstraints { make in

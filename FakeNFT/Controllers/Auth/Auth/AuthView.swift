@@ -38,12 +38,22 @@ final class AuthView {
         return element
     }()
     
+    lazy var loginPasswordMistakeLabel: UILabel = {
+        let element = UILabel()
+        element.text = LocalizableConstants.Auth.incorrectUsernameOrPasswordLabel
+        element.textColor = .redUniversal
+        element.font = .caption2
+        element.textAlignment = .left
+        return element
+    }()
+    
     lazy var enterButton: UIButton = {
         let element = UIButton(type: .system)
         element.setTitle(LocalizableConstants.Auth.enterButton, for: .normal)
         element.backgroundColor = .blackDay
         element.setTitleColor(.backgroundDay, for: .normal)
         element.titleLabel?.font = .bodyBold
+        element.titleLabel?.textAlignment = .center
         element.layer.cornerRadius = 16
         return element
     }()

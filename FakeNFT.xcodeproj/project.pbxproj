@@ -42,12 +42,14 @@
 		733B35962A90D17A0068C2C6 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733B35952A90D17A0068C2C6 /* AuthViewController.swift */; };
 		733B35982A90D1AA0068C2C6 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733B35972A90D1AA0068C2C6 /* RegistrationViewController.swift */; };
 		733B359B2A90D2040068C2C6 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 733B359A2A90D2040068C2C6 /* FirebaseAuth */; };
-		733B359E2A90D2C00068C2C6 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733B359D2A90D2C00068C2C6 /* ForgotPasswordViewController.swift */; };
+		733B359E2A90D2C00068C2C6 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733B359D2A90D2C00068C2C6 /* ResetPasswordViewController.swift */; };
 		733B35A02A90D4500068C2C6 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733B359F2A90D4500068C2C6 /* AuthView.swift */; };
 		733B35A22A90E7910068C2C6 /* AuthViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733B35A12A90E7910068C2C6 /* AuthViewPresenter.swift */; };
 		733B35A52A90E7C20068C2C6 /* AuthViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733B35A42A90E7C20068C2C6 /* AuthViewControllerProtocol.swift */; };
 		733B35A72A90E7D20068C2C6 /* AuthViewPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733B35A62A90E7D20068C2C6 /* AuthViewPresenterProtocol.swift */; };
+		733B35A92A90F0B70068C2C6 /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733B35A82A90F0B70068C2C6 /* ResetPasswordView.swift */; };
 		7362C5492A786ACE004CBE1D /* AlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7362C5482A786ACE004CBE1D /* AlertService.swift */; };
+		7375ECFF2A91109800107A63 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7375ECFE2A91109800107A63 /* SplashScreenViewController.swift */; };
 		737D031D2A80703700DCB5B1 /* OnboardingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737D031C2A80703700DCB5B1 /* OnboardingManager.swift */; };
 		737D03212A80709100DCB5B1 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737D03202A80709100DCB5B1 /* OnboardingViewController.swift */; };
 		737D03232A80776700DCB5B1 /* OnboardingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737D03222A80776700DCB5B1 /* OnboardingPageViewController.swift */; };
@@ -123,12 +125,14 @@
 		733B35892A90CD270068C2C6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		733B35952A90D17A0068C2C6 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		733B35972A90D1AA0068C2C6 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
-		733B359D2A90D2C00068C2C6 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		733B359D2A90D2C00068C2C6 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		733B359F2A90D4500068C2C6 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		733B35A12A90E7910068C2C6 /* AuthViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewPresenter.swift; sourceTree = "<group>"; };
 		733B35A42A90E7C20068C2C6 /* AuthViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewControllerProtocol.swift; sourceTree = "<group>"; };
 		733B35A62A90E7D20068C2C6 /* AuthViewPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewPresenterProtocol.swift; sourceTree = "<group>"; };
+		733B35A82A90F0B70068C2C6 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		7362C5482A786ACE004CBE1D /* AlertService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertService.swift; sourceTree = "<group>"; };
+		7375ECFE2A91109800107A63 /* SplashScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
 		737D031C2A80703700DCB5B1 /* OnboardingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingManager.swift; sourceTree = "<group>"; };
 		737D03202A80709100DCB5B1 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		737D03222A80776700DCB5B1 /* OnboardingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageViewController.swift; sourceTree = "<group>"; };
@@ -354,7 +358,7 @@
 			children = (
 				733B35942A90D15D0068C2C6 /* Auth */,
 				733B35932A90D1520068C2C6 /* Registration */,
-				733B359C2A90D2990068C2C6 /* ForgotPassword */,
+				733B359C2A90D2990068C2C6 /* ResetPassword */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -378,12 +382,13 @@
 			path = Auth;
 			sourceTree = "<group>";
 		};
-		733B359C2A90D2990068C2C6 /* ForgotPassword */ = {
+		733B359C2A90D2990068C2C6 /* ResetPassword */ = {
 			isa = PBXGroup;
 			children = (
-				733B359D2A90D2C00068C2C6 /* ForgotPasswordViewController.swift */,
+				733B35A82A90F0B70068C2C6 /* ResetPasswordView.swift */,
+				733B359D2A90D2C00068C2C6 /* ResetPasswordViewController.swift */,
 			);
-			path = ForgotPassword;
+			path = ResetPassword;
 			sourceTree = "<group>";
 		};
 		733B35A32A90E7AB0068C2C6 /* Protocols */ = {
@@ -393,6 +398,14 @@
 				733B35A42A90E7C20068C2C6 /* AuthViewControllerProtocol.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		7375ECFD2A91107A00107A63 /* SplashScreen */ = {
+			isa = PBXGroup;
+			children = (
+				7375ECFE2A91109800107A63 /* SplashScreenViewController.swift */,
+			);
+			path = SplashScreen;
 			sourceTree = "<group>";
 		};
 		737D031E2A80706400DCB5B1 /* Tabbar */ = {
@@ -416,6 +429,7 @@
 			isa = PBXGroup;
 			children = (
 				73EA4B1C2A7471D2000B4B55 /* CustomNavigationViewController.swift */,
+				7375ECFD2A91107A00107A63 /* SplashScreen */,
 				733B35922A90D0C00068C2C6 /* Auth */,
 				1FEA5B7A2A8BE95E00946DD9 /* NetworkError */,
 				1FEA5B4C2A81495100946DD9 /* WebViewModule */,
@@ -680,12 +694,14 @@
 				1F2A25712A8E81F800F8B1AD /* NetworkReachabilityManager.swift in Sources */,
 				73EA4B0B2A73C7A4000B4B55 /* CartViewController.swift in Sources */,
 				73C3EB612A8E7C3700E047E0 /* NFTService.swift in Sources */,
+				733B35A92A90F0B70068C2C6 /* ResetPasswordView.swift in Sources */,
 				73EA4B1D2A7471D2000B4B55 /* CustomNavigationViewController.swift in Sources */,
 				730B239D2A8C29A500F5D832 /* NFTCardTableViewCell.swift in Sources */,
 				C50E6CC72A7E931400B852F9 /* GetUsersRequest.swift in Sources */,
 				1FEA5B7C2A8BE98600946DD9 /* NetworkErrorView.swift in Sources */,
+				7375ECFF2A91109800107A63 /* SplashScreenViewController.swift in Sources */,
 				73EA4B052A73C770000B4B55 /* ProfileViewController.swift in Sources */,
-				733B359E2A90D2C00068C2C6 /* ForgotPasswordViewController.swift in Sources */,
+				733B359E2A90D2C00068C2C6 /* ResetPasswordViewController.swift in Sources */,
 				730B23922A8C28A500F5D832 /* NFTCardViewPresenterProtocol.swift in Sources */,
 				733B35982A90D1AA0068C2C6 /* RegistrationViewController.swift in Sources */,
 				73EA4B0E2A73C7C4000B4B55 /* StatisticsViewController.swift in Sources */,

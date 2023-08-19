@@ -8,7 +8,7 @@
 "auth.registrationButton" = "Sigh up";
 "auth.registrationTitle" = "Registration";
 "auth.usernameAlreadyExistsLabel" = "This username already exists";
-"auth.uncorrectUsernameOrPasswordLabel" = "Invalid username or password entered";
+"auth.incorrectUsernameOrPasswordLabel" = "Invalid username or password entered";
 "auth.resetPasswordTitle" = "Password reset";
 "auth.resetPasswordButton" = "Reset password";
 "auth.instructionsForResetPassword" = "Instructions for password recovery sent to your email";
