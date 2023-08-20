@@ -1,12 +1,67 @@
 import UIKit
 import SnapKit
 
-final class ResetPasswordViewController: UIViewController {
+final class ResetPasswordViewController: UIViewController, ResetPasswordViewControllerProtocol {
+    var presenter: ResetPasswordViewPresenterProtocol?
     private let resetPasswordView = ResetPasswordView()
+    
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        self.presenter = ResetPasswordViewPresenter()
+        self.presenter?.view = self
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        setupTarget()
+        setupDelegate()
+    }
+    
+    func checkPasswordReset(successfulReset: Bool) {
+        successfulReset ? showInstractionLabel() : print("error")
+    }
+    
+    func showNewPlaceholder() {
+        resetPasswordView.emailTextField.placeholder = "Введите Email"
+    }
+    
+    private func setupTarget() {
+        resetPasswordView.passwordResetButton.addTarget(self, action: #selector(resetPassword), for: .touchUpInside)
+    }
+    
+    private func setupDelegate() {
+        resetPasswordView.emailTextField.delegate = self
+    }
+    
+    private func showInstractionLabel() {
+        UIView.animate(withDuration: 0.5) { [weak self] in
+            guard let self = self else { return }
+            self.resetPasswordView.passwordResetButton.removeFromSuperview()
+            view.addSubview(self.resetPasswordView.instractionsLabel)
+            self.resetPasswordView.instractionsLabel.snp.makeConstraints { make in
+                make.top.equalTo(self.resetPasswordView.emailTextField.snp.bottom).offset(18)
+                make.leading.trailing.equalToSuperview().inset(16)
+            }
+        }
+    }
+    
+    @objc private func resetPassword() {
+        presenter?.resetPassword()
+    }
+}
+
+extension ResetPasswordViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        presenter?.setupEmail(email: resetPasswordView.emailTextField.text)
     }
 }
 

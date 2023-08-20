@@ -24,6 +24,16 @@ final class ResetPasswordView {
         return element
     }()
     
+    lazy var instractionsLabel: UILabel = {
+        let element = UILabel()
+        element.text = LocalizableConstants.Auth.instructionsForResetPassword
+        element.textColor = .greenUniversal
+        element.font = .caption2
+        element.textAlignment = .left
+        element.numberOfLines = 0
+        return element
+    }()
+    
     lazy var passwordResetButton: UIButton = {
         let element = UIButton(type: .system)
         element.setTitle(LocalizableConstants.Auth.resetPasswordButton, for: .normal)

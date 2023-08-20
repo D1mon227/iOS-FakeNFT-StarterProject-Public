@@ -27,6 +27,9 @@
 		3F6806D129CBBE6B00B4F915 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6806D029CBBE6B00B4F915 /* NetworkClient.swift */; };
 		3F6806D329CBBE9600B4F915 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6806D229CBBE9600B4F915 /* NetworkRequest.swift */; };
 		3F6806D529CBBEC700B4F915 /* NetworkTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6806D429CBBEC700B4F915 /* NetworkTask.swift */; };
+		7300E0382A920E9800AD427A /* ResetPasswordViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7300E0372A920E9800AD427A /* ResetPasswordViewPresenter.swift */; };
+		7300E03B2A920ECD00AD427A /* ResetPasswordViewPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7300E03A2A920ECD00AD427A /* ResetPasswordViewPresenterProtocol.swift */; };
+		7300E03D2A920EDD00AD427A /* ResetPasswordViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7300E03C2A920EDD00AD427A /* ResetPasswordViewControllerProtocol.swift */; };
 		730B23922A8C28A500F5D832 /* NFTCardViewPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730B23912A8C28A500F5D832 /* NFTCardViewPresenterProtocol.swift */; };
 		730B23942A8C28DD00F5D832 /* NFTCardViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730B23932A8C28DD00F5D832 /* NFTCardViewControllerProtocol.swift */; };
 		730B23972A8C292600F5D832 /* NFTCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730B23962A8C292600F5D832 /* NFTCardView.swift */; };
@@ -113,6 +116,9 @@
 		3F6806D029CBBE6B00B4F915 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		3F6806D229CBBE9600B4F915 /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
 		3F6806D429CBBEC700B4F915 /* NetworkTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTask.swift; sourceTree = "<group>"; };
+		7300E0372A920E9800AD427A /* ResetPasswordViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewPresenter.swift; sourceTree = "<group>"; };
+		7300E03A2A920ECD00AD427A /* ResetPasswordViewPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewPresenterProtocol.swift; sourceTree = "<group>"; };
+		7300E03C2A920EDD00AD427A /* ResetPasswordViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewControllerProtocol.swift; sourceTree = "<group>"; };
 		730B23912A8C28A500F5D832 /* NFTCardViewPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTCardViewPresenterProtocol.swift; sourceTree = "<group>"; };
 		730B23932A8C28DD00F5D832 /* NFTCardViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTCardViewControllerProtocol.swift; sourceTree = "<group>"; };
 		730B23962A8C292600F5D832 /* NFTCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTCardView.swift; sourceTree = "<group>"; };
@@ -323,6 +329,15 @@
 			path = Requests;
 			sourceTree = "<group>";
 		};
+		7300E0392A920EBD00AD427A /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				7300E03A2A920ECD00AD427A /* ResetPasswordViewPresenterProtocol.swift */,
+				7300E03C2A920EDD00AD427A /* ResetPasswordViewControllerProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		730B238F2A8C287200F5D832 /* NFTCard */ = {
 			isa = PBXGroup;
 			children = (
@@ -385,7 +400,9 @@
 		733B359C2A90D2990068C2C6 /* ResetPassword */ = {
 			isa = PBXGroup;
 			children = (
+				7300E0392A920EBD00AD427A /* Protocols */,
 				733B35A82A90F0B70068C2C6 /* ResetPasswordView.swift */,
+				7300E0372A920E9800AD427A /* ResetPasswordViewPresenter.swift */,
 				733B359D2A90D2C00068C2C6 /* ResetPasswordViewController.swift */,
 			);
 			path = ResetPassword;
@@ -662,8 +679,10 @@
 				7362C5492A786ACE004CBE1D /* AlertService.swift in Sources */,
 				730B23942A8C28DD00F5D832 /* NFTCardViewControllerProtocol.swift in Sources */,
 				1FEA5B4E2A81497100946DD9 /* WebViewController.swift in Sources */,
+				7300E0382A920E9800AD427A /* ResetPasswordViewPresenter.swift in Sources */,
 				1F3E72992A8E9BC4007EBD36 /* AlertProtocol.swift in Sources */,
 				73EA4B082A73C789000B4B55 /* CatalogViewController.swift in Sources */,
+				7300E03B2A920ECD00AD427A /* ResetPasswordViewPresenterProtocol.swift in Sources */,
 				73C3EB632A8E7C6100E047E0 /* NFTsRequest.swift in Sources */,
 				733B35A22A90E7910068C2C6 /* AuthViewPresenter.swift in Sources */,
 				3F478ECF29DB474E00F6D39E /* UIColor + Extension.swift in Sources */,
@@ -680,6 +699,7 @@
 				737D03212A80709100DCB5B1 /* OnboardingViewController.swift in Sources */,
 				730B239F2A8C29C500F5D832 /* NFTCardCollectionViewCell.swift in Sources */,
 				733B35A52A90E7C20068C2C6 /* AuthViewControllerProtocol.swift in Sources */,
+				7300E03D2A920EDD00AD427A /* ResetPasswordViewControllerProtocol.swift in Sources */,
 				73D526D72A84C4020056116E /* UIBlockingProgressHUD.swift in Sources */,
 				3F68069729CBBAF100B4F915 /* AppDelegate.swift in Sources */,
 				732A443A2A88FFBE00A593C2 /* AnalyticsService.swift in Sources */,
