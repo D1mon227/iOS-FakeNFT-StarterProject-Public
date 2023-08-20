@@ -2,12 +2,18 @@ import Foundation
 import FirebaseAuth
 
 protocol IRegistrationViewPresenter {
+	var navigationScreenDelegate: NavigationScreenDelegate? { get set }
 	func viewDidLoad(ui: RegistrationView)
 	func registrationUser(with email: String, password: String)
 }
 
+protocol NavigationScreenDelegate {
+	func userRegistrationSuccessful()
+}
+
 final class RegistrationViewPresenter {
 	private weak var ui: RegistrationView?
+	var navigationScreenDelegate: NavigationScreenDelegate?
 	
 	func registrationUser(with email: String, password: String) {
 		if !email.isEmpty, !password.isEmpty {
@@ -16,9 +22,10 @@ final class RegistrationViewPresenter {
 				UIBlockingProgressHUD.dismiss()
 				if let error = error {
 					print("Error creating user: \(error)")
+					self.ui?.showMistakeLabel()
 				} else if let authResult = authResult {
 					print("User registered successfully")
-					// Продолжайте с дополнительными действиями после успешной регистрации
+					self.navigationScreenDelegate?.userRegistrationSuccessful()
 				}
 			}
 		} else {

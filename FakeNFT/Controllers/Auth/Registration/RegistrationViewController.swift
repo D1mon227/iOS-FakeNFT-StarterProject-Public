@@ -1,6 +1,6 @@
 import UIKit
 
-final class RegistrationViewController: UIViewController {
+final class RegistrationViewController: UIViewController, NavigationScreenDelegate {
 	private var registrationViewPresenter: IRegistrationViewPresenter
 	private let customView = RegistrationView()
 	
@@ -17,9 +17,15 @@ final class RegistrationViewController: UIViewController {
 		self.view = self.customView
 	}
 	
+	func userRegistrationSuccessful() {
+		guard let customNC = navigationController as? CustomNavigationController else { return }
+		customNC.popViewController(animated: true)
+	}
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.registrationViewPresenter.viewDidLoad(ui: self.customView)
 		customView.presenter = registrationViewPresenter
+		registrationViewPresenter.navigationScreenDelegate = self
 	}
 }

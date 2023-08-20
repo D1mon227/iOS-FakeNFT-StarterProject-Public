@@ -48,6 +48,16 @@ final class RegistrationView: UIView {
 		return textField
 	}()
 	
+	lazy var loginPasswordMistakeLabel: UILabel = {
+		let label = UILabel()
+		label.text = LocalizableConstants.Auth.usernameAlreadyExistsLabel
+		label.textColor = .redUniversal
+		label.font = .caption2
+		label.textAlignment = .left
+		label.translatesAutoresizingMaskIntoConstraints = false
+		return label
+	}()
+	
 	private lazy var enterButton: UIButton = {
 		let button = UIButton(type: .system)
 		button.setTitle(LocalizableConstants.Auth.registrationButton, for: .normal)
@@ -75,7 +85,22 @@ final class RegistrationView: UIView {
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
+	
+	func showMistakeLabel()	 {
+		self.addSubview(loginPasswordMistakeLabel)
+		NSLayoutConstraint.activate([
+			loginPasswordMistakeLabel.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 16),
+			loginPasswordMistakeLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+			loginPasswordMistakeLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16)
+		])
+	}
+	private func hideMistakeLabel() {
+		loginPasswordMistakeLabel.removeFromSuperview()
+	}
 }
+
+
+
 
 extension RegistrationView: IRegistrationView {
 	func setDelegateTextField(delegate: UITextFieldDelegate) {
@@ -116,5 +141,14 @@ private extension RegistrationView {
 }
 
 extension RegistrationView: UITextFieldDelegate {
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+		textField.resignFirstResponder()
+	}
 	
+	func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+		if !string.isEmpty {
+			hideMistakeLabel()
+		}
+		return true
+	}
 }
