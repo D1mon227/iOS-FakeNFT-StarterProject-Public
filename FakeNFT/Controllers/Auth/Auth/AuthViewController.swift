@@ -39,7 +39,10 @@ final class AuthViewController: UIViewController, AuthViewControllerProtocol {
     
     private func setupTargets() {
         authView.enterButton.addTarget(self, action: #selector(authorizeUser), for: .touchUpInside)
+        authView.registrationButton.addTarget(self, action: #selector(switchToRegistrationVC), for: .touchUpInside)
         authView.forgotPasswordButton.addTarget(self, action: #selector(switchToResetPasswordVC), for: .touchUpInside)
+        authView.emailTextField.addTarget(self, action: #selector(setupEmail), for: [.editingChanged, .editingDidEnd])
+        authView.passwordTextField.addTarget(self, action: #selector(setupPassword), for: [.editingChanged, .editingDidEnd])
     }
     
     private func switchToOnboarding() {
@@ -74,10 +77,25 @@ final class AuthViewController: UIViewController, AuthViewControllerProtocol {
         presenter?.authorizeUser()
     }
     
+    @objc private func setupEmail() {
+        presenter?.setupEmail(email: authView.emailTextField.text)
+    }
+    
+    @objc private func setupPassword() {
+        presenter?.setupPassword(password: authView.passwordTextField.text)
+    }
+    
     @objc private func switchToResetPasswordVC() {
         guard let customNC = navigationController as? CustomNavigationController else { return }
         let resetPasswordVC = ResetPasswordViewController()
         customNC.pushViewController(resetPasswordVC, animated: true)
+    }
+    
+    @objc private func switchToRegistrationVC() {
+        guard let customNC = navigationController as? CustomNavigationController else { return }
+        let registrationPresenter = RegistrationViewPresenter()
+        let registrationVC = RegistrationViewController(with: registrationPresenter)
+        customNC.pushViewController(registrationVC, animated: true)
     }
 }
 
@@ -91,10 +109,6 @@ extension AuthViewController: UITextFieldDelegate {
             guard let self = self else { return }
             self.hideMistakeLabel()
         }
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        presenter?.setupEmailAndPassword(email: authView.emailTextField.text, password: authView.passwordTextField.text)
     }
 }
 

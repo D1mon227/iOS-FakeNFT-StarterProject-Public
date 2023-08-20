@@ -23,15 +23,17 @@ final class ResetPasswordViewController: UIViewController, ResetPasswordViewCont
     }
     
     func checkPasswordReset(successfulReset: Bool) {
+        UIBlockingProgressHUD.dismiss()
         successfulReset ? showInstractionLabel() : print("error")
     }
     
-    func showNewPlaceholder() {
+    func showNewEmailPlaceholder() {
         resetPasswordView.emailTextField.placeholder = "Введите Email"
     }
     
     private func setupTarget() {
         resetPasswordView.passwordResetButton.addTarget(self, action: #selector(resetPassword), for: .touchUpInside)
+        resetPasswordView.emailTextField.addTarget(self, action: #selector(setupEmail), for: [.editingChanged, .editingDidEnd])
     }
     
     private func setupDelegate() {
@@ -50,6 +52,10 @@ final class ResetPasswordViewController: UIViewController, ResetPasswordViewCont
         }
     }
     
+    @objc private func setupEmail() {
+        presenter?.setupEmail(email: resetPasswordView.emailTextField.text)
+    }
+    
     @objc private func resetPassword() {
         presenter?.resetPassword()
     }
@@ -58,10 +64,6 @@ final class ResetPasswordViewController: UIViewController, ResetPasswordViewCont
 extension ResetPasswordViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        presenter?.setupEmail(email: resetPasswordView.emailTextField.text)
     }
 }
 

@@ -17,16 +17,17 @@ final class ResetPasswordViewPresenter: ResetPasswordViewPresenterProtocol {
     
     func resetPassword() {
         if let email = email {
+            UIBlockingProgressHUD.show()
             Auth.auth().sendPasswordReset(withEmail: email) { [weak self] error in
                 guard let self = self else { return }
                 if error != nil {
-                    self.didResetPasswordSuccess = true
-                } else {
                     self.didResetPasswordSuccess = false
+                } else {
+                    self.didResetPasswordSuccess = true
                 }
             }
         } else {
-            view?.showNewPlaceholder()
+            view?.showNewEmailPlaceholder()
         }
     }
 }

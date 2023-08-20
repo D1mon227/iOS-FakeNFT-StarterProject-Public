@@ -22,10 +22,10 @@ final class SplashScreenViewController: UIViewController {
     private func checkAuthToken() {
         Auth.auth().addStateDidChangeListener { [weak self] (_, user) in
             guard let self = self else { return }
-            if user != nil {
+            if user != nil && OnboardingManager.hasCompletedOnboarding {
                 self.switchToTabBarController()
             } else {
-                self.switchAuthViewController()
+                self.switchToAuthViewController()
             }
         }
     }
@@ -36,7 +36,7 @@ final class SplashScreenViewController: UIViewController {
         present(tabbar, animated: true)
     }
     
-    private func switchAuthViewController() {
+    private func switchToAuthViewController() {
         let authVC = CustomNavigationController(rootViewController: AuthViewController())
         authVC.modalPresentationStyle = .fullScreen
         present(authVC, animated: true)

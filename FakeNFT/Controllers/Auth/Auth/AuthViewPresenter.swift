@@ -40,8 +40,11 @@ final class AuthViewPresenter: AuthViewPresenterProtocol {
         }
     }
     
-    func setupEmailAndPassword(email: String?, password: String?) {
+    func setupEmail(email: String?) {
         self.email = email
+    }
+    
+    func setupPassword(password: String?) {
         self.password = password
     }
 }
