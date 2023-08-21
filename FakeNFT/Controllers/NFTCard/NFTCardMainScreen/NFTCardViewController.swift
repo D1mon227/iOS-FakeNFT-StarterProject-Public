@@ -175,12 +175,16 @@ extension NFTCardViewController: UIScrollViewDelegate {
 extension NFTCardViewController {
     func showCurrencyErrorAlert() {
         guard let model = presenter?.getCurrencyErrorModel() else { return }
-        alertService.showErrorAlert(model: model, controller: self)
+        DispatchQueue.main.async {
+            self.alertService.showErrorAlert(model: model, controller: self)
+        }
     }
     
     func showNFTsErrorAlert() {
         guard let model = presenter?.getNFTsErrorModel() else { return }
-        alertService.showErrorAlert(model: model, controller: self)
+        DispatchQueue.main.async {
+            self.alertService.showErrorAlert(model: model, controller: self)
+        }
     }
 }
 
