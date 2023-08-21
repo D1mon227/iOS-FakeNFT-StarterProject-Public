@@ -6,19 +6,25 @@ final class CartViewController: UIViewController, UITableViewDataSource{
     // MARK: - Properties
     
     private var containerView: UIView!
-    var cartArray: [CartStruct] = []
     
-    var presenter: CartPresenterProtocol?
+    private var cartArray: [CartStruct] = []
     
-    var indexNFTToDelete: Int?
+    private var presenter: CartPresenterProtocol?
     
-    var myOrders = [String]()
+    private var indexNFTToDelete: Int?
+    
+    private var myOrders = [String]()
+    
+    private let numberFormatter = NumberFormatter()
+    
+    private let analyticsService = AnalyticsService.shared
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        analyticsService.report(event: .open, screen: .cartVC, item: nil)
         view.backgroundColor = .backgroundDay
         addPlaceholder()
         setupView()
@@ -95,28 +101,52 @@ final class CartViewController: UIViewController, UITableViewDataSource{
         }
     }
     
+    private func formatPrice(_ price: Double) -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.minimumFractionDigits = 2
+        numberFormatter.maximumFractionDigits = 2
+        numberFormatter.locale = Locale.current // Use the current locale for proper formatting
+        
+        // Set the decimal separator to comma
+        numberFormatter.decimalSeparator = ","
+        
+        return numberFormatter.string(from: NSNumber(value: price)) ?? ""
+    }
+    
     private func fetchDataFromAPI() {
         UIBlockingProgressHUD.show()
         myOrders = []
         cartArray = []
-        presenter?.cartNFTs { result in
+        
+        presenter?.cartNFTs { [weak self] result in
+            guard let self = self else { return }
+            
             switch result {
             case .success(let orders):
                 self.myOrders = orders.nfts
                 var fetchCount = self.myOrders.count
                 self.myOrders.forEach { nftID in
-                    self.presenter?.getNFTsFromAPI(nftID: nftID) { result in
+                    self.presenter?.getNFTsFromAPI(nftID: nftID) { [weak self] result in
+                        guard let self = self else { return }
+                        
                         switch result {
                         case .success(let cart):
                             self.cartArray.append(cart)
                         case .failure(let error):
                             print("Error fetching NFT details: \(error)")
+                            self.showErrorAlertAndRetry(message: "Please check your internet connection and try again")
                         }
                         fetchCount -= 1
                         if fetchCount == 0 {
                             DispatchQueue.main.async {
                                 UIBlockingProgressHUD.dismiss()
+                                // Apply the selected sorting option here
+                                self.sortBy(selectedSortOption: self.selectedSortOption)
                                 self.cartTable.reloadData()
+                                
+                                // Update UI elements here
+                                self.view?.isUserInteractionEnabled = true
                             }
                         }
                     }
@@ -126,13 +156,15 @@ final class CartViewController: UIViewController, UITableViewDataSource{
                     UIBlockingProgressHUD.dismiss()
                     // Show error alert with retry option
                     self.showErrorAlertAndRetry(message: "Please check your internet connection and try again")
+                    
+                    self.view?.isUserInteractionEnabled = true
                 }
                 print("Error fetching orders: \(error)")
             }
         }
     }
     
-    lazy var blurView: UIVisualEffectView = {
+    private lazy var blurView: UIVisualEffectView = {
         let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
         blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         blurView.alpha = 0.0
@@ -140,7 +172,7 @@ final class CartViewController: UIViewController, UITableViewDataSource{
         return blurView
     }()
     
-    let imageToDelete: UIImageView = {
+    private let imageToDelete: UIImageView = {
         let image = UIImageView()
         image.layer.cornerRadius = 12
         image.layer.masksToBounds = true
@@ -149,61 +181,61 @@ final class CartViewController: UIViewController, UITableViewDataSource{
         return image
     }()
     
-    let deleteText: UILabel = {
+    private let deleteText: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.text = NSLocalizedString("cart.deleteQuestion", comment: "")
+        label.text = LocalizableConstants.Cart.deleteQuestion
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let deleteButton: UIButton = {
+    private let deleteButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .blackDay
         button.layer.cornerRadius = 12
         button.layer.masksToBounds = true
-        button.setTitle(NSLocalizedString("cart.delete", comment: ""), for: .normal)
+        button.setTitle(LocalizableConstants.Cart.delete, for: .normal)
         button.setTitleColor(.red, for: .normal)
         button.addTarget(nil, action: #selector(deleteNFT), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    let cancelButton: UIButton = {
+    private let cancelButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .blackDay
         button.layer.cornerRadius = 12
         button.layer.masksToBounds = true
         button.setTitleColor(.backgroundDay, for: .normal)
         button.addTarget(nil, action: #selector(cancel), for: .touchUpInside)
-        button.setTitle(NSLocalizedString("cart.goBack", comment: ""), for: .normal)
+        button.setTitle(LocalizableConstants.Cart.goBack, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    let payButton: UIButton = {
+    private let payButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .blackDay
         button.setTitleColor(.backgroundDay, for: .normal)
         button.layer.cornerRadius = 16
         button.layer.masksToBounds = true
         button.addTarget(nil, action: #selector(payButtonTapped), for: .touchUpInside)
-        button.setTitle(NSLocalizedString("cart.checkout", comment: ""), for: .normal)
+        button.setTitle(LocalizableConstants.Cart.checkout, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     
-    let cartTable: UITableView = {
+    private let cartTable: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
     
-    let countOfNFTS: UILabel = {
+    private let countOfNFTS: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         label.numberOfLines = 0
@@ -212,7 +244,7 @@ final class CartViewController: UIViewController, UITableViewDataSource{
         return label
     }()
     
-    let priceOfNFTS: UILabel = {
+    private let priceOfNFTS: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15, weight: .bold)
         label.numberOfLines = 0
@@ -222,7 +254,7 @@ final class CartViewController: UIViewController, UITableViewDataSource{
         return label
     }()
     
-    let cartInfo: UIView = {
+    private let cartInfo: UIView = {
         let view = UIView()
         view.backgroundColor = .lightGreyDay
         view.layer.cornerRadius = 12
@@ -236,7 +268,7 @@ final class CartViewController: UIViewController, UITableViewDataSource{
             navBar.backgroundColor = .clear  // Change this to the desired background color
             navBar.tintColor = .clear
             let sortButton = UIButton(type: .custom)
-            sortButton.setImage(UIImage(named: NSLocalizedString("sort.sort", comment: "")), for: .normal)
+            sortButton.setImage(Resourses.Images.Sort.sort, for: .normal)
             sortButton.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
             sortButton.addTarget(self, action: #selector(sortButtonTapped), for: .touchUpInside)
             
@@ -288,11 +320,14 @@ final class CartViewController: UIViewController, UITableViewDataSource{
         }
         let rating = cartArray[indexPath.row].nftRating
         let name = cartArray[indexPath.row].nftName
-        let price = String("\(cartArray[indexPath.row].nftPrice) ETH").replacingOccurrences(of: ".", with: ",")
+        
+        let priceValue = cartArray[indexPath.row].nftPrice
+        let formattedPriceWithCurrency = formatPrice(priceValue) + " ETH"
+        
         let imageURL = URL(string: cartArray[indexPath.row].nftImages.first ?? "")
         cell.setupRating(rating: rating)
         cell.nftName.text = name
-        cell.nftPrice.text = String(price)
+        cell.nftPrice.text = String(formattedPriceWithCurrency)
         cell.nftImage.kf.setImage(with: imageURL)
         cell.indexCell = indexPath.row
         cell.delegate = self
@@ -303,6 +338,7 @@ final class CartViewController: UIViewController, UITableViewDataSource{
     
     @objc
     func payButtonTapped() {
+        analyticsService.report(event: .click, screen: .cartVC, item: .checkout)
         guard let customNC = navigationController as? CustomNavigationController else { return }
         let payVC = PaymentViewController()
         
@@ -318,6 +354,7 @@ final class CartViewController: UIViewController, UITableViewDataSource{
     
     
     @objc private func sortButtonTapped() {
+        analyticsService.report(event: .click, screen: .myNFTsVC, item: .sort)
         showMenu()
     }
     
@@ -328,7 +365,7 @@ final class CartViewController: UIViewController, UITableViewDataSource{
     
     @objc
     func deleteNFT() {
-        
+        analyticsService.report(event: .click, screen: .cartVC, item: .removeNFT)
         guard let indexToDelete = indexNFTToDelete else {
             return
         }
@@ -365,18 +402,21 @@ final class CartViewController: UIViewController, UITableViewDataSource{
         let alertController = UIAlertController(title: LocalizableConstants.Sort.sort, message: nil, preferredStyle: .actionSheet)
         
         // Add sorting actions in the desired order
-        let sortByPriceAction = UIAlertAction(title: Sort.byPrice.localizedString, style: .default) { _ in
-            self.sortBy(selectedSortOption: .byPrice)
+        let sortByPriceAction = UIAlertAction(title: Sort.byPrice.localizedString, style: .default) { [weak self] _ in
+            self?.sortBy(selectedSortOption: .byPrice)
+            self?.cartTable.reloadData()
         }
         alertController.addAction(sortByPriceAction)
         
-        let sortByRatingAction = UIAlertAction(title: Sort.byRating.localizedString, style: .default) { _ in
-            self.sortBy(selectedSortOption: .byRating)
+        let sortByRatingAction = UIAlertAction(title: Sort.byRating.localizedString, style: .default) { [weak self] _ in
+            self?.sortBy(selectedSortOption: .byRating)
+            self?.cartTable.reloadData()
         }
         alertController.addAction(sortByRatingAction)
         
-        let sortByNameAction = UIAlertAction(title: Sort.byName.localizedString, style: .default) { _ in
-            self.sortBy(selectedSortOption: .byName)
+        let sortByNameAction = UIAlertAction(title: Sort.byName.localizedString, style: .default) { [weak self] _ in
+            self?.sortBy(selectedSortOption: .byName)
+            self?.cartTable.reloadData()
         }
         alertController.addAction(sortByNameAction)
         
@@ -388,19 +428,18 @@ final class CartViewController: UIViewController, UITableViewDataSource{
     
     // Sorting
     private func sortBy(selectedSortOption: Sort) {
+        self.selectedSortOption = selectedSortOption
         switch selectedSortOption {
         case .byName:
             cartArray = cartArray.sorted(by: { $0.nftName < $1.nftName })
-            cartTable.reloadData()
         case .byPrice:
             cartArray = cartArray.sorted(by: { $0.nftPrice < $1.nftPrice })
-            cartTable.reloadData()
         case .byRating:
-            cartArray = cartArray.sorted(by: { $0.nftRating < $1.nftRating })
-            cartTable.reloadData()
+            cartArray = cartArray.sorted(by: { $0.nftRating > $1.nftRating })
         default:
             break
         }
+        cartTable.reloadData()
     }
     
     // Summurize info about all NFT's in cart
@@ -411,8 +450,11 @@ final class CartViewController: UIViewController, UITableViewDataSource{
         cartArray.forEach { cart in
             price += cart.nftPrice
         }
-        let formattedPrice = String(format: "%.2f ETH", price).replacingOccurrences(of: ".", with: ",")
-        priceOfNFTS.text = formattedPrice
+        
+        let formattedPrice = formatPrice(price)
+        let formattedPriceWithCurrency = "\(formattedPrice) ETH"
+        
+        priceOfNFTS.text = formattedPriceWithCurrency
     }
 }
 
@@ -507,8 +549,8 @@ extension CartViewController {
                                                 preferredStyle: .alert)
         
         let retryAction = UIAlertAction(title: NSLocalizedString("Retry", comment: ""),
-                                        style: .default) { _ in
-            self.fetchDataFromAPI() // Retry fetching data
+                                        style: .default) { [weak self] _ in
+            self?.fetchDataFromAPI() // Retry fetching data
         }
         alertController.addAction(retryAction)
         
@@ -520,4 +562,3 @@ extension CartViewController {
         present(alertController, animated: true, completion: nil)
     }
 }
-

@@ -9,16 +9,18 @@ import UIKit
 
 final class SucceedPaymentViewController: UIViewController {
     
+    private let analyticsService = AnalyticsService.shared
+    
     // MARK: - Properties
     
-    let image: UIImageView = {
+    private let image: UIImageView = {
         let image = UIImageView()
         image.image = Resourses.Images.SuccessFailPayment.succeedPayment
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
     
-    let successText: UILabel = {
+    private let successText: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 22, weight: .bold)
         label.numberOfLines = 0
@@ -29,7 +31,7 @@ final class SucceedPaymentViewController: UIViewController {
         return label
     }()
     
-    let backButton: UIButton = {
+    private let backButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .blackDay
         button.setTitleColor(.backgroundDay, for: .normal)
@@ -46,6 +48,7 @@ final class SucceedPaymentViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        analyticsService.report(event: .open, screen: .successFailureVC, item: nil)
         setupProperties()
         setupView()
     }
@@ -84,6 +87,7 @@ final class SucceedPaymentViewController: UIViewController {
     
     @objc
     private func backTapped() {
+        analyticsService.report(event: .click, screen: .successFailureVC, item: .returnToCatalog)
         let tabBarController = TabBarController()
         tabBarController.selectedIndex = 1 // Set the index of the CatalogViewController
         tabBarController.modalPresentationStyle = .fullScreen

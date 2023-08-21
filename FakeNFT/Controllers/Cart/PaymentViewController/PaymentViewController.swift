@@ -26,6 +26,7 @@ final class PaymentViewController: UIViewController, PaymentViewNavigationDelega
         showFetchErrorAlertAndRetry(message: message)
     }
     
+    private let analyticsService = AnalyticsService.shared
     
     private var presenter: PaymentPresenterProtocol?
     
@@ -40,6 +41,7 @@ final class PaymentViewController: UIViewController, PaymentViewNavigationDelega
     // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        analyticsService.report(event: .open, screen: .paymentMethodVC, item: nil)
         setupProperties()
         setupView()
         presenter = PaymentPresenter(view: self, model: PaymentModel())
@@ -70,6 +72,7 @@ extension PaymentViewController: PaymentViewDelegate {
     
     @objc
     internal func payButtonTapped(selectedIndex: Int) {
+        analyticsService.report(event: .click, screen: .paymentMethodVC, item: .pay)
         print("Selected cell index: \(selectedIndex)")
         if selectedIndex != -1 {
             let selectedPayment = paymentArray[selectedIndex - 1]
@@ -80,6 +83,7 @@ extension PaymentViewController: PaymentViewDelegate {
     
     
     internal func labelTapped() -> WebViewController? {
+        analyticsService.report(event: .click, screen: .paymentMethodVC, item: .userAgreement)
         guard let url = URL(string: "https://yandex.ru/legal/practicum_termsofuse/") else {
             print("Invalid URL")
             return nil
@@ -128,6 +132,7 @@ extension PaymentViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         isCellSelected = indexPath.row + 1// Update the selected index
         print("Selected cell index: \(isCellSelected)")
+        analyticsService.report(event: .click, screen: .paymentMethodVC, item: .currency)
     }
 }
 

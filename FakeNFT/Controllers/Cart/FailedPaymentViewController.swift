@@ -9,16 +9,18 @@ import UIKit
 
 final class FailedPaymentViewController: UIViewController {
     
+    private let analyticsService = AnalyticsService.shared
+    
     // MARK: - Properties
     
-    let image: UIImageView = {
+    private let image: UIImageView = {
         let image = UIImageView()
         image.image = Resourses.Images.SuccessFailPayment.failedPayment
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
     
-    let failText: UILabel = {
+    private let failText: UILabel = {
         let label = UILabel()
         label.textColor = .blackDay
         label.font = UIFont.systemFont(ofSize: 22, weight: .bold)
@@ -29,7 +31,7 @@ final class FailedPaymentViewController: UIViewController {
         return label
     }()
     
-    let backButton: UIButton = {
+    private let backButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .blackDay
         button.setTitleColor(.backgroundDay, for: .normal)
@@ -46,6 +48,7 @@ final class FailedPaymentViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        analyticsService.report(event: .open, screen: .successFailureVC, item: nil)
         setupProperties()
         setupView()
     }
@@ -84,6 +87,7 @@ final class FailedPaymentViewController: UIViewController {
     }
     
     @objc private func backTapped() {
+        analyticsService.report(event: .click, screen: .successFailureVC, item: .tryAgain)
         print("backTapped method triggered")
         guard let customNC = navigationController as? CustomNavigationController else { return }
         customNC.popToRootViewController(animated: true)
