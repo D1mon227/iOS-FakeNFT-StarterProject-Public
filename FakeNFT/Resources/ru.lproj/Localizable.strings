@@ -17,8 +17,10 @@
 
 "alert.title" = "Что-то пошло не так(";
 "alert.authMessage" = "Не удалось войти в систему";
-"alert.resetPasswordMessage" = "Повторите попытку позднее";
-"alert.button" = "ОК";
+"alert.failedLoadDataMessage" = "Не удалось загрузить данные";
+"alert.traAgainMessage" = "Повторите попытку позднее";
+"alert.okButton" = "ОК";
+"alert.tryAgainButton" = "Повторить";
 
 //MARK: Onboarding
 "onboarding.firstTitle" = "Исследуйте";

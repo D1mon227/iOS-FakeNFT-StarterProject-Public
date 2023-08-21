@@ -25,12 +25,12 @@ final class ResetPasswordViewController: UIViewController, ResetPasswordViewCont
     
     func checkPasswordReset(successfulReset: Bool) {
         UIBlockingProgressHUD.dismiss()
-        successfulReset ? showInstractionLabel() : showAlert()
+        successfulReset ? showInstractionLabel() : showErrorAlert()
     }
     
-    private func showAlert() {
-        let model = AlertErrorModel(title: LocalizableConstants.Auth.Alert.title,
-                                    message: LocalizableConstants.Auth.Alert.resetPasswordMessage)
+    private func showErrorAlert() {
+        let model = AlertErrorModel(message: LocalizableConstants.Auth.Alert.traAgainMessage,
+                                    buttonText: LocalizableConstants.Auth.Alert.okButton) {}
         alertService.showErrorAlert(model: model, controller: self)
     }
     

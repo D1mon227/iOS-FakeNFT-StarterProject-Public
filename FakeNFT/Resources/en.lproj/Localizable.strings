@@ -17,8 +17,10 @@
 
 "alert.title" = "Something went wrong(";
 "alert.authMessage" = "Failed to log in";
-"alert.resetPasswordMessage" = "Try again later";
-"alert.button" = "OK";
+"alert.failedLoadDataMessage" = "Failed to load data";
+"alert.traAgainMessage" = "Try again later";
+"alert.okButton" = "OK";
+"alert.tryAgainButton" = "Try again";
 
 //MARK: Onboarding
 "onboarding.firstTitle" = "Explore";
