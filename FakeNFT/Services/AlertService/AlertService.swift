@@ -26,26 +26,37 @@ enum Sort: String, CaseIterable {
     }
 }
 
-final class AlertService {
-    func showAlert(title: String?, actions: [Sort], controller: UIViewController, completion: @escaping (Sort) -> Void) {
+final class AlertService: AlertServiceProtocol {
+    func showSortAlert(model: AlertSortModel, controller: UIViewController) {
         
-        let alert = UIAlertController(title: title,
+        let alert = UIAlertController(title: model.title,
                                       message: nil,
                                       preferredStyle: .actionSheet)
-        
-        for action in actions {
+
+        for action in model.actions {
             if action == .close {
                 let action = UIAlertAction(title: action.localizedString, style: .cancel) { _ in
-                    completion(action)
+                    model.completion(action)
                 }
                 alert.addAction(action)
             } else {
                 let action = UIAlertAction(title: action.localizedString, style: .default) { _ in
-                    completion(action)
+                    model.completion(action)
                 }
                 alert.addAction(action)
             }
         }
+        controller.present(alert, animated: true, completion: nil)
+    }
+    
+    func showErrorAlert(model: AlertErrorModel, controller: UIViewController) {
+
+        let alert = UIAlertController(title: model.title,
+                                      message: model.message,
+                                      preferredStyle: .alert)
+        let action = UIAlertAction(title: LocalizableConstants.Auth.Alert.button, style: .cancel)
+        alert.addAction(action)
+        
         controller.present(alert, animated: true, completion: nil)
     }
 }

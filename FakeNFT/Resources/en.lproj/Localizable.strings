@@ -16,7 +16,9 @@
 "auth.instructionsForResetPassword" = "Instructions for password recovery sent to your email";
 
 "alert.title" = "Something went wrong(";
-"alert.message" = "Failed to log in";
+"alert.authMessage" = "Failed to log in";
+"alert.resetPasswordMessage" = "Try again later";
+"alert.button" = "OK";
 
 //MARK: Onboarding
 "onboarding.firstTitle" = "Explore";

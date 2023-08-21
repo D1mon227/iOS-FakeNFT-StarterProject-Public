@@ -16,7 +16,9 @@
 "auth.instructionsForResetPassword" = "Инструкции по восстановлению пароля высланы на указанный email";
 
 "alert.title" = "Что-то пошло не так(";
-"alert.message" = "Не удалось войти в систему";
+"alert.authMessage" = "Не удалось войти в систему";
+"alert.resetPasswordMessage" = "Повторите попытку позднее";
+"alert.button" = "ОК";
 
 //MARK: Onboarding
 "onboarding.firstTitle" = "Исследуйте";

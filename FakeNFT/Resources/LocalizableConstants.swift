@@ -20,7 +20,9 @@ enum LocalizableConstants {
         
         enum Alert {
             static let title = NSLocalizedString("alert.title", comment: "")
-            static let message = NSLocalizedString("alert.message", comment: "")
+            static let authMessage = NSLocalizedString("alert.authMessage", comment: "")
+            static let resetPasswordMessage = NSLocalizedString("alert.resetPasswordMessage", comment: "")
+            static let button = NSLocalizedString("alert.button", comment: "")
         }
     }
     

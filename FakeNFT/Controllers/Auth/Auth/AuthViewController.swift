@@ -4,6 +4,7 @@ import SnapKit
 final class AuthViewController: UIViewController, AuthViewControllerProtocol {
     var presenter: AuthViewPresenterProtocol?
     private let authView = AuthView()
+    private let alertService = AlertService()
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -29,12 +30,18 @@ final class AuthViewController: UIViewController, AuthViewControllerProtocol {
     
     func checkAuthorization(successfulAuthorization: Bool) {
         UIBlockingProgressHUD.dismiss()
-        successfulAuthorization ? switchToTabBarController() : print("bf")
+        successfulAuthorization ? switchToTabBarController() : showAlert()
     }
     
     func checkLoginPasswordMistake(incorrect: Bool) {
         UIBlockingProgressHUD.dismiss()
         incorrect ? showMistakeLabel() : hideMistakeLabel()
+    }
+    
+    private func showAlert() {
+        let model = AlertErrorModel(title: LocalizableConstants.Auth.Alert.title,
+                                    message: LocalizableConstants.Auth.Alert.message)
+        alertService.showErrorAlert(model: model, controller: self)
     }
     
     private func setupDelegates() {
