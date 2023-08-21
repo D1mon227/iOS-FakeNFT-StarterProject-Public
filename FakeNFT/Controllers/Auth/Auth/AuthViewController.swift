@@ -40,7 +40,7 @@ final class AuthViewController: UIViewController, AuthViewControllerProtocol {
     
     private func showAlert() {
         let model = AlertErrorModel(title: LocalizableConstants.Auth.Alert.title,
-                                    message: LocalizableConstants.Auth.Alert.message)
+                                    message: LocalizableConstants.Auth.Alert.authMessage)
         alertService.showErrorAlert(model: model, controller: self)
     }
     

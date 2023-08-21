@@ -76,7 +76,6 @@
 		73EA4B1B2A744623000B4B55 /* LocalizableConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EA4B1A2A744623000B4B55 /* LocalizableConstants.swift */; };
 		73EA4B1D2A7471D2000B4B55 /* CustomNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EA4B1C2A7471D2000B4B55 /* CustomNavigationViewController.swift */; };
 		C50E6CC52A7E930000B852F9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50E6CC42A7E930000B852F9 /* User.swift */; };
-		C50E6CC72A7E931400B852F9 /* GetUsersRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50E6CC62A7E931400B852F9 /* GetUsersRequest.swift */; };
 		C51A14262A91F538002B1DC5 /* RegistrationViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51A14252A91F538002B1DC5 /* RegistrationViewPresenter.swift */; };
 		C51A14282A91F567002B1DC5 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51A14272A91F567002B1DC5 /* RegistrationView.swift */; };
 /* End PBXBuildFile section */
@@ -166,7 +165,6 @@
 		73EA4B1A2A744623000B4B55 /* LocalizableConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizableConstants.swift; sourceTree = "<group>"; };
 		73EA4B1C2A7471D2000B4B55 /* CustomNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationViewController.swift; sourceTree = "<group>"; };
 		C50E6CC42A7E930000B852F9 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		C50E6CC62A7E931400B852F9 /* GetUsersRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetUsersRequest.swift; sourceTree = "<group>"; };
 		C51A14252A91F538002B1DC5 /* RegistrationViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewPresenter.swift; sourceTree = "<group>"; };
 		C51A14272A91F567002B1DC5 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		C5D3AAD12A7B3B79005A3694 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -332,7 +330,6 @@
 			isa = PBXGroup;
 			children = (
 				73C3EB5A2A8D390900E047E0 /* CurrencyRequest.swift */,
-				C50E6CC62A7E931400B852F9 /* GetUsersRequest.swift */,
 				73C3EB622A8E7C6100E047E0 /* NFTsRequest.swift */,
 			);
 			path = Requests;
@@ -739,7 +736,6 @@
 				73EA4B1D2A7471D2000B4B55 /* CustomNavigationViewController.swift in Sources */,
 				C51A14282A91F567002B1DC5 /* RegistrationView.swift in Sources */,
 				730B239D2A8C29A500F5D832 /* NFTCardTableViewCell.swift in Sources */,
-				C50E6CC72A7E931400B852F9 /* GetUsersRequest.swift in Sources */,
 				1FEA5B7C2A8BE98600946DD9 /* NetworkErrorView.swift in Sources */,
 				7375ECFF2A91109800107A63 /* SplashScreenViewController.swift in Sources */,
 				73EA4B052A73C770000B4B55 /* ProfileViewController.swift in Sources */,
