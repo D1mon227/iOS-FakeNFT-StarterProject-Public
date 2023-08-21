@@ -15,6 +15,7 @@ final class NFTService {
             case .failure(let error):
                 completion(.failure(error))
             }
+            UIBlockingProgressHUD.dismiss()
         }
     }
 }

@@ -7,22 +7,22 @@ final class UIBlockingProgressHUD {
     }
     
     static func show() {
-		DispatchQueue.main.async {
-			window?.isUserInteractionEnabled = false
-			ProgressHUD.show()
-		}
+        DispatchQueue.main.async {
+            window?.isUserInteractionEnabled = false
+            ProgressHUD.show()
+        }
     }
     
     static func dismiss() {
-		DispatchQueue.main.async {
-			window?.isUserInteractionEnabled = true
-			ProgressHUD.dismiss()
-		}
+        DispatchQueue.main.async {
+            window?.isUserInteractionEnabled = true
+            ProgressHUD.dismiss()
+        }
     }
     
     static func setupProgressHUD() {
         ProgressHUD.animationType = .circleSpinFade
-        ProgressHUD.colorHUD = .white
-        ProgressHUD.colorAnimation = .black
+        ProgressHUD.colorHUD = .backgroundDay
+        ProgressHUD.colorAnimation = .blackDay
     }
 }

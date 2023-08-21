@@ -17,7 +17,7 @@ final class OnboardingViewController: UIViewController {
         let element = UIButton(type: .system)
         element.setImage(Resourses.Images.Button.closeButton, for: .normal)
         element.tintColor = .white
-        element.addTarget(self, action: #selector(switchToTabbarVC), for: .touchUpInside)
+        element.addTarget(self, action: #selector(switchToAuthVC), for: .touchUpInside)
         return element
     }()
     
@@ -43,7 +43,7 @@ final class OnboardingViewController: UIViewController {
         element.setTitleColor(.white, for: .normal)
         element.titleLabel?.font = .bodyBold
         element.layer.cornerRadius = 16
-        element.addTarget(self, action: #selector(switchToTabbarVC), for: .touchUpInside)
+        element.addTarget(self, action: #selector(switchToAuthVC), for: .touchUpInside)
         element.backgroundColor = .black
         return element
     }()
@@ -65,16 +65,12 @@ final class OnboardingViewController: UIViewController {
         setupGradient()
     }
     
-    @objc private func switchToTabbarVC() {
-        let scene = UIApplication.shared.connectedScenes.first
-        if let sceneDelegate = scene?.delegate as? SceneDelegate,
-           let window = sceneDelegate.window {
-            let tabbarVC = TabBarController()
-            sceneDelegate.window?.rootViewController = tabbarVC
-            OnboardingManager.hasCompletedOnboarding = true
-            
-            UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromRight, animations: nil, completion: nil)
-        }
+    @objc private func switchToAuthVC() {
+        OnboardingManager.hasCompletedOnboarding = true
+        let authVC = AuthViewController()
+        authVC.modalPresentationStyle = .fullScreen
+        authVC.modalTransitionStyle = .flipHorizontal
+        present(authVC, animated: true)
     }
     
     func setupFirstSecondScreens(image: UIImage?, page: Int?, titleText: String?, descriptionText: String?) {

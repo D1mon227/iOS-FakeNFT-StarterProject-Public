@@ -1,3 +1,25 @@
+//MARK: Auth
+"auth.entryTitle" = "Вход";
+"auth.emailPlaceholder" = "Email";
+"auth.passwordPlaceholder" = "Пароль";
+"auth.enterButton" = "Войти";
+"auth.forgotPassword" = "Забыли пароль?";
+"auth.demo" = "Демо";
+"auth.registrationButton" = "Зарегистрироваться";
+"auth.registrationTitle" = "Регистрация";
+"auth.usernameAlreadyExistsLabel" = "Данное имя пользователя занято";
+"auth.invalidEmailLabel" = "Электронная почта имеет неправильный формат";
+"auth.weakPasswordLabel" = "Пароль слишком слабый";
+"auth.incorrectUsernameOrPasswordLabel" = "Введен неверный логин или пароль";
+"auth.resetPasswordTitle" = "Сброс пароля";
+"auth.resetPasswordButton" = "Сбросить пароль";
+"auth.instructionsForResetPassword" = "Инструкции по восстановлению пароля высланы на указанный email";
+
+"alert.title" = "Что-то пошло не так(";
+"alert.authMessage" = "Не удалось войти в систему";
+"alert.resetPasswordMessage" = "Повторите попытку позднее";
+"alert.button" = "ОК";
+
 //MARK: Onboarding
 "onboarding.firstTitle" = "Исследуйте";
 "onboarding.firstDescription" = "Присоединяйтесь и откройте новый мир уникальных NFT для коллекционеров";

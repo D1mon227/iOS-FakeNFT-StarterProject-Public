@@ -27,8 +27,8 @@ final class StatisticsViewController: UIViewController, StatisticViewControllerD
 		configureNavigationBar()
 	}
 	
-	func showAlert(model: AlertActionSheetModel) {
-		alertService.showAlert(with: model, controller: self)
+	func showAlert(model: AlertSortModel) {
+		alertService.showSortAlert(model: model, controller: self)
 	}
 }
 

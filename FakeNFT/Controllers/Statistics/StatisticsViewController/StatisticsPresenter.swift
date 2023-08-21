@@ -9,7 +9,7 @@ protocol IStatisticsPresenter {
 }
 
 protocol StatisticViewControllerDelegate: AnyObject {
-	func showAlert(model: AlertActionSheetModel)
+	func showAlert(model: AlertSortModel)
 }
 
 final class StatisticsPresenter {
@@ -64,7 +64,7 @@ final class StatisticsPresenter {
 	
 	private func showSortingOptions() {
 		let sortingOptions: [Sort] = [.byName, .byRating, .close]
-		let alertModel = AlertActionSheetModel(title: LocalizableConstants.Sort.sort, actions: sortingOptions) { [weak self] selectedOption in
+		let alertModel = AlertSortModel(title: LocalizableConstants.Sort.sort, actions: sortingOptions) { [weak self] selectedOption in
 			self?.sortData(by: selectedOption)
 		}
 		navigationDelegate?.showAlert(model: alertModel)
