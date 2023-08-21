@@ -75,15 +75,9 @@ final class MyNFTViewController: UIViewController, MyNFTViewControllerProtocol {
     }
     
     @objc private func sort() {
-        guard let model = presenter?.showSortingOptions() else { return }
+        guard let model = presenter?.getSortModel() else { return }
         analyticsService.report(event: .click, screen: .myNFTsVC, item: .sort)
         alertService.showSortAlert(model: model, controller: self)
-//        alertService.showAlert(title: LocalizableConstants.Sort.sort,
-//                               actions: [.byPrice, .byRating, .byTitle, .close],
-//                               controller: self) { [weak self] option in
-//            guard let self = self else { return }
-//            self.presenter?.sortNFT(by: option)
-//        }
     }
     
     private func switchToNFTCardVC(nftModel: NFT?, isLiked: Bool) {
@@ -139,6 +133,24 @@ extension MyNFTViewController: MyNFTTableViewCellDelegate {
         presenter.changeLike(nftID ?? "")
         analyticsService.report(event: .click, screen: .myNFTsVC, item: .like)
         cell.setLiked(presenter.doesNftHasLike(id: nftID))
+    }
+}
+
+//MARK: Alerts
+extension MyNFTViewController {
+    func showNFTsErrorAlert() {
+        guard let model = presenter?.getNFTsErrorModel() else { return }
+        alertService.showErrorAlert(model: model, controller: self)
+    }
+    
+    func showUsersErrorAlert() {
+        guard let model = presenter?.getUsersErrorModel() else { return }
+        alertService.showErrorAlert(model: model, controller: self)
+    }
+    
+    func showLikeErrorAlert(id: String) {
+        guard let model = presenter?.getLikeErrorModel(id: id) else { return }
+        alertService.showErrorAlert(model: model, controller: self)
     }
 }
 

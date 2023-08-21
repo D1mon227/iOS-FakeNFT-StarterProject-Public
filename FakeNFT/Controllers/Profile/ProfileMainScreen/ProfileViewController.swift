@@ -6,6 +6,7 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
     var presenter: ProfileViewPresenterProtocol?
     private let profileView = ProfileView()
     private let analyticsService = AnalyticsService.shared
+    private let alertService = AlertService()
     
     init(presenter: ProfileViewPresenterProtocol?) {
         super.init(nibName: nil, bundle: nil)
@@ -125,6 +126,16 @@ extension ProfileViewController: UITableViewDelegate {
             switchToAuthorInformation()
         default:
             break
+        }
+    }
+}
+
+//MARK: Alerts
+extension ProfileViewController {
+    func showErrorAlert() {
+        guard let model = presenter?.getErrorModel() else { return }
+        DispatchQueue.main.async {
+            self.alertService.showErrorAlert(model: model, controller: self)
         }
     }
 }

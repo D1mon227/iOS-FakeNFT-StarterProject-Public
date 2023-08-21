@@ -8,6 +8,7 @@ final class EditingProfileViewController: UIViewController, EditingProfileViewCo
     private var profilePresenter: ProfileViewPresenterProtocol?
     private let editingProfileView = EditingProfileView()
     private let analyticsService = AnalyticsService.shared
+    private let alertService = AlertService()
     
     init(profilePresenter: ProfileViewPresenterProtocol?) {
         super.init(nibName: nil, bundle: nil)
@@ -171,6 +172,16 @@ extension EditingProfileViewController: UITableViewDelegate {
             return 44
         default:
             return 120
+        }
+    }
+}
+
+//MARK: Alerts
+extension EditingProfileViewController {
+    func showErrorAlert() {
+        guard let model = presenter?.getErrorModel() else { return }
+        DispatchQueue.main.async {
+            self.alertService.showErrorAlert(model: model, controller: self)
         }
     }
 }

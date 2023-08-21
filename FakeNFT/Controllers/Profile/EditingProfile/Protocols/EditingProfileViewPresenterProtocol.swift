@@ -6,4 +6,5 @@ protocol EditingProfileViewPresenterProtocol: AnyObject {
     var newProfile: NewProfile? { get set }
     func getProfileInfo()
     func editProfile()
+    func getErrorModel() -> AlertErrorModel
 }

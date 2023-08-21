@@ -5,4 +5,5 @@ protocol ProfileViewPresenterProtocol: AnyObject {
     var profile: Profile? { get set }
     func fetchProfile()
     func switchToAuthorInformation() -> WebViewController?
+    func getErrorModel() -> AlertErrorModel
 }

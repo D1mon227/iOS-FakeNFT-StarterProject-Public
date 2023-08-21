@@ -5,6 +5,7 @@ final class FavoritesNFTViewController: UIViewController, FavoritesNFTViewContro
     var presenter: FavoritesNFTViewPresenterProtocol?
     private var profilePresenter: ProfileViewPresenterProtocol?
     private let favoritesNFTView = FavoritesNFTView()
+    private let alertService = AlertService()
     private let analyticsService = AnalyticsService.shared
     
     init(profilePresenter: ProfileViewPresenterProtocol?, likes: [String]?) {
@@ -136,5 +137,18 @@ extension FavoritesNFTViewController: FavoritesNFTCollectionViewCellDelegate {
             presenter.favoritesNFTs.remove(at: indexPath.row)
             favoritesNFTView.nftCollectionView.deleteItems(at: [indexPath])
         }
+    }
+}
+
+//MARK: Alerts
+extension FavoritesNFTViewController {
+    func showNFTsErrorAlert() {
+        guard let model = presenter?.getNFTsErrorModel() else { return }
+        alertService.showErrorAlert(model: model, controller: self)
+    }
+    
+    func showLikeErrorAlert(id: String) {
+        guard let model = presenter?.getLikeErrorModel(id: id) else { return }
+        alertService.showErrorAlert(model: model, controller: self)
     }
 }

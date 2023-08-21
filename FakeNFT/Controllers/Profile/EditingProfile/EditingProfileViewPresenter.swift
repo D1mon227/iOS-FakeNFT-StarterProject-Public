@@ -36,10 +36,19 @@ final class EditingProfileViewPresenter: EditingProfileViewPresenterProtocol {
                 switch result {
                 case .success(let newProfile):
                     self.profilePresenter?.profile = newProfile
-                case .failure(let error):
-                    print(error.localizedDescription)
+                case .failure(_):
+                    self.view?.showErrorAlert()
                 }
             }
         }
+    }
+    
+    func getErrorModel() -> AlertErrorModel {
+        let model = AlertErrorModel(message: LocalizableConstants.Auth.Alert.failedLoadDataMessage,
+                                    buttonText: LocalizableConstants.Auth.Alert.tryAgainButton) { [weak self] in
+            guard let self = self else { return }
+            self.editProfile()
+        }
+        return model
     }
 }

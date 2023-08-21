@@ -18,8 +18,8 @@ final class ProfileViewPresenter: ProfileViewPresenterProtocol {
             switch result {
             case .success(let profile):
                 self.profile = profile
-            case .failure(let error):
-                print(error.localizedDescription)
+            case .failure(_):
+                self.view?.showErrorAlert()
             }
         }
     }
@@ -32,5 +32,14 @@ final class ProfileViewPresenter: ProfileViewPresenterProtocol {
         webViewPresenter.view = webViewController
         
         return webViewController
+    }
+    
+    func getErrorModel() -> AlertErrorModel {
+        let model = AlertErrorModel(message: LocalizableConstants.Auth.Alert.failedLoadDataMessage,
+                                    buttonText: LocalizableConstants.Auth.Alert.tryAgainButton) { [weak self] in
+            guard let self = self else { return }
+            self.fetchProfile()
+        }
+        return model
     }
 }

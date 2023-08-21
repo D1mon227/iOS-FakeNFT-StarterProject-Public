@@ -52,8 +52,8 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
                 guard let profile = profilePresenter?.profile else { return }
                 self.purchasedNFTs = filterPurchasedNFTs(profile: profile, allNFTs: nfts)
                 self.sortNFT(by: currentSort)
-            case .failure(let error):
-                print(error.localizedDescription)
+            case .failure(_):
+                self.view?.showNFTsErrorAlert()
             }
         }
     }
@@ -64,8 +64,8 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
             switch result {
             case .success(let users):
                 self.users = users
-            case .failure(let error):
-                print(error.localizedDescription)
+            case .failure(_):
+                self.view?.showUsersErrorAlert()
             }
         }
     }
@@ -85,8 +85,8 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
             switch result {
             case .success(let newProfile):
                 self.profilePresenter?.profile = newProfile
-            case .failure(let error):
-                print(error.localizedDescription)
+            case .failure(_):
+                self.view?.showLikeErrorAlert(id: id)
             }
         }
     }
@@ -129,12 +129,39 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
         self.purchasedNFTs = nfts
     }
     
-    func showSortingOptions() -> AlertSortModel {
+    func getSortModel() -> AlertSortModel {
         let sortingOptions: [Sort] = [.byPrice, .byRating, .byTitle, .close]
         let model = AlertSortModel(title: LocalizableConstants.Sort.sort,
                                    actions: sortingOptions) { [weak self] option in
             guard let self = self else { return }
             self.sortNFT(by: option)
+        }
+        return model
+    }
+    
+    func getUsersErrorModel() -> AlertErrorModel {
+        let model = AlertErrorModel(message: LocalizableConstants.Auth.Alert.failedLoadDataMessage,
+                                    buttonText: LocalizableConstants.Auth.Alert.tryAgainButton) { [weak self] in
+            guard let self = self else { return }
+            self.fetchUsers()
+        }
+        return model
+    }
+    
+    func getNFTsErrorModel() -> AlertErrorModel {
+        let model = AlertErrorModel(message: LocalizableConstants.Auth.Alert.failedLoadDataMessage,
+                                    buttonText: LocalizableConstants.Auth.Alert.tryAgainButton) { [weak self] in
+            guard let self = self else { return }
+            self.fetchNFTs()
+        }
+        return model
+    }
+    
+    func getLikeErrorModel(id: String) -> AlertErrorModel {
+        let model = AlertErrorModel(message: LocalizableConstants.Auth.Alert.traAgainMessage,
+                                    buttonText: LocalizableConstants.Auth.Alert.tryAgainButton) { [weak self] in
+            guard let self = self else { return }
+            self.changeLike(id)
         }
         return model
     }
