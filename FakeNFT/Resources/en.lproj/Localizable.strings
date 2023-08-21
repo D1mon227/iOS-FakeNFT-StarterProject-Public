@@ -1,3 +1,21 @@
+//MARK: Auth
+"auth.entryTitle" = "Entry";
+"auth.emailPlaceholder" = "Email";
+"auth.passwordPlaceholder" = "Password";
+"auth.enterButton" = "Log in";
+"auth.forgotPassword" = "Forgot password?";
+"auth.demo" = "Demo";
+"auth.registrationButton" = "Sigh up";
+"auth.registrationTitle" = "Registration";
+"auth.usernameAlreadyExistsLabel" = "This username already exists";
+"auth.incorrectUsernameOrPasswordLabel" = "Invalid username or password entered";
+"auth.resetPasswordTitle" = "Password reset";
+"auth.resetPasswordButton" = "Reset password";
+"auth.instructionsForResetPassword" = "Instructions for password recovery sent to your email";
+
+"alert.title" = "Something went wrong(";
+"alert.message" = "Failed to log in";
+
 //MARK: Onboarding
 "onboarding.firstTitle" = "Explore";
 "onboarding.firstDescription" = "Join us and discover a new world of unique NFT for collectors";

@@ -9,13 +9,12 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
         
-        let tabBarVC = TabBarController()
+        let splashVC = SplashScreenViewController()
         let onboardingVC = OnboardingPageViewController()
-        
         var rootViewController: UIViewController
         
         if OnboardingManager.hasCompletedOnboarding {
-            rootViewController = tabBarVC
+            rootViewController = splashVC
         } else {
             rootViewController = onboardingVC
         }

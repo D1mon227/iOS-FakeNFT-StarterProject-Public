@@ -27,6 +27,10 @@ enum Resourses {
     }
     
     enum Images {
+        enum SplashScreen {
+            static let logo = UIImage(named: "Vector")
+        }
+        
         enum Onboarding {
             static let firstScreen = UIImage(named: "firstScreen")
             static let secondScreen = UIImage(named: "secondScreen")
