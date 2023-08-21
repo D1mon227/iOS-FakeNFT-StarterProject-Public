@@ -140,17 +140,23 @@ extension MyNFTViewController: MyNFTTableViewCellDelegate {
 extension MyNFTViewController {
     func showNFTsErrorAlert() {
         guard let model = presenter?.getNFTsErrorModel() else { return }
-        alertService.showErrorAlert(model: model, controller: self)
+        DispatchQueue.main.async {
+            self.alertService.showErrorAlert(model: model, controller: self)
+        }
     }
     
     func showUsersErrorAlert() {
         guard let model = presenter?.getUsersErrorModel() else { return }
-        alertService.showErrorAlert(model: model, controller: self)
+        DispatchQueue.main.async {
+            self.alertService.showErrorAlert(model: model, controller: self)
+        }
     }
     
     func showLikeErrorAlert(id: String) {
         guard let model = presenter?.getLikeErrorModel(id: id) else { return }
-        alertService.showErrorAlert(model: model, controller: self)
+        DispatchQueue.main.async {
+            self.alertService.showErrorAlert(model: model, controller: self)
+        }
     }
 }
 
