@@ -37,8 +37,8 @@ final class NFTCardViewPresenter: NFTCardViewPresenterProtocol {
             switch result {
             case .success(let currencies):
                 self.currencies = currencies
-            case .failure(let error):
-                print(error.localizedDescription)
+            case .failure(_):
+                self.view?.showCurrencyErrorAlert()
             }
         }
     }
@@ -50,8 +50,8 @@ final class NFTCardViewPresenter: NFTCardViewPresenterProtocol {
             case .success(let nfts):
                 let randomIndexes = generateRandomNFTsIndexes(max: nfts.count, count: 5)
                 self.nfts = randomIndexes.map { nfts[$0]}
-            case .failure(let error):
-                print(error.localizedDescription)
+            case .failure(_):
+                self.view?.showNFTsErrorAlert()
             }
         }
     }
@@ -63,6 +63,24 @@ final class NFTCardViewPresenter: NFTCardViewPresenterProtocol {
         webViewPresenter.view = webViewController
         
         return webViewController
+    }
+    
+    func getCurrencyErrorModel() -> AlertErrorModel {
+        let model = AlertErrorModel(message: LocalizableConstants.Auth.Alert.failedLoadDataMessage,
+                                    buttonText: LocalizableConstants.Auth.Alert.tryAgainButton) { [weak self] in
+            guard let self = self else { return }
+            self.fetchCurrencies()
+        }
+        return model
+    }
+    
+    func getNFTsErrorModel() -> AlertErrorModel {
+        let model = AlertErrorModel(message: LocalizableConstants.Auth.Alert.failedLoadDataMessage,
+                                    buttonText: LocalizableConstants.Auth.Alert.tryAgainButton) { [weak self] in
+            guard let self = self else { return }
+            self.fetchNFTs()
+        }
+        return model
     }
     
     private func generateRandomNFTsIndexes(max: Int, count: Int) -> [Int] {
