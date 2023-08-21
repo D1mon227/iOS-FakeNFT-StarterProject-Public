@@ -30,7 +30,7 @@ final class ResetPasswordViewController: UIViewController, ResetPasswordViewCont
     
     private func showAlert() {
         let model = AlertErrorModel(title: LocalizableConstants.Auth.Alert.title,
-                                    message: LocalizableConstants.Auth.Alert.message)
+                                    message: LocalizableConstants.Auth.Alert.resetPasswordMessage)
         alertService.showErrorAlert(model: model, controller: self)
     }
     
