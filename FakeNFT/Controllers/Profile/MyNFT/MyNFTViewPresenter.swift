@@ -10,19 +10,6 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
     private let userDefaults = UserDefaults.standard
     private let sortUserDefaultsKey = "MyNFtSortKey"
     
-    private var currentSort: Sort {
-        get {
-            if let savedSort = userDefaults.string(forKey: sortUserDefaultsKey) {
-                return Sort(rawValue: savedSort) ?? .byRating
-            } else {
-                return .byRating
-            }
-        }
-        set {
-            userDefaults.set(newValue.rawValue, forKey: sortUserDefaultsKey)
-        }
-    }
-    
     var likes: [String]?
     var purchasedNFTs: [NFT] = [] {
         didSet {
@@ -37,6 +24,19 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
             DispatchQueue.main.async {
                 self.view?.reloadViews()
             }
+        }
+    }
+    
+    private var currentSort: Sort {
+        get {
+            if let savedSort = userDefaults.string(forKey: sortUserDefaultsKey) {
+                return Sort(rawValue: savedSort) ?? .byRating
+            } else {
+                return .byRating
+            }
+        }
+        set {
+            userDefaults.set(newValue.rawValue, forKey: sortUserDefaultsKey)
         }
     }
     
@@ -127,6 +127,16 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
         }
         
         self.purchasedNFTs = nfts
+    }
+    
+    func showSortingOptions() -> AlertSortModel {
+        let sortingOptions: [Sort] = [.byPrice, .byRating, .byTitle, .close]
+        let model = AlertSortModel(title: LocalizableConstants.Sort.sort,
+                                   actions: sortingOptions) { [weak self] option in
+            guard let self = self else { return }
+            self.sortNFT(by: option)
+        }
+        return model
     }
     
     private func filterPurchasedNFTs(profile: Profile, allNFTs: [NFT]) -> [NFT] {

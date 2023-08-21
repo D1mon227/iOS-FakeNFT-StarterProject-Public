@@ -32,7 +32,8 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
             self.profileView.profileName.text = profile.name
             self.profileView.profileDescription.text = profile.description
             self.profileView.websiteButton.setTitle(profile.website, for: .normal)
-            self.profileView.profileImage.kf.setImage(with: profile.avatar, placeholder: UIImage(named: "placeholderImage"))
+            self.profileView.profileImage.kf.indicatorType = .activity
+            self.profileView.profileImage.kf.setImage(with: profile.avatar, placeholder: UIImage(named: "placeholderImage"), options: [.transition(.fade(0.5))])
             self.profileView.profileTableView.reloadData()
         }
     }

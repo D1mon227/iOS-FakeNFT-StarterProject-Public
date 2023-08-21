@@ -5,6 +5,7 @@ final class ProfileView {
         let element = UIImageView()
         element.layer.cornerRadius = 35
         element.layer.masksToBounds = true
+        element.contentMode = .scaleAspectFill
         return element
     }()
     

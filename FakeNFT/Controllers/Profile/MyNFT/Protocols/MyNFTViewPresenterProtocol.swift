@@ -13,4 +13,5 @@ protocol MyNFTViewPresenterProtocol: AnyObject {
     func getAuthorName(for authorID: String, from authors: [User]) -> String?
     func arePurchasedNFTsEmpty() -> Bool
     func sortNFT(by: Sort)
+    func showSortingOptions() -> AlertSortModel
 }

@@ -75,13 +75,15 @@ final class MyNFTViewController: UIViewController, MyNFTViewControllerProtocol {
     }
     
     @objc private func sort() {
+        guard let model = presenter?.showSortingOptions() else { return }
         analyticsService.report(event: .click, screen: .myNFTsVC, item: .sort)
-        alertService.showAlert(title: LocalizableConstants.Sort.sort,
-                               actions: [.byPrice, .byRating, .byTitle, .close],
-                               controller: self) { [weak self] option in
-            guard let self = self else { return }
-            self.presenter?.sortNFT(by: option)
-        }
+        alertService.showSortAlert(model: model, controller: self)
+//        alertService.showAlert(title: LocalizableConstants.Sort.sort,
+//                               actions: [.byPrice, .byRating, .byTitle, .close],
+//                               controller: self) { [weak self] option in
+//            guard let self = self else { return }
+//            self.presenter?.sortNFT(by: option)
+//        }
     }
     
     private func switchToNFTCardVC(nftModel: NFT?, isLiked: Bool) {
