@@ -17,7 +17,7 @@ final class RegistrationViewController: UIViewController, NavigationScreenDelega
 		self.view = self.customView
 	}
 	
-	func userRegistrationSuccessful() {
+	func dismissRegistrationScreen() {
 		dismiss(animated: true)
 	}
 	

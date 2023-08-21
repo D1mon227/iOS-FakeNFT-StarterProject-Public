@@ -48,7 +48,37 @@ final class RegistrationView: UIView {
 		return textField
 	}()
 	
-	lazy var loginPasswordMistakeLabel: UILabel = {
+	private lazy var loginPasswordMistakeLabel: UILabel = {
+		let label = UILabel()
+		label.text = LocalizableConstants.Auth.incorrectUsernameOrPasswordLabel
+		label.textColor = .redUniversal
+		label.font = .caption2
+		label.textAlignment = .left
+		label.translatesAutoresizingMaskIntoConstraints = false
+		return label
+	}()
+	
+	private let weakPasswordLabel: UILabel = {
+		let label = UILabel()
+		label.text = LocalizableConstants.Auth.weakPasswordLabel
+		label.textColor = .redUniversal
+		label.font = .caption2
+		label.textAlignment = .left
+		label.translatesAutoresizingMaskIntoConstraints = false
+		return label
+	}()
+	
+	private let invalidEmailLabel: UILabel = {
+		let label = UILabel()
+		label.text = LocalizableConstants.Auth.invalidEmailLabel
+		label.textColor = .redUniversal
+		label.font = .caption2
+		label.textAlignment = .left
+		label.translatesAutoresizingMaskIntoConstraints = false
+		return label
+	}()
+	
+	private let emailAlreadyInUseLabel: UILabel = {
 		let label = UILabel()
 		label.text = LocalizableConstants.Auth.usernameAlreadyExistsLabel
 		label.textColor = .redUniversal
@@ -71,10 +101,23 @@ final class RegistrationView: UIView {
 		return button
 	}()
 	
+	private lazy var closeButton: UIButton = {
+		let button = UIButton(type: .system)
+		button.setImage(Resourses.Images.Button.closeButton, for: .normal)
+		button.tintColor = .blackDay
+		button.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
+		button.translatesAutoresizingMaskIntoConstraints = false
+		return button
+	}()
+	
 	@objc private func enterButtonTapped(_ sender: UIButton) {
 		let email = emailTextField.text ?? ""
 		let password = passwordTextField.text ?? ""
 		presenter?.registrationUser(with: email, password: password)
+	}
+	
+	@objc private func closeButtonTapped(_ sender: UIButton) {
+		presenter?.navigationScreenDelegate?.dismissRegistrationScreen()
 	}
 	
 	init() {
@@ -94,13 +137,50 @@ final class RegistrationView: UIView {
 			loginPasswordMistakeLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16)
 		])
 	}
+	
+	func showWeakPasswordLabel() {
+		addSubview(weakPasswordLabel)
+		NSLayoutConstraint.activate([
+			weakPasswordLabel.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 16),
+			weakPasswordLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+			weakPasswordLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16)
+		])
+	}
+	
+	func showInvalidEmailLabel() {
+		addSubview(invalidEmailLabel)
+		NSLayoutConstraint.activate([
+			invalidEmailLabel.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 16),
+			invalidEmailLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+			invalidEmailLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16)
+		])
+	}
+	
+	func showEmailAlreadyInUseLabel() {
+		addSubview(emailAlreadyInUseLabel)
+		NSLayoutConstraint.activate([
+			emailAlreadyInUseLabel.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 16),
+			emailAlreadyInUseLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+			emailAlreadyInUseLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16)
+		])
+	}
+	
+	private func hideWeakPasswordLabel() {
+		weakPasswordLabel.removeFromSuperview()
+	}
+	
+	private func hideInvalidEmailLabel() {
+		invalidEmailLabel.removeFromSuperview()
+	}
+	
+	private func hideEmailAlreadyInUseLabel() {
+		emailAlreadyInUseLabel.removeFromSuperview()
+	}
+	
 	private func hideMistakeLabel() {
 		loginPasswordMistakeLabel.removeFromSuperview()
 	}
 }
-
-
-
 
 extension RegistrationView: IRegistrationView {
 	func setDelegateTextField(delegate: UITextFieldDelegate) {
@@ -116,9 +196,10 @@ private extension RegistrationView {
 		self.addSubview(emailTextField)
 		self.addSubview(passwordTextField)
 		self.addSubview(enterButton)
+		self.addSubview(closeButton)
 		
 		NSLayoutConstraint.activate([
-			entryLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 88),
+			entryLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 132),
 			entryLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
 			entryLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
 			
@@ -135,7 +216,11 @@ private extension RegistrationView {
 			enterButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 86),
 			enterButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
 			enterButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-			enterButton.heightAnchor.constraint(equalToConstant: 60)
+			enterButton.heightAnchor.constraint(equalToConstant: 60),
+			
+			closeButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 30),
+			closeButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+			closeButton.heightAnchor.constraint(equalToConstant: 42)
 		])
 	}
 }
@@ -148,6 +233,9 @@ extension RegistrationView: UITextFieldDelegate {
 	func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 		if !string.isEmpty {
 			hideMistakeLabel()
+			hideWeakPasswordLabel()
+			hideInvalidEmailLabel()
+			hideEmailAlreadyInUseLabel()
 		}
 		return true
 	}

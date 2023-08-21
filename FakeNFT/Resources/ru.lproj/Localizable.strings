@@ -8,6 +8,8 @@
 "auth.registrationButton" = "Зарегистрироваться";
 "auth.registrationTitle" = "Регистрация";
 "auth.usernameAlreadyExistsLabel" = "Данное имя пользователя занято";
+"auth.invalidEmailLabel" = "Электронная почта имеет неправильный формат";
+"auth.weakPasswordLabel" = "Пароль слишком слабый";
 "auth.incorrectUsernameOrPasswordLabel" = "Введен неверный логин или пароль";
 "auth.resetPasswordTitle" = "Сброс пароля";
 "auth.resetPasswordButton" = "Сбросить пароль";
