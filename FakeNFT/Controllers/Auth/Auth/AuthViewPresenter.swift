@@ -40,6 +40,12 @@ final class AuthViewPresenter: AuthViewPresenterProtocol {
         }
     }
     
+    func authorizationSuccessful() {
+        if Auth.auth().currentUser != nil {
+            didAuthorizationSuccess = true
+        }
+    }
+    
     func setupEmail(email: String?) {
         self.email = email
     }

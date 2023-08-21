@@ -22,9 +22,14 @@ final class AuthViewController: UIViewController, AuthViewControllerProtocol {
         setupTargets()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        presenter?.authorizationSuccessful()
+    }
+    
     func checkAuthorization(successfulAuthorization: Bool) {
         UIBlockingProgressHUD.dismiss()
-        successfulAuthorization ? switchToOnboarding() : print("bf")
+        successfulAuthorization ? switchToTabBarController() : print("bf")
     }
     
     func checkLoginPasswordMistake(incorrect: Bool) {
@@ -45,11 +50,10 @@ final class AuthViewController: UIViewController, AuthViewControllerProtocol {
         authView.passwordTextField.addTarget(self, action: #selector(setupPassword), for: [.editingChanged, .editingDidEnd])
     }
     
-    private func switchToOnboarding() {
-        let onboarding = OnboardingPageViewController()
-        onboarding.modalPresentationStyle = .fullScreen
-        onboarding.modalTransitionStyle = .flipHorizontal
-        present(onboarding, animated: true)
+    private func switchToTabBarController() {
+        let tabbar = TabBarController()
+        tabbar.modalPresentationStyle = .fullScreen
+        present(tabbar, animated: true)
     }
     
     private func showMistakeLabel() {
@@ -92,10 +96,10 @@ final class AuthViewController: UIViewController, AuthViewControllerProtocol {
     }
     
     @objc private func switchToRegistrationVC() {
-        guard let customNC = navigationController as? CustomNavigationController else { return }
         let registrationPresenter = RegistrationViewPresenter()
         let registrationVC = RegistrationViewController(with: registrationPresenter)
-        customNC.pushViewController(registrationVC, animated: true)
+        registrationVC.modalPresentationStyle = .fullScreen
+        present(registrationVC, animated: true)
     }
 }
 

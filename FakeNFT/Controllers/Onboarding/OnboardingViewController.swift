@@ -17,7 +17,7 @@ final class OnboardingViewController: UIViewController {
         let element = UIButton(type: .system)
         element.setImage(Resourses.Images.Button.closeButton, for: .normal)
         element.tintColor = .white
-        element.addTarget(self, action: #selector(switchToTabbarVC), for: .touchUpInside)
+        element.addTarget(self, action: #selector(switchToAuthVC), for: .touchUpInside)
         return element
     }()
     
@@ -43,7 +43,7 @@ final class OnboardingViewController: UIViewController {
         element.setTitleColor(.white, for: .normal)
         element.titleLabel?.font = .bodyBold
         element.layer.cornerRadius = 16
-        element.addTarget(self, action: #selector(switchToTabbarVC), for: .touchUpInside)
+        element.addTarget(self, action: #selector(switchToAuthVC), for: .touchUpInside)
         element.backgroundColor = .black
         return element
     }()
@@ -65,12 +65,12 @@ final class OnboardingViewController: UIViewController {
         setupGradient()
     }
     
-    @objc private func switchToTabbarVC() {
+    @objc private func switchToAuthVC() {
         OnboardingManager.hasCompletedOnboarding = true
-        let tabbar = TabBarController()
-        tabbar.modalPresentationStyle = .fullScreen
-        tabbar.modalTransitionStyle = .flipHorizontal
-        present(tabbar, animated: true)
+        let authVC = AuthViewController()
+        authVC.modalPresentationStyle = .fullScreen
+        authVC.modalTransitionStyle = .flipHorizontal
+        present(authVC, animated: true)
     }
     
     func setupFirstSecondScreens(image: UIImage?, page: Int?, titleText: String?, descriptionText: String?) {

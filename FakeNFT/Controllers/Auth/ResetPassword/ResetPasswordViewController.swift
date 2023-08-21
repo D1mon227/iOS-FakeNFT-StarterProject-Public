@@ -27,10 +27,6 @@ final class ResetPasswordViewController: UIViewController, ResetPasswordViewCont
         successfulReset ? showInstractionLabel() : print("error")
     }
     
-    func showNewEmailPlaceholder() {
-        resetPasswordView.emailTextField.placeholder = "Введите Email"
-    }
-    
     private func setupTarget() {
         resetPasswordView.passwordResetButton.addTarget(self, action: #selector(resetPassword), for: .touchUpInside)
         resetPasswordView.emailTextField.addTarget(self, action: #selector(setupEmail), for: [.editingChanged, .editingDidEnd])

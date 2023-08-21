@@ -26,8 +26,6 @@ final class ResetPasswordViewPresenter: ResetPasswordViewPresenterProtocol {
                     self.didResetPasswordSuccess = true
                 }
             }
-        } else {
-            view?.showNewEmailPlaceholder()
         }
     }
 }

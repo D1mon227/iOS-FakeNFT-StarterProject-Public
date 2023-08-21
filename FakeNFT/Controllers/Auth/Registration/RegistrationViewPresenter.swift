@@ -23,7 +23,7 @@ final class RegistrationViewPresenter {
 				if let error = error {
 					print("Error creating user: \(error)")
 					self.ui?.showMistakeLabel()
-				} else if let authResult = authResult {
+				} else {
 					print("User registered successfully")
 					self.navigationScreenDelegate?.userRegistrationSuccessful()
 				}
