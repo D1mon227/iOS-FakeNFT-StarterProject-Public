@@ -66,15 +66,11 @@ final class OnboardingViewController: UIViewController {
     }
     
     @objc private func switchToTabbarVC() {
-        let scene = UIApplication.shared.connectedScenes.first
-        if let sceneDelegate = scene?.delegate as? SceneDelegate,
-           let window = sceneDelegate.window {
-            let tabbarVC = TabBarController()
-            sceneDelegate.window?.rootViewController = tabbarVC
-            OnboardingManager.hasCompletedOnboarding = true
-            
-            UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromRight, animations: nil, completion: nil)
-        }
+        OnboardingManager.hasCompletedOnboarding = true
+        let tabbar = TabBarController()
+        tabbar.modalPresentationStyle = .fullScreen
+        tabbar.modalTransitionStyle = .flipHorizontal
+        present(tabbar, animated: true)
     }
     
     func setupFirstSecondScreens(image: UIImage?, page: Int?, titleText: String?, descriptionText: String?) {

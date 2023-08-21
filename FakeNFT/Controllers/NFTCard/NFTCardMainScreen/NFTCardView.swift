@@ -4,6 +4,7 @@ final class NFTCardView {
     lazy var generalScrollView: UIScrollView = {
         let element = UIScrollView()
         element.showsVerticalScrollIndicator = false
+        element.contentInsetAdjustmentBehavior = .never
         return element
     }()
     
@@ -101,6 +102,7 @@ final class NFTCardView {
         element.separatorStyle = .none
         element.backgroundColor = .lightGreyDay
         element.layer.cornerRadius = 12
+        element.isScrollEnabled = false
         return element
     }()
     
@@ -110,7 +112,6 @@ final class NFTCardView {
         element.titleLabel?.font = .caption1
         element.setTitleColor(.blackDay, for: .normal)
         element.layer.cornerRadius = 16
-        element.layer.borderColor = UIColor.blackDay.cgColor
         element.layer.borderWidth = 1
         return element
     }()

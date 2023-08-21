@@ -1,7 +1,36 @@
 import UIKit
 
 enum Resourses {
+    enum Network {
+        static let baseURL = "https://64c5171bc853c26efada7b56.mockapi.io"
+        
+        enum Paths {
+            static let nftCollection = "/api/v1/collections"
+            static let nft = "/api/v1/nft"
+            static let currencies = "/api/v1/currencies"
+            static let orders = "/api/v1/orders/1"
+            static let orderPayment = "/api/v1/orders/1/payment"
+            static let profile = "/api/v1/profile/1"
+            static let users = "/api/v1/users"
+        }
+        
+        enum NFTUrls {
+            static let bitcoin =  "https://bitcoin.org/ru/"
+            static let dogecoin = "https://dogecoin.com"
+            static let tether = "https://tether.to/ru/"
+            static let apecoin = "https://apecoin.com"
+            static let solana = "https://solana.com/ru"
+            static let ethereum = "https://ethereum.org/en/"
+            static let cardano = "https://cardano.org"
+            static let shibainu = "https://www.shibatoken.com"
+        }
+    }
+    
     enum Images {
+        enum SplashScreen {
+            static let logo = UIImage(named: "Vector")
+        }
+        
         enum Onboarding {
             static let firstScreen = UIImage(named: "firstScreen")
             static let secondScreen = UIImage(named: "secondScreen")
