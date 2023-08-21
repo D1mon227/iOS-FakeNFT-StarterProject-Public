@@ -108,7 +108,6 @@
 		73EA4B1B2A744623000B4B55 /* LocalizableConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EA4B1A2A744623000B4B55 /* LocalizableConstants.swift */; };
 		73EA4B1D2A7471D2000B4B55 /* CustomNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EA4B1C2A7471D2000B4B55 /* CustomNavigationViewController.swift */; };
 		C50E6CC52A7E930000B852F9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50E6CC42A7E930000B852F9 /* User.swift */; };
-		C50E6CC72A7E931400B852F9 /* GetUsersRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50E6CC62A7E931400B852F9 /* GetUsersRequest.swift */; };
 		C51A14262A91F538002B1DC5 /* RegistrationViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51A14252A91F538002B1DC5 /* RegistrationViewPresenter.swift */; };
 		C51A14282A91F567002B1DC5 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51A14272A91F567002B1DC5 /* RegistrationView.swift */; };
 /* End PBXBuildFile section */
@@ -243,7 +242,6 @@
 		73C3EB5C2A8D393100E047E0 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		73C3EB5E2A8D394B00E047E0 /* CurrencyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyService.swift; sourceTree = "<group>"; };
 		73C3EB602A8E7C3700E047E0 /* NFTService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTService.swift; sourceTree = "<group>"; };
-		73C3EB622A8E7C6100E047E0 /* NFTsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTsRequest.swift; sourceTree = "<group>"; };
 		73D526D62A84C4020056116E /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
 		73D526D82A84C4420056116E /* UIImageView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView + Extension.swift"; sourceTree = "<group>"; };
 		73EA4B022A73C703000B4B55 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -256,7 +254,6 @@
 		73EA4B1A2A744623000B4B55 /* LocalizableConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizableConstants.swift; sourceTree = "<group>"; };
 		73EA4B1C2A7471D2000B4B55 /* CustomNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationViewController.swift; sourceTree = "<group>"; };
 		C50E6CC42A7E930000B852F9 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		C50E6CC62A7E931400B852F9 /* GetUsersRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetUsersRequest.swift; sourceTree = "<group>"; };
 		C51A14252A91F538002B1DC5 /* RegistrationViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewPresenter.swift; sourceTree = "<group>"; };
 		C51A14272A91F567002B1DC5 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		C5D3AAD12A7B3B79005A3694 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -429,8 +426,6 @@
 				732208BB2A8CBCB700CAB88E /* NFTsRequest.swift */,
 				732208BC2A8CBCB700CAB88E /* UsersRequest.swift */,
 				732208B92A8CBCAC00CAB88E /* ProfileRequest.swift */,
-				C50E6CC62A7E931400B852F9 /* GetUsersRequest.swift */,
-				73C3EB622A8E7C6100E047E0 /* NFTsRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -545,8 +540,8 @@
 				7300E0622A9379D300AD427A /* ProfileViewPresenterProtocol.swift */,
 			);
 			path = Protocols;
-            sourceTree = "<group>";
-        };
+			sourceTree = "<group>";
+		};
 		7300E0892A93AEDD00AD427A /* AlertService */ = {
 			isa = PBXGroup;
 			children = (
@@ -998,7 +993,6 @@
 				73EA4B1D2A7471D2000B4B55 /* CustomNavigationViewController.swift in Sources */,
 				C51A14282A91F567002B1DC5 /* RegistrationView.swift in Sources */,
 				730B239D2A8C29A500F5D832 /* NFTCardTableViewCell.swift in Sources */,
-				C50E6CC72A7E931400B852F9 /* GetUsersRequest.swift in Sources */,
 				1FEA5B7C2A8BE98600946DD9 /* NetworkErrorView.swift in Sources */,
 				7375ECFF2A91109800107A63 /* SplashScreenViewController.swift in Sources */,
 				733B359E2A90D2C00068C2C6 /* ResetPasswordViewController.swift in Sources */,
