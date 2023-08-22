@@ -131,8 +131,7 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
     
     func getSortModel() -> AlertSortModel {
         let sortingOptions: [Sort] = [.byPrice, .byRating, .byTitle, .close]
-        let model = AlertSortModel(title: LocalizableConstants.Sort.sort,
-                                   actions: sortingOptions) { [weak self] option in
+        let model = AlertSortModel(actions: sortingOptions) { [weak self] option in
             guard let self = self else { return }
             self.sortNFT(by: option)
         }
