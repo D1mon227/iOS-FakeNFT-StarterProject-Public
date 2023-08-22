@@ -87,6 +87,7 @@
 		733B35A52A90E7C20068C2C6 /* AuthViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733B35A42A90E7C20068C2C6 /* AuthViewControllerProtocol.swift */; };
 		733B35A72A90E7D20068C2C6 /* AuthViewPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733B35A62A90E7D20068C2C6 /* AuthViewPresenterProtocol.swift */; };
 		733B35A92A90F0B70068C2C6 /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733B35A82A90F0B70068C2C6 /* ResetPasswordView.swift */; };
+		735FAE662A94DA4400997D14 /* UITextView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735FAE652A94DA4400997D14 /* UITextView + Extension.swift */; };
 		7362C5492A786ACE004CBE1D /* AlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7362C5482A786ACE004CBE1D /* AlertService.swift */; };
 		7375ECFF2A91109800107A63 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7375ECFE2A91109800107A63 /* SplashScreenViewController.swift */; };
 		737D031D2A80703700DCB5B1 /* OnboardingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737D031C2A80703700DCB5B1 /* OnboardingManager.swift */; };
@@ -233,6 +234,7 @@
 		733B35A42A90E7C20068C2C6 /* AuthViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewControllerProtocol.swift; sourceTree = "<group>"; };
 		733B35A62A90E7D20068C2C6 /* AuthViewPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewPresenterProtocol.swift; sourceTree = "<group>"; };
 		733B35A82A90F0B70068C2C6 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
+		735FAE652A94DA4400997D14 /* UITextView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView + Extension.swift"; sourceTree = "<group>"; };
 		7362C5482A786ACE004CBE1D /* AlertService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertService.swift; sourceTree = "<group>"; };
 		7375ECFE2A91109800107A63 /* SplashScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
 		737D031C2A80703700DCB5B1 /* OnboardingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingManager.swift; sourceTree = "<group>"; };
@@ -724,6 +726,7 @@
 		73EA4B132A73DFB1000B4B55 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				735FAE652A94DA4400997D14 /* UITextView + Extension.swift */,
 				3F478ECE29DB474E00F6D39E /* UIColor + Extension.swift */,
 				3F478ED029DB476500F6D39E /* Fonts.swift */,
 				73D526D62A84C4020056116E /* UIBlockingProgressHUD.swift */,
@@ -922,6 +925,7 @@
 				733B35962A90D17A0068C2C6 /* AuthViewController.swift in Sources */,
 				733B35A72A90E7D20068C2C6 /* AuthViewPresenterProtocol.swift in Sources */,
 				7300E08B2A93AEF100AD427A /* AlertServiceProtocol.swift in Sources */,
+				735FAE662A94DA4400997D14 /* UITextView + Extension.swift in Sources */,
 				7362C5492A786ACE004CBE1D /* AlertService.swift in Sources */,
 				730B23942A8C28DD00F5D832 /* NFTCardViewControllerProtocol.swift in Sources */,
 				7300E07C2A9379D300AD427A /* ProfileViewControllerProtocol.swift in Sources */,

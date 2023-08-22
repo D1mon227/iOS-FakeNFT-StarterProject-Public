@@ -6,6 +6,7 @@ final class EditingProfileTableViewCell: UITableViewCell {
         let element = UITextField()
         element.layer.cornerRadius = 12
         element.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 0))
+        element.textAlignment = Locale.current.languageCode == "he" ? .right : .left
         element.leftViewMode = .always
         element.returnKeyType = .done
         element.clearButtonMode = .whileEditing
@@ -20,6 +21,7 @@ final class EditingProfileTableViewCell: UITableViewCell {
         element.layer.cornerRadius = 12
         element.returnKeyType = .done
         element.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        element.textAlignment = Locale.current.languageCode == "he" ? .right : .left
         element.textColor = .blackDay
         element.backgroundColor = .lightGreyDay
         element.font = .bodyRegular
@@ -50,20 +52,22 @@ final class EditingProfileTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureCell(text: String) {
+    func configureCell(text: String, placeholder: String) {
         contentView.addSubview(editingTextField)
         editingTextField.snp.makeConstraints { make in
             make.top.bottom.leading.trailing.equalToSuperview()
         }
+        editingTextField.placeholder = placeholder
         editingTextField.text = text
     }
     
-    func configureMiddleCell(text: String) {
+    func configureMiddleCell(text: String, placeholder: String) {
         contentView.addSubview(editingTextView)
         editingTextView.snp.makeConstraints { make in
             make.top.bottom.leading.trailing.equalToSuperview()
         }
         editingTextView.text = text
+        editingTextView.setPlaceholder(placeholder)
     }
 }
 

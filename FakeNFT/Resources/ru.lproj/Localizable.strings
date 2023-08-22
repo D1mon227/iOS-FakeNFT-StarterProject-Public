@@ -50,6 +50,9 @@
 "profile.price" = "Цена";
 "profile.noNFT" = "У Вас ещё нет NFT";
 "profile.noFavoritesNFT" = "У Вас ещё нет избранных NFT";
+"profile.enterName" = "Введите имя";
+"profile.enterDescription" = "Введите описание";
+"profile.enterWebsite" = "Введите сайт";
 
 //MARK: Sort
 "sort.sort" = "Сортировка";
