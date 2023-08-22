@@ -4,6 +4,7 @@ final class NFTCardViewPresenter: NFTCardViewPresenterProtocol {
     weak var view: NFTCardViewControllerProtocol?
     private let currencyService = CurrencyService.shared
     private let nftService = NFTService.shared
+    private let profileService = ProfileService.shared
     
     var nftModel: NFT?
     var isLiked: Bool?
@@ -23,6 +24,8 @@ final class NFTCardViewPresenter: NFTCardViewPresenterProtocol {
             }
         }
     }
+    
+    private var likes: [String]?
     
     private var NFTUrls = [
         Resourses.Network.NFTUrls.bitcoin, Resourses.Network.NFTUrls.dogecoin,
@@ -56,6 +59,18 @@ final class NFTCardViewPresenter: NFTCardViewPresenterProtocol {
         }
     }
     
+    func fetchProfile() {
+        profileService.fetchProfile { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let profile):
+                self.likes = profile.likes
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     func switchToNFTInformation(index: Int) -> WebViewController? {
         guard let url = URL(string: NFTUrls[index]) else { return nil }
         let webViewPresenter = WebViewPresenter(urlRequest: URLRequest(url: url))
@@ -63,6 +78,12 @@ final class NFTCardViewPresenter: NFTCardViewPresenterProtocol {
         webViewPresenter.view = webViewController
         
         return webViewController
+    }
+    
+    func doesNftHasLike(id: String?) -> Bool {
+        guard let id = id,
+              let likes = likes else { return false }
+        return likes.contains(id) ? true : false
     }
     
     func getCurrencyErrorModel() -> AlertErrorModel {

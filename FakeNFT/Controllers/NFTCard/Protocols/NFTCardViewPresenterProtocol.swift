@@ -9,6 +9,8 @@ protocol NFTCardViewPresenterProtocol: AnyObject {
     func fetchCurrencies()
     func switchToNFTInformation(index: Int) -> WebViewController?
     func fetchNFTs()
+    func fetchProfile()
+    func doesNftHasLike(id: String?) -> Bool
     func getCurrencyErrorModel() -> AlertErrorModel
     func getNFTsErrorModel() -> AlertErrorModel
 }

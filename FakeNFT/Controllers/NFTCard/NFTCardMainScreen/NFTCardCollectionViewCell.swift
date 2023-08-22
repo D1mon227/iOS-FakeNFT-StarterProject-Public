@@ -60,14 +60,25 @@ final class NFTCardCollectionViewCell: UICollectionViewCell {
     }
     
     func configureCell(nftImage: URL?,
+                       doesNftHasLike: Bool?,
                        nftName: String?,
                        rating: Int?,
                        nftPrice: String?) {
-        guard let nftPrice = nftPrice else { return }
+        guard let nftPrice = nftPrice,
+              let doesNftHasLike = doesNftHasLike else { return }
         self.nftImage.setImage(with: nftImage)
+        doesNftHasLike ? changeLikeButtonColorToRed() : changeLikeButtonColorToWhite()
         nftNameLabel.text = nftName
         updateRatingStars(rating: rating)
         nftPriceLabel.text = nftPrice + " ETH"
+    }
+    
+    private func changeLikeButtonColorToWhite() {
+        favoriteButton.tintColor = .white
+    }
+    
+    private func changeLikeButtonColorToRed() {
+        favoriteButton.tintColor = .redUniversal
     }
     
     private func setupViews() {

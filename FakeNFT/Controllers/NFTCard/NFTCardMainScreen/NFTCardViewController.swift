@@ -34,6 +34,7 @@ final class NFTCardViewController: UIViewController, NFTCardViewControllerProtoc
         updateLikeButton(isLiked: presenter?.isLiked ?? false)
         presenter?.fetchCurrencies()
         presenter?.fetchNFTs()
+        presenter?.fetchProfile()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -143,6 +144,7 @@ extension NFTCardViewController: UICollectionViewDataSource {
               let nft = presenter?.nfts?[indexPath.row] else { return UICollectionViewCell() }
         
         cell.configureCell(nftImage: nft.images?[0],
+                           doesNftHasLike: presenter?.doesNftHasLike(id: nft.id),
                            nftName: nft.name,
                            rating: nft.rating,
                            nftPrice: convert(price: nft.price ?? 0.0))
