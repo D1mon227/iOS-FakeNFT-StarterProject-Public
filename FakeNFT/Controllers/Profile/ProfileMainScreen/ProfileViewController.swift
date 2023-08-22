@@ -20,12 +20,16 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
     override func viewDidLoad() {
         super.viewDidLoad()
         analyticsService.report(event: .open, screen: .profileVC, item: nil)
-        presenter?.fetchProfile()
         setupNavigationBar()
         setupViews()
         setupTargets()
         setupProfileTableView()
     }
+
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		presenter?.fetchProfile()
+	}
     
     func updateProfileDetails(profile: Profile?) {
         guard let profile = profile else { return }
