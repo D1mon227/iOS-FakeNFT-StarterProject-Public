@@ -8,31 +8,33 @@ final class TabBarController: UITabBarController {
     }
     
     private func setupTabBar() {
+
 		let appCoordinator = AppCoordinator(tabBarController: self)
 		let profile = ModuleFactory.makeProfileModule()
-		let statistics = ModuleFactory.makeStatisticModule(appCoordinator: appCoordinator)
-
-        let profileVC = CustomNavigationController(rootViewController: profile)
-        let catalogVC = CustomNavigationController(rootViewController: CatalogViewController())
-        let cartVC = CustomNavigationController(rootViewController: CartViewController())
-		let statisticsVC = CustomNavigationController(rootViewController: statistics)
+        let catalog = CatalogModulesFactory.makeCatalogModule()
+        let statistics = ModuleFactory.makeStatisticModule(appCoordinator: appCoordinator)
+        
+        let profileNC = CustomNavigationController(rootViewController: profile)
+        let catalogNC = CustomNavigationController(rootViewController: catalog)
+        let cartNC = CustomNavigationController(rootViewController: CartViewController())
+		let statisticsNC = CustomNavigationController(rootViewController: statistics)
 
         
-        profileVC.tabBarItem = UITabBarItem(title: LocalizableConstants.TabBar.profile,
+        profileNC.tabBarItem = UITabBarItem(title: LocalizableConstants.TabBar.profile,
                                             image: Resourses.Images.TabBar.profileTabBar,
                                             selectedImage: nil)
-        catalogVC.tabBarItem = UITabBarItem(title: LocalizableConstants.TabBar.catalog,
+        catalogNC.tabBarItem = UITabBarItem(title: LocalizableConstants.TabBar.catalog,
                                             image: Resourses.Images.TabBar.catalogTabBar,
                                             selectedImage: nil)
-        cartVC.tabBarItem = UITabBarItem(title: LocalizableConstants.TabBar.cart,
+        cartNC.tabBarItem = UITabBarItem(title: LocalizableConstants.TabBar.cart,
                                             image: Resourses.Images.TabBar.cartTabBar,
                                             selectedImage: nil)
-        statisticsVC.tabBarItem = UITabBarItem(title: LocalizableConstants.TabBar.statistics,
+        statisticsNC.tabBarItem = UITabBarItem(title: LocalizableConstants.TabBar.statistics,
                                             image: Resourses.Images.TabBar.statisticsTabBar,
                                             selectedImage: nil)
         
         tabBar.unselectedItemTintColor = .blackDay
-        self.viewControllers = [profileVC, catalogVC, cartVC, statisticsVC]
-		
+
+        self.viewControllers = [profileNC, catalogNC, cartNC, statisticsNC]
     }
 }

@@ -61,7 +61,7 @@ enum Resourses {
         
         enum TabBar {
             static let profileTabBar = UIImage(systemName: "person.crop.circle.fill")
-            static let catalogTabBar = UIImage(systemName: "rectangle.stack.fill")
+            static let catalogTabBar = UIImage(named: "Catalog_no_active")
             static let cartTabBar = UIImage(named: "Cart")
             static let statisticsTabBar = UIImage(systemName: "flag.2.crossed.fill")
         }
@@ -85,8 +85,8 @@ enum Resourses {
         }
         
         enum NetworkError {
-            static let noInternet = UIImage(systemName: "noInternet")
-            static let errorNetwork = UIImage(systemName: "errorNetwork")
+            static let noInternet = UIImage(named: "noInternet")
+            static let errorNetwork = UIImage(named: "errorNetwork")
         }
     }
 }

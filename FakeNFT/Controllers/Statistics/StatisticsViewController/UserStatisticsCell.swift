@@ -8,9 +8,7 @@
 import UIKit
 import Kingfisher
 
-final class UserStatisticsCell: UITableViewCell {
-	static let identifier = "userStatisticsCell"
-	
+final class UserStatisticsCell: UITableViewCell {	
 	private let cellNumberLabel: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false

@@ -7,9 +7,7 @@
 
 import UIKit
 
-final class FavoritesNFTTableViewCell: UITableViewCell {
-	static let identifier = "favoritesNFTTableViewCell"
-	
+final class FavoritesNFTTableViewCell: UITableViewCell {	
 	private let containerView: UIView = {
 		let view = UIView()
 		view.translatesAutoresizingMaskIntoConstraints = false

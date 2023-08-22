@@ -9,7 +9,6 @@ import UIKit
 import Kingfisher
 
 final class NFTCollectionCell: UICollectionViewCell {
-	static let identifier = "NFTCollectionCell"
 	var onCartButtonTapped: (() -> Void)?
 	var onFavoriteButtonTapped: (() -> Void)?
 	
