@@ -30,7 +30,7 @@ final class AuthViewController: UIViewController, AuthViewControllerProtocol {
     
     func checkAuthorization(successfulAuthorization: Bool) {
         UIBlockingProgressHUD.dismiss()
-        successfulAuthorization ? switchToTabBarController() : showAlert()
+        successfulAuthorization ? switchToTabBarController() : showErrorAlert()
     }
     
     func checkLoginPasswordMistake(incorrect: Bool) {
@@ -38,9 +38,9 @@ final class AuthViewController: UIViewController, AuthViewControllerProtocol {
         incorrect ? showMistakeLabel() : hideMistakeLabel()
     }
     
-    private func showAlert() {
-        let model = AlertErrorModel(title: LocalizableConstants.Auth.Alert.title,
-                                    message: LocalizableConstants.Auth.Alert.authMessage)
+    private func showErrorAlert() {
+        let model = AlertErrorModel(message: LocalizableConstants.Auth.Alert.authMessage,
+                                    buttonText: LocalizableConstants.Auth.Alert.okButton) {}
         alertService.showErrorAlert(model: model, controller: self)
     }
     
@@ -103,10 +103,10 @@ final class AuthViewController: UIViewController, AuthViewControllerProtocol {
     }
     
     @objc private func switchToRegistrationVC() {
+        guard let customNC = navigationController as? CustomNavigationController else { return }
         let registrationPresenter = RegistrationViewPresenter()
         let registrationVC = RegistrationViewController(with: registrationPresenter)
-        registrationVC.modalPresentationStyle = .fullScreen
-        present(registrationVC, animated: true)
+        customNC.pushViewController(registrationVC, animated: true)
     }
 }
 
