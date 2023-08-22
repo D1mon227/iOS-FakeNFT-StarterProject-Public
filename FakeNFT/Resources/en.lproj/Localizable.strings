@@ -1,0 +1,94 @@
+//MARK: Auth
+"auth.entryTitle" = "Entry";
+"auth.emailPlaceholder" = "Email";
+"auth.passwordPlaceholder" = "Password";
+"auth.enterButton" = "Log in";
+"auth.forgotPassword" = "Forgot password?";
+"auth.demo" = "Demo";
+"auth.registrationButton" = "Sigh up";
+"auth.registrationTitle" = "Registration";
+"auth.usernameAlreadyExistsLabel" = "This username already exists";
+"auth.invalidEmailLabel" = "Email is not in the correct format";
+"auth.weakPasswordLabel" = "Password is too weak";
+"auth.incorrectUsernameOrPasswordLabel" = "Invalid username or password entered";
+"auth.resetPasswordTitle" = "Password reset";
+"auth.resetPasswordButton" = "Reset password";
+"auth.instructionsForResetPassword" = "Instructions for password recovery sent to your email";
+
+"alert.title" = "Something went wrong(";
+"alert.authMessage" = "Failed to log in";
+"alert.failedLoadDataMessage" = "Failed to load data";
+"alert.traAgainMessage" = "Try again later";
+"alert.okButton" = "OK";
+"alert.tryAgainButton" = "Try again";
+
+//MARK: Onboarding
+"onboarding.firstTitle" = "Explore";
+"onboarding.firstDescription" = "Join us and discover a new world of unique NFT for collectors";
+"onboarding.secondTitle" = "Collect";
+"onboarding.secondDescription" = "Replenish your collection with exclusive pictures created by the neural network!";
+"onboarding.thirdTitle" = "Compete";
+"onboarding.thirdDescription" = "See the statistics of others and show everyone that you have the most valuable collection";
+"onboarding.letsStartButton" = "What's inside?";
+
+//MARK: TabBar
+"tabBar.profile" = "Profile";
+"tabBar.catalog" = "Catalog";
+"tabBar.cart" = "Cart";
+"tabBar.statistics" = "Statistics";
+
+//MARK: Profile
+"profile.myNFT" = "My NFT";
+"profile.nftFavorites" = "NFT Favorites";
+"profile.aboutDeveloper" = "About the developer";
+"profile.name" = "Name";
+"profile.changePhoto" = "Change\nphoto";
+"profile.uploadPhoto" = "Upload image";
+"profile.description" = "Description";
+"profile.website" = "Website";
+"profile.byAuthor" = "By";
+"profile.price" = "Price";
+"profile.noNFT" = "You don't have NFT yet";
+"profile.noFavoritesNFT" = "You don't have NFT favorites yet";
+
+//MARK: Sort
+"sort.sort" = "Sort";
+"sort.byName" = "By name";
+"sort.byNFTQuantity" = "By NFT quantity";
+"sort.byPrice" = "By price";
+"sort.byRating" = "By rating";
+"sort.byTitle" = "By title";
+"sort.close" = "Close";
+
+//MARK: Catalog
+"catalog.author" = "Collection author";
+
+//MARK: Cart
+"cart.price" = "Price";
+"cart.delete" = "Delete";
+"cart.goBack" = "Go back";
+"cart.deleteQuestion" = "Are you sure that you want to delete an object from the cart?";
+"cart.checkout" = "Checkout";
+"cart.pay" = "Pay";
+"cart.paymentMethod" = "Choose payment method";
+"cart.terms" = "By placing your order, you agree to the terms of the";
+"cart.conditions" = "User agreement";
+"cart.backToCatalog" = "Back to catalog";
+"cart.tryAgain" = "Try again";
+"cart.emptyCart" = "Cart is empty";
+"cart.successfulPayment" = "Success! Payment is proceeded,\ncongratulations!";
+"cart.failedPayment" = "Oops! Something went wrong :(\nTry again!";
+
+//MARK: Statistics
+"statistics.nftCollection" = "NFT Collection";
+"statistics.userWebsite" = "Go to the user's website";
+
+//MARK: NetworkErrorView
+"network.noInternet" = "No internet connection";
+"network.error" = "Oops! Something went wrong. Please try again later";
+"network.button" = "Try again";
+
+//MARK: NFTCard
+"nftcard.addToCart" = "Add to cart";
+"nftcard.price" = "Price";
+"nftcard.sellerWebsite" = "Go to the seller's website";
