@@ -64,7 +64,7 @@ final class StatisticsPresenter {
 	
 	private func showSortingOptions() {
 		let sortingOptions: [Sort] = [.byName, .byRating, .close]
-		let alertModel = AlertSortModel(title: LocalizableConstants.Sort.sort, actions: sortingOptions) { [weak self] selectedOption in
+		let alertModel = AlertSortModel(actions: sortingOptions) { [weak self] selectedOption in
 			self?.sortData(by: selectedOption)
 		}
 		navigationDelegate?.showAlert(model: alertModel)
