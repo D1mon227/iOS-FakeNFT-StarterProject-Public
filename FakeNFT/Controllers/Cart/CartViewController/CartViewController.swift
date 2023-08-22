@@ -1,7 +1,7 @@
 import UIKit
 import Kingfisher
 
-final class CartViewController: UIViewController, UITableViewDataSource{
+final class CartViewController: UIViewController, UITableViewDataSource {
     
     // MARK: - Properties
     
@@ -125,6 +125,17 @@ final class CartViewController: UIViewController, UITableViewDataSource{
             switch result {
             case .success(let orders):
                 self.myOrders = orders.nfts
+                
+                if self.myOrders.isEmpty {
+                    DispatchQueue.main.async {
+                        UIBlockingProgressHUD.dismiss()
+                        self.sortBy(selectedSortOption: self.selectedSortOption)
+                        self.cartTable.reloadData()
+                        self.view?.isUserInteractionEnabled = true
+                    }
+                    return
+                }
+                
                 var fetchCount = self.myOrders.count
                 self.myOrders.forEach { nftID in
                     self.presenter?.getNFTsFromAPI(nftID: nftID) { [weak self] result in
