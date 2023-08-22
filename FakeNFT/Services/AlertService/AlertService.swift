@@ -50,7 +50,7 @@ final class AlertService: AlertServiceProtocol {
     }
     
     func showErrorAlert(model: AlertErrorModel, controller: UIViewController) {
-        
+
         let alert = UIAlertController(title: LocalizableConstants.Auth.Alert.title,
                                       message: model.message,
                                       preferredStyle: .alert)

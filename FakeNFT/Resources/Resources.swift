@@ -70,6 +70,7 @@ enum Resourses {
             static let backButton = UIImage(systemName: "chevron.backward")
             static let forwardButton = UIImage(systemName: "chevron.forward")
             static let closeButton = UIImage(systemName: "xmark")
+            static let editingButton = UIImage(systemName: "square.and.pencil")
         }
         
         enum Cell {

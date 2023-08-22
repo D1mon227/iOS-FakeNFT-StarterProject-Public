@@ -50,6 +50,9 @@
 "profile.price" = "Price";
 "profile.noNFT" = "You don't have NFT yet";
 "profile.noFavoritesNFT" = "You don't have NFT favorites yet";
+"profile.enterName" = "Enter a name";
+"profile.enterDescription" = "Enter a description";
+"profile.enterWebsite" = "Enter a website";
 
 //MARK: Sort
 "sort.sort" = "Sort";

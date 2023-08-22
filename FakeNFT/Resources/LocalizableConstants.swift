@@ -58,6 +58,9 @@ enum LocalizableConstants {
         static let price = NSLocalizedString("profile.price", comment: "")
         static let noNFT = NSLocalizedString("profile.noNFT", comment: "")
         static let noFavoritesNFT = NSLocalizedString("profile.noFavoritesNFT", comment: "")
+        static let enterName = NSLocalizedString("profile.enterName", comment: "")
+        static let enterDescription = NSLocalizedString("profile.enterDescription", comment: "")
+        static let enterWebsite = NSLocalizedString("profile.enterWebsite", comment: "")
     }
     
     enum Sort {

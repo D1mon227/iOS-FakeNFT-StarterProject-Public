@@ -9,7 +9,7 @@ final class TabBarController: UITabBarController {
     }
     
     private func setupTabBar() {
-        let profileVC = CustomNavigationController(rootViewController: ProfileViewController())
+        let profileVC = CustomNavigationController(rootViewController: setupProfilePresenter())
         let catalogVC = CustomNavigationController(rootViewController: CatalogViewController())
         let cartVC = CustomNavigationController(rootViewController: CartViewController())
 		let statisticsVC = CustomNavigationController(rootViewController: StatisticsViewController())
@@ -30,5 +30,13 @@ final class TabBarController: UITabBarController {
         
         tabBar.unselectedItemTintColor = .blackDay
         self.viewControllers = [profileVC, catalogVC, cartVC, statisticsVC]
+    }
+    
+    private func setupProfilePresenter() -> ProfileViewController {
+        let presenter = ProfileViewPresenter()
+        let viewController = ProfileViewController(presenter: presenter)
+        presenter.view = viewController
+        
+        return viewController
     }
 }
