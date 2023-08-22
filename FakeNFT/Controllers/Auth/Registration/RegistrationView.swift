@@ -101,23 +101,10 @@ final class RegistrationView: UIView {
 		return button
 	}()
 	
-	private lazy var closeButton: UIButton = {
-		let button = UIButton(type: .system)
-		button.setImage(Resourses.Images.Button.closeButton, for: .normal)
-		button.tintColor = .blackDay
-		button.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
-		button.translatesAutoresizingMaskIntoConstraints = false
-		return button
-	}()
-	
 	@objc private func enterButtonTapped(_ sender: UIButton) {
 		let email = emailTextField.text ?? ""
 		let password = passwordTextField.text ?? ""
 		presenter?.registrationUser(with: email, password: password)
-	}
-	
-	@objc private func closeButtonTapped(_ sender: UIButton) {
-		presenter?.navigationScreenDelegate?.dismissRegistrationScreen()
 	}
 	
 	init() {
@@ -196,10 +183,9 @@ private extension RegistrationView {
 		self.addSubview(emailTextField)
 		self.addSubview(passwordTextField)
 		self.addSubview(enterButton)
-		self.addSubview(closeButton)
 		
 		NSLayoutConstraint.activate([
-			entryLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 132),
+			entryLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 88),
 			entryLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
 			entryLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
 			
@@ -216,11 +202,7 @@ private extension RegistrationView {
 			enterButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 86),
 			enterButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
 			enterButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-			enterButton.heightAnchor.constraint(equalToConstant: 60),
-			
-			closeButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 30),
-			closeButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-			closeButton.heightAnchor.constraint(equalToConstant: 42)
+			enterButton.heightAnchor.constraint(equalToConstant: 60)
 		])
 	}
 }
