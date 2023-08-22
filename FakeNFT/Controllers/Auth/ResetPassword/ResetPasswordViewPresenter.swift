@@ -1,5 +1,5 @@
 import Foundation
-import Firebase
+import FirebaseAuth
 
 final class ResetPasswordViewPresenter: ResetPasswordViewPresenterProtocol {
     weak var view: ResetPasswordViewControllerProtocol?

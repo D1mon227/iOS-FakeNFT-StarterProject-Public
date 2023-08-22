@@ -29,5 +29,5 @@ extension UIColor {
     static var lightGrey: UIColor { UIColor(named: "Light grey") ?? .lightGray}
     static var yellowUniversal: UIColor { UIColor(named: "Yellow Universal") ?? .yellow}
     static var redUniversal: UIColor { UIColor(named: "Red Universal") ?? .red}
-    static var textViewPlaceholder: UIColor { UIColor(named: "TextViewPlaceholderColor") ?? .lightGray}
+    static var textViewPlaceholder: UIColor { UIColor(named: "textViewPlaceholderColor") ?? .lightGray}
 }

@@ -1,10 +1,3 @@
-//
-//  User.swift
-//  FakeNFT
-//
-//  Created by Артем Крикуненко on 03.08.2023.
-//
-
 import Foundation
 
 struct User: Decodable {
@@ -15,5 +8,9 @@ struct User: Decodable {
 	let nfts: [String]
 	let rating: String
 	let id: String
+	
+	var firstName: String {
+		let nameComponents = name.components(separatedBy: " ")
+		return nameComponents.first ?? name
+	}
 }
-

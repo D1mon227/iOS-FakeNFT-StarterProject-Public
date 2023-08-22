@@ -1,5 +1,5 @@
 import Foundation
-import Firebase
+import FirebaseAuth
 
 final class AuthViewPresenter: AuthViewPresenterProtocol {
     weak var view: AuthViewControllerProtocol?
