@@ -11,13 +11,15 @@ final class CartViewController: UIViewController, UITableViewDataSource {
     
     private var presenter: CartPresenterProtocol?
     
-    private var indexNFTToDelete: Int?
-    
     private var myOrders = [String]()
     
     private let numberFormatter = NumberFormatter()
     
     private let analyticsService = AnalyticsService.shared
+    
+    private var isDeleteViewVisible = false
+    
+    private var indexToDelete: Int?
     
     // MARK: - Lifecycle
     
@@ -329,21 +331,30 @@ final class CartViewController: UIViewController, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cartCell", for: indexPath) as? CartCell else {
             return UITableViewCell() // Return a fallback cell if needed
         }
+        print("Configuring cell for row: \(indexPath.row)")
+        
+        // Reset cell properties
+        cell.nftImage.image = nil
+        cell.nftName.text = ""
+        cell.nftPrice.text = ""
+        
+        // Configure cell with new data
         let rating = cartArray[indexPath.row].nftRating
         let name = cartArray[indexPath.row].nftName
-        
         let priceValue = cartArray[indexPath.row].nftPrice
         let formattedPriceWithCurrency = formatPrice(priceValue) + " ETH"
-        
         let imageURL = URL(string: cartArray[indexPath.row].nftImages.first ?? "")
+        
         cell.setupRating(rating: rating)
         cell.nftName.text = name
         cell.nftPrice.text = String(formattedPriceWithCurrency)
         cell.nftImage.kf.setImage(with: imageURL)
         cell.indexCell = indexPath.row
         cell.delegate = self
+        
         return cell
     }
+    
     
     // MARK: - Actions
     
@@ -376,15 +387,23 @@ final class CartViewController: UIViewController, UITableViewDataSource {
     
     @objc
     func deleteNFT() {
-        analyticsService.report(event: .click, screen: .cartVC, item: .removeNFT)
-        guard let indexToDelete = indexNFTToDelete else {
+        guard let indexToDelete = indexToDelete else {
+            return
+        }
+        
+        // Check if the index is within the valid range
+        guard indexToDelete >= 0 && indexToDelete < myOrders.count else {
             return
         }
         
         myOrders.remove(at: indexToDelete)
-        presenter?.changeCart(newArray: myOrders, completion: {
-            self.fetchDataFromAPI()
-        })
+        presenter?.changeCart(newArray: myOrders) { [weak self] in
+            self?.fetchDataFromAPI()
+        }
+        
+        // Clean up the delete view
+        isDeleteViewVisible = false
+        self.indexToDelete = nil
         
         blurView.removeFromSuperview()
         imageToDelete.removeFromSuperview()
@@ -399,6 +418,10 @@ final class CartViewController: UIViewController, UITableViewDataSource {
     @objc
     func cancel() {
         print("CANCEL")
+        
+        isDeleteViewVisible = false
+        indexToDelete = nil
+        
         blurView.removeFromSuperview()
         imageToDelete.removeFromSuperview()
         deleteText.removeFromSuperview()
@@ -512,6 +535,17 @@ extension CartViewController: CartCellDelegate {
     }
     
     func showDeleteView(index: Int) {
+        
+        if isDeleteViewVisible {
+            return
+        }
+        
+        isDeleteViewVisible = true
+        indexToDelete = index
+        
+        navigationController?.isNavigationBarHidden = true
+        tabBarController?.tabBar.isHidden = true
+        
         blurView.isUserInteractionEnabled = true
         view.addSubview(blurView)
         blurView.contentView.addSubview(imageToDelete)
@@ -522,11 +556,9 @@ extension CartViewController: CartCellDelegate {
         navigationController?.isNavigationBarHidden = true
         tabBarController?.tabBar.isHidden = true
         
-        
-        
         let urlStr = cartArray[index].nftImages.first ?? ""
         fillPictureToDelete(urlStr: urlStr)
-        indexNFTToDelete = index
+        
         print(index)
         UIView.animate(withDuration: 0.3) {
             self.blurView.alpha = 1.0
