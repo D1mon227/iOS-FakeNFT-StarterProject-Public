@@ -33,8 +33,6 @@
 		1F7E8C8F2A951C8800AF59FD /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 1F7E8C8E2A951C8800AF59FD /* ProgressHUD */; };
 		1F7E8C922A951CA200AF59FD /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 1F7E8C912A951CA200AF59FD /* Kingfisher */; };
 		1F7E8C952A951CC100AF59FD /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 1F7E8C942A951CC100AF59FD /* Reachability */; };
-		1F7E8C982A951D0A00AF59FD /* YandexMobileMetrica in Frameworks */ = {isa = PBXBuildFile; productRef = 1F7E8C972A951D0A00AF59FD /* YandexMobileMetrica */; };
-		1F7E8C9A2A951D0A00AF59FD /* YandexMobileMetricaCrashes in Frameworks */ = {isa = PBXBuildFile; productRef = 1F7E8C992A951D0A00AF59FD /* YandexMobileMetricaCrashes */; };
 		1F7E8C9D2A951D5700AF59FD /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1F7E8C9C2A951D5700AF59FD /* FirebaseAuth */; };
 		1FEA5B3E2A80B9DB00946DD9 /* CollectionDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEA5B3D2A80B9DB00946DD9 /* CollectionDetailsCell.swift */; };
 		1FEA5B492A80DBCC00946DD9 /* CAGradientLayer+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEA5B482A80DBCC00946DD9 /* CAGradientLayer+extension.swift */; };
@@ -106,6 +104,8 @@
 		730B239B2A8C298900F5D832 /* NFTCardViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730B239A2A8C298900F5D832 /* NFTCardViewPresenter.swift */; };
 		730B239D2A8C29A500F5D832 /* NFTCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730B239C2A8C29A500F5D832 /* NFTCardTableViewCell.swift */; };
 		730B239F2A8C29C500F5D832 /* NFTCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730B239E2A8C29C500F5D832 /* NFTCardCollectionViewCell.swift */; };
+		731718FD2A954ACA00492092 /* YandexMobileMetrica in Frameworks */ = {isa = PBXBuildFile; productRef = 731718FC2A954ACA00492092 /* YandexMobileMetrica */; };
+		731718FF2A954ACA00492092 /* YandexMobileMetricaCrashes in Frameworks */ = {isa = PBXBuildFile; productRef = 731718FE2A954ACA00492092 /* YandexMobileMetricaCrashes */; };
 		732208B82A8CBC9E00CAB88E /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732208B72A8CBC9E00CAB88E /* Profile.swift */; };
 		732208BA2A8CBCAC00CAB88E /* ProfileRequestCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732208B92A8CBCAC00CAB88E /* ProfileRequestCatalog.swift */; };
 		732208BD2A8CBCB700CAB88E /* NFTsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732208BB2A8CBCB700CAB88E /* NFTsRequest.swift */; };
@@ -370,12 +370,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F7E8C922A951CA200AF59FD /* Kingfisher in Frameworks */,
+				731718FF2A954ACA00492092 /* YandexMobileMetricaCrashes in Frameworks */,
 				1F7E8C952A951CC100AF59FD /* Reachability in Frameworks */,
 				1F7E8C8C2A951C6F00AF59FD /* SnapKit in Frameworks */,
-				1F7E8C9A2A951D0A00AF59FD /* YandexMobileMetricaCrashes in Frameworks */,
+				731718FD2A954ACA00492092 /* YandexMobileMetrica in Frameworks */,
 				1F7E8C8F2A951C8800AF59FD /* ProgressHUD in Frameworks */,
 				1F7E8C9D2A951D5700AF59FD /* FirebaseAuth in Frameworks */,
-				1F7E8C982A951D0A00AF59FD /* YandexMobileMetrica in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1132,9 +1132,9 @@
 				1F7E8C8E2A951C8800AF59FD /* ProgressHUD */,
 				1F7E8C912A951CA200AF59FD /* Kingfisher */,
 				1F7E8C942A951CC100AF59FD /* Reachability */,
-				1F7E8C972A951D0A00AF59FD /* YandexMobileMetrica */,
-				1F7E8C992A951D0A00AF59FD /* YandexMobileMetricaCrashes */,
 				1F7E8C9C2A951D5700AF59FD /* FirebaseAuth */,
+				731718FC2A954ACA00492092 /* YandexMobileMetrica */,
+				731718FE2A954ACA00492092 /* YandexMobileMetricaCrashes */,
 			);
 			productName = FakeNFT;
 			productReference = 3F68069329CBBAF100B4F915 /* FakeNFT.app */;
@@ -1214,8 +1214,8 @@
 				1F7E8C8D2A951C8800AF59FD /* XCRemoteSwiftPackageReference "ProgressHUD" */,
 				1F7E8C902A951CA200AF59FD /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				1F7E8C932A951CC100AF59FD /* XCRemoteSwiftPackageReference "Reachability" */,
-				1F7E8C962A951D0A00AF59FD /* XCRemoteSwiftPackageReference "metrica-sdk-ios" */,
 				1F7E8C9B2A951D5700AF59FD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				731718FB2A954ACA00492092 /* XCRemoteSwiftPackageReference "metrica-sdk-ios" */,
 			);
 			productRefGroup = 3F68069429CBBAF100B4F915 /* Products */;
 			projectDirPath = "";
@@ -1789,20 +1789,20 @@
 				kind = branch;
 			};
 		};
-		1F7E8C962A951D0A00AF59FD /* XCRemoteSwiftPackageReference "metrica-sdk-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/yandexmobile/metrica-sdk-ios";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
-			};
-		};
 		1F7E8C9B2A951D5700AF59FD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 10.0.0;
+			};
+		};
+		731718FB2A954ACA00492092 /* XCRemoteSwiftPackageReference "metrica-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/yandexmobile/metrica-sdk-ios";
+			requirement = {
+				kind = exactVersion;
+				version = 4.5.2;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -1828,20 +1828,20 @@
 			package = 1F7E8C932A951CC100AF59FD /* XCRemoteSwiftPackageReference "Reachability" */;
 			productName = Reachability;
 		};
-		1F7E8C972A951D0A00AF59FD /* YandexMobileMetrica */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1F7E8C962A951D0A00AF59FD /* XCRemoteSwiftPackageReference "metrica-sdk-ios" */;
-			productName = YandexMobileMetrica;
-		};
-		1F7E8C992A951D0A00AF59FD /* YandexMobileMetricaCrashes */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1F7E8C962A951D0A00AF59FD /* XCRemoteSwiftPackageReference "metrica-sdk-ios" */;
-			productName = YandexMobileMetricaCrashes;
-		};
 		1F7E8C9C2A951D5700AF59FD /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1F7E8C9B2A951D5700AF59FD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
+		};
+		731718FC2A954ACA00492092 /* YandexMobileMetrica */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 731718FB2A954ACA00492092 /* XCRemoteSwiftPackageReference "metrica-sdk-ios" */;
+			productName = YandexMobileMetrica;
+		};
+		731718FE2A954ACA00492092 /* YandexMobileMetricaCrashes */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 731718FB2A954ACA00492092 /* XCRemoteSwiftPackageReference "metrica-sdk-ios" */;
+			productName = YandexMobileMetricaCrashes;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
