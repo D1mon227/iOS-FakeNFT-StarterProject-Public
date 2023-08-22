@@ -8,13 +8,8 @@ final class NFTCardViewController: UIViewController, NFTCardViewControllerProtoc
     private var starImageViews: [UIImageView] = []
     private var coverPageControlImageViews: [UIImageView] = []
     private var currentPageIndex: Int = 0
-    private var nftModel: NFT?
-    private var isLiked: Bool
     
     init(nftModel: NFT?, isLiked: Bool) {
-        
-        self.nftModel = nftModel
-        self.isLiked = isLiked
         super.init(nibName: nil, bundle: nil)
         setupRatingStack()
         self.presenter = NFTCardViewPresenter()
@@ -39,17 +34,6 @@ final class NFTCardViewController: UIViewController, NFTCardViewControllerProtoc
         updateLikeButton(isLiked: presenter?.isLiked ?? false)
         presenter?.fetchCurrencies()
         presenter?.fetchNFTs()
-        nftCardView.coverNFTScrollView.delegate = self
-        self.presenter = NFTCardViewPresenter()
-        self.presenter?.view = self
-        self.presenter?.isLiked = isLiked
-        self.presenter?.nftModel = nftModel
-        presenter?.fetchCurrencies()
-        
-        if #available(iOS 11.0, *) {
-            nftCardView.generalScrollView.contentInsetAdjustmentBehavior = .never
-        }
-        
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -108,7 +92,7 @@ final class NFTCardViewController: UIViewController, NFTCardViewControllerProtoc
         }
     }
     
-    @objc private func switchToNFTInformation(index: Int) {
+    @objc private func switchToCurrencyInformation(index: Int) {
         guard let customNC = navigationController as? CustomNavigationController,
               let webViewController = presenter?.switchToNFTInformation(index: index) else { return }
         customNC.pushViewController(webViewController, animated: true)
@@ -145,7 +129,7 @@ extension NFTCardViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        switchToNFTInformation(index: indexPath.row)
+        switchToCurrencyInformation(index: indexPath.row)
     }
 }
 
