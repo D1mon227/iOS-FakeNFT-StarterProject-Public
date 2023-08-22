@@ -284,10 +284,12 @@
 		1F09D51F2A76C1FF00367A6A /* Catalog */ = {
 			isa = PBXGroup;
 			children = (
+				1F09D5242A76C2DA00367A6A /* Modules */,
 				1F09D5212A76C2A600367A6A /* NetworkModels */,
 				1F09D5202A76C29C00367A6A /* Common */,
 			);
-			path = Catalog;
+			name = Catalog;
+			path = ../Catalog;
 			sourceTree = "<group>";
 		};
 		1F09D5202A76C29C00367A6A /* Common */ = {
@@ -526,10 +528,8 @@
 		3F68069529CBBAF100B4F915 /* FakeNFT */ = {
 			isa = PBXGroup;
 			children = (
-				1F09D51F2A76C1FF00367A6A /* Catalog */,
 				3F68069629CBBAF100B4F915 /* AppDelegate.swift */,
 				3F68069829CBBAF100B4F915 /* SceneDelegate.swift */,
-				1F09D5242A76C2DA00367A6A /* Modules */,
 				3F6806CE29CBBD1B00B4F915 /* Foundation */,
 				3F6806C629CBBC4E00B4F915 /* Services */,
 				3F6806C929CBBCAF00B4F915 /* Models */,
@@ -748,6 +748,7 @@
 				73EA4B1C2A7471D2000B4B55 /* CustomNavigationViewController.swift */,
 				7375ECFD2A91107A00107A63 /* SplashScreen */,
 				733B35922A90D0C00068C2C6 /* Auth */,
+				1F09D51F2A76C1FF00367A6A /* Catalog */,
 				1FEA5B7A2A8BE95E00946DD9 /* NetworkError */,
 				1FEA5B4C2A81495100946DD9 /* WebViewModule */,
 				737D031F2A80707A00DCB5B1 /* Onboarding */,
