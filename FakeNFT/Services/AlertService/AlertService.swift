@@ -29,7 +29,7 @@ enum Sort: String, CaseIterable {
 final class AlertService: AlertServiceProtocol {
     func showSortAlert(model: AlertSortModel, controller: UIViewController) {
         
-        let alert = UIAlertController(title: model.title,
+        let alert = UIAlertController(title: LocalizableConstants.Sort.sort,
                                       message: nil,
                                       preferredStyle: .actionSheet)
 
