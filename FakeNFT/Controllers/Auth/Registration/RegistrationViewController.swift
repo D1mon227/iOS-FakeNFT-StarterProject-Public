@@ -18,7 +18,8 @@ final class RegistrationViewController: UIViewController, NavigationScreenDelega
 	}
 	
 	func dismissRegistrationScreen() {
-		dismiss(animated: true)
+        guard let customNC = navigationController as? CustomNavigationController else { return }
+        customNC.popViewController(animated: true)
 	}
 	
 	override func viewDidLoad() {

@@ -103,10 +103,10 @@ final class AuthViewController: UIViewController, AuthViewControllerProtocol {
     }
     
     @objc private func switchToRegistrationVC() {
+        guard let customNC = navigationController as? CustomNavigationController else { return }
         let registrationPresenter = RegistrationViewPresenter()
         let registrationVC = RegistrationViewController(with: registrationPresenter)
-        registrationVC.modalPresentationStyle = .fullScreen
-        present(registrationVC, animated: true)
+        customNC.pushViewController(registrationVC, animated: true)
     }
 }
 
