@@ -112,8 +112,8 @@
 		1F2A25642A8E243F00F8B1AD /* UIViewController+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+extension.swift"; sourceTree = "<group>"; };
 		1F2A25702A8E81F800F8B1AD /* NetworkReachabilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkReachabilityManager.swift; sourceTree = "<group>"; };
 		1F3E72982A8E9BC4007EBD36 /* AlertProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertProtocol.swift; sourceTree = "<group>"; };
-		1FEA5B4D2A81497100946DD9 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
-		1FEA5B4F2A81498900946DD9 /* WebViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewPresenter.swift; sourceTree = "<group>"; };
+		1FEA5B4D2A81497100946DD9 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WebViewController.swift; path = FakeNFT/Controllers/WebViewModule/WebViewController.swift; sourceTree = "<group>"; };
+		1FEA5B4F2A81498900946DD9 /* WebViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WebViewPresenter.swift; path = FakeNFT/Controllers/WebViewModule/WebViewPresenter.swift; sourceTree = "<group>"; };
 		1FEA5B7B2A8BE98600946DD9 /* NetworkErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorView.swift; sourceTree = "<group>"; };
 		3F478ECE29DB474E00F6D39E /* UIColor + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Extension.swift"; sourceTree = "<group>"; };
 		3F478ED029DB476500F6D39E /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
@@ -133,7 +133,7 @@
 		7300E0372A920E9800AD427A /* ResetPasswordViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewPresenter.swift; sourceTree = "<group>"; };
 		7300E03A2A920ECD00AD427A /* ResetPasswordViewPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewPresenterProtocol.swift; sourceTree = "<group>"; };
 		7300E03C2A920EDD00AD427A /* ResetPasswordViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewControllerProtocol.swift; sourceTree = "<group>"; };
-		730B23912A8C28A500F5D832 /* NFTCardViewPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTCardViewPresenterProtocol.swift; sourceTree = "<group>"; };
+		730B23912A8C28A500F5D832 /* NFTCardViewPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NFTCardViewPresenterProtocol.swift; path = FakeNFT/Controllers/NFTCard/Protocols/NFTCardViewPresenterProtocol.swift; sourceTree = "<group>"; };
 		730B23932A8C28DD00F5D832 /* NFTCardViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTCardViewControllerProtocol.swift; sourceTree = "<group>"; };
 		730B23962A8C292600F5D832 /* NFTCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTCardView.swift; sourceTree = "<group>"; };
 		730B23982A8C296400F5D832 /* NFTCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTCardViewController.swift; sourceTree = "<group>"; };
@@ -190,7 +190,6 @@
 		C50E6CC62A7E931400B852F9 /* GetUsersRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetUsersRequest.swift; sourceTree = "<group>"; };
 		C51A14252A91F538002B1DC5 /* RegistrationViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewPresenter.swift; sourceTree = "<group>"; };
 		C51A14272A91F567002B1DC5 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
-		C5D3AAD12A7B3B79005A3694 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -233,15 +232,6 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
-		1FEA5B4C2A81495100946DD9 /* WebViewModule */ = {
-			isa = PBXGroup;
-			children = (
-				1FEA5B4D2A81497100946DD9 /* WebViewController.swift */,
-				1FEA5B4F2A81498900946DD9 /* WebViewPresenter.swift */,
-			);
-			path = WebViewModule;
-			sourceTree = "<group>";
-		};
 		1FEA5B7A2A8BE95E00946DD9 /* NetworkError */ = {
 			isa = PBXGroup;
 			children = (
@@ -255,6 +245,7 @@
 			children = (
 				1FEA5B4D2A81497100946DD9 /* WebViewController.swift */,
 				1FEA5B4F2A81498900946DD9 /* WebViewPresenter.swift */,
+				730B23912A8C28A500F5D832 /* NFTCardViewPresenterProtocol.swift */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
