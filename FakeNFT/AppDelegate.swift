@@ -1,8 +1,14 @@
 import UIKit
+import Firebase
 
 @main
 final class AppDelegate: UIResponder, UIApplicationDelegate {
+    private let analyticsService = AnalyticsService.shared
+    
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        analyticsService.activate()
+        UIBlockingProgressHUD.setupProgressHUD()
+        FirebaseApp.configure()
         return true
     }
 
