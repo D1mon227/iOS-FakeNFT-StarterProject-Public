@@ -20,7 +20,7 @@ final class EditingProfileTableViewCell: UITableViewCell {
         let element = UITextView()
         element.layer.cornerRadius = 12
         element.returnKeyType = .done
-        element.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        element.contentInset = Locale.current.languageCode == "he" ? UIEdgeInsets(top: 0, left: -10, bottom: 0, right: -10) : UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         element.textAlignment = Locale.current.languageCode == "he" ? .right : .left
         element.textColor = .blackDay
         element.backgroundColor = .lightGreyDay

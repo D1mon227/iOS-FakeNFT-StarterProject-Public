@@ -27,7 +27,7 @@ final class NFTCardCollectionViewCell: UICollectionViewCell {
     private lazy var nftNameLabel: UILabel = {
         let element = UILabel()
         element.textColor = .blackDay
-        element.textAlignment = .left
+        element.textAlignment = Locale.current.languageCode == "he" ? .right : .left
         element.font = .bodyBold
         return element
     }()
@@ -35,7 +35,7 @@ final class NFTCardCollectionViewCell: UICollectionViewCell {
     private lazy var nftPriceLabel: UILabel = {
         let element = UILabel()
         element.textColor = .blackDay
-        element.textAlignment = .left
+        element.textAlignment = Locale.current.languageCode == "he" ? .right : .left
         element.font = .caption3
         return element
     }()

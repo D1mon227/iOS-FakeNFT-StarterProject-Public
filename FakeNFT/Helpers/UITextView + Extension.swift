@@ -1,4 +1,5 @@
 import UIKit
+import SnapKit
 
 extension UITextView {
     func setPlaceholder(_ placeholder: String) {
@@ -10,9 +11,14 @@ extension UITextView {
         placeholderLabel.isHidden = !text.isEmpty
         
         addSubview(placeholderLabel)
-        placeholderLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(5)
-            make.top.equalToSuperview().offset(8)
+        if let keyWindow = UIApplication.shared.windows.first {
+            let windowWidth = keyWindow.frame.width
+            let offset: CGFloat = Locale.current.languageCode == "he" ? windowWidth - 100 : 5
+            placeholderLabel.snp.makeConstraints { make in
+                make.leading.equalToSuperview().offset(offset)
+                make.trailing.equalToSuperview().offset(-offset)
+                make.top.equalToSuperview().offset(8)
+            }
         }
         
         NotificationCenter.default.addObserver(forName: UITextView.textDidChangeNotification, object: nil, queue: .main) { [weak self] _ in

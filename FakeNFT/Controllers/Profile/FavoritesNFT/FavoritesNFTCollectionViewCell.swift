@@ -37,7 +37,7 @@ final class FavoritesNFTCollectionViewCell: UICollectionViewCell {
         let element = UILabel()
         element.font = .caption1
         element.textColor = .blackDay
-        element.textAlignment = .left
+        element.textAlignment = Locale.current.languageCode == "he" ? .right : .left
         return element
     }()
     

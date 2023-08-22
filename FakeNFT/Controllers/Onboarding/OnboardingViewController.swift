@@ -25,6 +25,7 @@ final class OnboardingViewController: UIViewController {
         let element = UILabel()
         element.font = .headline5
         element.textColor = .white
+        element.textAlignment = Locale.current.languageCode == "he" ? .right : .left
         return element
     }()
     
@@ -32,7 +33,7 @@ final class OnboardingViewController: UIViewController {
         let element = UILabel()
         element.font = .caption1
         element.textColor = .white
-        element.textAlignment = .left
+        element.textAlignment = Locale.current.languageCode == "he" ? .right : .left
         element.numberOfLines = 0
         return element
     }()

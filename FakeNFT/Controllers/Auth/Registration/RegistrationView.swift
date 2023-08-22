@@ -12,7 +12,7 @@ final class RegistrationView: UIView {
 		let label = UILabel()
 		label.textColor = .blackDay
 		label.font = .headline1
-		label.textAlignment = .left
+        label.textAlignment = Locale.current.languageCode == "he" ? .right : .left
 		label.text = LocalizableConstants.Auth.registrationTitle
 		label.translatesAutoresizingMaskIntoConstraints = false
 		return label
@@ -22,6 +22,7 @@ final class RegistrationView: UIView {
 		let textField = UITextField()
 		textField.placeholder = LocalizableConstants.Auth.emailPlaceholder
 		textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: textField.frame.height))
+        textField.textAlignment = Locale.current.languageCode == "he" ? .right : .left
 		textField.font = .bodyRegular
 		textField.textColor = .blackDay
 		textField.backgroundColor = .lightGreyDay
@@ -37,6 +38,7 @@ final class RegistrationView: UIView {
 		let textField = UITextField()
 		textField.placeholder = LocalizableConstants.Auth.passwordPlaceholder
 		textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: textField.frame.height))
+        textField.textAlignment = Locale.current.languageCode == "he" ? .right : .left
 		textField.textColor = .blackDay
 		textField.backgroundColor = .lightGreyDay
 		textField.isSecureTextEntry = true
@@ -53,7 +55,7 @@ final class RegistrationView: UIView {
 		label.text = LocalizableConstants.Auth.incorrectUsernameOrPasswordLabel
 		label.textColor = .redUniversal
 		label.font = .caption2
-		label.textAlignment = .left
+        label.textAlignment = Locale.current.languageCode == "he" ? .right : .left
 		label.translatesAutoresizingMaskIntoConstraints = false
 		return label
 	}()
@@ -63,7 +65,7 @@ final class RegistrationView: UIView {
 		label.text = LocalizableConstants.Auth.weakPasswordLabel
 		label.textColor = .redUniversal
 		label.font = .caption2
-		label.textAlignment = .left
+        label.textAlignment = Locale.current.languageCode == "he" ? .right : .left
 		label.translatesAutoresizingMaskIntoConstraints = false
 		return label
 	}()
@@ -73,7 +75,7 @@ final class RegistrationView: UIView {
 		label.text = LocalizableConstants.Auth.invalidEmailLabel
 		label.textColor = .redUniversal
 		label.font = .caption2
-		label.textAlignment = .left
+        label.textAlignment = Locale.current.languageCode == "he" ? .right : .left
 		label.translatesAutoresizingMaskIntoConstraints = false
 		return label
 	}()
@@ -83,7 +85,7 @@ final class RegistrationView: UIView {
 		label.text = LocalizableConstants.Auth.usernameAlreadyExistsLabel
 		label.textColor = .redUniversal
 		label.font = .caption2
-		label.textAlignment = .left
+        label.textAlignment = Locale.current.languageCode == "he" ? .right : .left
 		label.translatesAutoresizingMaskIntoConstraints = false
 		return label
 	}()
