@@ -1,6 +1,14 @@
 import UIKit
 
 struct ModuleFactory {
+	static func makeProfileModule() -> ProfileViewController {
+		let presenter = ProfileViewPresenter()
+		let viewController = ProfileViewController(presenter: presenter)
+		presenter.view = viewController
+
+		return viewController
+	}
+
 	static func makeStatisticModule(appCoordinator: AppCoordinator) -> UIViewController {
 		let networkClient = DefaultNetworkClient()
 		let presenter = StatisticsPresenter(networkClient: networkClient, appCoordinator: appCoordinator)

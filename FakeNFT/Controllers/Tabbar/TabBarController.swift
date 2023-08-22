@@ -9,12 +9,13 @@ final class TabBarController: UITabBarController {
     
     private func setupTabBar() {
 		let appCoordinator = AppCoordinator(tabBarController: self)
-		let statisticVc = ModuleFactory.makeStatisticModule(appCoordinator: appCoordinator)
+		let profile = ModuleFactory.makeProfileModule()
+		let statistics = ModuleFactory.makeStatisticModule(appCoordinator: appCoordinator)
 
-        let profileVC = CustomNavigationController(rootViewController: setupProfilePresenter())
+        let profileVC = CustomNavigationController(rootViewController: profile)
         let catalogVC = CustomNavigationController(rootViewController: CatalogViewController())
         let cartVC = CustomNavigationController(rootViewController: CartViewController())
-		let statisticsVC = CustomNavigationController(rootViewController: statisticVc)
+		let statisticsVC = CustomNavigationController(rootViewController: statistics)
 
         
         profileVC.tabBarItem = UITabBarItem(title: LocalizableConstants.TabBar.profile,
@@ -33,13 +34,5 @@ final class TabBarController: UITabBarController {
         tabBar.unselectedItemTintColor = .blackDay
         self.viewControllers = [profileVC, catalogVC, cartVC, statisticsVC]
 		
-    }
-    
-    private func setupProfilePresenter() -> ProfileViewController {
-        let presenter = ProfileViewPresenter()
-        let viewController = ProfileViewController(presenter: presenter)
-        presenter.view = viewController
-        
-        return viewController
     }
 }
