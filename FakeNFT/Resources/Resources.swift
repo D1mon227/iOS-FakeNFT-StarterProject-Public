@@ -88,5 +88,10 @@ enum Resourses {
             static let noInternet = UIImage(named: "noInternet")
             static let errorNetwork = UIImage(named: "errorNetwork")
         }
+        
+        enum SuccessFailPayment {
+            static let failedPayment = UIImage(named: "failedImage")
+            static let succeedPayment = UIImage(named: "successImage")
+        }
     }
 }
