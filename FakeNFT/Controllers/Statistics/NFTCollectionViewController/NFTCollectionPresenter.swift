@@ -5,7 +5,7 @@ protocol INFTCollectionPresenter {
 	func viewWillAppear(ui: NFTCollectionView)
 	func tapOnTheCell(for nftID: String)
 	func tapOnTheCell(for nftID: String, profile: String)
-	func tapOnTheCell(nft: NFT)
+	func tapOnTheCell(nft: NFT, like: Bool)
 }
 
 final class NFTCollectionPresenter {
@@ -50,8 +50,8 @@ final class NFTCollectionPresenter {
 		ui?.showFavorites(with: allLikes)
 	}
 	
-	func tapOnTheCell(nft: NFT) {
-		appCoordinator.showNFTCardScreen(nft: nft)
+	func tapOnTheCell(nft: NFT, like: Bool) {
+		appCoordinator.showNFTCardScreen(nft: nft, like: like)
 	}
 	
 	private func fetchNFTsForUser() {
@@ -144,12 +144,11 @@ extension NFTCollectionPresenter: INFTCollectionPresenter {
 	func viewDidLoad(ui: NFTCollectionView) {
 		self.ui = ui
 		self.ui?.setDelegateDataSource()
-
-		fetchLikesFromServer()
-		fetchOrdersFromServer()
+		fetchNFTsForUser()
 	}
 	
 	func viewWillAppear(ui: NFTCollectionView) {
-		fetchNFTsForUser()
+		fetchLikesFromServer()
+		fetchOrdersFromServer()
 	}
 }

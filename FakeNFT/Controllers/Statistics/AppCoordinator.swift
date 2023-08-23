@@ -26,8 +26,8 @@ final class AppCoordinator {
 		navigationController.pushViewController(webViewController, animated: true)
 	}
 	
-	func showNFTCardScreen(nft: NFT) {
-		let nftCardViewController = ModuleFactory.makeNFTCardModule(with: nft)
+	func showNFTCardScreen(nft: NFT, like: Bool) {
+		let nftCardViewController = ModuleFactory.makeNFTCardModule(with: nft, like: like)
 		guard let navigationController = tabBarController.selectedViewController as? UINavigationController else { return }
 		navigationController.pushViewController(nftCardViewController, animated: true)
 	}
