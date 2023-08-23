@@ -36,8 +36,8 @@ struct ModuleFactory {
 		return view
 	}
 	
-	static func makeNFTCardModule(with nft: NFT) -> UIViewController {
-		let view = NFTCardViewController(nftModel: nft, isLiked: false)
+	static func makeNFTCardModule(with nft: NFT, like: Bool) -> UIViewController {
+		let view = NFTCardViewController(nftModel: nft, isLiked: like)
 		return view
 	}
 }
