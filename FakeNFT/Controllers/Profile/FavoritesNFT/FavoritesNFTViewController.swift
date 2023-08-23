@@ -37,7 +37,7 @@ final class FavoritesNFTViewController: UIViewController, FavoritesNFTViewContro
     private func setupCollectionView() {
         favoritesNFTView.nftCollectionView.dataSource = self
         favoritesNFTView.nftCollectionView.delegate = self
-        favoritesNFTView.nftCollectionView.register(FavoritesNFTCollectionViewCell.self, forCellWithReuseIdentifier: "FavoritesNFTCollectionViewCell")
+        favoritesNFTView.nftCollectionView.register(FavoritesNFTCollectionViewCell.self, forCellWithReuseIdentifier: FavoritesNFTCollectionViewCell.identifier)
     }
     
     func reloadViews() {
@@ -86,7 +86,7 @@ extension FavoritesNFTViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FavoritesNFTCollectionViewCell", for: indexPath) as? FavoritesNFTCollectionViewCell,
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FavoritesNFTCollectionViewCell.identifier, for: indexPath) as? FavoritesNFTCollectionViewCell,
               let nfts = presenter?.favoritesNFTs[indexPath.row] else { return UICollectionViewCell() }
         
         cell.delegate = self

@@ -5,3 +5,9 @@ public extension UITableViewCell {
         String(describing: self)
     }
 }
+
+public extension UITableViewHeaderFooterView {
+    static var identifier: String {
+        String(describing: self)
+    }
+}

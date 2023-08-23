@@ -39,7 +39,7 @@ final class MyNFTViewController: UIViewController, MyNFTViewControllerProtocol {
     private func setupTableView() {
         myNFTView.myNFTTableView.dataSource = self
         myNFTView.myNFTTableView.delegate = self
-        myNFTView.myNFTTableView.register(MyNFTTableViewCell.self, forCellReuseIdentifier: "MyNFTTableViewCell")
+        myNFTView.myNFTTableView.register(MyNFTTableViewCell.self, forCellReuseIdentifier: MyNFTTableViewCell.identifier)
     }
     
     func reloadViews() {
@@ -94,7 +94,7 @@ extension MyNFTViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "MyNFTTableViewCell", for: indexPath) as? MyNFTTableViewCell,
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MyNFTTableViewCell.identifier, for: indexPath) as? MyNFTTableViewCell,
               let nfts = presenter?.purchasedNFTs[indexPath.row] else { return UITableViewCell() }
         
         cell.delegate = self

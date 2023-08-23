@@ -49,8 +49,8 @@ final class EditingProfileViewController: UIViewController, EditingProfileViewCo
     private func setupEditingTableView() {
         editingProfileView.editingTableView.dataSource = self
         editingProfileView.editingTableView.delegate = self
-        editingProfileView.editingTableView.register(EditingProfileTableViewCell.self, forCellReuseIdentifier: "EditingProfileTableViewCell")
-        editingProfileView.editingTableView.register(EditingProfileTableViewHeader.self, forHeaderFooterViewReuseIdentifier: "EditingProfileTableViewHeader")
+        editingProfileView.editingTableView.register(EditingProfileTableViewCell.self, forCellReuseIdentifier: EditingProfileTableViewCell.identifier)
+        editingProfileView.editingTableView.register(EditingProfileTableViewHeader.self, forHeaderFooterViewReuseIdentifier: EditingProfileTableViewHeader.identifier)
     }
     
     private func setupTarget() {
@@ -107,7 +107,7 @@ extension EditingProfileViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "EditingProfileTableViewCell", for: indexPath) as? EditingProfileTableViewCell,
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: EditingProfileTableViewCell.identifier, for: indexPath) as? EditingProfileTableViewCell,
               let profile = presenter?.editingInfo else { return UITableViewCell() }
         
         switch indexPath.section {
@@ -142,7 +142,7 @@ extension EditingProfileViewController: UITableViewDataSource {
 //MARK: UITableViewDelegate
 extension EditingProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "EditingProfileTableViewHeader") as? EditingProfileTableViewHeader else { return UIView() }
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: EditingProfileTableViewHeader.identifier) as? EditingProfileTableViewHeader else { return UIView() }
         
         switch section {
         case 0:
