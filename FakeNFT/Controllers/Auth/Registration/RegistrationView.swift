@@ -26,6 +26,7 @@ final class RegistrationView: UIView {
 		textField.textColor = .blackDay
 		textField.backgroundColor = .lightGreyDay
 		textField.autocapitalizationType = .none
+        textField.textContentType = .oneTimeCode
 		textField.leftViewMode = .always
 		textField.clearButtonMode = .whileEditing
 		textField.layer.cornerRadius = 12

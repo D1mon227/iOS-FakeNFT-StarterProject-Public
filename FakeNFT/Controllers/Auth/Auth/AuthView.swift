@@ -38,6 +38,7 @@ final class AuthView {
         element.textColor = .blackDay
         element.backgroundColor = .lightGreyDay
         element.isSecureTextEntry = true
+        element.textContentType = .oneTimeCode
         element.autocapitalizationType = .none
         element.leftViewMode = .always
         element.clearButtonMode = .whileEditing
