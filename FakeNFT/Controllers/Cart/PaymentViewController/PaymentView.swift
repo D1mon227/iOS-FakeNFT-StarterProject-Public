@@ -61,7 +61,7 @@ final class PaymentView: UIView {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         label.numberOfLines = 0
-        label.textAlignment = .left
+        label.textAlignment = Locale.current.languageCode == "he" ? .right : .left
         label.text = LocalizableConstants.Cart.terms
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -72,7 +72,7 @@ final class PaymentView: UIView {
         label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         label.numberOfLines = 0
         label.textColor = .link
-        label.textAlignment = .left
+        label.textAlignment = Locale.current.languageCode == "he" ? .right : .left
         label.text = LocalizableConstants.Cart.conditions
         label.isUserInteractionEnabled = true
         label.translatesAutoresizingMaskIntoConstraints = false

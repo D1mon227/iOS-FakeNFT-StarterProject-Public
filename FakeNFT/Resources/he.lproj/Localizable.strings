@@ -80,7 +80,7 @@
 "cart.tryAgain" = "נסה שוב";
 "cart.emptyCart" = "העגלה ריקה";
 "cart.successfulPayment" = "הצלחה! התשלום הוא המשיך, מזל טוב!";
-"cart.failedPayment" = "אופס! משהו השתבש:( נסה שוב!";
+"cart.failedPayment" = "אופס! משהו השתבש:(\nנסה שוב!";
 
 //MARK: Statistics
 "statistics.nftCollection" = "אוסף מידע";
