@@ -32,7 +32,6 @@ final class CartViewController: UIViewController, UITableViewDataSource {
         setupView()
         setupNavigationBar()
         presenter = CartPresenter()
-        fetchDataFromAPI()
         cartTable.dataSource = self
         cartTable.backgroundColor = .backgroundDay
     }
@@ -43,6 +42,11 @@ final class CartViewController: UIViewController, UITableViewDataSource {
         tabBarController?.tabBar.isHidden = false
         cartTable.reloadData()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        fetchDataFromAPI()
+    } 
     
     // MARK: - UI Setup
     
