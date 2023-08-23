@@ -23,6 +23,11 @@ final class NFTCollectionViewController: UIViewController {
 		self.nftCollectionPresenter.viewDidLoad(ui: self.customView)
 		customView.presenter = nftCollectionPresenter
 	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		nftCollectionPresenter.viewWillAppear(ui: self.customView)
+	}
 }
 
 private extension NFTCollectionViewController {

@@ -2,6 +2,7 @@ import Foundation
 
 protocol INFTCollectionPresenter {
 	func viewDidLoad(ui: NFTCollectionView)
+	func viewWillAppear(ui: NFTCollectionView)
 	func tapOnTheCell(for nftID: String)
 	func tapOnTheCell(for nftID: String, profile: String)
 	func tapOnTheCell(nft: NFT)
@@ -143,8 +144,12 @@ extension NFTCollectionPresenter: INFTCollectionPresenter {
 	func viewDidLoad(ui: NFTCollectionView) {
 		self.ui = ui
 		self.ui?.setDelegateDataSource()
-		fetchNFTsForUser()
+
 		fetchLikesFromServer()
 		fetchOrdersFromServer()
+	}
+	
+	func viewWillAppear(ui: NFTCollectionView) {
+		fetchNFTsForUser()
 	}
 }
