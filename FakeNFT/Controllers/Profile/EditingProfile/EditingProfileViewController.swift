@@ -40,6 +40,12 @@ final class EditingProfileViewController: UIViewController, EditingProfileViewCo
         analyticsService.report(event: .close, screen: .editingProfileVC, item: nil)
     }
     
+    func reloadTableView() {
+        guard let avatar = presenter?.editingInfo?.avatar else { return }
+        editingProfileView.profileImage.kf.setImage(with: avatar)
+        editingProfileView.editingTableView.reloadData()
+    }
+    
     private func setupEditingTableView() {
         editingProfileView.editingTableView.dataSource = self
         editingProfileView.editingTableView.delegate = self
@@ -87,12 +93,6 @@ final class EditingProfileViewController: UIViewController, EditingProfileViewCo
                 make.width.height.equalTo(70)
             }
         }
-    }
-    
-    func reloadTableView() {
-        guard let avatar = presenter?.editingInfo?.avatar else { return }
-        editingProfileView.profileImage.kf.setImage(with: avatar)
-        editingProfileView.editingTableView.reloadData()
     }
 }
 

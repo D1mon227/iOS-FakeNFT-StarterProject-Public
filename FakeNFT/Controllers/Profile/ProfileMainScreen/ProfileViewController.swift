@@ -31,6 +31,11 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
 		presenter?.fetchProfile()
 	}
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        analyticsService.report(event: .close, screen: .profileVC, item: nil)
+    }
+    
     func updateProfileDetails(profile: Profile?) {
         guard let profile = profile else { return }
         DispatchQueue.main.async {
