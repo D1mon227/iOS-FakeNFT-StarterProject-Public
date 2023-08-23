@@ -19,7 +19,7 @@ final class PaymentView: UIView {
     
     var isCellSelected: Int = 0
     
-    private let paymentCollection: UICollectionView = {
+    private lazy var paymentCollection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -28,13 +28,13 @@ final class PaymentView: UIView {
         return collection
     }()
     
-    private let collectionViewContainer: UIView = {
+    private lazy var collectionViewContainer: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private let paymentButton: UIButton = {
+    private lazy var paymentButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .blackDay
         button.setTitleColor(.backgroundDay, for: .normal)
@@ -48,7 +48,7 @@ final class PaymentView: UIView {
         return button
     }()
     
-    private let cartInfo: UIView = {
+    private lazy var cartInfo: UIView = {
         let view = UIView()
         view.backgroundColor = .lightGreyDay
         view.layer.cornerRadius = 12
@@ -57,7 +57,7 @@ final class PaymentView: UIView {
         return view
     }()
     
-    private let userAgreementText: UILabel = {
+    private lazy var userAgreementText: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         label.numberOfLines = 0
@@ -67,7 +67,7 @@ final class PaymentView: UIView {
         return label
     }()
     
-    private let userAgreementLink: UILabel = {
+    private lazy var userAgreementLink: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         label.numberOfLines = 0
@@ -93,7 +93,6 @@ final class PaymentView: UIView {
     func updateCurrencies(_ currencies: [PaymentStruct]) {
         // Update your collection view data
         paymentCollection.reloadData()
-        print("Number of items in paymentArray: \(paymentArray.count)")
         
     }
     
@@ -125,7 +124,6 @@ final class PaymentView: UIView {
     
     @objc private func didTapPaymentButton() {
         delegate?.payButtonTapped(selectedIndex: isCellSelected) // Pass the selected index
-        print("didTapPaymentButton called")
         paymentButton.isEnabled = false
     }
     
@@ -133,7 +131,6 @@ final class PaymentView: UIView {
     
     @objc private func labelTapped() {
         delegate?.labelTapped()
-        print("tap")
     }
     
     // Set up layout constraints

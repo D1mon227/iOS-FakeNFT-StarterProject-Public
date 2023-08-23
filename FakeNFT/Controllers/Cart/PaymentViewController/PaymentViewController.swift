@@ -73,10 +73,8 @@ extension PaymentViewController: PaymentViewDelegate {
     @objc
     internal func payButtonTapped(selectedIndex: Int) {
         analyticsService.report(event: .click, screen: .paymentMethodVC, item: .pay)
-        print("Selected cell index: \(selectedIndex)")
         if selectedIndex != -1 {
             let selectedPayment = paymentArray[selectedIndex - 1]
-            print("Selected payment ID: \(selectedPayment.id)")
             presenter?.performPayment(selectedPaymentIndex: selectedIndex - 1)
         }
     }
@@ -131,7 +129,6 @@ extension PaymentViewController: PaymentViewProtocol {
 extension PaymentViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         isCellSelected = indexPath.row + 1// Update the selected index
-        print("Selected cell index: \(isCellSelected)")
         analyticsService.report(event: .click, screen: .paymentMethodVC, item: .currency)
     }
 }

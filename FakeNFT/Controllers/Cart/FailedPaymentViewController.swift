@@ -13,14 +13,14 @@ final class FailedPaymentViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let image: UIImageView = {
+    private lazy var image: UIImageView = {
         let image = UIImageView()
         image.image = Resourses.Images.SuccessFailPayment.failedPayment
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
     
-    private let failText: UILabel = {
+    private lazy var failText: UILabel = {
         let label = UILabel()
         label.textColor = .blackDay
         label.font = UIFont.systemFont(ofSize: 22, weight: .bold)
@@ -31,7 +31,7 @@ final class FailedPaymentViewController: UIViewController {
         return label
     }()
     
-    private let backButton: UIButton = {
+    private lazy var backButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .blackDay
         button.setTitleColor(.backgroundDay, for: .normal)

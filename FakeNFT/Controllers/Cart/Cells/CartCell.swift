@@ -19,7 +19,7 @@ final class CartCell: UITableViewCell {
     
     var indexCell: Int?
     
-    let nftImage: UIImageView = {
+    lazy var nftImage: UIImageView = {
         let image = UIImageView()
         image.layer.cornerRadius = 12
         image.layer.masksToBounds = true
@@ -29,7 +29,7 @@ final class CartCell: UITableViewCell {
         return image
     }()
     
-    let nftName: UILabel = {
+    lazy var nftName: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         label.numberOfLines = 1
@@ -38,7 +38,7 @@ final class CartCell: UITableViewCell {
         return label
     }()
     
-    let nftPriceTitle: UILabel = {
+    lazy var nftPriceTitle: UILabel = {
         let label = UILabel()
         label.text = LocalizableConstants.Cart.price
         label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
@@ -46,22 +46,21 @@ final class CartCell: UITableViewCell {
         return label
     }()
     
-    let nftPrice: UILabel = {
-        
+    lazy var nftPrice: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private let starStack: UIStackView = {
+    private lazy var starStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
     
-    private let deleteButton: UIButton = {
+    private lazy var deleteButton: UIButton = {
         let button = UIButton()
         button.setImage(Resourses.Images.Cell.cartFill, for: .normal)
         button.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
