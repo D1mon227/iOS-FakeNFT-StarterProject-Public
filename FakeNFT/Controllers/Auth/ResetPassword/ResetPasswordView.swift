@@ -18,6 +18,7 @@ final class ResetPasswordView {
         element.textColor = .blackDay
         element.backgroundColor = .lightGreyDay
         element.autocapitalizationType = .none
+        element.textContentType = .oneTimeCode
         element.leftViewMode = .always
         element.clearButtonMode = .whileEditing
         element.layer.cornerRadius = 12
