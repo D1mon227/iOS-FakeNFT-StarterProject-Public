@@ -28,7 +28,6 @@ final class MyNFTViewController: UIViewController, MyNFTViewControllerProtocol {
         setupTableView()
         presenter?.fetchNFTs()
         presenter?.fetchUsers()
-        setupTitle()
     }
     
     override func viewDidDisappear(_ animated: Bool) {

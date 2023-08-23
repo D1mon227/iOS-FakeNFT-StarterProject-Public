@@ -3,14 +3,17 @@ import SnapKit
 
 final class FavoritesNFTViewController: UIViewController, FavoritesNFTViewControllerProtocol {
     var presenter: FavoritesNFTViewPresenterProtocol?
+    private var profilePresenter: ProfileViewPresenterProtocol?
     private let favoritesNFTView = FavoritesNFTView()
     private let alertService = AlertService()
     private let analyticsService = AnalyticsService.shared
     
-    init() {
+    init(profilePresenter: ProfileViewPresenterProtocol?, likes: [String]?) {
         super.init(nibName: nil, bundle: nil)
-        self.presenter = FavoritesNFTViewPresenter()
+        self.profilePresenter = profilePresenter
+        self.presenter = FavoritesNFTViewPresenter(profilePresenter: profilePresenter)
         self.presenter?.view = self
+        self.presenter?.likes = likes
     }
     
     required init?(coder: NSCoder) {
@@ -22,11 +25,6 @@ final class FavoritesNFTViewController: UIViewController, FavoritesNFTViewContro
         view.backgroundColor = .backgroundDay
         analyticsService.report(event: .open, screen: .favoritesNFTsVC, item: nil)
         setupCollectionView()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        presenter?.fetchProfile()
         presenter?.fetchNFTs()
     }
     
@@ -153,13 +151,6 @@ extension FavoritesNFTViewController {
     
     func showLikeErrorAlert(id: String) {
         guard let model = presenter?.getLikeErrorModel(id: id) else { return }
-        DispatchQueue.main.async {
-            self.alertService.showErrorAlert(model: model, controller: self)
-        }
-    }
-    
-    func showErrorAlert() {
-        guard let model = presenter?.getErrorModel() else { return }
         DispatchQueue.main.async {
             self.alertService.showErrorAlert(model: model, controller: self)
         }

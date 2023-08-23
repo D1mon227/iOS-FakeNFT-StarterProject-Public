@@ -2,6 +2,7 @@ import Foundation
 
 final class FavoritesNFTViewPresenter: FavoritesNFTViewPresenterProtocol {
     weak var view: FavoritesNFTViewControllerProtocol?
+    private var profilePresenter: ProfileViewPresenterProtocol?
     private let likeService = LikeService.shared
     private let nftService = NFTService.shared
     private let profileService = ProfileService.shared
@@ -13,6 +14,10 @@ final class FavoritesNFTViewPresenter: FavoritesNFTViewPresenterProtocol {
                 self.view?.reloadViews()
             }
         }
+    }
+    
+    init(profilePresenter: ProfileViewPresenterProtocol?) {
+        self.profilePresenter = profilePresenter
     }
     
     func areFavoritesNFTsEmpty() -> Bool {
@@ -29,18 +34,6 @@ final class FavoritesNFTViewPresenter: FavoritesNFTViewPresenterProtocol {
                 break
             case .failure(_):
                 self.view?.showLikeErrorAlert(id: id)
-            }
-        }
-    }
-    
-    func fetchProfile() {
-        profileService.fetchProfile { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let profile):
-                self.likes = profile.likes
-            case .failure(_):
-                self.view?.showErrorAlert()
             }
         }
     }
@@ -75,15 +68,6 @@ final class FavoritesNFTViewPresenter: FavoritesNFTViewPresenterProtocol {
                                     buttonText: LocalizableConstants.Auth.Alert.tryAgainButton) { [weak self] in
             guard let self = self else { return }
             self.changeLike(id)
-        }
-        return model
-    }
-    
-    func getErrorModel() -> AlertErrorModel {
-        let model = AlertErrorModel(message: LocalizableConstants.Auth.Alert.failedLoadDataMessage,
-                                    buttonText: LocalizableConstants.Auth.Alert.tryAgainButton) { [weak self] in
-            guard let self = self else { return }
-            self.fetchProfile()
         }
         return model
     }
