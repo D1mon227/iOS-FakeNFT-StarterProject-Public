@@ -6,7 +6,6 @@ extension String {
             return url
         }
         
-        
         if let encodedLink = self.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
            let url = URL(string: encodedLink) {
             return url

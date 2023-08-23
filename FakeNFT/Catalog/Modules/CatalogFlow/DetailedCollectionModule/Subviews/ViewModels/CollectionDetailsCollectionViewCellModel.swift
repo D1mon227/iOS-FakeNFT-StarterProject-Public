@@ -15,7 +15,7 @@ struct CollectionDetailsCollectionViewCellModel: DetailedCollectionTableViewCell
          collectionDescription: String,
          collectionName: String,
          imageStringUrl: URL?,
-         user: ProfileModel
+         user: ProfileDecodable
     ) {
         self.collectionId = collectionId
         self.website = user.website

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ProfileModel: Codable {
+struct ProfileDecodable: Codable {
     let name: String
     let avatar: URL?
     let description: String
@@ -17,3 +17,9 @@ struct ProfileModel: Codable {
     let id: String
 }
 
+struct ProfileEncodable: Encodable {
+    let likes: [String]
+    let website: String
+    let name: String
+    let description: String
+}

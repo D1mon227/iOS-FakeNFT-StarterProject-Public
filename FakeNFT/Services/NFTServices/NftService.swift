@@ -40,7 +40,7 @@ final class NftService: NftServiceProtocol {
                 }
             }.resume()
         } catch {
-            //обработать ошибку
+            print("Failed")
         }
 
     }
