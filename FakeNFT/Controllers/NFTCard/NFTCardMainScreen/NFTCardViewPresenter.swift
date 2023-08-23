@@ -4,6 +4,7 @@ final class NFTCardViewPresenter: NFTCardViewPresenterProtocol {
     weak var view: NFTCardViewControllerProtocol?
     private let currencyService = CurrencyService.shared
     private let nftService = NFTService.shared
+    private let likeService = LikeService.shared
     private let profileService = ProfileService.shared
     
     var nftModel: NFT?
@@ -71,6 +72,19 @@ final class NFTCardViewPresenter: NFTCardViewPresenterProtocol {
         }
     }
     
+    func changeLike(_ id: String) {
+        updateLikes(id)
+        likeService.changeLike(newLike: Likes(likes: self.likes ?? [])) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(_):
+                break
+            case .failure(_):
+                self.view?.showLikeErrorAlert(id: id)
+            }
+        }
+    }
+    
     func switchToNFTInformation(index: Int) -> WebViewController? {
         guard let url = URL(string: NFTUrls[index]) else { return nil }
         let webViewPresenter = WebViewPresenter(urlRequest: URLRequest(url: url))
@@ -104,6 +118,15 @@ final class NFTCardViewPresenter: NFTCardViewPresenterProtocol {
         return model
     }
     
+    func getLikeErrorModel(id: String) -> AlertErrorModel {
+        let model = AlertErrorModel(message: LocalizableConstants.Auth.Alert.traAgainMessage,
+                                    buttonText: LocalizableConstants.Auth.Alert.tryAgainButton) { [weak self] in
+            guard let self = self else { return }
+            self.changeLike(id)
+        }
+        return model
+    }
+    
     private func generateRandomNFTsIndexes(max: Int, count: Int) -> [Int] {
         guard max >= count else {
             fatalError("max must be greater than or equal to count")
@@ -116,5 +139,16 @@ final class NFTCardViewPresenter: NFTCardViewPresenterProtocol {
         }
         
         return Array(randomIndexes)
+    }
+    
+    private func updateLikes(_ id: String) {
+        guard var likes = likes else { return }
+        if likes.contains(id) {
+            likes.removeAll { $0 == id }
+            self.likes = likes
+        } else {
+            likes.append(id)
+            self.likes = likes
+        }
     }
 }

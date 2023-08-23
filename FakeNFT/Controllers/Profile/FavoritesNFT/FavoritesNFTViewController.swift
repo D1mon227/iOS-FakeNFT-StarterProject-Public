@@ -3,17 +3,14 @@ import SnapKit
 
 final class FavoritesNFTViewController: UIViewController, FavoritesNFTViewControllerProtocol {
     var presenter: FavoritesNFTViewPresenterProtocol?
-    private var profilePresenter: ProfileViewPresenterProtocol?
     private let favoritesNFTView = FavoritesNFTView()
     private let alertService = AlertService()
     private let analyticsService = AnalyticsService.shared
     
-    init(profilePresenter: ProfileViewPresenterProtocol?, likes: [String]?) {
+    init() {
         super.init(nibName: nil, bundle: nil)
-        self.profilePresenter = profilePresenter
-        self.presenter = FavoritesNFTViewPresenter(profilePresenter: profilePresenter)
+        self.presenter = FavoritesNFTViewPresenter()
         self.presenter?.view = self
-        self.presenter?.likes = likes
     }
     
     required init?(coder: NSCoder) {
@@ -25,8 +22,12 @@ final class FavoritesNFTViewController: UIViewController, FavoritesNFTViewContro
         view.backgroundColor = .backgroundDay
         analyticsService.report(event: .open, screen: .favoritesNFTsVC, item: nil)
         setupCollectionView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter?.fetchProfile()
         presenter?.fetchNFTs()
-        setupTitle()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -61,6 +62,7 @@ final class FavoritesNFTViewController: UIViewController, FavoritesNFTViewContro
             make.bottom.equalTo(view.safeAreaLayoutGuide)
             make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
         }
+        favoritesNFTView.nftCollectionView.reloadData()
     }
     
     private func setupTitle() {
@@ -130,7 +132,7 @@ extension FavoritesNFTViewController: FavoritesNFTCollectionViewCellDelegate {
         guard let indexPath = favoritesNFTView.nftCollectionView.indexPath(for: cell),
               let presenter = presenter else { return }
         let nftID = presenter.favoritesNFTs[indexPath.row].id
-        presenter.changeLike(nftID)
+        presenter.changeLike(nftID ?? "")
         analyticsService.report(event: .click, screen: .favoritesNFTsVC, item: .like)
         
         favoritesNFTView.nftCollectionView.performBatchUpdates {
@@ -151,6 +153,13 @@ extension FavoritesNFTViewController {
     
     func showLikeErrorAlert(id: String) {
         guard let model = presenter?.getLikeErrorModel(id: id) else { return }
+        DispatchQueue.main.async {
+            self.alertService.showErrorAlert(model: model, controller: self)
+        }
+    }
+    
+    func showErrorAlert() {
+        guard let model = presenter?.getErrorModel() else { return }
         DispatchQueue.main.async {
             self.alertService.showErrorAlert(model: model, controller: self)
         }

@@ -12,6 +12,7 @@ final class NFTCardCollectionViewCell: UICollectionViewCell {
     private lazy var favoriteButton: UIButton = {
         let element = UIButton(type: .system)
         element.setImage(Resourses.Images.Cell.like, for: .normal)
+        element.addTarget(self, action: #selector(tappedLike), for: .touchUpInside)
         element.tintColor = .white
         return element
     }()
@@ -47,6 +48,7 @@ final class NFTCardCollectionViewCell: UICollectionViewCell {
         return element
     }()
     
+    weak var delegate: NFTCardCollectionViewCellDelegate?
     private var starImageViews: [UIImageView] = []
     
     override init(frame: CGRect) {
@@ -71,6 +73,10 @@ final class NFTCardCollectionViewCell: UICollectionViewCell {
         nftNameLabel.text = nftName
         updateRatingStars(rating: rating)
         nftPriceLabel.text = nftPrice + " ETH"
+    }
+    
+    @objc private func tappedLike() {
+        delegate?.didTapLike(self)
     }
     
     private func changeLikeButtonColorToWhite() {
@@ -141,5 +147,11 @@ final class NFTCardCollectionViewCell: UICollectionViewCell {
             make.trailing.equalToSuperview()
             make.top.equalTo(nftRatingStack.snp.bottom).offset(4)
         }
+    }
+}
+
+extension NFTCardCollectionViewCell {
+    func setLiked(_ likedByUser: Bool) {
+        favoriteButton.tintColor = likedByUser ? UIColor.redUniversal : UIColor.white
     }
 }

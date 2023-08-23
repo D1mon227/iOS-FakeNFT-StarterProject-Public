@@ -6,4 +6,5 @@ protocol NFTCardViewControllerProtocol: AnyObject {
     func reloadCollectionView()
     func showCurrencyErrorAlert()
     func showNFTsErrorAlert()
+    func showLikeErrorAlert(id: String)
 }

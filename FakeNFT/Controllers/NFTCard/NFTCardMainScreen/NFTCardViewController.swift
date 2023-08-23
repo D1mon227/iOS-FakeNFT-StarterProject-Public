@@ -97,6 +97,12 @@ final class NFTCardViewController: UIViewController, NFTCardViewControllerProtoc
               let webViewController = presenter?.switchToNFTInformation(index: index) else { return }
         customNC.pushViewController(webViewController, animated: true)
     }
+    
+    @objc private func likeTapped() {
+        guard let presenter = presenter else { return }
+        presenter.changeLike(presenter.nftModel?.id ?? "")
+        presenter.doesNftHasLike(id: presenter.nftModel?.id) ? setupNavigationBar(tintColor: .redUniversal) : setupNavigationBar(tintColor: .white)
+    }
 }
 
 //MARK: UITableViewDataSource
@@ -142,6 +148,7 @@ extension NFTCardViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NFTCardCollectionViewCell", for: indexPath) as? NFTCardCollectionViewCell,
               let nft = presenter?.nfts?[indexPath.row] else { return UICollectionViewCell() }
         
+        cell.delegate = self
         cell.configureCell(nftImage: nft.images?[0],
                            doesNftHasLike: presenter?.doesNftHasLike(id: nft.id),
                            nftName: nft.name,
@@ -173,6 +180,17 @@ extension NFTCardViewController: UIScrollViewDelegate {
     }
 }
 
+//MARK: NFTCardCollectionViewCellDelegate
+extension NFTCardViewController: NFTCardCollectionViewCellDelegate {
+    func didTapLike(_ cell: NFTCardCollectionViewCell) {
+        guard let indexPath = nftCardView.nftCollectionView.indexPath(for: cell),
+              let presenter = presenter else { return }
+        let nftID = presenter.nfts?[indexPath.row].id
+        presenter.changeLike(nftID ?? "")
+        cell.setLiked(presenter.doesNftHasLike(id: nftID))
+    }
+}
+
 //MARK: Alerts
 extension NFTCardViewController {
     func showCurrencyErrorAlert() {
@@ -188,6 +206,13 @@ extension NFTCardViewController {
             self.alertService.showErrorAlert(model: model, controller: self)
         }
     }
+    
+    func showLikeErrorAlert(id: String) {
+        guard let model = presenter?.getLikeErrorModel(id: id) else { return }
+        DispatchQueue.main.async {
+            self.alertService.showErrorAlert(model: model, controller: self)
+        }
+    }
 }
 
 //MARK: SetupViews
@@ -196,6 +221,7 @@ extension NFTCardViewController {
         let rightButton = UIButton(type: .system)
         rightButton.setImage(Resourses.Images.Cell.like, for: .normal)
         rightButton.tintColor = tintColor
+        rightButton.addTarget(self, action: #selector(likeTapped), for: .touchUpInside)
         let rightBarButton = UIBarButtonItem(customView: rightButton)
         navigationItem.rightBarButtonItem = rightBarButton
     }

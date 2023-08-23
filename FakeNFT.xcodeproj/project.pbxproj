@@ -133,6 +133,7 @@
 		73C3EB5F2A8D394B00E047E0 /* CurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C3EB5E2A8D394B00E047E0 /* CurrencyService.swift */; };
 		73C3EB612A8E7C3700E047E0 /* NFTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C3EB602A8E7C3700E047E0 /* NFTService.swift */; };
 		73C4DF3C2A963591004E948E /* UIScrollView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C4DF3B2A963591004E948E /* UIScrollView + Extension.swift */; };
+		73C4DF3F2A964212004E948E /* NFTCardCollectionViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C4DF3E2A964212004E948E /* NFTCardCollectionViewCellDelegate.swift */; };
 		73D526D72A84C4020056116E /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D526D62A84C4020056116E /* UIBlockingProgressHUD.swift */; };
 		73D526D92A84C4420056116E /* UIImageView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D526D82A84C4420056116E /* UIImageView + Extension.swift */; };
 		73EA4B032A73C703000B4B55 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EA4B022A73C703000B4B55 /* TabBarController.swift */; };
@@ -335,6 +336,7 @@
 		73C3EB5E2A8D394B00E047E0 /* CurrencyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyService.swift; sourceTree = "<group>"; };
 		73C3EB602A8E7C3700E047E0 /* NFTService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTService.swift; sourceTree = "<group>"; };
 		73C4DF3B2A963591004E948E /* UIScrollView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView + Extension.swift"; sourceTree = "<group>"; };
+		73C4DF3E2A964212004E948E /* NFTCardCollectionViewCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTCardCollectionViewCellDelegate.swift; sourceTree = "<group>"; };
 		73D526D62A84C4020056116E /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
 		73D526D82A84C4420056116E /* UIImageView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView + Extension.swift"; sourceTree = "<group>"; };
 		73EA4B022A73C703000B4B55 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -875,6 +877,7 @@
 		730B238F2A8C287200F5D832 /* NFTCard */ = {
 			isa = PBXGroup;
 			children = (
+				73C4DF3D2A9641EF004E948E /* Delegates */,
 				730B23902A8C287F00F5D832 /* Protocols */,
 				730B23952A8C290300F5D832 /* NFTCardMainScreen */,
 			);
@@ -976,6 +979,14 @@
 				737D03222A80776700DCB5B1 /* OnboardingPageViewController.swift */,
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		73C4DF3D2A9641EF004E948E /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				73C4DF3E2A964212004E948E /* NFTCardCollectionViewCellDelegate.swift */,
+			);
+			path = Delegates;
 			sourceTree = "<group>";
 		};
 		73EA4B012A73C6E2000B4B55 /* Controllers */ = {
@@ -1371,6 +1382,7 @@
 				730B23972A8C292600F5D832 /* NFTCardView.swift in Sources */,
 				73EA4B032A73C703000B4B55 /* TabBarController.swift in Sources */,
 				7300E0702A9379D300AD427A /* EditingProfileTableViewCell.swift in Sources */,
+				73C4DF3F2A964212004E948E /* NFTCardCollectionViewCellDelegate.swift in Sources */,
 				732208BD2A8CBCB700CAB88E /* NFTsRequest.swift in Sources */,
 				7300E0792A9379D300AD427A /* ProfileView.swift in Sources */,
 				7300E06F2A9379D300AD427A /* EditingProfileViewControllerProtocol.swift in Sources */,

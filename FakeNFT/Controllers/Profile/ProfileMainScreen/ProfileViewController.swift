@@ -85,7 +85,7 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
     
     @objc private func switchToFavoritesNFTViewController() {
         guard let customNC = navigationController as? CustomNavigationController else { return }
-        let favoritesNFTVC = FavoritesNFTViewController(profilePresenter: presenter, likes: presenter?.profile?.likes)
+        let favoritesNFTVC = FavoritesNFTViewController()
         analyticsService.report(event: .click, screen: .profileVC, item: .favoriteNFTs)
         customNC.pushViewController(favoritesNFTVC, animated: true)
     }

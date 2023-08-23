@@ -71,20 +71,12 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
     }
     
     func changeLike(_ id: String) {
-        guard var likes = likes else { return }
-        if likes.contains(id) {
-            likes.removeAll { $0 == id }
-            self.likes = likes
-        } else {
-            likes.append(id)
-            self.likes = likes
-        }
-            
+        updateLikes(id)
         likeService.changeLike(newLike: Likes(likes: self.likes ?? [])) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(let newProfile):
-                self.profilePresenter?.profile = newProfile
+            case .success(_):
+                break
             case .failure(_):
                 self.view?.showLikeErrorAlert(id: id)
             }
@@ -173,5 +165,16 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
         }
 
         return filteredNFTs
+    }
+    
+    private func updateLikes(_ id: String) {
+        guard var likes = likes else { return }
+        if likes.contains(id) {
+            likes.removeAll { $0 == id }
+            self.likes = likes
+        } else {
+            likes.append(id)
+            self.likes = likes
+        }
     }
 }
