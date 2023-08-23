@@ -9,9 +9,8 @@ final class StarRatingView: UIView {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.distribution = .fillEqually
-        stack.axis = NSLayoutConstraint.Axis.horizontal
-        stack.distribution  = UIStackView.Distribution.equalSpacing
-        stack.spacing = 3
+        stack.axis = .horizontal
+        stack.spacing = 2
         return stack
     }()
     
