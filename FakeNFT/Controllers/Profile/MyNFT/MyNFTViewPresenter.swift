@@ -80,7 +80,7 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
             self.likes = likes
         }
             
-        likeService.changeLike(newLike: Like(likes: self.likes)) { [weak self] result in
+        likeService.changeLike(newLike: Likes(likes: self.likes ?? [])) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let newProfile):

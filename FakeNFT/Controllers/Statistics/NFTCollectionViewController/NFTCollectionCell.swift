@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-final class NFTCollectionCell: UICollectionViewCell {
+final class NFTCollectionCell: UICollectionViewCell, PriceConvertable {
 	var onCartButtonTapped: (() -> Void)?
 	var onFavoriteButtonTapped: (() -> Void)?
 	
@@ -95,7 +95,7 @@ final class NFTCollectionCell: UICollectionViewCell {
 		removeRatingStars()
 		setRatingStars(rating: nft.rating ?? 0)
 		nftNameLabel.text = nft.name
-		nftPriceLabel.text = nft.formattedPrice
+		nftPriceLabel.text = convert(price: nft.price ?? 0.0) + " ETH"
 	}
 	
 	@objc
@@ -122,8 +122,6 @@ final class NFTCollectionCell: UICollectionViewCell {
 		
 		for i in 0..<imageCount {
 			let imageView = UIImageView(image: Resourses.Images.Cell.star)
-			imageView.tintColor = .gray
-			imageView.contentMode = .scaleAspectFit
 			imageView.translatesAutoresizingMaskIntoConstraints = false
 			imageView.widthAnchor.constraint(equalToConstant: 12).isActive = true
 			imageView.heightAnchor.constraint(equalToConstant: 12).isActive = true
