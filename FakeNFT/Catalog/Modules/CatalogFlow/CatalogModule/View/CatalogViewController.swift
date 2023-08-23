@@ -72,7 +72,7 @@ private extension CatalogViewController {
     
     func setupNavigationBar() {
         let rightButton = UIBarButtonItem(
-            image: UIImage(named:"sortingBy"),
+            image: Resourses.Images.Sort.sort,
             style: .plain,
             target: self,
             action: #selector(didTapSortingByButton)
