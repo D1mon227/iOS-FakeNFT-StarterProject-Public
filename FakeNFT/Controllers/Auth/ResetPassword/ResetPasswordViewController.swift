@@ -4,6 +4,7 @@ import SnapKit
 final class ResetPasswordViewController: UIViewController, ResetPasswordViewControllerProtocol {
     var presenter: ResetPasswordViewPresenterProtocol?
     private let resetPasswordView = ResetPasswordView()
+    private let alertService = AlertService()
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -24,11 +25,13 @@ final class ResetPasswordViewController: UIViewController, ResetPasswordViewCont
     
     func checkPasswordReset(successfulReset: Bool) {
         UIBlockingProgressHUD.dismiss()
-        successfulReset ? showInstractionLabel() : print("error")
+        successfulReset ? showInstractionLabel() : showErrorAlert()
     }
     
-    func showNewEmailPlaceholder() {
-        resetPasswordView.emailTextField.placeholder = "Введите Email"
+    private func showErrorAlert() {
+        let model = AlertErrorModel(message: LocalizableConstants.Auth.Alert.traAgainMessage,
+                                    buttonText: LocalizableConstants.Auth.Alert.okButton) {}
+        alertService.showErrorAlert(model: model, controller: self)
     }
     
     private func setupTarget() {

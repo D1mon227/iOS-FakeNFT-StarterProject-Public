@@ -3,6 +3,8 @@ import SnapKit
 import Firebase
 
 final class SplashScreenViewController: UIViewController {
+    var handle: AuthStateDidChangeListenerHandle?
+    
 	private lazy var splashLogo: UIImageView = {
 		let element = UIImageView()
 		element.image = Resourses.Images.SplashScreen.logo
@@ -13,38 +15,33 @@ final class SplashScreenViewController: UIViewController {
 		super.viewDidLoad()
 		setupViews()
 	}
-	
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(animated)
-		checkAuthToken()
-	}
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        checkAuthToken()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        guard let handle = handle else { return }
+        Auth.auth().removeStateDidChangeListener(handle)
+    }
 	
 	private func checkAuthToken() {
-		Auth.auth().addStateDidChangeListener { [weak self] (_, user) in
-			guard let self = self else { return }
-			if let currentUser = Auth.auth().currentUser {
-				if !OnboardingManager.hasCompletedOnboarding {
-					self.switchToOnboardingController()
-				} else {
-					self.switchToTabBarController()
-				}
-			} else {
-				self.switchToAuthViewController()
-			}
-		}
-	}
-	
-	private func switchToOnboardingController() {
-		let onboardingController = OnboardingPageViewController()
-		onboardingController.modalPresentationStyle = .fullScreen
-		present(onboardingController, animated: true)
+		handle = Auth.auth().addStateDidChangeListener { [weak self] (_, user) in
+            guard let self = self else { return }
+            if user != nil {
+                self.switchToTabBarController()
+            } else {
+                self.switchToAuthViewController()
+            }
+        }
 	}
 	
 	private func switchToTabBarController() {
 		let tabbar = TabBarController()
 		tabbar.modalPresentationStyle = .fullScreen
 		present(tabbar, animated: true)
-		OnboardingManager.hasCompletedOnboarding = true
 	}
 	
 	private func switchToAuthViewController() {

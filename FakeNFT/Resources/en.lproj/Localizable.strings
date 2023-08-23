@@ -8,13 +8,19 @@
 "auth.registrationButton" = "Sigh up";
 "auth.registrationTitle" = "Registration";
 "auth.usernameAlreadyExistsLabel" = "This username already exists";
+"auth.invalidEmailLabel" = "Email is not in the correct format";
+"auth.weakPasswordLabel" = "Password is too weak";
 "auth.incorrectUsernameOrPasswordLabel" = "Invalid username or password entered";
 "auth.resetPasswordTitle" = "Password reset";
 "auth.resetPasswordButton" = "Reset password";
 "auth.instructionsForResetPassword" = "Instructions for password recovery sent to your email";
 
 "alert.title" = "Something went wrong(";
-"alert.message" = "Failed to log in";
+"alert.authMessage" = "Failed to log in";
+"alert.failedLoadDataMessage" = "Failed to load data";
+"alert.traAgainMessage" = "Try again later";
+"alert.okButton" = "OK";
+"alert.tryAgainButton" = "Try again";
 
 //MARK: Onboarding
 "onboarding.firstTitle" = "Explore";

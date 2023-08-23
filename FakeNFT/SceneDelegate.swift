@@ -8,8 +8,18 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
+        
         let splashVC = SplashScreenViewController()
-        window?.rootViewController = splashVC
+        let onboardingVC = OnboardingPageViewController()
+        var rootViewController: UIViewController
+        
+        if OnboardingManager.hasCompletedOnboarding {
+            rootViewController = splashVC
+        } else {
+            rootViewController = onboardingVC
+        }
+        
+        window?.rootViewController = rootViewController
         window?.makeKeyAndVisible()
     }
 }

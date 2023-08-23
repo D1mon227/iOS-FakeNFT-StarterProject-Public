@@ -8,13 +8,19 @@
 "auth.registrationButton" = "Зарегистрироваться";
 "auth.registrationTitle" = "Регистрация";
 "auth.usernameAlreadyExistsLabel" = "Данное имя пользователя занято";
+"auth.invalidEmailLabel" = "Электронная почта имеет неправильный формат";
+"auth.weakPasswordLabel" = "Пароль слишком слабый";
 "auth.incorrectUsernameOrPasswordLabel" = "Введен неверный логин или пароль";
 "auth.resetPasswordTitle" = "Сброс пароля";
 "auth.resetPasswordButton" = "Сбросить пароль";
 "auth.instructionsForResetPassword" = "Инструкции по восстановлению пароля высланы на указанный email";
 
 "alert.title" = "Что-то пошло не так(";
-"alert.message" = "Не удалось войти в систему";
+"alert.authMessage" = "Не удалось войти в систему";
+"alert.failedLoadDataMessage" = "Не удалось загрузить данные";
+"alert.traAgainMessage" = "Повторите попытку позднее";
+"alert.okButton" = "ОК";
+"alert.tryAgainButton" = "Повторить";
 
 //MARK: Onboarding
 "onboarding.firstTitle" = "Исследуйте";

@@ -11,6 +11,8 @@ enum LocalizableConstants {
         static let registrationButton = NSLocalizedString("auth.registrationButton", comment: "")
         static let registrationTitle = NSLocalizedString("auth.registrationTitle", comment: "")
         static let usernameAlreadyExistsLabel = NSLocalizedString("auth.usernameAlreadyExistsLabel", comment: "")
+		static let invalidEmailLabel = NSLocalizedString("auth.invalidEmailLabel", comment: "")
+		static let weakPasswordLabel = NSLocalizedString("auth.weakPasswordLabel", comment: "")
         static let incorrectUsernameOrPasswordLabel = NSLocalizedString("auth.incorrectUsernameOrPasswordLabel", comment: "")
         static let resetPasswordTitle = NSLocalizedString("auth.resetPasswordTitle", comment: "")
         static let resetPasswordButton = NSLocalizedString("auth.resetPasswordButton", comment: "")
@@ -18,7 +20,11 @@ enum LocalizableConstants {
         
         enum Alert {
             static let title = NSLocalizedString("alert.title", comment: "")
-            static let message = NSLocalizedString("alert.message", comment: "")
+            static let authMessage = NSLocalizedString("alert.authMessage", comment: "")
+            static let failedLoadDataMessage = NSLocalizedString("alert.failedLoadDataMessage", comment: "")
+            static let traAgainMessage = NSLocalizedString("alert.traAgainMessage", comment: "")
+            static let okButton = NSLocalizedString("alert.okButton", comment: "")
+            static let tryAgainButton = NSLocalizedString("alert.tryAgainButton", comment: "")
         }
     }
     

@@ -4,6 +4,7 @@ import SnapKit
 final class NFTCardViewController: UIViewController, NFTCardViewControllerProtocol {
     var presenter: NFTCardViewPresenterProtocol?
     private let nftCardView = NFTCardView()
+    private let alertService = AlertService()
     private var starImageViews: [UIImageView] = []
     private var coverPageControlImageViews: [UIImageView] = []
     private var currentPageIndex: Int = 0
@@ -167,6 +168,23 @@ extension NFTCardViewController: UIScrollViewDelegate {
         let page = round(scrollView.contentOffset.x / view.frame.width)
         currentPageIndex = Int(page)
         setupPageControl()
+    }
+}
+
+//MARK: Alerts
+extension NFTCardViewController {
+    func showCurrencyErrorAlert() {
+        guard let model = presenter?.getCurrencyErrorModel() else { return }
+        DispatchQueue.main.async {
+            self.alertService.showErrorAlert(model: model, controller: self)
+        }
+    }
+    
+    func showNFTsErrorAlert() {
+        guard let model = presenter?.getNFTsErrorModel() else { return }
+        DispatchQueue.main.async {
+            self.alertService.showErrorAlert(model: model, controller: self)
+        }
     }
 }
 

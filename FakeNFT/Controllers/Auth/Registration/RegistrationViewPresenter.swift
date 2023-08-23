@@ -8,7 +8,7 @@ protocol IRegistrationViewPresenter {
 }
 
 protocol NavigationScreenDelegate {
-	func userRegistrationSuccessful()
+	func dismissRegistrationScreen()
 }
 
 final class RegistrationViewPresenter {
@@ -17,19 +17,22 @@ final class RegistrationViewPresenter {
 	
 	func registrationUser(with email: String, password: String) {
 		if !email.isEmpty, !password.isEmpty {
-			UIBlockingProgressHUD.show()
 			Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-				UIBlockingProgressHUD.dismiss()
-				if let error = error {
-					print("Error creating user: \(error)")
-					self.ui?.showMistakeLabel()
-				} else if let authResult = authResult {
-					print("User registered successfully")
-					self.navigationScreenDelegate?.userRegistrationSuccessful()
+				if let error = error as NSError? {
+					if error.code == AuthErrorCode.weakPassword.rawValue {
+						self.ui?.showWeakPasswordLabel()
+					} else if error.code == AuthErrorCode.invalidEmail.rawValue {
+						self.ui?.showInvalidEmailLabel()
+					} else if error.code == AuthErrorCode.emailAlreadyInUse.rawValue {
+						self.ui?.showEmailAlreadyInUseLabel()
+					}
+				} else {
+					UIBlockingProgressHUD.show()
+					self.navigationScreenDelegate?.dismissRegistrationScreen()
 				}
 			}
 		} else {
-			print("чего то не хватает!")
+			self.ui?.showMistakeLabel()
 		}
 	}
 }

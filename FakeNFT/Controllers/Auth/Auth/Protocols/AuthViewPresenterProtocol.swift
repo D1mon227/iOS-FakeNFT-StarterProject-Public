@@ -5,4 +5,5 @@ protocol AuthViewPresenterProtocol: AnyObject {
     func authorizeUser()
     func setupEmail(email: String?)
     func setupPassword(password: String?)
+    func authorizationSuccessful()
 }

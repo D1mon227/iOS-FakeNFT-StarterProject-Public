@@ -8,16 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		1F2A25652A8E243F00F8B1AD /* UIViewController+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2A25642A8E243F00F8B1AD /* UIViewController+extension.swift */; };
-		1F2A256E2A8E81A900F8B1AD /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 1F2A256D2A8E81A900F8B1AD /* Reachability */; };
 		1F2A25712A8E81F800F8B1AD /* NetworkReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2A25702A8E81F800F8B1AD /* NetworkReachabilityManager.swift */; };
 		1F3E72992A8E9BC4007EBD36 /* AlertProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3E72982A8E9BC4007EBD36 /* AlertProtocol.swift */; };
+		1F7E8C8C2A951C6F00AF59FD /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1F7E8C8B2A951C6F00AF59FD /* SnapKit */; };
+		1F7E8C8F2A951C8800AF59FD /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 1F7E8C8E2A951C8800AF59FD /* ProgressHUD */; };
+		1F7E8C922A951CA200AF59FD /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 1F7E8C912A951CA200AF59FD /* Kingfisher */; };
+		1F7E8C952A951CC100AF59FD /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 1F7E8C942A951CC100AF59FD /* Reachability */; };
+		1F7E8C982A951D0A00AF59FD /* YandexMobileMetrica in Frameworks */ = {isa = PBXBuildFile; productRef = 1F7E8C972A951D0A00AF59FD /* YandexMobileMetrica */; };
+		1F7E8C9A2A951D0A00AF59FD /* YandexMobileMetricaCrashes in Frameworks */ = {isa = PBXBuildFile; productRef = 1F7E8C992A951D0A00AF59FD /* YandexMobileMetricaCrashes */; };
+		1F7E8C9D2A951D5700AF59FD /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1F7E8C9C2A951D5700AF59FD /* FirebaseAuth */; };
 		1FEA5B4E2A81497100946DD9 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEA5B4D2A81497100946DD9 /* WebViewController.swift */; };
 		1FEA5B502A81498900946DD9 /* WebViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEA5B4F2A81498900946DD9 /* WebViewPresenter.swift */; };
 		1FEA5B7C2A8BE98600946DD9 /* NetworkErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEA5B7B2A8BE98600946DD9 /* NetworkErrorView.swift */; };
 		3F478ECF29DB474E00F6D39E /* UIColor + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F478ECE29DB474E00F6D39E /* UIColor + Extension.swift */; };
 		3F478ED129DB476500F6D39E /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F478ED029DB476500F6D39E /* Fonts.swift */; };
-		3F603CCD29DB4A53000C43D7 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 3F603CCC29DB4A53000C43D7 /* ProgressHUD */; };
-		3F603CD029DB4A74000C43D7 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 3F603CCF29DB4A74000C43D7 /* Kingfisher */; };
 		3F68069729CBBAF100B4F915 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F68069629CBBAF100B4F915 /* AppDelegate.swift */; };
 		3F68069929CBBAF100B4F915 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F68069829CBBAF100B4F915 /* SceneDelegate.swift */; };
 		3F6806A029CBBAF200B4F915 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F68069F29CBBAF200B4F915 /* Assets.xcassets */; };
@@ -30,6 +34,8 @@
 		7300E0382A920E9800AD427A /* ResetPasswordViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7300E0372A920E9800AD427A /* ResetPasswordViewPresenter.swift */; };
 		7300E03B2A920ECD00AD427A /* ResetPasswordViewPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7300E03A2A920ECD00AD427A /* ResetPasswordViewPresenterProtocol.swift */; };
 		7300E03D2A920EDD00AD427A /* ResetPasswordViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7300E03C2A920EDD00AD427A /* ResetPasswordViewControllerProtocol.swift */; };
+		7300E0882A93A84300AD427A /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7300E0872A93A84300AD427A /* Alert.swift */; };
+		7300E08B2A93AEF100AD427A /* AlertServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7300E08A2A93AEF100AD427A /* AlertServiceProtocol.swift */; };
 		730B23922A8C28A500F5D832 /* NFTCardViewPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730B23912A8C28A500F5D832 /* NFTCardViewPresenterProtocol.swift */; };
 		730B23942A8C28DD00F5D832 /* NFTCardViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730B23932A8C28DD00F5D832 /* NFTCardViewControllerProtocol.swift */; };
 		730B23972A8C292600F5D832 /* NFTCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730B23962A8C292600F5D832 /* NFTCardView.swift */; };
@@ -39,12 +45,9 @@
 		730B239F2A8C29C500F5D832 /* NFTCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730B239E2A8C29C500F5D832 /* NFTCardCollectionViewCell.swift */; };
 		730B23A12A8C2A6E00F5D832 /* NFT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730B23A02A8C2A6E00F5D832 /* NFT.swift */; };
 		732A443A2A88FFBE00A593C2 /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732A44392A88FFBE00A593C2 /* AnalyticsService.swift */; };
-		732A444A2A8910BF00A593C2 /* YandexMobileMetrica in Frameworks */ = {isa = PBXBuildFile; productRef = 732A44492A8910BF00A593C2 /* YandexMobileMetrica */; };
-		732A444C2A8910BF00A593C2 /* YandexMobileMetricaCrashes in Frameworks */ = {isa = PBXBuildFile; productRef = 732A444B2A8910BF00A593C2 /* YandexMobileMetricaCrashes */; };
 		733B358A2A90CD270068C2C6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 733B35892A90CD270068C2C6 /* GoogleService-Info.plist */; };
 		733B35962A90D17A0068C2C6 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733B35952A90D17A0068C2C6 /* AuthViewController.swift */; };
 		733B35982A90D1AA0068C2C6 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733B35972A90D1AA0068C2C6 /* RegistrationViewController.swift */; };
-		733B359B2A90D2040068C2C6 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 733B359A2A90D2040068C2C6 /* FirebaseAuth */; };
 		733B359E2A90D2C00068C2C6 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733B359D2A90D2C00068C2C6 /* ResetPasswordViewController.swift */; };
 		733B35A02A90D4500068C2C6 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733B359F2A90D4500068C2C6 /* AuthView.swift */; };
 		733B35A22A90E7910068C2C6 /* AuthViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733B35A12A90E7910068C2C6 /* AuthViewPresenter.swift */; };
@@ -63,7 +66,6 @@
 		73C3EB632A8E7C6100E047E0 /* NFTsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C3EB622A8E7C6100E047E0 /* NFTsRequest.swift */; };
 		73D526D72A84C4020056116E /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D526D62A84C4020056116E /* UIBlockingProgressHUD.swift */; };
 		73D526D92A84C4420056116E /* UIImageView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D526D82A84C4420056116E /* UIImageView + Extension.swift */; };
-		73EA4B002A73C511000B4B55 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 73EA4AFF2A73C511000B4B55 /* SnapKit */; };
 		73EA4B032A73C703000B4B55 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EA4B022A73C703000B4B55 /* TabBarController.swift */; };
 		73EA4B052A73C770000B4B55 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EA4B042A73C770000B4B55 /* ProfileViewController.swift */; };
 		73EA4B082A73C789000B4B55 /* CatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EA4B072A73C789000B4B55 /* CatalogViewController.swift */; };
@@ -85,7 +87,6 @@
 		924DCA862A8505D200995282 /* PaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924DCA852A8505D200995282 /* PaymentView.swift */; };
 		924DCA882A85075200995282 /* PaymentPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924DCA872A85075200995282 /* PaymentPresenter.swift */; };
 		C50E6CC52A7E930000B852F9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50E6CC42A7E930000B852F9 /* User.swift */; };
-		C50E6CC72A7E931400B852F9 /* GetUsersRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50E6CC62A7E931400B852F9 /* GetUsersRequest.swift */; };
 		C51A14262A91F538002B1DC5 /* RegistrationViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51A14252A91F538002B1DC5 /* RegistrationViewPresenter.swift */; };
 		C51A14282A91F567002B1DC5 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51A14272A91F567002B1DC5 /* RegistrationView.swift */; };
 /* End PBXBuildFile section */
@@ -132,7 +133,9 @@
 		7300E0372A920E9800AD427A /* ResetPasswordViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewPresenter.swift; sourceTree = "<group>"; };
 		7300E03A2A920ECD00AD427A /* ResetPasswordViewPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewPresenterProtocol.swift; sourceTree = "<group>"; };
 		7300E03C2A920EDD00AD427A /* ResetPasswordViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewControllerProtocol.swift; sourceTree = "<group>"; };
-		730B23912A8C28A500F5D832 /* NFTCardViewPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NFTCardViewPresenterProtocol.swift; path = FakeNFT/Controllers/NFTCard/Protocols/NFTCardViewPresenterProtocol.swift; sourceTree = "<group>"; };
+		7300E0872A93A84300AD427A /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		7300E08A2A93AEF100AD427A /* AlertServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertServiceProtocol.swift; sourceTree = "<group>"; };
+		730B23912A8C28A500F5D832 /* NFTCardViewPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTCardViewPresenterProtocol.swift; sourceTree = "<group>"; };
 		730B23932A8C28DD00F5D832 /* NFTCardViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTCardViewControllerProtocol.swift; sourceTree = "<group>"; };
 		730B23962A8C292600F5D832 /* NFTCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTCardView.swift; sourceTree = "<group>"; };
 		730B23982A8C296400F5D832 /* NFTCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTCardViewController.swift; sourceTree = "<group>"; };
@@ -185,7 +188,6 @@
 		924DCA852A8505D200995282 /* PaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentView.swift; sourceTree = "<group>"; };
 		924DCA872A85075200995282 /* PaymentPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentPresenter.swift; sourceTree = "<group>"; };
 		C50E6CC42A7E930000B852F9 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		C50E6CC62A7E931400B852F9 /* GetUsersRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetUsersRequest.swift; sourceTree = "<group>"; };
 		C51A14252A91F538002B1DC5 /* RegistrationViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewPresenter.swift; sourceTree = "<group>"; };
 		C51A14272A91F567002B1DC5 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -195,13 +197,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				732A444C2A8910BF00A593C2 /* YandexMobileMetricaCrashes in Frameworks */,
-				1F2A256E2A8E81A900F8B1AD /* Reachability in Frameworks */,
-				73EA4B002A73C511000B4B55 /* SnapKit in Frameworks */,
-				732A444A2A8910BF00A593C2 /* YandexMobileMetrica in Frameworks */,
-				3F603CD029DB4A74000C43D7 /* Kingfisher in Frameworks */,
-				733B359B2A90D2040068C2C6 /* FirebaseAuth in Frameworks */,
-				3F603CCD29DB4A53000C43D7 /* ProgressHUD in Frameworks */,
+				1F7E8C922A951CA200AF59FD /* Kingfisher in Frameworks */,
+				1F7E8C952A951CC100AF59FD /* Reachability in Frameworks */,
+				1F7E8C8C2A951C6F00AF59FD /* SnapKit in Frameworks */,
+				1F7E8C9A2A951D0A00AF59FD /* YandexMobileMetricaCrashes in Frameworks */,
+				1F7E8C8F2A951C8800AF59FD /* ProgressHUD in Frameworks */,
+				1F7E8C9D2A951D5700AF59FD /* FirebaseAuth in Frameworks */,
+				1F7E8C982A951D0A00AF59FD /* YandexMobileMetrica in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,7 +312,7 @@
 			children = (
 				1F2A256F2A8E81E500F8B1AD /* Network */,
 				3FC8C38F29D245250081F015 /* Requests */,
-				7362C5482A786ACE004CBE1D /* AlertService.swift */,
+				7300E0892A93AEDD00AD427A /* AlertService */,
 				732A44392A88FFBE00A593C2 /* AnalyticsService.swift */,
 				73C3EB5E2A8D394B00E047E0 /* CurrencyService.swift */,
 				73C3EB602A8E7C3700E047E0 /* NFTService.swift */,
@@ -322,6 +324,7 @@
 		3F6806C929CBBCAF00B4F915 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				7300E0872A93A84300AD427A /* Alert.swift */,
 				73C3EB5C2A8D393100E047E0 /* Currency.swift */,
 				730B23A02A8C2A6E00F5D832 /* NFT.swift */,
 				C50E6CC42A7E930000B852F9 /* User.swift */,
@@ -353,7 +356,6 @@
 			isa = PBXGroup;
 			children = (
 				73C3EB5A2A8D390900E047E0 /* CurrencyRequest.swift */,
-				C50E6CC62A7E931400B852F9 /* GetUsersRequest.swift */,
 				73C3EB622A8E7C6100E047E0 /* NFTsRequest.swift */,
 			);
 			path = Requests;
@@ -366,6 +368,15 @@
 				7300E03C2A920EDD00AD427A /* ResetPasswordViewControllerProtocol.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		7300E0892A93AEDD00AD427A /* AlertService */ = {
+			isa = PBXGroup;
+			children = (
+				7362C5482A786ACE004CBE1D /* AlertService.swift */,
+				7300E08A2A93AEF100AD427A /* AlertServiceProtocol.swift */,
+			);
+			path = AlertService;
 			sourceTree = "<group>";
 		};
 		730B238F2A8C287200F5D832 /* NFTCard */ = {
@@ -604,13 +615,13 @@
 			);
 			name = FakeNFT;
 			packageProductDependencies = (
-				3F603CCC29DB4A53000C43D7 /* ProgressHUD */,
-				3F603CCF29DB4A74000C43D7 /* Kingfisher */,
-				73EA4AFF2A73C511000B4B55 /* SnapKit */,
-				732A44492A8910BF00A593C2 /* YandexMobileMetrica */,
-				732A444B2A8910BF00A593C2 /* YandexMobileMetricaCrashes */,
-				1F2A256D2A8E81A900F8B1AD /* Reachability */,
-				733B359A2A90D2040068C2C6 /* FirebaseAuth */,
+				1F7E8C8B2A951C6F00AF59FD /* SnapKit */,
+				1F7E8C8E2A951C8800AF59FD /* ProgressHUD */,
+				1F7E8C912A951CA200AF59FD /* Kingfisher */,
+				1F7E8C942A951CC100AF59FD /* Reachability */,
+				1F7E8C972A951D0A00AF59FD /* YandexMobileMetrica */,
+				1F7E8C992A951D0A00AF59FD /* YandexMobileMetricaCrashes */,
+				1F7E8C9C2A951D5700AF59FD /* FirebaseAuth */,
 			);
 			productName = FakeNFT;
 			productReference = 3F68069329CBBAF100B4F915 /* FakeNFT.app */;
@@ -686,12 +697,12 @@
 			);
 			mainGroup = 3F68068A29CBBAF100B4F915;
 			packageReferences = (
-				3F603CCB29DB4A53000C43D7 /* XCRemoteSwiftPackageReference "ProgressHUD" */,
-				3F603CCE29DB4A74000C43D7 /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				73EA4AFE2A73C510000B4B55 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				732A44482A8910BF00A593C2 /* XCRemoteSwiftPackageReference "metrica-sdk-ios" */,
-				1F2A256C2A8E81A900F8B1AD /* XCRemoteSwiftPackageReference "Reachability" */,
-				733B35992A90D2040068C2C6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				1F7E8C8A2A951C6F00AF59FD /* XCRemoteSwiftPackageReference "SnapKit" */,
+				1F7E8C8D2A951C8800AF59FD /* XCRemoteSwiftPackageReference "ProgressHUD" */,
+				1F7E8C902A951CA200AF59FD /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				1F7E8C932A951CC100AF59FD /* XCRemoteSwiftPackageReference "Reachability" */,
+				1F7E8C962A951D0A00AF59FD /* XCRemoteSwiftPackageReference "metrica-sdk-ios" */,
+				1F7E8C9B2A951D5700AF59FD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 3F68069429CBBAF100B4F915 /* Products */;
 			projectDirPath = "";
@@ -739,6 +750,7 @@
 			files = (
 				733B35962A90D17A0068C2C6 /* AuthViewController.swift in Sources */,
 				733B35A72A90E7D20068C2C6 /* AuthViewPresenterProtocol.swift in Sources */,
+				7300E08B2A93AEF100AD427A /* AlertServiceProtocol.swift in Sources */,
 				924DCA6F2A8215EB00995282 /* PaymentCell.swift in Sources */,
 				7362C5492A786ACE004CBE1D /* AlertService.swift in Sources */,
 				730B23942A8C28DD00F5D832 /* NFTCardViewControllerProtocol.swift in Sources */,
@@ -793,7 +805,6 @@
 				73EA4B1D2A7471D2000B4B55 /* CustomNavigationViewController.swift in Sources */,
 				C51A14282A91F567002B1DC5 /* RegistrationView.swift in Sources */,
 				730B239D2A8C29A500F5D832 /* NFTCardTableViewCell.swift in Sources */,
-				C50E6CC72A7E931400B852F9 /* GetUsersRequest.swift in Sources */,
 				1FEA5B7C2A8BE98600946DD9 /* NetworkErrorView.swift in Sources */,
 				7375ECFF2A91109800107A63 /* SplashScreenViewController.swift in Sources */,
 				73EA4B052A73C770000B4B55 /* ProfileViewController.swift in Sources */,
@@ -801,6 +812,7 @@
 				730B23922A8C28A500F5D832 /* NFTCardViewPresenterProtocol.swift in Sources */,
 				733B35982A90D1AA0068C2C6 /* RegistrationViewController.swift in Sources */,
 				73EA4B0E2A73C7C4000B4B55 /* StatisticsViewController.swift in Sources */,
+				7300E0882A93A84300AD427A /* Alert.swift in Sources */,
 				C51A14262A91F538002B1DC5 /* RegistrationViewPresenter.swift in Sources */,
 				73C3EB5B2A8D390900E047E0 /* CurrencyRequest.swift in Sources */,
 				730B23A12A8C2A6E00F5D832 /* NFT.swift in Sources */,
@@ -985,7 +997,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6FKSY32YRW;
+				DEVELOPMENT_TEAM = NHPG6G3743;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FakeNFT/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1015,7 +1027,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6FKSY32YRW;
+				DEVELOPMENT_TEAM = NHPG6G3743;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FakeNFT/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1151,47 +1163,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		1F2A256C2A8E81A900F8B1AD /* XCRemoteSwiftPackageReference "Reachability" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ashleymills/Reachability.swift";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-		3F603CCB29DB4A53000C43D7 /* XCRemoteSwiftPackageReference "ProgressHUD" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/relatedcode/ProgressHUD";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 13.0.0;
-			};
-		};
-		3F603CCE29DB4A74000C43D7 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.0.0;
-			};
-		};
-		732A44482A8910BF00A593C2 /* XCRemoteSwiftPackageReference "metrica-sdk-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/yandexmobile/metrica-sdk-ios";
-			requirement = {
-				kind = exactVersion;
-				version = 4.5.2;
-			};
-		};
-		733B35992A90D2040068C2C6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 10.0.0;
-			};
-		};
-		73EA4AFE2A73C510000B4B55 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+		1F7E8C8A2A951C6F00AF59FD /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
 			requirement = {
@@ -1199,43 +1171,83 @@
 				version = 5.6.0;
 			};
 		};
+		1F7E8C8D2A951C8800AF59FD /* XCRemoteSwiftPackageReference "ProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/relatedcode/ProgressHUD";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 13.0.0;
+			};
+		};
+		1F7E8C902A951CA200AF59FD /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+		1F7E8C932A951CC100AF59FD /* XCRemoteSwiftPackageReference "Reachability" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ashleymills/Reachability.swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		1F7E8C962A951D0A00AF59FD /* XCRemoteSwiftPackageReference "metrica-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/yandexmobile/metrica-sdk-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+		1F7E8C9B2A951D5700AF59FD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		1F2A256D2A8E81A900F8B1AD /* Reachability */ = {
+		1F7E8C8B2A951C6F00AF59FD /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1F2A256C2A8E81A900F8B1AD /* XCRemoteSwiftPackageReference "Reachability" */;
-			productName = Reachability;
+			package = 1F7E8C8A2A951C6F00AF59FD /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
-		3F603CCC29DB4A53000C43D7 /* ProgressHUD */ = {
+		1F7E8C8E2A951C8800AF59FD /* ProgressHUD */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3F603CCB29DB4A53000C43D7 /* XCRemoteSwiftPackageReference "ProgressHUD" */;
+			package = 1F7E8C8D2A951C8800AF59FD /* XCRemoteSwiftPackageReference "ProgressHUD" */;
 			productName = ProgressHUD;
 		};
-		3F603CCF29DB4A74000C43D7 /* Kingfisher */ = {
+		1F7E8C912A951CA200AF59FD /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3F603CCE29DB4A74000C43D7 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			package = 1F7E8C902A951CA200AF59FD /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
-		732A44492A8910BF00A593C2 /* YandexMobileMetrica */ = {
+		1F7E8C942A951CC100AF59FD /* Reachability */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 732A44482A8910BF00A593C2 /* XCRemoteSwiftPackageReference "metrica-sdk-ios" */;
+			package = 1F7E8C932A951CC100AF59FD /* XCRemoteSwiftPackageReference "Reachability" */;
+			productName = Reachability;
+		};
+		1F7E8C972A951D0A00AF59FD /* YandexMobileMetrica */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1F7E8C962A951D0A00AF59FD /* XCRemoteSwiftPackageReference "metrica-sdk-ios" */;
 			productName = YandexMobileMetrica;
 		};
-		732A444B2A8910BF00A593C2 /* YandexMobileMetricaCrashes */ = {
+		1F7E8C992A951D0A00AF59FD /* YandexMobileMetricaCrashes */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 732A44482A8910BF00A593C2 /* XCRemoteSwiftPackageReference "metrica-sdk-ios" */;
+			package = 1F7E8C962A951D0A00AF59FD /* XCRemoteSwiftPackageReference "metrica-sdk-ios" */;
 			productName = YandexMobileMetricaCrashes;
 		};
-		733B359A2A90D2040068C2C6 /* FirebaseAuth */ = {
+		1F7E8C9C2A951D5700AF59FD /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 733B35992A90D2040068C2C6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 1F7E8C9B2A951D5700AF59FD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
-		};
-		73EA4AFF2A73C511000B4B55 /* SnapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 73EA4AFE2A73C510000B4B55 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
