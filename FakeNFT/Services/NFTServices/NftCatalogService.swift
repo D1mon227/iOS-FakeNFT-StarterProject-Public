@@ -33,7 +33,7 @@ final class NftCatalogService: NftCatalogServiceProtocol {
                 }
             }.resume()
         } catch {
-            //обработать ошибку
+            print("Failed")
         }
     }
     

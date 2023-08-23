@@ -11,7 +11,7 @@ struct ProfileRequest: NetworkRequest {
 enum ProfileRequestCatalog: NetworkRequest {
     
     case getProfileById(id: String)
-    case putProfile(user: ProfileModel)
+    case putProfile(user: ProfileDecodable)
     
     var endpoint: URL? {
         switch self {
@@ -23,7 +23,7 @@ enum ProfileRequestCatalog: NetworkRequest {
     }
     
     var baseURL: String {
-        return "https://64858e8ba795d24810b71189.mockapi.io"
+        return "https://64c5171bc853c26efada7b56.mockapi.io"
     }
     
     var httpMethod: HttpMethod {

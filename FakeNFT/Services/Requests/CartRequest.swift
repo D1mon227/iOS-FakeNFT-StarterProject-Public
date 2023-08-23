@@ -10,19 +10,19 @@ import Foundation
 enum CartRequest: NetworkRequest {
     
     case getOrder(id: String)
-    case putOrder(cart: CartModel)
+    case putOrder(id: String)
     
     var endpoint: URL? {
         switch self {
-        case .putOrder(let cart):
-            return URL(string: "\(baseURL)/api/v1/orders/\(cart.id)")
+        case .putOrder(let id):
+            return URL(string: "\(baseURL)/api/v1/orders/\(id)")
         case .getOrder(let id):
             return URL(string: "\(baseURL)/api/v1/orders/\(id)")
         }
     }
     
     var baseURL: String {
-        return "https://64858e8ba795d24810b71189.mockapi.io"
+        return "https://64c5171bc853c26efada7b56.mockapi.io"
     }
     
     var httpMethod: HttpMethod {
@@ -33,18 +33,4 @@ enum CartRequest: NetworkRequest {
             return .get
         }
     }
-    
-    var params: [URLQueryItem] {
-        switch self {
-        case .getOrder:
-            return []
-        case .putOrder(let cart):
-            return [
-                URLQueryItem(name: "nfts", value: cart.nfts.joined(separator: ","))
-            ]
-        }
-    }
-
 }
-
-

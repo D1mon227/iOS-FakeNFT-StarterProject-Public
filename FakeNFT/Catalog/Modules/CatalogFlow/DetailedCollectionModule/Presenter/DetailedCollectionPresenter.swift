@@ -20,7 +20,7 @@ final class DetailedCollectionPresenter {
     private var detailsCollectionModel: CollectionDetailsCollectionViewCellModel?
     private var nftsInCart: Set<String> = []
     private var userLikes: Set<String> = []
-    private var user: ProfileModel?
+    private var user: ProfileDecodable?
     private let group = DispatchGroup()
     
     let connectionAvailableKey = NetworkReachabilityManager.shared.connectionAvailableKey
@@ -79,7 +79,7 @@ extension DetailedCollectionPresenter: DetailedCollectionPresenterProtocol {
         
         view?.updateNftsModel(with: nftsModels)
         
-        putCartOrder(newCartModel: CartModel(nfts: Array(nftsInCart), id: "1"))
+        putCartOrder(newCartModel: CartModelDecodable(nfts: Array(nftsInCart), id: "1"))
         
         sendAnalytics(event: .click, item: .addToCart)
     }
@@ -236,7 +236,7 @@ private extension DetailedCollectionPresenter {
         }
     }
     
-    func putCartOrder(newCartModel: CartModel) {
+    func putCartOrder(newCartModel: CartModelDecodable) {
         services.cartService.putOrder(cart: newCartModel) { [weak self] result in
             switch result {
             case .success:
@@ -249,7 +249,7 @@ private extension DetailedCollectionPresenter {
     
     func putFavorites() {
         guard let user else { return }
-        let profile = ProfileModel(name: user.name,
+        let profile = ProfileDecodable(name: user.name,
                                    avatar: user.avatar,
                                    description: user.description,
                                    website: user.website,
@@ -289,7 +289,7 @@ private extension DetailedCollectionPresenter {
         }
     }
     
-    func makeViewModel(user: ProfileModel) -> CollectionDetailsCollectionViewCellModel {
+    func makeViewModel(user: ProfileDecodable) -> CollectionDetailsCollectionViewCellModel {
         return CollectionDetailsCollectionViewCellModel(collectionId: response.id,
                                                         collectionDescription: response.description,
                                                         collectionName: response.name,

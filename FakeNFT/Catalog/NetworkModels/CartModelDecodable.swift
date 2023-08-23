@@ -7,7 +7,11 @@
 
 import Foundation
 
-struct CartModel: Codable {
+struct CartModelDecodable: Decodable {
     let nfts: [String]
     let id: String
+}
+
+struct CartModelEncodable: Encodable {
+    let nfts: [String]
 }
