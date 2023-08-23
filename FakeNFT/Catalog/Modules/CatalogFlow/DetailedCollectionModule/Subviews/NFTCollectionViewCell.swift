@@ -10,17 +10,15 @@ extension NFTCollectionViewCell {
     enum Layout {
         static let nftIconCoverHeight: CGFloat = 108
         static let nftIconCoverWidth: CGFloat = 108
-        static let nftStarsCountTopOffset: CGFloat = 4
-        static let nftLikeButtonTopOffset: CGFloat = 12
-        static let nftLikeButtonLeftOffset: CGFloat = 10
-        static let nftLikeButtonHeight: CGFloat = 18
-        static let nftLikeButtonWidth: CGFloat = 21
-        static let nftNameLabelTopOffset: CGFloat = 8
-        static let nftPriceLabelTopOffset: CGFloat = 8
-        static let nftPriceLabelBottomOffset: CGFloat = 20
+        static let nftStarsCountTopOffset: CGFloat = 8
+        static let nftLikeButtonHeight: CGFloat = 40
+        static let nftLikeButtonWidth: CGFloat = 40
+        static let nftCartButtonHeight: CGFloat = 40
+        static let nftCartButtonWidth: CGFloat = 40
+        static let nftNameLabelTopOffset: CGFloat = 5
+        static let nftPriceLabelTopOffset: CGFloat = 4
         static let nftStarsCountHeight: CGFloat = 12
         static let nftStarsCountWidth: CGFloat = 68
-        static let nftPriceLabelHeight: CGFloat = 12
     }
 }
 
@@ -40,7 +38,7 @@ final class NFTCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "Name"
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        label.font = .bodyBold
         label.numberOfLines = 0
         return label
     }()
@@ -49,7 +47,7 @@ final class NFTCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "Price"
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 10)
+        label.font = .caption3
         label.numberOfLines = 0
         return label
     }()
@@ -143,32 +141,30 @@ private extension NFTCollectionViewCell {
             //nftStarsCount
             starRatingView.topAnchor.constraint(equalTo: nftIcon.bottomAnchor,
                                                 constant: Layout.nftStarsCountTopOffset),
-            starRatingView.leadingAnchor.constraint(equalTo: nftIcon.leadingAnchor),
+            starRatingView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             starRatingView.heightAnchor.constraint(equalToConstant: Layout.nftStarsCountHeight),
             starRatingView.widthAnchor.constraint(equalToConstant: Layout.nftStarsCountWidth),
             
             //nftNameLabel
             nftNameLabel.topAnchor.constraint(equalTo: starRatingView.bottomAnchor,
                                               constant: Layout.nftNameLabelTopOffset),
-            nftNameLabel.leadingAnchor.constraint(equalTo: nftIcon.leadingAnchor),
+            nftNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             
             //nftPriceLabel
             nftPriceLabel.topAnchor.constraint(equalTo: nftNameLabel.bottomAnchor,
                                                constant: Layout.nftPriceLabelTopOffset),
-            nftPriceLabel.leadingAnchor.constraint(equalTo: nftIcon.leadingAnchor),
-            // здесь нужно указать константу
-            nftPriceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Layout.nftPriceLabelBottomOffset),
-            nftPriceLabel.heightAnchor.constraint(equalToConstant: Layout.nftPriceLabelHeight),
+            nftPriceLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             
             //nftLikeButton
-            nftLikeButton.topAnchor.constraint(equalTo: nftIcon.topAnchor,
-                                               constant: Layout.nftLikeButtonTopOffset),
-            nftLikeButton.trailingAnchor.constraint(equalTo: nftIcon.trailingAnchor,
-                                                    constant: -Layout.nftLikeButtonLeftOffset),
+            nftLikeButton.topAnchor.constraint(equalTo: nftIcon.topAnchor),
+            nftLikeButton.trailingAnchor.constraint(equalTo: nftIcon.trailingAnchor),
             nftLikeButton.heightAnchor.constraint(equalToConstant: Layout.nftLikeButtonHeight),
             nftLikeButton.widthAnchor.constraint(equalToConstant: Layout.nftLikeButtonWidth),
             
             //nftCartButton
+            nftCartButton.heightAnchor.constraint(equalToConstant: Layout.nftCartButtonHeight),
+            nftCartButton.widthAnchor.constraint(equalToConstant: Layout.nftCartButtonWidth),
+            
             nftCartButton.topAnchor.constraint(equalTo: starRatingView.bottomAnchor,
                                                constant: Layout.nftNameLabelTopOffset),
             nftCartButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)

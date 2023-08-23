@@ -144,7 +144,6 @@ final class MyNFTTableViewCell: UITableViewCell {
             imageView.snp.makeConstraints { make in
                 make.width.height.equalTo(12)
             }
-            imageView.tintColor = .lightGreyDay
             ratingHorizontalStack.addArrangedSubview(imageView)
             starImageViews.append(imageView)
         }
