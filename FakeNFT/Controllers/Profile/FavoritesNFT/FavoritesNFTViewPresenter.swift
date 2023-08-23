@@ -26,7 +26,7 @@ final class FavoritesNFTViewPresenter: FavoritesNFTViewPresenterProtocol {
     func changeLike(_ id: String?) {
         guard let id = id else { return }
         removeLike(id)
-        likeService.changeLike(newLike: Like(likes: likes)) { [weak self] result in
+		likeService.changeLike(newLike: Likes(likes: likes ?? [])) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let newProfile):

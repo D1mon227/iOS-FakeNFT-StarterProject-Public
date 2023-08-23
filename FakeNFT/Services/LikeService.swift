@@ -4,7 +4,7 @@ final class LikeService {
     static let shared = LikeService()
     private let networkClient = DefaultNetworkClient()
     
-    func changeLike(newLike: Like, completion: @escaping (Result<Profile, Error>) -> Void) {
+    func changeLike(newLike: Likes, completion: @escaping (Result<Profile, Error>) -> Void) {
         
         UIBlockingProgressHUD.show()
         let request = ProfileRequest(httpMethod: .put, dto: newLike)
