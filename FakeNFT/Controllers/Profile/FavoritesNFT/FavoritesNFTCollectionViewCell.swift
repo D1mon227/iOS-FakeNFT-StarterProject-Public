@@ -86,7 +86,6 @@ final class FavoritesNFTCollectionViewCell: UICollectionViewCell {
             imageView.snp.makeConstraints { make in
                 make.width.height.equalTo(12)
             }
-            imageView.tintColor = .lightGreyDay
             ratingHorizontalStack.addArrangedSubview(imageView)
             starImageViews.append(imageView)
         }

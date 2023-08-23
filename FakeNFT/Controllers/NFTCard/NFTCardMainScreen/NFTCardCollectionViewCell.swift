@@ -97,7 +97,6 @@ final class NFTCardCollectionViewCell: UICollectionViewCell {
             imageView.snp.makeConstraints { make in
                 make.width.height.equalTo(12)
             }
-            imageView.tintColor = .yellowUniversal
             nftRatingStack.addArrangedSubview(imageView)
             starImageViews.append(imageView)
         }
