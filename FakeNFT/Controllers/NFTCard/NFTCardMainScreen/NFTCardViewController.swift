@@ -16,7 +16,6 @@ final class NFTCardViewController: UIViewController, NFTCardViewControllerProtoc
         self.presenter?.view = self
         self.presenter?.isLiked = isLiked
         self.presenter?.nftModel = nftModel
-        
     }
     
     required init?(coder: NSCoder) {
@@ -226,6 +225,7 @@ extension NFTCardViewController {
     private func setupCoverNFTScrollView() {
         nftCardView.coverNFTScrollView.contentSize = CGSize(width: view.frame.width * 3, height: 375)
         nftCardView.coverNFTScrollView.delegate = self
+        nftCardView.coverNFTScrollView.adjustScrollDirectionForLanguage()
     }
     
     private func setupCoverPageControlStack() {
@@ -271,15 +271,27 @@ extension NFTCardViewController {
         }
         
         nftCardView.secondNFTCover.snp.makeConstraints { make in
-            make.leading.equalTo(nftCardView.firstNFTCover.snp.trailing)
-            make.width.equalTo(view.frame.width)
-            make.height.equalTo(375)
+            if Locale.current.languageCode == "he" {
+                make.trailing.equalTo(nftCardView.firstNFTCover.snp.leading)
+                make.width.equalTo(view.frame.width)
+                make.height.equalTo(375)
+            } else {
+                make.leading.equalTo(nftCardView.firstNFTCover.snp.trailing)
+                make.width.equalTo(view.frame.width)
+                make.height.equalTo(375)
+            }
         }
         
         nftCardView.thirdNFTCover.snp.makeConstraints { make in
-            make.leading.equalTo(nftCardView.secondNFTCover.snp.trailing)
-            make.width.equalTo(view.frame.width)
-            make.height.equalTo(375)
+            if Locale.current.languageCode == "he" {
+                make.trailing.equalTo(nftCardView.secondNFTCover.snp.leading)
+                make.width.equalTo(view.frame.width)
+                make.height.equalTo(375)
+            } else {
+                make.leading.equalTo(nftCardView.secondNFTCover.snp.trailing)
+                make.width.equalTo(view.frame.width)
+                make.height.equalTo(375)
+            }
         }
         
         nftCardView.pageControlView.snp.makeConstraints { make in
