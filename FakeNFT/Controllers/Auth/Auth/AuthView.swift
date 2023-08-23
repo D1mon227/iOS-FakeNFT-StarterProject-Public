@@ -1,6 +1,12 @@
 import UIKit
 
 final class AuthView {
+    lazy var scrollView: UIScrollView = {
+        let element = UIScrollView()
+        element.showsVerticalScrollIndicator = false
+        return element
+    }()
+    
     lazy var entryLabel: UILabel = {
         let element = UILabel()
         element.textColor = .blackDay
@@ -17,6 +23,7 @@ final class AuthView {
         element.textAlignment = Locale.current.languageCode == "he" ? .right : .left
         element.font = .bodyRegular
         element.textColor = .blackDay
+        element.textContentType = .oneTimeCode
         element.backgroundColor = .lightGreyDay
         element.autocapitalizationType = .none
         element.leftViewMode = .always
@@ -33,6 +40,7 @@ final class AuthView {
         element.textColor = .blackDay
         element.backgroundColor = .lightGreyDay
         element.isSecureTextEntry = true
+        element.textContentType = .oneTimeCode
         element.autocapitalizationType = .none
         element.leftViewMode = .always
         element.clearButtonMode = .whileEditing

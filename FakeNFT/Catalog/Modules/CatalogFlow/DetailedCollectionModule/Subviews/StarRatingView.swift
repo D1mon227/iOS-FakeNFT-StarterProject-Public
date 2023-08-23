@@ -9,13 +9,13 @@ final class StarRatingView: UIView {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.distribution = .fillEqually
-        stack.axis = NSLayoutConstraint.Axis.horizontal
-        stack.distribution  = UIStackView.Distribution.equalSpacing
-        stack.spacing = 3
+        stack.axis = .horizontal
+        stack.spacing = 2
         return stack
     }()
     
     private let rating: Int
+    private var starImageViews: [UIImageView] = []
     
     // MARK: - Lifecycle
     init(rating: Int) {
@@ -32,32 +32,22 @@ final class StarRatingView: UIView {
     // MARK: - Public methods
     
     func setStarsRatingImage(rating: Int) {
-        stackView.arrangedSubviews.forEach { view in
-            stackView.removeArrangedSubview(view)
-        }
-        
-        for number in  1...5 {
-            var starImageView: UIImageView
-            if number > rating {
-                starImageView = UIImageView.init(image: UIImage(named: "star"))
-            } else {
-                starImageView = UIImageView.init(image: UIImage(named: "star.fill"))
-            }
-            stackView.addArrangedSubview(starImageView)
+        for i in 0..<5 {
+            starImageViews[i].tintColor = i < rating ? .yellowUniversal : .lightGreyDay
         }
     }
     
     // MARK: - Private methods
     
     private func setupView() {
-        for number in  1...5 {
-            var starImageView: UIImageView
-            if number > rating {
-                starImageView = UIImageView.init(image: UIImage(named: "star"))
-            } else {
-                starImageView = UIImageView.init(image: UIImage(named: "star.fill"))
-            }
-            stackView.addArrangedSubview(starImageView)
+        for _ in 0..<5 {
+            let imageView = UIImageView(image: Resourses.Images.Cell.star)
+            NSLayoutConstraint.activate([
+                imageView.widthAnchor.constraint(equalToConstant: 12),
+                imageView.heightAnchor.constraint(equalToConstant: 12),
+            ])
+            stackView.addArrangedSubview(imageView)
+            starImageViews.append(imageView)
         }
     }
     
