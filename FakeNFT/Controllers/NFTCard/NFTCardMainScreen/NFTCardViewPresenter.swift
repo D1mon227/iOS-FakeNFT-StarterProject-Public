@@ -6,6 +6,7 @@ final class NFTCardViewPresenter: NFTCardViewPresenterProtocol {
     private let nftService = NFTService.shared
     private let likeService = LikeService.shared
     private let profileService = ProfileService.shared
+    private let nftCollectionService = NFTCollectionService.shared
     
     var nftModel: NFT?
     var isLiked: Bool?
@@ -26,6 +27,14 @@ final class NFTCardViewPresenter: NFTCardViewPresenterProtocol {
         }
     }
     
+    var nftCollections: String? {
+        didSet {
+            DispatchQueue.main.async {
+                self.view?.updateNFTCollectionName(name: self.nftCollections ?? "")
+            }
+        }
+    }
+    
     private var likes: [String]?
     
     private var NFTUrls = [
@@ -34,6 +43,20 @@ final class NFTCardViewPresenter: NFTCardViewPresenterProtocol {
         Resourses.Network.NFTUrls.solana, Resourses.Network.NFTUrls.ethereum,
         Resourses.Network.NFTUrls.cardano, Resourses.Network.NFTUrls.shibainu
     ]
+    
+    func fetchNFTCollections() {
+        nftCollectionService.fetchNFTCollections { [weak self] result in
+            guard let self = self,
+                  let id = nftModel?.id else { return }
+            switch result {
+            case .success(let nftCollections):
+                print(nftCollections)
+                self.nftCollections = findNFTCollectionName(nftID: id, inCollections: nftCollections)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
     
     func fetchCurrencies() {
         currencyService.fetchCurrencies { [weak self] result in
@@ -66,8 +89,8 @@ final class NFTCardViewPresenter: NFTCardViewPresenterProtocol {
             switch result {
             case .success(let profile):
                 self.likes = profile.likes
-            case .failure(let error):
-                print(error.localizedDescription)
+            case .failure(_):
+                self.view?.showErrorAlert()
             }
         }
     }
@@ -127,6 +150,15 @@ final class NFTCardViewPresenter: NFTCardViewPresenterProtocol {
         return model
     }
     
+    func getErrorModel() -> AlertErrorModel {
+        let model = AlertErrorModel(message: LocalizableConstants.Auth.Alert.failedLoadDataMessage,
+                                    buttonText: LocalizableConstants.Auth.Alert.tryAgainButton) { [weak self] in
+            guard let self = self else { return }
+            self.fetchProfile()
+        }
+        return model
+    }
+    
     private func generateRandomNFTsIndexes(max: Int, count: Int) -> [Int] {
         guard max >= count else {
             fatalError("max must be greater than or equal to count")
@@ -139,6 +171,15 @@ final class NFTCardViewPresenter: NFTCardViewPresenterProtocol {
         }
         
         return Array(randomIndexes)
+    }
+    
+    private func findNFTCollectionName(nftID: String, inCollections: [NFTCollection]) -> String? {
+        for collection in inCollections {
+            if let nfts = collection.nfts, nfts.contains(nftID) {
+                return collection.name
+            }
+        }
+        return nil
     }
     
     private func updateLikes(_ id: String) {

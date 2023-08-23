@@ -134,6 +134,8 @@
 		73C4DF3C2A963591004E948E /* UIScrollView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C4DF3B2A963591004E948E /* UIScrollView + Extension.swift */; };
 		73C4DF3F2A964212004E948E /* NFTCardCollectionViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C4DF3E2A964212004E948E /* NFTCardCollectionViewCellDelegate.swift */; };
 		73C4DF402A9671C2004E948E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F68069829CBBAF100B4F915 /* SceneDelegate.swift */; };
+		73C4DF432A968A00004E948E /* NFTCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C4DF422A968A00004E948E /* NFTCollection.swift */; };
+		73C4DF452A968BE9004E948E /* NFTCollectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C4DF442A968BE9004E948E /* NFTCollectionService.swift */; };
 		73D526D72A84C4020056116E /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D526D62A84C4020056116E /* UIBlockingProgressHUD.swift */; };
 		73D526D92A84C4420056116E /* UIImageView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D526D82A84C4420056116E /* UIImageView + Extension.swift */; };
 		73EA4B032A73C703000B4B55 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EA4B022A73C703000B4B55 /* TabBarController.swift */; };
@@ -348,6 +350,8 @@
 		73C3EB602A8E7C3700E047E0 /* NFTService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTService.swift; sourceTree = "<group>"; };
 		73C4DF3B2A963591004E948E /* UIScrollView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView + Extension.swift"; sourceTree = "<group>"; };
 		73C4DF3E2A964212004E948E /* NFTCardCollectionViewCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTCardCollectionViewCellDelegate.swift; sourceTree = "<group>"; };
+		73C4DF422A968A00004E948E /* NFTCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTCollection.swift; sourceTree = "<group>"; };
+		73C4DF442A968BE9004E948E /* NFTCollectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTCollectionService.swift; sourceTree = "<group>"; };
 		73D526D62A84C4020056116E /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
 		73D526D82A84C4420056116E /* UIImageView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView + Extension.swift"; sourceTree = "<group>"; };
 		73EA4B022A73C703000B4B55 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -727,6 +731,7 @@
 				732208C22A8CBCDC00CAB88E /* ProfileService.swift */,
 				732208C02A8CBCDC00CAB88E /* UserService.swift */,
 				737D031C2A80703700DCB5B1 /* OnboardingManager.swift */,
+				73C4DF442A968BE9004E948E /* NFTCollectionService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -738,6 +743,7 @@
 				73C3EB5C2A8D393100E047E0 /* Currency.swift */,
 				732208B72A8CBC9E00CAB88E /* Profile.swift */,
 				730B23A02A8C2A6E00F5D832 /* NFT.swift */,
+				73C4DF422A968A00004E948E /* NFTCollection.swift */,
 				C50E6CC42A7E930000B852F9 /* User.swift */,
 				C5D28CB12A830F5F002600BC /* Order.swift */,
 				C5BC8D9A2A89D9F400407979 /* Likes.swift */,
@@ -1383,6 +1389,7 @@
 				C5BC8D9B2A89D9F400407979 /* Likes.swift in Sources */,
 				7300E06E2A9379D300AD427A /* EditingProfileViewPresenterProtocol.swift in Sources */,
 				73C3EB5F2A8D394B00E047E0 /* CurrencyService.swift in Sources */,
+				73C4DF452A968BE9004E948E /* NFTCollectionService.swift in Sources */,
 				730B239B2A8C298900F5D832 /* NFTCardViewPresenter.swift in Sources */,
 				7300E0672A9379D300AD427A /* MyNFTView.swift in Sources */,
 				7300E0662A9379D300AD427A /* MyNFTTableViewCell.swift in Sources */,
@@ -1409,6 +1416,7 @@
 				73D526D72A84C4020056116E /* UIBlockingProgressHUD.swift in Sources */,
 				7300E0772A9379D300AD427A /* FavoritesNFTViewControllerProtocol.swift in Sources */,
 				73C4DF3C2A963591004E948E /* UIScrollView + Extension.swift in Sources */,
+				73C4DF432A968A00004E948E /* NFTCollection.swift in Sources */,
 				7300E0752A9379D300AD427A /* FavoritesNFTCollectionViewCellDelegate.swift in Sources */,
 				924DCA882A85075200995282 /* PaymentPresenter.swift in Sources */,
 				924DCA622A7CF1F200995282 /* CartCell.swift in Sources */,

@@ -66,7 +66,6 @@ final class NFTCardView {
     
     lazy var nftCollectionLabel: UILabel = {
         let element = UILabel()
-        element.text = "Peach"
         element.textColor = .blackDay
         element.font = .bodyBold
         return element

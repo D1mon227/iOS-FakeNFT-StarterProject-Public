@@ -31,6 +31,7 @@ final class NFTCardViewController: UIViewController, NFTCardViewControllerProtoc
         setupCollectionView()
         updateNFTDetails(nftModel: presenter?.nftModel)
         updateLikeButton(isLiked: presenter?.isLiked ?? false)
+        presenter?.fetchNFTCollections()
         presenter?.fetchCurrencies()
         presenter?.fetchNFTs()
         presenter?.fetchProfile()
@@ -39,6 +40,10 @@ final class NFTCardViewController: UIViewController, NFTCardViewControllerProtoc
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         nftCardView.sellerWebsiteButton.layer.borderColor = UIColor.blackDay.cgColor
+    }
+    
+    func updateNFTCollectionName(name: String) {
+        nftCardView.nftCollectionLabel.text = name
     }
     
     func reloadTableView() {
@@ -209,6 +214,13 @@ extension NFTCardViewController {
     
     func showLikeErrorAlert(id: String) {
         guard let model = presenter?.getLikeErrorModel(id: id) else { return }
+        DispatchQueue.main.async {
+            self.alertService.showErrorAlert(model: model, controller: self)
+        }
+    }
+    
+    func showErrorAlert() {
+        guard let model = presenter?.getErrorModel() else { return }
         DispatchQueue.main.async {
             self.alertService.showErrorAlert(model: model, controller: self)
         }

@@ -1,5 +1,5 @@
 import Foundation
 
-struct Likes: Codable {
+struct Likes: Encodable {
 	var likes: [String]
 }

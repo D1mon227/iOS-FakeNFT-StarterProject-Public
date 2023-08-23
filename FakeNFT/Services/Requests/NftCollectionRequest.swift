@@ -1,6 +1,14 @@
 
 import Foundation
 
+struct NFTCollectionRequest: NetworkRequest {
+    var endpoint: URL? {
+        URL(string: Resourses.Network.baseURL + Resourses.Network.Paths.nftCollection)
+    }
+    let httpMethod: HttpMethod
+    let dto: Encodable?
+}
+
 enum NftCollectionRequest: NetworkRequest {
     
     case getCollectionById(id: Int)
