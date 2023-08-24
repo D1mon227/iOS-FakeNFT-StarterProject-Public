@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum CartRequest: NetworkRequest {
+enum CartReques: NetworkRequest {
     
     case getOrder(id: String)
     case putOrder(id: String)

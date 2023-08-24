@@ -2,7 +2,7 @@ import Foundation
 
 final class EditingProfileViewPresenter: EditingProfileViewPresenterProtocol {
     weak var view: EditingProfileViewControllerProtocol?
-    private let profileService = ProfileService.shared
+    private let networkManager = NetworkManager()
     private var profilePresenter: ProfileViewPresenterProtocol?
     
     var newProfile: NewProfile?
@@ -31,7 +31,9 @@ final class EditingProfileViewPresenter: EditingProfileViewPresenterProtocol {
         if newProfile.isEqual(to: oldProfile) {
             return
         } else {
-            profileService.editProfile(newProfile: newProfile) { [weak self] result in
+            UIBlockingProgressHUD.show()
+            let request = ProfileRequest(httpMethod: .put, dto: newProfile)
+            networkManager.send(request: request, type: Profile.self) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
                 case .success(let newProfile):
@@ -39,13 +41,16 @@ final class EditingProfileViewPresenter: EditingProfileViewPresenterProtocol {
                 case .failure(_):
                     self.view?.showErrorAlert()
                 }
+                UIBlockingProgressHUD.dismiss()
             }
         }
     }
     
     func getErrorModel() -> AlertErrorModel {
         let model = AlertErrorModel(message: LocalizableConstants.Auth.Alert.failedLoadDataMessage,
-                                    buttonText: LocalizableConstants.Auth.Alert.tryAgainButton) { [weak self] in
+                                    leftButton: LocalizableConstants.Auth.Alert.cancelButton,
+                                    rightButton: LocalizableConstants.Auth.Alert.tryAgainButton,
+                                    numberOfButtons: 2) { [weak self] in
             guard let self = self else { return }
             self.editProfile()
         }

@@ -10,8 +10,8 @@ struct ModuleFactory {
 	}
 
 	static func makeStatisticModule(appCoordinator: AppCoordinator) -> UIViewController {
-		let networkClient = DefaultNetworkClient()
-		let presenter = StatisticsPresenter(networkClient: networkClient, appCoordinator: appCoordinator)
+		let networkManager = NetworkManager()
+		let presenter = StatisticsPresenter(networkManager: networkManager, appCoordinator: appCoordinator)
 		let view = StatisticsViewController(with: presenter)
 		return view
 	}
@@ -23,8 +23,8 @@ struct ModuleFactory {
 	}
 	
 	static func makeNFTCollectionModule(with user: User, appCoordinator: AppCoordinator) -> UIViewController {
-		let networkClient = DefaultNetworkClient()
-		let presenter = NFTCollectionPresenter(appCoordinator: appCoordinator, networkClient: networkClient, model: user)
+		let networkManager = NetworkManager()
+		let presenter = NFTCollectionPresenter(appCoordinator: appCoordinator, networkManager: networkManager, model: user)
 		let view = NFTCollectionViewController(with: presenter)
 		return view
 	}

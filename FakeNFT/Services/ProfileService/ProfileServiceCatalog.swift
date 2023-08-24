@@ -13,14 +13,14 @@ extension ProfileServiceCatalog {
     }
 }
 
-protocol ProfileServiceProtocol {
+protocol ProfileServiceProtoco {
     func getProfile(id: String,
                     completion: @escaping (Result<ProfileDecodable, Error>) -> Void)
     func putProfile(user: ProfileDecodable,
                     completion: @escaping (Result<ProfileDecodable, Error>) -> Void)
 }
 
-final class ProfileServiceCatalog: ProfileServiceProtocol {
+final class ProfileServiceCatalog: ProfileServiceProtoco {
     private let urlSession = URLSession.shared
     
     func getProfile(id: String,

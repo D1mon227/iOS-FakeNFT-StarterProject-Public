@@ -25,6 +25,7 @@ enum LocalizableConstants {
             static let traAgainMessage = NSLocalizedString("alert.traAgainMessage", comment: "")
             static let okButton = NSLocalizedString("alert.okButton", comment: "")
             static let tryAgainButton = NSLocalizedString("alert.tryAgainButton", comment: "")
+            static let cancelButton = NSLocalizedString("alert.cancelButton", comment: "")
         }
     }
     
@@ -107,6 +108,7 @@ enum LocalizableConstants {
     
     enum NFTCard {
         static let addToCart = NSLocalizedString("nftcard.addToCart", comment: "")
+        static let deleteFromCart = NSLocalizedString("nftcard.deleteFromCart", comment: "")
         static let price = NSLocalizedString("nftcard.price", comment: "")
         static let sellerWebsite = NSLocalizedString("nftcard.sellerWebsite", comment: "")
     }

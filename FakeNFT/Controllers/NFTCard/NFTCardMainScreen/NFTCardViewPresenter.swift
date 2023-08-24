@@ -2,11 +2,7 @@ import Foundation
 
 final class NFTCardViewPresenter: NFTCardViewPresenterProtocol {
     weak var view: NFTCardViewControllerProtocol?
-    private let currencyService = CurrencyService.shared
-    private let nftService = NFTService.shared
-    private let likeService = LikeService.shared
-    private let profileService = ProfileService.shared
-    private let nftCollectionService = NFTCollectionService.shared
+    private let networkManager = NetworkManager()
     
     var nftModel: NFT?
     var isLiked: Bool?
@@ -36,6 +32,7 @@ final class NFTCardViewPresenter: NFTCardViewPresenterProtocol {
     }
     
     private var likes: [String]?
+    private var order: [String]?
     
     private var NFTUrls = [
         Resourses.Network.NFTUrls.bitcoin, Resourses.Network.NFTUrls.dogecoin,
@@ -44,60 +41,20 @@ final class NFTCardViewPresenter: NFTCardViewPresenterProtocol {
         Resourses.Network.NFTUrls.cardano, Resourses.Network.NFTUrls.shibainu
     ]
     
-    func fetchNFTCollections() {
-        nftCollectionService.fetchNFTCollections { [weak self] result in
-            guard let self = self,
-                  let id = nftModel?.id else { return }
-            switch result {
-            case .success(let nftCollections):
-                print(nftCollections)
-                self.nftCollections = findNFTCollectionName(nftID: id, inCollections: nftCollections)
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    func fetchCurrencies() {
-        currencyService.fetchCurrencies { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let currencies):
-                self.currencies = currencies
-            case .failure(_):
-                self.view?.showCurrencyErrorAlert()
-            }
-        }
-    }
-    
-    func fetchNFTs() {
-        nftService.fetchNFT { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let nfts):
-                let randomIndexes = generateRandomNFTsIndexes(max: nfts.count, count: 5)
-                self.nfts = randomIndexes.map { nfts[$0]}
-            case .failure(_):
-                self.view?.showNFTsErrorAlert()
-            }
-        }
-    }
-    
-    func fetchProfile() {
-        profileService.fetchProfile { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let profile):
-                self.likes = profile.likes
-            case .failure(_):
-                self.view?.showErrorAlert()
-            }
-        }
+    func fetchData() {
+        fetchProfile()
+        fetchNFTs()
+        fetchCurrencies()
+        fetchNFTCollections()
+        fetchCart()
     }
     
     func changeLike(_ id: String) {
         updateLikes(id)
-        likeService.changeLike(newLike: Likes(likes: self.likes ?? [])) { [weak self] result in
+        
+        UIBlockingProgressHUD.show()
+        let request = ProfileRequest(httpMethod: .put, dto: Likes(likes: self.likes ?? []))
+        networkManager.send(request: request) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(_):
@@ -105,6 +62,23 @@ final class NFTCardViewPresenter: NFTCardViewPresenterProtocol {
             case .failure(_):
                 self.view?.showLikeErrorAlert(id: id)
             }
+            UIBlockingProgressHUD.dismiss()
+        }
+    }
+    
+    func addNftToCard(_ id: String) {
+        updateCart(id)
+        UIBlockingProgressHUD.show()
+        let request = CartRequest(httpMethod: .put, dto: Order(nfts: self.order ?? [], id: "1"))
+        networkManager.send(request: request) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(_):
+                break
+            case .failure(_):
+                self.view?.showCartErrorAlert(id: id)
+            }
+            UIBlockingProgressHUD.dismiss()
         }
     }
     
@@ -117,15 +91,23 @@ final class NFTCardViewPresenter: NFTCardViewPresenterProtocol {
         return webViewController
     }
     
-    func doesNftHasLike(id: String?) -> Bool {
+    func doesNftHaveLike(id: String?) -> Bool {
         guard let id = id,
               let likes = likes else { return false }
         return likes.contains(id) ? true : false
     }
     
+    func isNftInCart(id: String?) -> Bool {
+        guard let id = id,
+              let order = order else { return false }
+        return order.contains(id) ? true : false
+    }
+    
     func getCurrencyErrorModel() -> AlertErrorModel {
         let model = AlertErrorModel(message: LocalizableConstants.Auth.Alert.failedLoadDataMessage,
-                                    buttonText: LocalizableConstants.Auth.Alert.tryAgainButton) { [weak self] in
+                                    leftButton: LocalizableConstants.Auth.Alert.cancelButton,
+                                    rightButton: LocalizableConstants.Auth.Alert.tryAgainButton,
+                                    numberOfButtons: 2) { [weak self] in
             guard let self = self else { return }
             self.fetchCurrencies()
         }
@@ -134,7 +116,9 @@ final class NFTCardViewPresenter: NFTCardViewPresenterProtocol {
     
     func getNFTsErrorModel() -> AlertErrorModel {
         let model = AlertErrorModel(message: LocalizableConstants.Auth.Alert.failedLoadDataMessage,
-                                    buttonText: LocalizableConstants.Auth.Alert.tryAgainButton) { [weak self] in
+                                    leftButton: LocalizableConstants.Auth.Alert.cancelButton,
+                                    rightButton: LocalizableConstants.Auth.Alert.tryAgainButton,
+                                    numberOfButtons: 2) { [weak self] in
             guard let self = self else { return }
             self.fetchNFTs()
         }
@@ -143,20 +127,135 @@ final class NFTCardViewPresenter: NFTCardViewPresenterProtocol {
     
     func getLikeErrorModel(id: String) -> AlertErrorModel {
         let model = AlertErrorModel(message: LocalizableConstants.Auth.Alert.traAgainMessage,
-                                    buttonText: LocalizableConstants.Auth.Alert.tryAgainButton) { [weak self] in
+                                    leftButton: LocalizableConstants.Auth.Alert.okButton,
+                                    rightButton: LocalizableConstants.Auth.Alert.tryAgainButton,
+                                    numberOfButtons: 2) { [weak self] in
             guard let self = self else { return }
             self.changeLike(id)
         }
         return model
     }
     
-    func getErrorModel() -> AlertErrorModel {
+    func getProfileErrorModel() -> AlertErrorModel {
         let model = AlertErrorModel(message: LocalizableConstants.Auth.Alert.failedLoadDataMessage,
-                                    buttonText: LocalizableConstants.Auth.Alert.tryAgainButton) { [weak self] in
+                                    leftButton: LocalizableConstants.Auth.Alert.cancelButton,
+                                    rightButton: LocalizableConstants.Auth.Alert.tryAgainButton,
+                                    numberOfButtons: 2) { [weak self] in
             guard let self = self else { return }
             self.fetchProfile()
         }
         return model
+    }
+    
+    func getNftCollectionErrorModel() -> AlertErrorModel {
+        let model = AlertErrorModel(message: LocalizableConstants.Auth.Alert.failedLoadDataMessage,
+                                    leftButton: LocalizableConstants.Auth.Alert.cancelButton,
+                                    rightButton: LocalizableConstants.Auth.Alert.tryAgainButton,
+                                    numberOfButtons: 2) { [weak self] in
+            guard let self = self else { return }
+            self.fetchNFTCollections()
+        }
+        return model
+    }
+    
+    func getNCartErrorModel() -> AlertErrorModel {
+        let model = AlertErrorModel(message: LocalizableConstants.Auth.Alert.failedLoadDataMessage,
+                                    leftButton: LocalizableConstants.Auth.Alert.cancelButton,
+                                    rightButton: LocalizableConstants.Auth.Alert.tryAgainButton,
+                                    numberOfButtons: 2) { [weak self] in
+            guard let self = self else { return }
+            self.fetchCart()
+        }
+        return model
+    }
+    
+    func getCartErrorModel(id: String) -> AlertErrorModel {
+        let model = AlertErrorModel(message: LocalizableConstants.Auth.Alert.traAgainMessage,
+                                    leftButton: LocalizableConstants.Auth.Alert.okButton,
+                                    rightButton: LocalizableConstants.Auth.Alert.tryAgainButton,
+                                    numberOfButtons: 2) { [weak self] in
+            guard let self = self else { return }
+            self.changeLike(id)
+        }
+        return model
+    }
+    
+    
+    private func fetchNFTCollections() {
+        UIBlockingProgressHUD.show()
+        let request = NFTCollectionRequest(httpMethod: .get, dto: nil)
+        networkManager.send(request: request, type: [NFTCollection].self) { [weak self] result in
+            guard let self = self,
+                  let id = nftModel?.id else { return }
+            switch result {
+            case .success(let nftCollections):
+                self.nftCollections = findNFTCollectionName(nftID: id, inCollections: nftCollections)
+            case .failure(_):
+                self.view?.showNftCollectionErrorAlert()
+            }
+            UIBlockingProgressHUD.dismiss()
+        }
+    }
+    
+    private func fetchCurrencies() {
+        UIBlockingProgressHUD.show()
+        let request = CurrencyRequest(httpMethod: .get, dto: nil)
+        networkManager.send(request: request, type: [Currency].self) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let currencies):
+                self.currencies = currencies
+            case .failure(_):
+                self.view?.showCurrencyErrorAlert()
+            }
+            UIBlockingProgressHUD.dismiss()
+        }
+    }
+    
+    private func fetchNFTs() {
+        UIBlockingProgressHUD.show()
+        let request = NFTsRequest(httpMethod: .get, dto: nil)
+        networkManager.send(request: request, type: [NFT].self) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let nfts):
+                let randomIndexes = generateRandomNFTsIndexes(max: nfts.count, count: 5)
+                self.nfts = randomIndexes.map { nfts[$0]}
+            case .failure(_):
+                self.view?.showNFTsErrorAlert()
+            }
+            UIBlockingProgressHUD.dismiss()
+        }
+    }
+    
+    private func fetchProfile() {
+        UIBlockingProgressHUD.show()
+        let request = ProfileRequest(httpMethod: .get, dto: nil)
+        networkManager.send(request: request, type: Profile.self) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let profile):
+                self.likes = profile.likes
+            case .failure(_):
+                self.view?.showProfileErrorAlert()
+            }
+            UIBlockingProgressHUD.dismiss()
+        }
+    }
+    
+    private func fetchCart() {
+        UIBlockingProgressHUD.show()
+        let request = CartRequest(httpMethod: .get, dto: nil)
+        networkManager.send(request: request, type: Order.self) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let order):
+                self.order = order.nfts
+            case .failure(_):
+                self.view?.showCartErrorAlert()
+            }
+            UIBlockingProgressHUD.dismiss()
+        }
     }
     
     private func generateRandomNFTsIndexes(max: Int, count: Int) -> [Int] {
@@ -190,6 +289,17 @@ final class NFTCardViewPresenter: NFTCardViewPresenterProtocol {
         } else {
             likes.append(id)
             self.likes = likes
+        }
+    }
+    
+    private func updateCart(_ id: String) {
+        guard var order = order else { return }
+        if order.contains(id) {
+            order.removeAll { $0 == id }
+            self.order = order
+        } else {
+            order.append(id)
+            self.order = order
         }
     }
 }

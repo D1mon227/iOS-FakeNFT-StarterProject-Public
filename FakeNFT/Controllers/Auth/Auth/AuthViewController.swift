@@ -40,7 +40,9 @@ final class AuthViewController: UIViewController, AuthViewControllerProtocol {
     
     private func showErrorAlert() {
         let model = AlertErrorModel(message: LocalizableConstants.Auth.Alert.authMessage,
-                                    buttonText: LocalizableConstants.Auth.Alert.okButton) {}
+                                    leftButton: LocalizableConstants.Auth.Alert.okButton,
+                                    rightButton: nil,
+                                    numberOfButtons: 1) {}
         alertService.showErrorAlert(model: model, controller: self)
     }
     

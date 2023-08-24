@@ -21,6 +21,7 @@
 "alert.traAgainMessage" = "Try again later";
 "alert.okButton" = "OK";
 "alert.tryAgainButton" = "Try again";
+"alert.cancelButton" = "Cancel";
 
 //MARK: Onboarding
 "onboarding.firstTitle" = "Explore";
@@ -93,5 +94,6 @@
 
 //MARK: NFTCard
 "nftcard.addToCart" = "Add to cart";
+"nftcard.deleteFromCart" = "Delete from cart";
 "nftcard.price" = "Price";
 "nftcard.sellerWebsite" = "Go to the seller's website";

@@ -6,15 +6,17 @@ protocol NFTCardViewPresenterProtocol: AnyObject {
     var isLiked: Bool? { get set }
     var currencies: [Currency]? { get }
     var nfts: [NFT]? { get set }
-    func fetchCurrencies()
     func switchToNFTInformation(index: Int) -> WebViewController?
-    func fetchNFTs()
-    func fetchProfile()
-    func fetchNFTCollections()
+    func fetchData()
+    func addNftToCard(_ id: String)
     func changeLike(_ id: String)
-    func doesNftHasLike(id: String?) -> Bool
+    func doesNftHaveLike(id: String?) -> Bool
+    func isNftInCart(id: String?) -> Bool
     func getCurrencyErrorModel() -> AlertErrorModel
     func getNFTsErrorModel() -> AlertErrorModel
-    func getErrorModel() -> AlertErrorModel
+    func getProfileErrorModel() -> AlertErrorModel
     func getLikeErrorModel(id: String) -> AlertErrorModel
+    func getCartErrorModel(id: String) -> AlertErrorModel
+    func getNftCollectionErrorModel() -> AlertErrorModel
+    func getNCartErrorModel() -> AlertErrorModel
 }

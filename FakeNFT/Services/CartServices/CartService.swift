@@ -27,7 +27,7 @@ final class CartService: CartServiceProtocol {
                     completion: @escaping (Result<CartModelDecodable, Error>) -> Void) {
         assert(Thread.isMainThread)
 
-        let modelRequest = CartRequest.getOrder(id: id)
+        let modelRequest = CartReques.getOrder(id: id)
         
         do {
             let request = try makeRequest(for: modelRequest)
@@ -53,7 +53,7 @@ final class CartService: CartServiceProtocol {
                   completion: @escaping (Result<CartModelDecodable, Error>) -> Void) {
         assert(Thread.isMainThread)
         
-        let modelRequest = CartRequest.putOrder(id: cart.id)
+        let modelRequest = CartReques.putOrder(id: cart.id)
         
         do {
             let request = try makeRequest(for: modelRequest,

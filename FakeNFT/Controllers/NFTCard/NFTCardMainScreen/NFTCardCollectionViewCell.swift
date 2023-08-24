@@ -13,7 +13,6 @@ final class NFTCardCollectionViewCell: UICollectionViewCell {
         let element = UIButton(type: .system)
         element.setImage(Resourses.Images.Cell.like, for: .normal)
         element.addTarget(self, action: #selector(tappedLike), for: .touchUpInside)
-        element.tintColor = .white
         return element
     }()
     
@@ -43,7 +42,7 @@ final class NFTCardCollectionViewCell: UICollectionViewCell {
     
     private lazy var addToCartButton: UIButton = {
         let element = UIButton(type: .system)
-        element.setImage(Resourses.Images.Cell.cart, for: .normal)
+        element.addTarget(self, action: #selector(tappedCart), for: .touchUpInside)
         element.tintColor = .blackDay
         return element
     }()
@@ -62,14 +61,17 @@ final class NFTCardCollectionViewCell: UICollectionViewCell {
     }
     
     func configureCell(nftImage: URL?,
-                       doesNftHasLike: Bool?,
+                       doesNftHaveLike: Bool?,
+                       isNftInCart: Bool?,
                        nftName: String?,
                        rating: Int?,
                        nftPrice: String?) {
         guard let nftPrice = nftPrice,
-              let doesNftHasLike = doesNftHasLike else { return }
+              let doesNftHaveLike = doesNftHaveLike,
+              let isNftInCart = isNftInCart else { return }
         self.nftImage.setImage(with: nftImage)
-        doesNftHasLike ? changeLikeButtonColorToRed() : changeLikeButtonColorToWhite()
+        doesNftHaveLike ? changeLikeButtonColorToRed() : changeLikeButtonColorToWhite()
+        isNftInCart ? setImageForAddedNftFromCart() : setImageForDeletedNftFromCart()
         nftNameLabel.text = nftName
         updateRatingStars(rating: rating)
         nftPriceLabel.text = nftPrice + " ETH"
@@ -79,12 +81,24 @@ final class NFTCardCollectionViewCell: UICollectionViewCell {
         delegate?.didTapLike(self)
     }
     
+    @objc private func tappedCart() {
+        delegate?.didTapCart(self)
+    }
+    
     private func changeLikeButtonColorToWhite() {
         favoriteButton.tintColor = .white
     }
     
     private func changeLikeButtonColorToRed() {
         favoriteButton.tintColor = .redUniversal
+    }
+    
+    private func setImageForDeletedNftFromCart() {
+        addToCartButton.setImage(Resourses.Images.Cell.cart, for: .normal)
+    }
+    
+    private func setImageForAddedNftFromCart() {
+        addToCartButton.setImage(Resourses.Images.Cell.cartFill, for: .normal)
     }
     
     private func setupViews() {
@@ -153,5 +167,9 @@ final class NFTCardCollectionViewCell: UICollectionViewCell {
 extension NFTCardCollectionViewCell {
     func setLiked(_ likedByUser: Bool) {
         favoriteButton.tintColor = likedByUser ? UIColor.redUniversal : UIColor.white
+    }
+    
+    func setCartImage(_ didAddToCart: Bool) {
+        didAddToCart ? setImageForAddedNftFromCart() : setImageForDeletedNftFromCart()
     }
 }

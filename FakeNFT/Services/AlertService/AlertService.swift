@@ -54,10 +54,15 @@ final class AlertService: AlertServiceProtocol {
         let alert = UIAlertController(title: LocalizableConstants.Auth.Alert.title,
                                       message: model.message,
                                       preferredStyle: .alert)
-        let action = UIAlertAction(title: model.buttonText, style: .cancel) { _ in
-            model.completion()
+        let leftAction = UIAlertAction(title: model.leftButton, style: .cancel)
+        alert.addAction(leftAction)
+        
+        if model.numberOfButtons == 2 {
+            let rightAction = UIAlertAction(title: model.rightButton, style: .default) { _ in
+                model.completion()
+            }
+            alert.addAction(rightAction)
         }
-        alert.addAction(action)
         
         controller.present(alert, animated: true, completion: nil)
     }

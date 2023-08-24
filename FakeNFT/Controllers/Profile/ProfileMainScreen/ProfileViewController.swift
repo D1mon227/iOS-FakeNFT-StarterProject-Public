@@ -1,6 +1,7 @@
 import UIKit
 import SnapKit
 import Kingfisher
+import Firebase
 
 final class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     var presenter: ProfileViewPresenterProtocol?
@@ -78,7 +79,7 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
     
     @objc private func switchToMyNFTViewController() {
         guard let customNC = navigationController as? CustomNavigationController else { return }
-        let myNFTVC = MyNFTViewController(profilePresenter: presenter, likes: presenter?.profile?.likes)
+        let myNFTVC = MyNFTViewController(profilePresenter: presenter, likes: presenter?.profile?.likes ?? [])
         analyticsService.report(event: .click, screen: .profileVC, item: .myNFTs)
         customNC.pushViewController(myNFTVC, animated: true)
     }

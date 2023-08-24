@@ -8,7 +8,7 @@ final class MyNFTViewController: UIViewController, MyNFTViewControllerProtocol {
     private let alertService = AlertService()
     private let analyticsService = AnalyticsService.shared
     
-    init(profilePresenter: ProfileViewPresenterProtocol?, likes: [String]?) {
+    init(profilePresenter: ProfileViewPresenterProtocol?, likes: [String]) {
         super.init(nibName: nil, bundle: nil)
         self.profilePresenter = profilePresenter
         self.presenter = MyNFTViewPresenter(profilePresenter: profilePresenter)
@@ -98,7 +98,7 @@ extension MyNFTViewController: UITableViewDataSource {
         
         cell.delegate = self
         cell.configureCell(image: nfts.images?[0],
-                           doesNftHasLike: presenter?.doesNftHasLike(id: nfts.id),
+                           doesNftHaveLike: presenter?.doesNftHaveLike(id: nfts.id),
                            nftName: nfts.name,
                            rating: nfts.rating,
                            author: presenter?.getAuthorName(for: nfts.author ?? "",
@@ -119,7 +119,7 @@ extension MyNFTViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         guard let nftModel = presenter?.purchasedNFTs[indexPath.row] else { return }
         switchToNFTCardVC(nftModel: nftModel,
-                          isLiked: presenter?.doesNftHasLike(id: nftModel.id) ?? false)
+                          isLiked: presenter?.doesNftHaveLike(id: nftModel.id) ?? false)
     }
 }
 
@@ -131,7 +131,7 @@ extension MyNFTViewController: MyNFTTableViewCellDelegate {
         let nftID = presenter.purchasedNFTs[indexPath.row].id
         presenter.changeLike(nftID ?? "")
         analyticsService.report(event: .click, screen: .myNFTsVC, item: .like)
-        cell.setLiked(presenter.doesNftHasLike(id: nftID))
+        cell.setLiked(presenter.doesNftHaveLike(id: nftID))
     }
 }
 

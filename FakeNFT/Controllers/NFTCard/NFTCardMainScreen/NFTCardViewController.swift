@@ -5,6 +5,7 @@ final class NFTCardViewController: UIViewController, NFTCardViewControllerProtoc
     var presenter: NFTCardViewPresenterProtocol?
     private let nftCardView = NFTCardView()
     private let alertService = AlertService()
+    private let analyticsService = AnalyticsService.shared
     private var starImageViews: [UIImageView] = []
     private var coverPageControlImageViews: [UIImageView] = []
     private var currentPageIndex: Int = 0
@@ -25,16 +26,20 @@ final class NFTCardViewController: UIViewController, NFTCardViewControllerProtoc
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .backgroundDay
+        analyticsService.report(event: .open, screen: .nftCardVC, item: nil)
         setupViews()
         setupPageControl()
         setupTableView()
+        setupTarget()
         setupCollectionView()
         updateNFTDetails(nftModel: presenter?.nftModel)
         updateLikeButton(isLiked: presenter?.isLiked ?? false)
-        presenter?.fetchNFTCollections()
-        presenter?.fetchCurrencies()
-        presenter?.fetchNFTs()
-        presenter?.fetchProfile()
+        presenter?.fetchData()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        analyticsService.report(event: .close, screen: .nftCardVC, item: nil)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -63,12 +68,14 @@ final class NFTCardViewController: UIViewController, NFTCardViewControllerProtoc
     }
     
     private func updateNFTDetails(nftModel: NFT?) {
+        guard let presenter = presenter else { return }
         nftCardView.firstNFTCover.setImage(with: nftModel?.images?[0])
         nftCardView.secondNFTCover.setImage(with: nftModel?.images?[1])
         nftCardView.thirdNFTCover.setImage(with: nftModel?.images?[2])
         nftCardView.nftLabel.text = nftModel?.name
         nftCardView.price.text = "\(nftModel?.price ?? 0.0) ETH"
         updateRatingStars(rating: nftModel?.rating)
+        presenter.isNftInCart(id: nftModel?.id) ? nftCardView.addToCartButton.setTitle(LocalizableConstants.NFTCard.deleteFromCart, for: .normal) : nftCardView.addToCartButton.setTitle(LocalizableConstants.NFTCard.addToCart, for: .normal)
     }
     
     private func updateRatingStars(rating: Int?) {
@@ -97,16 +104,29 @@ final class NFTCardViewController: UIViewController, NFTCardViewControllerProtoc
         }
     }
     
+    private func setupTarget() {
+        nftCardView.addToCartButton.addTarget(self, action: #selector(addNftTocart), for: .touchUpInside)
+    }
+    
     @objc private func switchToCurrencyInformation(index: Int) {
         guard let customNC = navigationController as? CustomNavigationController,
               let webViewController = presenter?.switchToNFTInformation(index: index) else { return }
+        analyticsService.report(event: .click, screen: .nftCardVC, item: .currencyWebsite)
         customNC.pushViewController(webViewController, animated: true)
     }
     
     @objc private func likeTapped() {
         guard let presenter = presenter else { return }
         presenter.changeLike(presenter.nftModel?.id ?? "")
-        presenter.doesNftHasLike(id: presenter.nftModel?.id) ? setupNavigationBar(tintColor: .redUniversal) : setupNavigationBar(tintColor: .white)
+        analyticsService.report(event: .click, screen: .nftCardVC, item: .like)
+        presenter.doesNftHaveLike(id: presenter.nftModel?.id ?? "") ? setupNavigationBar(tintColor: .redUniversal) : setupNavigationBar(tintColor: .white)
+    }
+    
+    @objc private func addNftTocart() {
+        guard let presenter = presenter else { return }
+        presenter.addNftToCard(presenter.nftModel?.id ?? "")
+        analyticsService.report(event: .click, screen: .nftCardVC, item: .addToCart)
+        presenter.isNftInCart(id: presenter.nftModel?.id ?? "") ? nftCardView.addToCartButton.setTitle(LocalizableConstants.NFTCard.deleteFromCart, for: .normal) : nftCardView.addToCartButton.setTitle(LocalizableConstants.NFTCard.addToCart, for: .normal)
     }
 }
 
@@ -155,7 +175,8 @@ extension NFTCardViewController: UICollectionViewDataSource {
         
         cell.delegate = self
         cell.configureCell(nftImage: nft.images?[0],
-                           doesNftHasLike: presenter?.doesNftHasLike(id: nft.id),
+                           doesNftHaveLike: presenter?.doesNftHaveLike(id: nft.id),
+                           isNftInCart: presenter?.isNftInCart(id: nft.id),
                            nftName: nft.name,
                            rating: nft.rating,
                            nftPrice: convert(price: nft.price ?? 0.0))
@@ -192,7 +213,15 @@ extension NFTCardViewController: NFTCardCollectionViewCellDelegate {
               let presenter = presenter else { return }
         let nftID = presenter.nfts?[indexPath.row].id
         presenter.changeLike(nftID ?? "")
-        cell.setLiked(presenter.doesNftHasLike(id: nftID))
+        cell.setLiked(presenter.doesNftHaveLike(id: nftID))
+    }
+    
+    func didTapCart(_ cell: NFTCardCollectionViewCell) {
+        guard let indexPath = nftCardView.nftCollectionView.indexPath(for: cell),
+              let presenter = presenter else { return }
+        let nftID = presenter.nfts?[indexPath.row].id
+        presenter.addNftToCard(nftID ?? "")
+        cell.setCartImage(presenter.isNftInCart(id: nftID))
     }
 }
 
@@ -219,8 +248,29 @@ extension NFTCardViewController {
         }
     }
     
-    func showErrorAlert() {
-        guard let model = presenter?.getErrorModel() else { return }
+    func showProfileErrorAlert() {
+        guard let model = presenter?.getProfileErrorModel() else { return }
+        DispatchQueue.main.async {
+            self.alertService.showErrorAlert(model: model, controller: self)
+        }
+    }
+    
+    func showNftCollectionErrorAlert() {
+        guard let model = presenter?.getNftCollectionErrorModel() else { return }
+        DispatchQueue.main.async {
+            self.alertService.showErrorAlert(model: model, controller: self)
+        }
+    }
+    
+    func showCartErrorAlert() {
+        guard let model = presenter?.getNCartErrorModel() else { return }
+        DispatchQueue.main.async {
+            self.alertService.showErrorAlert(model: model, controller: self)
+        }
+    }
+    
+    func showCartErrorAlert(id: String) {
+        guard let model = presenter?.getCartErrorModel(id: id) else { return }
         DispatchQueue.main.async {
             self.alertService.showErrorAlert(model: model, controller: self)
         }

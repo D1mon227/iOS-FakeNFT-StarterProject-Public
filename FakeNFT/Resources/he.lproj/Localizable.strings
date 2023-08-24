@@ -21,6 +21,7 @@
 "alert.traAgainMessage" = "נסה שוב מאוחר יותר";
 "alert.okButton" = "בסדר";
 "alert.tryAgainButton" = "נסה שוב";
+"alert.cancelButton" = "ביטול";
 
 //MARK: Onboarding
 "onboarding.firstTitle" = "לחקור";
@@ -93,5 +94,6 @@
 
 //MARK: NFTCard
 "nftcard.addToCart" = "הוסף לסל";
+"nftcard.deleteFromCart" = "מחק מהעגלה";
 "nftcard.price" = "מחיר";
 "nftcard.sellerWebsite" = "עבור אל אתר האינטרנט של המוכר";

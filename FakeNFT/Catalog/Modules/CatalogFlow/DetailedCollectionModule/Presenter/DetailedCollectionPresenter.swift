@@ -3,7 +3,7 @@ import Foundation
 
 extension DetailedCollectionPresenter {
     struct Services {
-        let profileService: ProfileServiceProtocol
+        let profileService: ProfileServiceProtoco
         let nftService: NftServiceProtocol
         let cartService: CartServiceProtocol
     }

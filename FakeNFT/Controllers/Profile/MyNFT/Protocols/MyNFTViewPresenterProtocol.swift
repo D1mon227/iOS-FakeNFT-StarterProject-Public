@@ -9,7 +9,7 @@ protocol MyNFTViewPresenterProtocol: AnyObject {
     func fetchNFTs()
     func fetchUsers()
     func changeLike(_ id: String)
-    func doesNftHasLike(id: String?) -> Bool
+    func doesNftHaveLike(id: String?) -> Bool
     func getAuthorName(for authorID: String, from authors: [User]) -> String?
     func arePurchasedNFTsEmpty() -> Bool
     func sortNFT(by: Sort)

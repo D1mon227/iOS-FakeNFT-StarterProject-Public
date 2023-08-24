@@ -3,9 +3,7 @@ import Foundation
 final class FavoritesNFTViewPresenter: FavoritesNFTViewPresenterProtocol {
     weak var view: FavoritesNFTViewControllerProtocol?
     private var profilePresenter: ProfileViewPresenterProtocol?
-    private let likeService = LikeService.shared
-    private let nftService = NFTService.shared
-    private let profileService = ProfileService.shared
+    private let networkManager = NetworkManager()
     
     var likes: [String]?
     var favoritesNFTs: [NFT] = [] {
@@ -24,10 +22,12 @@ final class FavoritesNFTViewPresenter: FavoritesNFTViewPresenterProtocol {
         favoritesNFTs.isEmpty ? true : false
     }
     
-    func changeLike(_ id: String?) {
-        guard let id = id else { return }
+    func changeLike(_ id: String) {
         removeLike(id)
-        likeService.changeLike(newLike: Likes(likes: likes ?? [])) { [weak self] result in
+        
+        UIBlockingProgressHUD.show()
+        let request = ProfileRequest(httpMethod: .put, dto: Likes(likes: self.likes ?? []))
+        networkManager.send(request: request) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(_):
@@ -35,11 +35,14 @@ final class FavoritesNFTViewPresenter: FavoritesNFTViewPresenterProtocol {
             case .failure(_):
                 self.view?.showLikeErrorAlert(id: id)
             }
+            UIBlockingProgressHUD.dismiss()
         }
     }
     
     func fetchNFTs() {
-        nftService.fetchNFT { [weak self] result in
+        UIBlockingProgressHUD.show()
+        let request = NFTsRequest(httpMethod: .get, dto: nil)
+        networkManager.send(request: request, type: [NFT].self) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let nfts):
@@ -47,6 +50,7 @@ final class FavoritesNFTViewPresenter: FavoritesNFTViewPresenterProtocol {
             case .failure(_):
                 self.view?.showNFTsErrorAlert()
             }
+            UIBlockingProgressHUD.dismiss()
         }
     }
     
@@ -56,7 +60,9 @@ final class FavoritesNFTViewPresenter: FavoritesNFTViewPresenterProtocol {
     
     func getNFTsErrorModel() -> AlertErrorModel {
         let model = AlertErrorModel(message: LocalizableConstants.Auth.Alert.failedLoadDataMessage,
-                                    buttonText: LocalizableConstants.Auth.Alert.tryAgainButton) { [weak self] in
+                                    leftButton: LocalizableConstants.Auth.Alert.cancelButton,
+                                    rightButton: LocalizableConstants.Auth.Alert.tryAgainButton,
+                                    numberOfButtons: 2) { [weak self] in
             guard let self = self else { return }
             self.fetchNFTs()
         }
@@ -65,7 +71,9 @@ final class FavoritesNFTViewPresenter: FavoritesNFTViewPresenterProtocol {
     
     func getLikeErrorModel(id: String) -> AlertErrorModel {
         let model = AlertErrorModel(message: LocalizableConstants.Auth.Alert.traAgainMessage,
-                                    buttonText: LocalizableConstants.Auth.Alert.tryAgainButton) { [weak self] in
+                                    leftButton: LocalizableConstants.Auth.Alert.okButton,
+                                    rightButton: LocalizableConstants.Auth.Alert.tryAgainButton,
+                                    numberOfButtons: 2) { [weak self] in
             guard let self = self else { return }
             self.changeLike(id)
         }

@@ -107,15 +107,15 @@ final class MyNFTTableViewCell: UITableViewCell {
     }
     
     func configureCell(image: URL?,
-                       doesNftHasLike: Bool?,
+                       doesNftHaveLike: Bool?,
                        nftName: String?,
                        rating: Int?,
                        author: String?,
                        price: String?) {
         guard let price = price,
-              let doesNftHasLike = doesNftHasLike else { return }
+              let doesNftHaveLike = doesNftHaveLike else { return }
         nftImage.setImage(with: image)
-        doesNftHasLike ? changeLikeButtonColorToRed() : changeLikeButtonColorToWhite()
+        doesNftHaveLike ? changeLikeButtonColorToRed() : changeLikeButtonColorToWhite()
         nftLabel.text = nftName
         updateRatingStars(rating: rating)
         authorLabel.text = author

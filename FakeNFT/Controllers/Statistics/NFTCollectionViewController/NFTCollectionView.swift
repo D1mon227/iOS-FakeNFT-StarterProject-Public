@@ -56,7 +56,7 @@ final class NFTCollectionView: UIView {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	private func doesNftHasLike(id: String) -> Bool {
+	private func doesNftHaveLike(id: String) -> Bool {
 		guard let likes = likes?.likes else { return false }
 		return likes.contains(id)
 	}
@@ -141,7 +141,7 @@ extension NFTCollectionView: UICollectionViewDataSource, UICollectionViewDelegat
 	
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		let selectedUser = collectionNFT[indexPath.row]
-		let hasLike = doesNftHasLike(id: selectedUser.id ?? "")
+		let hasLike = doesNftHaveLike(id: selectedUser.id ?? "")
 		presenter?.tapOnTheCell(nft: selectedUser, like: hasLike)
 	}
 }

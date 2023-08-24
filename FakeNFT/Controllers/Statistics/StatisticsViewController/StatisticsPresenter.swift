@@ -15,7 +15,7 @@ protocol StatisticViewControllerDelegate: AnyObject {
 final class StatisticsPresenter {
 	weak var navigationDelegate: StatisticViewControllerDelegate?
 	private weak var ui: IStatisticsView?
-	private let networkClient: DefaultNetworkClient
+	private let networkManager: NetworkManager
 	private let appCoordinator: AppCoordinator
 	private var currentSortOption: Sort {
 		get {
@@ -32,8 +32,8 @@ final class StatisticsPresenter {
 	
 	private var model: [User] = []
 	
-	init(networkClient: DefaultNetworkClient, appCoordinator: AppCoordinator) {
-		self.networkClient = networkClient
+	init(networkManager: NetworkManager, appCoordinator: AppCoordinator) {
+		self.networkManager = networkManager
 		self.appCoordinator = appCoordinator
 	}
 	
@@ -72,8 +72,8 @@ final class StatisticsPresenter {
 	
 	private func fetchUserFromServer() {
 		UIBlockingProgressHUD.show()
-		let request = GetUsersRequest()
-		networkClient.send(request: request, type: [User].self) { [weak self] result in
+        let request = UsersRequest(httpMethod: .get, dto: nil)
+        networkManager.send(request: request, type: [User].self) { [weak self] result in
 			guard let self else { return }
 			UIBlockingProgressHUD.dismiss()
 			

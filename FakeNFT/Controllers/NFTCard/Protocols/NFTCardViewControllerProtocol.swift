@@ -7,6 +7,9 @@ protocol NFTCardViewControllerProtocol: AnyObject {
     func updateNFTCollectionName(name: String)
     func showCurrencyErrorAlert()
     func showNFTsErrorAlert()
-    func showErrorAlert()
+    func showProfileErrorAlert()
     func showLikeErrorAlert(id: String)
+    func showCartErrorAlert(id: String)
+    func showNftCollectionErrorAlert()
+    func showCartErrorAlert()
 }

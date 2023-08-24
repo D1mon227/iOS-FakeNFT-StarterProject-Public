@@ -21,6 +21,7 @@
 "alert.traAgainMessage" = "Повторите попытку позднее";
 "alert.okButton" = "ОК";
 "alert.tryAgainButton" = "Повторить";
+"alert.cancelButton" = "Отменить";
 
 //MARK: Onboarding
 "onboarding.firstTitle" = "Исследуйте";
@@ -93,5 +94,6 @@
 
 //MARK: NFTCard
 "nftcard.addToCart" = "Добавить в корзину";
+"nftcard.deleteFromCart" = "Удалить из корзины";
 "nftcard.price" = "Цена";
 "nftcard.sellerWebsite" = "Перейти на сайт продавца";

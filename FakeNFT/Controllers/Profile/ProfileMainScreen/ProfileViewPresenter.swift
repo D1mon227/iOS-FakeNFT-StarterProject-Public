@@ -2,7 +2,7 @@ import Foundation
 
 final class ProfileViewPresenter: ProfileViewPresenterProtocol {
     weak var view: ProfileViewControllerProtocol?
-    private let profileService = ProfileService.shared
+    private let networkManager = NetworkManager()
     
     var profile: Profile? {
         didSet {
@@ -13,7 +13,9 @@ final class ProfileViewPresenter: ProfileViewPresenterProtocol {
     }
     
     func fetchProfile() {
-        profileService.fetchProfile { [weak self] result in
+        UIBlockingProgressHUD.show()
+        let request = ProfileRequest(httpMethod: .get, dto: nil)
+        networkManager.send(request: request, type: Profile.self) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let profile):
@@ -21,6 +23,7 @@ final class ProfileViewPresenter: ProfileViewPresenterProtocol {
             case .failure(_):
                 self.view?.showErrorAlert()
             }
+            UIBlockingProgressHUD.dismiss()
         }
     }
     
@@ -36,7 +39,9 @@ final class ProfileViewPresenter: ProfileViewPresenterProtocol {
     
     func getErrorModel() -> AlertErrorModel {
         let model = AlertErrorModel(message: LocalizableConstants.Auth.Alert.failedLoadDataMessage,
-                                    buttonText: LocalizableConstants.Auth.Alert.tryAgainButton) { [weak self] in
+                                    leftButton: LocalizableConstants.Auth.Alert.cancelButton,
+                                    rightButton: LocalizableConstants.Auth.Alert.tryAgainButton,
+                                    numberOfButtons: 2) { [weak self] in
             guard let self = self else { return }
             self.fetchProfile()
         }

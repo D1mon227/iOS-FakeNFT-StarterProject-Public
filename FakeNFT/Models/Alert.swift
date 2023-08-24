@@ -7,6 +7,8 @@ struct AlertSortModel {
 
 struct AlertErrorModel {
     let message: String?
-    let buttonText: String?
+    let leftButton: String?
+    let rightButton: String?
+    let numberOfButtons: Int
     let completion: (() -> Void)
 }

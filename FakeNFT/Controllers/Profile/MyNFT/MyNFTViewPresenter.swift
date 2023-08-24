@@ -3,9 +3,7 @@ import Foundation
 final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
     weak var view: MyNFTViewControllerProtocol?
     var profilePresenter: ProfileViewPresenterProtocol?
-    private let nftService = NFTService.shared
-    private let userService = UserService.shared
-    private let likeService = LikeService.shared
+    private let networkManager = NetworkManager()
     private let analyticsService = AnalyticsService.shared
     private let userDefaults = UserDefaults.standard
     private let sortUserDefaultsKey = "MyNFtSortKey"
@@ -45,7 +43,9 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
     }
     
     func fetchNFTs() {
-        nftService.fetchNFT { [weak self] result in
+        UIBlockingProgressHUD.show()
+        let request = NFTsRequest(httpMethod: .get, dto: nil)
+        networkManager.send(request: request, type: [NFT].self) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let nfts):
@@ -55,24 +55,31 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
             case .failure(_):
                 self.view?.showNFTsErrorAlert()
             }
+            UIBlockingProgressHUD.dismiss()
         }
     }
     
     func fetchUsers() {
-        userService.fetchUsers { [weak self] result in
-            guard let self = self else { return }
-            switch result {
+        UIBlockingProgressHUD.show()
+        let request = UsersRequest(httpMethod: .get, dto: nil)
+        networkManager.send(request: request, type: [User].self) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
             case .success(let users):
                 self.users = users
             case .failure(_):
                 self.view?.showUsersErrorAlert()
             }
+            UIBlockingProgressHUD.dismiss()
         }
     }
     
     func changeLike(_ id: String) {
         updateLikes(id)
-        likeService.changeLike(newLike: Likes(likes: self.likes ?? [])) { [weak self] result in
+        
+        UIBlockingProgressHUD.show()
+        let request = ProfileRequest(httpMethod: .put, dto: Likes(likes: self.likes ?? []))
+        networkManager.send(request: request) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(_):
@@ -80,6 +87,7 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
             case .failure(_):
                 self.view?.showLikeErrorAlert(id: id)
             }
+            UIBlockingProgressHUD.dismiss()
         }
     }
     
@@ -92,7 +100,7 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
         purchasedNFTs.isEmpty ? true : false
     }
     
-    func doesNftHasLike(id: String?) -> Bool {
+    func doesNftHaveLike(id: String?) -> Bool {
         guard let id = id,
               let likes = likes else { return false }
         return likes.contains(id) ? true : false
@@ -132,7 +140,9 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
     
     func getUsersErrorModel() -> AlertErrorModel {
         let model = AlertErrorModel(message: LocalizableConstants.Auth.Alert.failedLoadDataMessage,
-                                    buttonText: LocalizableConstants.Auth.Alert.tryAgainButton) { [weak self] in
+                                    leftButton: LocalizableConstants.Auth.Alert.cancelButton,
+                                    rightButton: LocalizableConstants.Auth.Alert.tryAgainButton,
+                                    numberOfButtons: 2) { [weak self] in
             guard let self = self else { return }
             self.fetchUsers()
         }
@@ -141,7 +151,9 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
     
     func getNFTsErrorModel() -> AlertErrorModel {
         let model = AlertErrorModel(message: LocalizableConstants.Auth.Alert.failedLoadDataMessage,
-                                    buttonText: LocalizableConstants.Auth.Alert.tryAgainButton) { [weak self] in
+                                    leftButton: LocalizableConstants.Auth.Alert.cancelButton,
+                                    rightButton: LocalizableConstants.Auth.Alert.tryAgainButton,
+                                    numberOfButtons: 2) { [weak self] in
             guard let self = self else { return }
             self.fetchNFTs()
         }
@@ -150,7 +162,9 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
     
     func getLikeErrorModel(id: String) -> AlertErrorModel {
         let model = AlertErrorModel(message: LocalizableConstants.Auth.Alert.traAgainMessage,
-                                    buttonText: LocalizableConstants.Auth.Alert.tryAgainButton) { [weak self] in
+                                    leftButton: LocalizableConstants.Auth.Alert.okButton,
+                                    rightButton: LocalizableConstants.Auth.Alert.tryAgainButton,
+                                    numberOfButtons: 2) { [weak self] in
             guard let self = self else { return }
             self.changeLike(id)
         }

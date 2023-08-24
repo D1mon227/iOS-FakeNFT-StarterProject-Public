@@ -90,7 +90,6 @@ final class NFTCardView {
         let element = UIButton(type: .system)
         element.backgroundColor = .blackDay
         element.setTitleColor(.backgroundDay, for: .normal)
-        element.setTitle(LocalizableConstants.NFTCard.addToCart, for: .normal)
         element.layer.cornerRadius = 16
         element.titleLabel?.font = .bodyBold
         return element

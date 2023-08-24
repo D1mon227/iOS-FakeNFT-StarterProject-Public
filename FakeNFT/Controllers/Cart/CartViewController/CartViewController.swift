@@ -335,7 +335,6 @@ final class CartViewController: UIViewController, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cartCell", for: indexPath) as? CartCell else {
             return UITableViewCell() // Return a fallback cell if needed
         }
-        print("Configuring cell for row: \(indexPath.row)")
         
         // Reset cell properties
         cell.nftImage.image = nil
@@ -421,8 +420,6 @@ final class CartViewController: UIViewController, UITableViewDataSource {
     
     @objc
     func cancel() {
-        print("CANCEL")
-        
         isDeleteViewVisible = false
         indexToDelete = nil
         
@@ -563,7 +560,6 @@ extension CartViewController: CartCellDelegate {
         let urlStr = cartArray[index].nftImages.first ?? ""
         fillPictureToDelete(urlStr: urlStr)
         
-        print(index)
         UIView.animate(withDuration: 0.3) {
             self.blurView.alpha = 1.0
             NSLayoutConstraint.activate([

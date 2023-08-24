@@ -88,7 +88,6 @@ final class FailedPaymentViewController: UIViewController {
     
     @objc private func backTapped() {
         analyticsService.report(event: .click, screen: .successFailureVC, item: .tryAgain)
-        print("backTapped method triggered")
         guard let customNC = navigationController as? CustomNavigationController else { return }
         customNC.popToRootViewController(animated: true)
     }

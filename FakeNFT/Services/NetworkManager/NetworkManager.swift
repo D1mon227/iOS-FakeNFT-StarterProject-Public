@@ -18,7 +18,7 @@ protocol NetworkClient {
                             onResponse: @escaping (Result<T, Error>) -> Void) -> NetworkTask?
 }
 
-final class DefaultNetworkClient: NetworkClient {
+final class NetworkManager: NetworkClient {
     private let session: URLSession
     private let decoder: JSONDecoder
     private let encoder: JSONEncoder
