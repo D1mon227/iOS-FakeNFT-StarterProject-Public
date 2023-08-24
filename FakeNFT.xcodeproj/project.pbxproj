@@ -142,7 +142,6 @@
 		924DCA5E2A7CB2E200995282 /* FailedPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924DCA5D2A7CB2E200995282 /* FailedPaymentViewController.swift */; };
 		924DCA602A7CBE9D00995282 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924DCA5F2A7CBE9D00995282 /* PaymentViewController.swift */; };
 		924DCA622A7CF1F200995282 /* CartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924DCA612A7CF1F200995282 /* CartCell.swift */; };
-		924DCA642A7CF4C200995282 /* Cart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924DCA632A7CF4C200995282 /* Cart.swift */; };
 		924DCA682A7CF5A700995282 /* CartPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924DCA672A7CF5A700995282 /* CartPresenter.swift */; };
 		924DCA6A2A82133B00995282 /* PaymentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924DCA692A82133B00995282 /* PaymentModel.swift */; };
 		924DCA6C2A82138D00995282 /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924DCA6B2A82138D00995282 /* Payment.swift */; };
@@ -353,7 +352,6 @@
 		924DCA5D2A7CB2E200995282 /* FailedPaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailedPaymentViewController.swift; sourceTree = "<group>"; };
 		924DCA5F2A7CBE9D00995282 /* PaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
 		924DCA612A7CF1F200995282 /* CartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartCell.swift; sourceTree = "<group>"; };
-		924DCA632A7CF4C200995282 /* Cart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cart.swift; sourceTree = "<group>"; };
 		924DCA672A7CF5A700995282 /* CartPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartPresenter.swift; sourceTree = "<group>"; };
 		924DCA692A82133B00995282 /* PaymentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentModel.swift; sourceTree = "<group>"; };
 		924DCA6B2A82138D00995282 /* Payment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payment.swift; sourceTree = "<group>"; };
@@ -725,7 +723,6 @@
 				C5D28CB12A830F5F002600BC /* Order.swift */,
 				C5BC8D9A2A89D9F400407979 /* Likes.swift */,
 				924DCA6B2A82138D00995282 /* Payment.swift */,
-				924DCA632A7CF4C200995282 /* Cart.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1436,7 +1433,6 @@
 				7300E06B2A9379D300AD427A /* EditingProfileTableViewHeader.swift in Sources */,
 				730B23972A8C292600F5D832 /* NFTCardView.swift in Sources */,
 				73C4DF482A969864004E948E /* Requests.swift in Sources */,
-				924DCA642A7CF4C200995282 /* Cart.swift in Sources */,
 				73EA4B032A73C703000B4B55 /* TabBarController.swift in Sources */,
 				7300E0702A9379D300AD427A /* EditingProfileTableViewCell.swift in Sources */,
 				73C4DF3F2A964212004E948E /* NFTCardCollectionViewCellDelegate.swift in Sources */,

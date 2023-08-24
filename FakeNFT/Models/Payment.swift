@@ -1,10 +1,3 @@
-//
-//  PaymentStruct.swift
-//  FakeNFT
-//
-//  Created by Денис on 08.08.2023.
-//
-
 import Foundation
 
 struct Payment: Codable {
