@@ -87,8 +87,10 @@ extension DetailedCollectionViewController: DetailedCollectionViewProtocol {
     }
     
     func showNetworkError(model: NetworkErrorViewModel) {
-        hideLoadingIndicator()
-        addNetworkErrorView(model: model)
+        DispatchQueue.main.async {
+            self.hideLoadingIndicator()
+            self.addNetworkErrorView(model: model)
+        }
     }
     
     func hideNetworkError() {
