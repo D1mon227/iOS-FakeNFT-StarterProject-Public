@@ -128,7 +128,9 @@ extension CatalogViewController: UITableViewDataSource {
 extension CatalogViewController: CatalogViewProtocol {
     func update(with viewModels: [CatalogTableViewCellViewModel]) {
         self.viewModels = viewModels
-        tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     func push(_ viewController: UIViewController) {

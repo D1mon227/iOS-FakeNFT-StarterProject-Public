@@ -1,16 +1,13 @@
 import Foundation
 
 extension CatalogPresenter {
-    
     struct KeyDefaults {
         static let sortingTypeCatalog = "sortingTypeCatalog"
     }
-    
 }
 
 final class CatalogPresenter {
-    
-    private let nftCatalogService: NftCatalogServiceProtocol
+    private let networkManager: NetworkManager
     private var viewModels: [CatalogTableViewCellViewModel] = []
     private var responses: [NFTCollection] = []
     
@@ -18,8 +15,8 @@ final class CatalogPresenter {
     
     weak var view: CatalogViewProtocol?
     
-    init(nftCatalogService: NftCatalogServiceProtocol) {
-        self.nftCatalogService = nftCatalogService
+    init(networkManager: NetworkManager) {
+        self.networkManager = networkManager
     }
 }
 
@@ -27,9 +24,7 @@ extension CatalogPresenter: CatalogPresenterProtocol {
     func viewDidLoad() {
         subscribe()
         view?.showLoadingIndicator()
-        
         fetchNftItems()
-        
     }
     
     func viewDidAppear() {
@@ -71,7 +66,6 @@ extension CatalogPresenter: CatalogPresenterProtocol {
                                tintColor: .systemBlue)
         
         view?.displayAlert(model: model)
-        
     }
     
     func didSelectCell(with id: String) {
@@ -84,11 +78,9 @@ extension CatalogPresenter: CatalogPresenterProtocol {
         
         sendAnalytics(event: .click, item: .nftCollection)
     }
-    
 }
 
 private extension CatalogPresenter {
-    
     func sortByCount() {
         viewModels.sort(by: { $0.nftCount > $1.nftCount })
         view?.update(with: viewModels)
@@ -102,9 +94,9 @@ private extension CatalogPresenter {
     }
     
     func fetchNftItems() {
-        nftCatalogService.getNftItems { [weak self] result in
+        let request = NFTCollectionGetRequest()
+        networkManager.send(request: request, type: [NFTCollection].self) { [weak self] result in
             guard let self else { return }
-            
             switch result {
             case .success(let items):
                 responses = items
@@ -151,7 +143,6 @@ private extension CatalogPresenter {
                                        screen: .catalogVC,
                                        item: item)
     }
-    
 }
 
 private extension CatalogPresenter {
@@ -199,7 +190,4 @@ private extension CatalogPresenter {
         self.fetchNftItems()
         self.view?.hideNetworkError()
     }
-    
 }
-
-
