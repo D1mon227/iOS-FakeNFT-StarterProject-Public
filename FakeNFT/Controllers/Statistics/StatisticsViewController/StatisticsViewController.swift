@@ -21,11 +21,15 @@ final class StatisticsViewController: UIViewController, StatisticViewControllerD
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.statisticsPresenter.viewDidLoad(ui: self.customView)
 		customView.presenter = statisticsPresenter
 		statisticsPresenter.navigationDelegate = self
 		configureNavigationBar()
 	}
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.statisticsPresenter.viewDidLoad(ui: self.customView)
+    }
 	
 	func showAlert(model: AlertSortModel) {
 		alertService.showSortAlert(model: model, controller: self)

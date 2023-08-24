@@ -78,12 +78,3 @@ struct CartPutRequest: NetworkRequest {
     var httpMethod: HttpMethod { .put }
     var dto: Encodable?
 }
-
-//MARK: Payment
-//struct CartPutRequest: NetworkRequest {
-//    var endpoint: URL? {
-//        URL(string: Resourses.Network.baseURL + Resourses.Network.Paths.orders)
-//    }
-//    var httpMethod: HttpMethod { .put }
-//    var dto: Encodable?
-//}

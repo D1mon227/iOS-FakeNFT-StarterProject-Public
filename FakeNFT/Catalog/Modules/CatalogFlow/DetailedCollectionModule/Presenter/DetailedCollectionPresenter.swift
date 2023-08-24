@@ -1,40 +1,27 @@
-
 import Foundation
-
-extension DetailedCollectionPresenter {
-    struct Services {
-        let networkManager: NetworkManager
-//        let nftService: NftServiceProtocol
-        let cartService: CartServiceProtocol
-    }
-}
 
 final class DetailedCollectionPresenter {
     
     weak var view: DetailedCollectionViewProtocol?
-    
     private let response: NFTCollection
-    private let services: Services
     private var nftsModels = [NFTCollectionViewCellViewModel]()
     private var nftsResponses = [NFT]()
     private var detailsCollectionModel: CollectionDetailsCollectionViewCellModel?
-    private var nftsInCart: Set<String> = []
+    private var nftsInCart: [String]?
     private var userLikes: [String]?
     private var user: Profile?
     private let group = DispatchGroup()
-    private let networkManager = NetworkManager()
+    private let networkManager: NetworkManager
     
     let connectionAvailableKey = NetworkReachabilityManager.shared.connectionAvailableKey
     
-    init(response: NFTCollection,
-         services: Services) {
+    init(networkManager: NetworkManager, response: NFTCollection) {
+        self.networkManager = networkManager
         self.response = response
-        self.services = services
     }
 }
 
 extension DetailedCollectionPresenter: DetailedCollectionPresenterProtocol {
-    
     func viewDidLoad() {
         subscribe()
         view?.showLoadingIndicator()
@@ -62,16 +49,10 @@ extension DetailedCollectionPresenter: DetailedCollectionPresenterProtocol {
     }
     
     func didTapCartButton(id: String) {
-        
-        if nftsInCart.contains(id) {
-            nftsInCart.remove(id)
-        } else {
-            nftsInCart.insert(id)
-        }
-        
+        updateCart(id)
         self.nftsModels = self.nftsModels.compactMap { model in
-            let isCartAdded = nftsInCart.contains(model.nftId)
-            guard let imageModel = makeCartImageModel(isCartAdded: isCartAdded) else {
+            let isCartAdded = nftsInCart?.contains(model.nftId)
+            guard let imageModel = makeCartImageModel(isCartAdded: isCartAdded ?? false) else {
                 return nil
             }
             let newModel = model.makeNewModel(cartButtonImageName: imageModel)
@@ -79,8 +60,7 @@ extension DetailedCollectionPresenter: DetailedCollectionPresenterProtocol {
         }
         
         view?.updateNftsModel(with: nftsModels)
-        
-        putCartOrder(newCartModel: CartModelDecodable(nfts: Array(nftsInCart), id: "1"))
+        putCartOrder(id: id)
         
         sendAnalytics(event: .click, item: .addToCart)
     }
@@ -130,7 +110,6 @@ extension DetailedCollectionPresenter: DetailedCollectionPresenterProtocol {
 }
 
 private extension DetailedCollectionPresenter {
-    
     func subscribe() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleNotification(_:)),
@@ -208,21 +187,20 @@ private extension DetailedCollectionPresenter {
     }
     
     func getCartOrders() {
-        services.cartService.getOrder(id: "1") { [weak self] result in
+        let request = CartGetRequest()
+        networkManager.send(request: request, type: Order.self) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let cart):
-                self.nftsInCart = Set(cart.nfts)
-                
+                self.nftsInCart = cart.nfts
                 self.nftsModels = self.nftsModels.compactMap { model in
-                    let isCartAdded = self.nftsInCart.contains(model.nftId)
-                    guard let imageModel = self.makeCartImageModel(isCartAdded: isCartAdded) else {
+                    let isCartAdded = self.nftsInCart?.contains(model.nftId)
+                    guard let imageModel = self.makeCartImageModel(isCartAdded: isCartAdded ?? false) else {
                         return nil
                     }
                     let newModel = model.makeNewModel(cartButtonImageName: imageModel)
                     return newModel
                 }
-                
                 view?.updateNftsModel(with: nftsModels)
                 self.view?.hideNetworkError()
             case .failure:
@@ -231,13 +209,15 @@ private extension DetailedCollectionPresenter {
         }
     }
     
-    func putCartOrder(newCartModel: CartModelDecodable) {
-        services.cartService.putOrder(cart: newCartModel) { [weak self] result in
+    func putCartOrder(id: String) {
+        let request = CartPutRequest(dto: Order(nfts: self.nftsInCart ?? [], id: "1"))
+        networkManager.send(request: request) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success:
-                self?.view?.hideNetworkError()
+                self.view?.hideNetworkError()
             case .failure:
-                self?.showRequestError()
+                self.showRequestError()
             }
         }
     }
@@ -345,6 +325,17 @@ private extension DetailedCollectionPresenter {
         } else {
             userLikes.append(id)
             self.userLikes = userLikes
+        }
+    }
+    
+    private func updateCart(_ id: String) {
+        guard var nftsInCart = nftsInCart else { return }
+        if nftsInCart.contains(id) {
+            nftsInCart.removeAll { $0 == id }
+            self.nftsInCart = nftsInCart
+        } else {
+            nftsInCart.append(id)
+            self.nftsInCart = nftsInCart
         }
     }
 }
