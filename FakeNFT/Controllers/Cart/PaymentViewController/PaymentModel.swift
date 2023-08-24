@@ -8,7 +8,7 @@
 import Foundation
 
 protocol PaymentModelProtocol {
-    typealias CurrenciesCompletionHandler = (Result<[PaymentStruct], Error>) -> Void
+    typealias CurrenciesCompletionHandler = (Result<[Currency], Error>) -> Void
     typealias PaymentResultCompletionHandler = (Result<Payment, Error>) -> Void
     
     func getCurrenciesFromAPI(completion: @escaping CurrenciesCompletionHandler)
@@ -33,7 +33,7 @@ final class PaymentModel: PaymentModelProtocol {
                 if let data = data {
                     let decoder = JSONDecoder()
                     do {
-                        let result = try decoder.decode([PaymentStruct].self, from: data)
+                        let result = try decoder.decode([Currency].self, from: data)
                         DispatchQueue.main.async {
                             completion(.success(result))
                         }

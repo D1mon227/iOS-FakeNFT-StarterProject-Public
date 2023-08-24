@@ -7,20 +7,18 @@
 
 import Foundation
 
-struct CartStruct: Codable {
+struct Cart: Codable {
     var nftImages: [String]
     var nftName: String
     var nftRating: Int
     var nftPrice: Double
+    var nftID: String
     
     private enum CodingKeys: String, CodingKey {
         case nftName = "name"
         case nftImages = "images"
         case nftRating = "rating"
         case nftPrice = "price"
+        case nftID = "id"
     }
-}
-struct OrdersStruct: Codable {
-    let nfts: [String]
-    let id: String
 }

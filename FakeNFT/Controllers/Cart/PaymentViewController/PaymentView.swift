@@ -11,7 +11,7 @@ final class PaymentView: UIView {
     
     weak var delegate: PaymentViewDelegate? // Delegate for communication with the view controller
     
-    var paymentArray: [PaymentStruct] = [] {
+    var paymentArray: [Currency] = [] {
         didSet {
             paymentCollection.reloadData()
         }
@@ -90,7 +90,7 @@ final class PaymentView: UIView {
         commonInit()
     }
     
-    func updateCurrencies(_ currencies: [PaymentStruct]) {
+    func updateCurrencies(_ currencies: [Currency]) {
         // Update your collection view data
         paymentCollection.reloadData()
         
@@ -180,15 +180,19 @@ extension PaymentView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "paymentCell", for: indexPath) as? PaymentCell
         else { return UICollectionViewCell() }
-        let imageURL = URL(string: paymentArray[indexPath.row].image)
-        cell.image.kf.setImage(with: imageURL)
-        let name = paymentArray[indexPath.row].title
+        
+        if let imageURL = paymentArray[indexPath.row].image?.absoluteString {
+            cell.image.kf.setImage(with: URL(string: imageURL))
+        }
+        
+        let name = paymentArray[indexPath.row].title ?? ""
         cell.name.text = name
-        let shortName = paymentArray[indexPath.row].name
+        let shortName = paymentArray[indexPath.row].name ?? ""
         cell.shortName.text = shortName
         
         return cell
-    }}
+    }
+}
 
 extension PaymentView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

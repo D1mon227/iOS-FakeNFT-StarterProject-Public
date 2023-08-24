@@ -54,7 +54,7 @@ final class PaymentPresenter: PaymentPresenterProtocol {
         }
         UIBlockingProgressHUD.show()
         queue.async { [weak self] in
-            self?.model?.getCurrenciesFromAPI { currenciesResult in
+            self?.model?.getCurrenciesFromAPI { [weak self] currenciesResult in
                 guard let self = self else {
                     return
                 }
@@ -66,7 +66,16 @@ final class PaymentPresenter: PaymentPresenterProtocol {
                     }
                     
                     let selectedPayment = currencies[selectedPaymentIndex]
-                    self.model?.getPaymentResult(currencyID: selectedPayment.id) { [weak self] paymentResult in
+                    guard let paymentID = selectedPayment.id else {
+                        DispatchQueue.main.async {
+                            // Handle the case where paymentID is nil
+                            self.view?.showErrorFetchingCurrencies(message: "Payment ID is nil")
+                            UIBlockingProgressHUD.dismiss()
+                        }
+                        return
+                    }
+                    
+                    self.model?.getPaymentResult(currencyID: paymentID) { [weak self] paymentResult in
                         guard let self = self else {
                             return
                         }
