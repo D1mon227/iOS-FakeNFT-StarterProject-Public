@@ -1,0 +1,79 @@
+//
+//  FavoritesNFTTableViewCell.swift
+//  FakeNFT
+//
+//  Created by Артем Крикуненко on 05.08.2023.
+//
+
+import UIKit
+
+final class FavoritesNFTTableViewCell: UITableViewCell {	
+	private let containerView: UIView = {
+		let view = UIView()
+		view.translatesAutoresizingMaskIntoConstraints = false
+		view.layer.masksToBounds = false
+		return view
+	}()
+	
+	private let disclosureIndicatorImageView: UIImageView = {
+		let imageView = UIImageView(image: UIImage(systemName: "chevron.right"))
+		imageView.translatesAutoresizingMaskIntoConstraints = false
+		imageView.tintColor = .blackDay
+		return imageView
+	}()
+	
+	private let countFavoritesNFTLabel: UILabel = {
+		let label = UILabel()
+		label.translatesAutoresizingMaskIntoConstraints = false
+		label.font = UIFont.bodyBold
+		return label
+	}()
+	
+	let titleFavoritesNFTLabel: UILabel = {
+		let label = UILabel()
+		label.translatesAutoresizingMaskIntoConstraints = false
+		label.font = UIFont.bodyBold
+		return label
+	}()
+	
+	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+		super.init(style: style, reuseIdentifier: reuseIdentifier)
+		configureView()
+	}
+	
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
+	func configure(with user: User) {
+		countFavoritesNFTLabel.text = "(\(user.nfts.count))"
+	}
+}
+
+private extension FavoritesNFTTableViewCell {
+	func configureView() {
+		self.backgroundColor = UIColor.backgroundDay
+		
+		contentView.addSubview(self.containerView)
+		containerView.addSubview(titleFavoritesNFTLabel)
+		containerView.addSubview(countFavoritesNFTLabel)
+		containerView.addSubview(disclosureIndicatorImageView)
+		
+		NSLayoutConstraint.activate([
+			containerView.topAnchor.constraint(equalTo: contentView.topAnchor),
+			containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+			containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+			containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+			containerView.heightAnchor.constraint(equalToConstant: 54),
+			
+			titleFavoritesNFTLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+			titleFavoritesNFTLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
+			
+			countFavoritesNFTLabel.leadingAnchor.constraint(equalTo: titleFavoritesNFTLabel.trailingAnchor, constant: 8),
+			countFavoritesNFTLabel.centerYAnchor.constraint(equalTo: titleFavoritesNFTLabel.centerYAnchor),
+			
+			disclosureIndicatorImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
+			disclosureIndicatorImageView.centerYAnchor.constraint(equalTo: titleFavoritesNFTLabel.centerYAnchor)
+		])
+	}
+}

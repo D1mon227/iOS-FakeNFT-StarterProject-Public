@@ -1,0 +1,99 @@
+//MARK: Auth
+"auth.entryTitle" = "כניסה";
+"auth.emailPlaceholder" = "דואר אלקטרוני";
+"auth.passwordPlaceholder" = "סיסמה";
+"auth.enterButton" = "התחבר";
+"auth.forgotPassword" = "שכחת סיסמה?";
+"auth.demo" = "דמו";
+"auth.registrationButton" = "הירשם";
+"auth.registrationTitle" = "רישום";
+"auth.usernameAlreadyExistsLabel" = "שם משתמש זה כבר קיים";
+"auth.invalidEmailLabel" = "האימייל אינו בפורמט הנכון";
+"auth.weakPasswordLabel" = "הסיסמה חלשה מדי";
+"auth.incorrectUsernameOrPasswordLabel" = "שם משתמש או סיסמה לא חוקיים שהוזנו";
+"auth.resetPasswordTitle" = "איפוס סיסמה";
+"auth.resetPasswordButton" = "איפוס סיסמא";
+"auth.instructionsForResetPassword" = "הוראות לשחזור סיסמה שנשלחו למייל שלך";
+
+"alert.title" = "משהו השתבש(";
+"alert.authMessage" = "נכשל בכניסה";
+"alert.failedLoadDataMessage" = "נכשל לטעון נתונים";
+"alert.traAgainMessage" = "נסה שוב מאוחר יותר";
+"alert.okButton" = "בסדר";
+"alert.tryAgainButton" = "נסה שוב";
+"alert.cancelButton" = "ביטול";
+
+//MARK: Onboarding
+"onboarding.firstTitle" = "לחקור";
+"onboarding.firstDescription" = "הצטרפו אלינו וגלו עולם חדש של מידע ייחודי לאספנים";
+"onboarding.secondTitle" = "לאסוף";
+"onboarding.secondDescription" = "לחדש את האוסף שלך עם תמונות בלעדיות שנוצרו על ידי הרשת העצבית!";
+"onboarding.thirdTitle" = "להתחרות";
+"onboarding.thirdDescription" = "ראה את הנתונים הסטטיסטיים של אחרים ולהראות לכולם שיש לך את האוסף היקר ביותר";
+"onboarding.letsStartButton" = "מה יש בפנים?";
+
+//MARK: TabBar
+"tabBar.profile" = "פרופיל";
+"tabBar.catalog" = "קטלוג";
+"tabBar.cart" = "עגלה";
+"tabBar.statistics" = "סטטיסטיקה";
+
+//MARK: Profile
+"profile.myNFT" = "שלי";
+"profile.nftFavorites" = "מועדפים";
+"profile.aboutDeveloper" = "על היזם";
+"profile.name" = "שם";
+"profile.changePhoto" = "שינוי תמונה";
+"profile.uploadPhoto" = "העלה תמונה";
+"profile.description" = "תיאור";
+"profile.website" = "אתר אינטרנט";
+"profile.byAuthor" = "מ";
+"profile.price" = "מחיר";
+"profile.noNFT" = "אין לך עדיין לא";
+"profile.noFavoritesNFT" = "אין לך עדיין מועדפים";
+"profile.enterName" = "הזן שם";
+"profile.enterDescription" = "הזן תיאור";
+"profile.enterWebsite" = "הזן אתר אינטרנט";
+
+//MARK: Sort
+"sort.sort" = "מיון";
+"sort.byName" = "לפי שם";
+"sort.byNFTQuantity" = "לפי כמות";
+"sort.byPrice" = "לפי מחיר";
+"sort.byRating" = "לפי דירוג";
+"sort.byTitle" = "לפי כותרת";
+"sort.close" = "סגור";
+
+//MARK: Catalog
+"catalog.author" = "מחבר אוסף";
+
+//MARK: Cart
+"cart.price" = "מחיר";
+"cart.delete" = "מחק";
+"cart.goBack" = "חזור";
+"cart.deleteQuestion" = "האם אתה בטוח שברצונך למחוק אובייקט מהעגלה?";
+"cart.checkout" = "לקופה";
+"cart.pay" = "לשלם";
+"cart.paymentMethod" = "בחר שיטת תשלום";
+"cart.terms" = "על ידי ביצוע ההזמנה, אתה מסכים לתנאי";
+"cart.conditions" = "הסכם המשתמש";
+"cart.backToCatalog" = "חזרה לקטלוג";
+"cart.tryAgain" = "נסה שוב";
+"cart.emptyCart" = "העגלה ריקה";
+"cart.successfulPayment" = "הצלחה! התשלום הוא המשיך, מזל טוב!";
+"cart.failedPayment" = "אופס! משהו השתבש:(\nנסה שוב!";
+
+//MARK: Statistics
+"statistics.nftCollection" = "אוסף מידע";
+"statistics.userWebsite" = "עבור אל אתר האינטרנט של המשתמש";
+
+//MARK: NetworkErrorView
+"network.noInternet" = "אין חיבור לאינטרנט";
+"network.error" = "אופס! משהו השתבש. אנא נסה שוב מאוחר יותר";
+"network.button" = "נסה שוב";
+
+//MARK: NFTCard
+"nftcard.addToCart" = "הוסף לסל";
+"nftcard.deleteFromCart" = "מחק מהעגלה";
+"nftcard.price" = "מחיר";
+"nftcard.sellerWebsite" = "עבור אל אתר האינטרנט של המוכר";
