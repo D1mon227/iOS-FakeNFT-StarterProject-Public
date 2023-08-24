@@ -1,8 +1,11 @@
 # ТЗ мобильного приложения FakeNFT
 
 # Ссылки
-[Запись экрана статистики](https://disk.yandex.ru/i/WOrrAC8eDQkXnA)
+[Запись экрана профиля](https://disk.yandex.ru/i/xEJycBPGZy1qVw)
+[Запись экрана каталога](https://disk.yandex.ru/i/Gh__ZdmBLr5vKQ)
 [Запись экрана корзины](https://disk.yandex.ru/i/EsElrflBJZ3XTg)
+[Запись экрана статистики](https://disk.yandex.ru/i/WOrrAC8eDQkXnA)
+
 
 [Дизайн Figma](https://www.figma.com/file/k1LcgXHGTHIeiCv4XuPbND/FakeNFT-(YP)?node-id=96-5542&t=YdNbOI8EcqdYmDeg-0)
 
