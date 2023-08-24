@@ -12,7 +12,7 @@ final class CatalogPresenter {
     
     private let nftCatalogService: NftCatalogServiceProtocol
     private var viewModels: [CatalogTableViewCellViewModel] = []
-    private var responses: [NftCollectionResponse] = []
+    private var responses: [NFTCollection] = []
     
     let connectionAvailableKey = NetworkReachabilityManager.shared.connectionAvailableKey
     
@@ -121,7 +121,7 @@ private extension CatalogPresenter {
         UserDefaults.standard.set(sortingType.rawValue, forKey: KeyDefaults.sortingTypeCatalog)
     }
     
-    func didGetNftItems(nftItems: [NftCollectionResponse]) {
+    func didGetNftItems(nftItems: [NFTCollection]) {
         viewModels = nftItems.map { CatalogTableViewCellViewModel(nftResponse: $0) }
         
         if let sortingTypeString = UserDefaults.standard.string(forKey: KeyDefaults.sortingTypeCatalog),

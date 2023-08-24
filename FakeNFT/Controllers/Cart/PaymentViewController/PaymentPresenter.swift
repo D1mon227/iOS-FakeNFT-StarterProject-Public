@@ -11,6 +11,7 @@ import UIKit
 protocol PaymentPresenterProtocol {
     func fetchCurrencies()
     func performPayment(selectedPaymentIndex: Int)
+    func getWebView() -> WebViewController?
 }
 
 protocol PaymentViewNavigationDelegate: AnyObject {
@@ -20,6 +21,7 @@ protocol PaymentViewNavigationDelegate: AnyObject {
 final class PaymentPresenter: PaymentPresenterProtocol {
     private weak var view: PaymentViewProtocol?
     private let model: PaymentModelProtocol?
+    private let analyticsService = AnalyticsService.shared
     
     init(view: PaymentViewProtocol, model: PaymentModelProtocol) {
         self.view = view
@@ -106,6 +108,17 @@ final class PaymentPresenter: PaymentPresenterProtocol {
                 }
             }
         }
+    }
+    
+    func getWebView() -> WebViewController? {
+        analyticsService.report(event: .click, screen: .paymentMethodVC, item: .userAgreement)
+        guard let url = URL(string: "https://yandex.ru/legal/practicum_termsofuse/") else { return nil }
+        
+        let webViewPresenter = WebViewPresenter(urlRequest: URLRequest(url: url))
+        let webViewController = WebViewController(presenter: webViewPresenter)
+        webViewPresenter.view = webViewController
+        
+        return webViewController
     }
 }
 

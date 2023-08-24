@@ -7,13 +7,13 @@ extension NftCatalogService {
 }
 
 protocol NftCatalogServiceProtocol {
-    func getNftItems(completion: @escaping (Result<[NftCollectionResponse], Error>) -> Void)
+    func getNftItems(completion: @escaping (Result<[NFTCollection], Error>) -> Void)
 }
 
 final class NftCatalogService: NftCatalogServiceProtocol {
     private let urlSession = URLSession.shared
     
-    func getNftItems(completion: @escaping (Result<[NftCollectionResponse], Error>) -> Void) {
+    func getNftItems(completion: @escaping (Result<[NFTCollection], Error>) -> Void) {
         assert(Thread.isMainThread)
         
         let session = urlSession
@@ -21,7 +21,7 @@ final class NftCatalogService: NftCatalogServiceProtocol {
         
         do {
             let request = try makeRequest(for: modelRequest)
-            session.objectTask(for: request) { (result: Result<[NftCollectionResponse], Error>) in
+            session.objectTask(for: request) { (result: Result<[NFTCollection], Error>) in
                 DispatchQueue.main.async {
                     
                     switch result {

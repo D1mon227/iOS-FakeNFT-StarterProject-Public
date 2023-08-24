@@ -15,69 +15,69 @@ extension ProfileServiceCatalog {
 
 protocol ProfileServiceProtoco {
     func getProfile(id: String,
-                    completion: @escaping (Result<ProfileDecodable, Error>) -> Void)
-    func putProfile(user: ProfileDecodable,
-                    completion: @escaping (Result<ProfileDecodable, Error>) -> Void)
+                    completion: @escaping (Result<Profile, Error>) -> Void)
+    func putProfile(user: Profile,
+                    completion: @escaping (Result<Profile, Error>) -> Void)
 }
 
-final class ProfileServiceCatalog: ProfileServiceProtoco {
+final class ProfileServiceCatalog {
     private let urlSession = URLSession.shared
     
-    func getProfile(id: String,
-                    completion: @escaping (Result<ProfileDecodable, Error>) -> Void) {
-        assert(Thread.isMainThread)
-
-        let modelRequest = ProfileRequestCatalog.getProfileById(id: id)
-        
-        do {
-            let request = try makeRequest(for: modelRequest)
-            urlSession.objectTask(for: request) { (result: Result<ProfileDecodable, Error>) in
-                
-                DispatchQueue.main.async {
-                    
-                    switch result {
-                    case .success(let user):
-                        completion(.success(user))
-                    case .failure(let error):
-                        completion(.failure(error))
-                    }
-                }
-            }.resume()
-        } catch {
-            print("Failed")
-        }
-
-    }
+//    func getProfile(id: String,
+//                    completion: @escaping (Result<Profile, Error>) -> Void) {
+//        assert(Thread.isMainThread)
+//
+//        let modelRequest = ProfileRequestCatalog.getProfileById(id: id)
+//
+//        do {
+//            let request = try makeRequest(for: modelRequest)
+//            urlSession.objectTask(for: request) { (result: Result<Profile, Error>) in
+//
+//                DispatchQueue.main.async {
+//
+//                    switch result {
+//                    case .success(let user):
+//                        completion(.success(user))
+//                    case .failure(let error):
+//                        completion(.failure(error))
+//                    }
+//                }
+//            }.resume()
+//        } catch {
+//            print("Failed")
+//        }
+//
+//    }
     
-    func putProfile(user: ProfileDecodable,
-                    completion: @escaping (Result<ProfileDecodable, Error>) -> Void) {
-        assert(Thread.isMainThread)
-        
-        let modelRequest = ProfileRequestCatalog.putProfile(user: user)
-
-        do {
-            let model = ProfileEncodable(likes: user.likes,
-                                      website: user.website.absoluteString,
-                                      name: user.name,
-                                      description: user.description)
-            let request = try makeRequest(for: modelRequest, model: model)
-            
-            urlSession.objectTask(for: request) { (result: Result<ProfileDecodable, Error>) in
-                
-                DispatchQueue.main.async {
-                    
-                    switch result {
-                    case .success(let user):
-                        completion(.success(user))
-                    case .failure(let error):
-                        completion(.failure(error))
-                    }
-                }
-            }.resume()
-        } catch {
-            print("Failed")
-        }
-    }
+//    func putProfile(user: Profile,
+//                    completion: @escaping (Result<Profile, Error>) -> Void) {
+//        assert(Thread.isMainThread)
+//
+//        let modelRequest = ProfileRequestCatalog.putProfile(user: user)
+//
+//        do {
+//            let model = Profile(name: user.name,
+//                                description: user.description,
+//                                website: user.website,
+//                                likes: user.likes)
+//            let request = try makeRequest(for: modelRequest, model: model as! Encodable)
+//
+//            urlSession.objectTask(for: request) { (result: Result<Profile, Error>) in
+//
+//                DispatchQueue.main.async {
+//
+//                    switch result {
+//                    case .success(let user):
+//                        completion(.success(user))
+//                    case .failure(let error):
+//                        completion(.failure(error))
+//                    }
+//                }
+//            }.resume()
+//        } catch {
+//            print("Failed")
+//        }
+//    }
     
     private func makeRequest(for networkRequestModel: NetworkRequest,
                              model: Encodable? = nil) throws -> URLRequest {

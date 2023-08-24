@@ -74,25 +74,15 @@ extension PaymentViewController: PaymentViewDelegate {
     internal func payButtonTapped(selectedIndex: Int) {
         analyticsService.report(event: .click, screen: .paymentMethodVC, item: .pay)
         if selectedIndex != -1 {
-            let selectedPayment = paymentArray[selectedIndex - 1]
             presenter?.performPayment(selectedPaymentIndex: selectedIndex - 1)
         }
     }
     
     
-    internal func labelTapped() -> WebViewController? {
+    func labelTapped() {
         analyticsService.report(event: .click, screen: .paymentMethodVC, item: .userAgreement)
-        guard let url = URL(string: "https://yandex.ru/legal/practicum_termsofuse/") else {
-            print("Invalid URL")
-            return nil
-        }
-        
-        let webViewPresenter = WebViewPresenter(urlRequest: URLRequest(url: url))
-        let webViewController = WebViewController(presenter: webViewPresenter)
-        webViewPresenter.view = webViewController
-        
-        present(webViewController, animated: true, completion: nil)
-        return webViewController
+        guard let webView = presenter?.getWebView() else { return }
+        present(webView, animated: true)
     }
     
 }

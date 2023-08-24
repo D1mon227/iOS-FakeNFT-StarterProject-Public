@@ -5,16 +5,16 @@ struct NFTCollectionViewCellViewModel {
     let nftIcon: URL?
     let nftStarsCount: Int
     let nftName: String
-    let nftPrice: String
+    let nftPrice: Double
     let favoriteButtonImageName: ImageModel?
     let cartButtonImageName: ImageModel?
     
-    init(nftResponse: NftResponse) {
-        self.nftId = nftResponse.id
-        self.nftIcon = nftResponse.images.first?.makeUrl()
-        self.nftStarsCount = nftResponse.rating
-        self.nftName = nftResponse.name
-        self.nftPrice = String(nftResponse.formattedPrice)
+    init(nftResponse: NFT) {
+        self.nftId = nftResponse.id ?? ""
+        self.nftIcon = nftResponse.images?.first
+        self.nftStarsCount = nftResponse.rating ?? 0
+        self.nftName = nftResponse.name ?? ""
+        self.nftPrice = nftResponse.price ?? 0.0
         self.cartButtonImageName = nil
         self.favoriteButtonImageName = nil
     }
@@ -23,7 +23,7 @@ struct NFTCollectionViewCellViewModel {
          nftIcon: URL?,
          nftStarsCount: Int,
          nftName: String,
-         nftPrice: String,
+         nftPrice: Double,
          favoriteButtonImageName: ImageModel?,
          cartButtonImageName: ImageModel?) {
         self.nftId = nftId

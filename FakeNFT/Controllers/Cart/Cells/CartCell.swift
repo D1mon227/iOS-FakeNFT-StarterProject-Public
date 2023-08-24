@@ -1,23 +1,9 @@
-//
-//  CartCell.swift
-//  FakeNFT
-//
-//  Created by Денис on 04.08.2023.
-//
-
-
 import UIKit
 
-protocol CartCellDelegate: AnyObject {
-    func showDeleteView(index: Int)
-}
-
-final class CartCell: UITableViewCell {
+final class CartCell: UITableViewCell, PriceConvertable {
     
     // MARK: - Properties & Init
     weak var delegate: CartCellDelegate?
-    
-    var indexCell: Int?
     
     lazy var nftImage: UIImageView = {
         let image = UIImageView()
@@ -75,6 +61,13 @@ final class CartCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure(nftModel: NFT) {
+        nftName.text = nftModel.name
+        setupRating(rating: nftModel.rating ?? 0)
+        nftPrice.text = "\(convert(price: nftModel.price ?? 0.0)) ETH"
+        nftImage.setImage(with: nftModel.images?[0])
     }
     
     // MARK: - Functions & Methods
@@ -154,7 +147,7 @@ final class CartCell: UITableViewCell {
     
     @objc
     private func deleteButtonTapped() {
-        delegate?.showDeleteView(index: indexCell ?? 0)
+        delegate?.showDeleteView(cell: self)
     }
     
 }

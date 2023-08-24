@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+#warning("модель NFT")
 struct Cart: Codable {
     var nftImages: [String]
     var nftName: String

@@ -11,10 +11,10 @@ struct CatalogTableViewCellViewModel {
         nftName + " (\(nftCount))"
     }
     
-    init(nftResponse: NftCollectionResponse) {
-        self.id = nftResponse.id
-        self.imageStringUrl = nftResponse.cover.makeUrl()
-        self.nftName = nftResponse.name
-        self.nftCount = nftResponse.nfts.count
+    init(nftResponse: NFTCollection) {
+        self.id = nftResponse.id ?? ""
+        self.imageStringUrl = nftResponse.cover?.makeUrl()
+        self.nftName = nftResponse.name ?? ""
+        self.nftCount = nftResponse.nfts?.count ?? 0
     }
 }
