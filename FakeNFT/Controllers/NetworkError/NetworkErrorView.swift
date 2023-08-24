@@ -24,14 +24,14 @@ final class NetworkErrorView: UIView {
     
     // MARK: - Properties
     
-    private var networkErrorImage: UIImageView = {
+    private lazy var networkErrorImage: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         
         return image
     }()
     
-    private var notificationNetworkLabel: UILabel = {
+    private lazy var notificationNetworkLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
@@ -41,7 +41,7 @@ final class NetworkErrorView: UIView {
         return label
     }()
     
-    private let reloadNetworkButton: UIButton = {
+    private lazy var reloadNetworkButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(LocalizableConstants.NetworkErrorView.button, for: .normal)

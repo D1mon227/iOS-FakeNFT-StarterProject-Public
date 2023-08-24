@@ -44,7 +44,7 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
     
     func fetchNFTs() {
         UIBlockingProgressHUD.show()
-        let request = NFTsRequest(httpMethod: .get, dto: nil)
+        let request = NFTsGetRequest()
         networkManager.send(request: request, type: [NFT].self) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -61,7 +61,7 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
     
     func fetchUsers() {
         UIBlockingProgressHUD.show()
-        let request = UsersRequest(httpMethod: .get, dto: nil)
+        let request = UsersGetRequest()
         networkManager.send(request: request, type: [User].self) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
@@ -78,7 +78,7 @@ final class MyNFTViewPresenter: MyNFTViewPresenterProtocol {
         updateLikes(id)
         
         UIBlockingProgressHUD.show()
-        let request = ProfileRequest(httpMethod: .put, dto: Likes(likes: self.likes ?? []))
+        let request = ProfilePutRequest(dto: Likes(likes: self.likes ?? []))
         networkManager.send(request: request) { [weak self] result in
             guard let self = self else { return }
             switch result {

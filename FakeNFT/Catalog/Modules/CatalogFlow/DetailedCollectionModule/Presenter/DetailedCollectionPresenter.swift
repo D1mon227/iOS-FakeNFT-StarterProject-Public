@@ -3,8 +3,8 @@ import Foundation
 
 extension DetailedCollectionPresenter {
     struct Services {
-        let profileService: ProfileServiceProtoco
-        let nftService: NftServiceProtocol
+        let networkManager: NetworkManager
+//        let nftService: NftServiceProtocol
         let cartService: CartServiceProtocol
     }
 }
@@ -13,19 +13,20 @@ final class DetailedCollectionPresenter {
     
     weak var view: DetailedCollectionViewProtocol?
     
-    private let response: NftCollectionResponse
+    private let response: NFTCollection
     private let services: Services
     private var nftsModels = [NFTCollectionViewCellViewModel]()
-    private var nftsResponses = [NftResponse]()
+    private var nftsResponses = [NFT]()
     private var detailsCollectionModel: CollectionDetailsCollectionViewCellModel?
     private var nftsInCart: Set<String> = []
-    private var userLikes: Set<String> = []
-    private var user: ProfileDecodable?
+    private var userLikes: [String]?
+    private var user: Profile?
     private let group = DispatchGroup()
+    private let networkManager = NetworkManager()
     
     let connectionAvailableKey = NetworkReachabilityManager.shared.connectionAvailableKey
     
-    init(response: NftCollectionResponse,
+    init(response: NFTCollection,
          services: Services) {
         self.response = response
         self.services = services
@@ -38,7 +39,7 @@ extension DetailedCollectionPresenter: DetailedCollectionPresenterProtocol {
         subscribe()
         view?.showLoadingIndicator()
         getNftAuthor()
-        getNft(by: response.nfts)
+        getNft(by: response.nfts ?? [])
     }
     
     func viewDidAppear() {
@@ -49,8 +50,8 @@ extension DetailedCollectionPresenter: DetailedCollectionPresenterProtocol {
         sendAnalytics(event: .close)
     }
     
-    func didTapOnLink(url: URL?) {
-        guard let url else { return }
+    func didTapOnLink(url: String?) {
+        guard let url = URL(string: url ?? "") else { return }
         let urlRequest = URLRequest(url: url)
         let presenter = WebViewPresenter(urlRequest: urlRequest)
         let vc = WebViewController(presenter: presenter)
@@ -85,15 +86,10 @@ extension DetailedCollectionPresenter: DetailedCollectionPresenterProtocol {
     }
     
     func didTapLikeButton(id: String) {
-        if userLikes.contains(id) {
-            userLikes.remove(id)
-        } else {
-            userLikes.insert(id)
-        }
-        
+        updateLikes(id)
         self.nftsModels = self.nftsModels.compactMap { model in
-            let isFavorite = userLikes.contains(model.nftId)
-            guard let imageModel = makeLikeImageModel(isFavorite: isFavorite) else {
+            let isFavorite = userLikes?.contains(model.nftId)
+            guard let imageModel = makeLikeImageModel(isFavorite: isFavorite ?? false) else {
                 return nil
             }
             let newModel = model.makeNewModel(favoriteButtonImageName: imageModel)
@@ -111,20 +107,20 @@ extension DetailedCollectionPresenter: DetailedCollectionPresenterProtocol {
             return
         }
         
-        let formattedPrice = Double(String(format: "%.2f", response.price))
+        let formattedPrice = response.price
         
         let nft = NFT(createdAt: response.createdAt,
                       name: response.name,
-                      images: response.images.compactMap { $0.makeUrl() },
+                      images: response.images,
                       rating: response.rating,
                       description: response.description,
                       price: formattedPrice,
                       author: response.author,
                       id: response.id)
         
-        let isLiked = userLikes.contains(id)
+        let isLiked = userLikes?.contains(id)
         
-        let viewController = NFTCardViewController(nftModel: nft, isLiked: isLiked)
+        let viewController = NFTCardViewController(nftModel: nft, isLiked: isLiked ?? false)
         view?.present(viewController)
         
         sendAnalytics(event: .click, item: .nftInfo)
@@ -167,18 +163,18 @@ private extension DetailedCollectionPresenter {
     }
     
     func getNftAuthor() {
-        services.profileService.getProfile(id: "1") { [weak self] result in
+        let request = ProfileGetRequest()
+        networkManager.send(request: request, type: Profile.self) { [weak self] result in
             guard let self else { return }
-            
             switch result {
             case .success(let user):
                 self.user = user
-                detailsCollectionModel = makeViewModel(user: user)
+                self.detailsCollectionModel = makeViewModel(user: user)
                 guard let detailsCollectionModel else { return }
-                view?.updateDetailsCollectionModel(with: detailsCollectionModel)
+                self.view?.updateDetailsCollectionModel(with: detailsCollectionModel)
                 self.view?.hideNetworkError()
             case .failure:
-                showRequestError()
+                self.showRequestError()
             }
         }
     }
@@ -186,9 +182,8 @@ private extension DetailedCollectionPresenter {
     func getNft(by ids: [String]) {
         ids.forEach { id in
             group.enter()
-            
-            services.nftService.getNft(by: id) { [weak self] result in
-                
+            let request = NFTsGetRequestByID(nftId: id)
+            networkManager.send(request: request, type: NFT.self) { [weak self] result in
                 guard let self else { return }
                 switch result {
                 case .success(let response):
@@ -205,7 +200,7 @@ private extension DetailedCollectionPresenter {
         
         group.notify(queue: DispatchQueue.main) { [weak self] in
             guard let self else { return }
-            self.getProfile(by: "1")
+            self.getProfile()
             self.getCartOrders()
             self.view?.hideLoadingIndicator()
         }
@@ -248,52 +243,45 @@ private extension DetailedCollectionPresenter {
     }
     
     func putFavorites() {
-        guard let user else { return }
-        let profile = ProfileDecodable(name: user.name,
-                                   avatar: user.avatar,
-                                   description: user.description,
-                                   website: user.website,
-                                   nfts: user.nfts,
-                                   likes: Array(userLikes),
-                                   id: user.id)
-        services.profileService.putProfile(user: profile) { [weak self] result in
+        let request = ProfilePutRequest(dto: Likes(likes: self.userLikes ?? []))
+        networkManager.send(request: request) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success:
-                self?.view?.hideNetworkError()
+                self.view?.hideNetworkError()
             case .failure:
-                self?.showRequestError()
+                self.showRequestError()
             }
         }
     }
     
-    func getProfile(by id: String) {
-        services.profileService.getProfile(id: id) { [weak self] result in
+    func getProfile() {
+        let request = ProfileGetRequest()
+        networkManager.send(request: request, type: Profile.self) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let user):
-                self.userLikes = Set(user.likes)
-                
+                self.userLikes = user.likes
                 self.nftsModels = self.nftsModels.compactMap { model in
-                    let isFavorite = self.userLikes.contains(model.nftId)
-                    guard let imageModel = self.makeLikeImageModel(isFavorite: isFavorite) else {
+                    let isFavorite = self.userLikes?.contains(model.nftId)
+                    guard let imageModel = self.makeLikeImageModel(isFavorite: isFavorite ?? false) else {
                         return nil
                     }
                     let newModel = model.makeNewModel(favoriteButtonImageName: imageModel)
                     return newModel
                 }
                 self.view?.updateNftsModel(with: nftsModels)
-                self.view?.hideNetworkError()
             case .failure:
                 showRequestError()
             }
         }
     }
     
-    func makeViewModel(user: ProfileDecodable) -> CollectionDetailsCollectionViewCellModel {
-        return CollectionDetailsCollectionViewCellModel(collectionId: response.id,
-                                                        collectionDescription: response.description,
-                                                        collectionName: response.name,
-                                                        imageStringUrl: response.cover.makeUrl(),
+    func makeViewModel(user: Profile) -> CollectionDetailsCollectionViewCellModel {
+        return CollectionDetailsCollectionViewCellModel(collectionId: response.id ?? "",
+                                                        collectionDescription: response.description ?? "",
+                                                        collectionName: response.name ?? "",
+                                                        imageStringUrl: response.cover?.makeUrl(),
                                                         user: user)
         
     }
@@ -345,10 +333,18 @@ private extension DetailedCollectionPresenter {
         self.cleanData()
         self.view?.showLoadingIndicator()
         self.getNftAuthor()
-        self.getNft(by: response.nfts)
+        self.getNft(by: response.nfts ?? [])
         self.view?.hideNetworkError()
     }
     
+    private func updateLikes(_ id: String) {
+        guard var userLikes = userLikes else { return }
+        if userLikes.contains(id) {
+            userLikes.removeAll { $0 == id }
+            self.userLikes = userLikes
+        } else {
+            userLikes.append(id)
+            self.userLikes = userLikes
+        }
+    }
 }
-
-

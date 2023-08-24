@@ -9,9 +9,11 @@ import UIKit
 
 extension UIViewController: PriceConvertable {
     func addNetworkErrorView(model: NetworkErrorViewModel) {
-        view.subviews.forEach { view in
-            if view is NetworkErrorView {
-                return
+        DispatchQueue.main.async {
+            self.view.subviews.forEach { view in
+                if view is NetworkErrorView {
+                    return
+                }
             }
         }
         let networkErrorView = NetworkErrorView(model: model)
@@ -27,9 +29,11 @@ extension UIViewController: PriceConvertable {
     }
     
     func removeNetworkErrorView() {
-        view.subviews.forEach { view in
-            if view is NetworkErrorView {
-                view.removeFromSuperview()
+        DispatchQueue.main.async {
+            self.view.subviews.forEach { view in
+                if view is NetworkErrorView {
+                    view.removeFromSuperview()
+                }
             }
         }
     }

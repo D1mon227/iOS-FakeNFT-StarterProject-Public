@@ -14,7 +14,7 @@ final class ProfileViewPresenter: ProfileViewPresenterProtocol {
     
     func fetchProfile() {
         UIBlockingProgressHUD.show()
-        let request = ProfileRequest(httpMethod: .get, dto: nil)
+        let request = ProfileGetRequest()
         networkManager.send(request: request, type: Profile.self) { [weak self] result in
             guard let self = self else { return }
             switch result {

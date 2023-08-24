@@ -32,7 +32,7 @@ final class EditingProfileViewPresenter: EditingProfileViewPresenterProtocol {
             return
         } else {
             UIBlockingProgressHUD.show()
-            let request = ProfileRequest(httpMethod: .put, dto: newProfile)
+            let request = ProfilePutRequest(dto: newProfile)
             networkManager.send(request: request, type: Profile.self) { [weak self] result in
                 guard let self = self else { return }
                 switch result {

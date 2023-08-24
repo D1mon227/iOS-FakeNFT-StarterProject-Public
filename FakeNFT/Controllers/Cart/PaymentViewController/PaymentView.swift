@@ -67,11 +67,11 @@ final class PaymentView: UIView {
         return label
     }()
     
-    private lazy var userAgreementLink: UILabel = {
+    private lazy var userAgreementLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        label.font = .caption2
         label.numberOfLines = 0
-        label.textColor = .link
+        label.textColor = .blueUniversal
         label.textAlignment = Locale.current.languageCode == "he" ? .right : .left
         label.text = LocalizableConstants.Cart.conditions
         label.isUserInteractionEnabled = true
@@ -93,7 +93,6 @@ final class PaymentView: UIView {
     func updateCurrencies(_ currencies: [Currency]) {
         // Update your collection view data
         paymentCollection.reloadData()
-        
     }
     
     private func commonInit() {
@@ -110,7 +109,7 @@ final class PaymentView: UIView {
         
         addSubview(paymentButton) // Add paymentButton directly to PaymentView
         addSubview(userAgreementText) // Add userAgreementText directly to PaymentView
-        addSubview(userAgreementLink) // Add userAgreementLink directly to PaymentView
+        addSubview(userAgreementLabel) // Add userAgreementLink directly to PaymentView
         
         paymentCollection.register(PaymentCell.self, forCellWithReuseIdentifier: "paymentCell")
         paymentCollection.dataSource = self
@@ -118,17 +117,14 @@ final class PaymentView: UIView {
         paymentCollection.backgroundColor = .clear
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(labelTapped))
-        userAgreementLink.addGestureRecognizer(tapGesture)
+        userAgreementLabel.addGestureRecognizer(tapGesture)
     }
-    
     
     @objc private func didTapPaymentButton() {
         delegate?.payButtonTapped(selectedIndex: isCellSelected) // Pass the selected index
         paymentButton.isEnabled = false
     }
-    
-    
-    
+
     @objc private func labelTapped() {
         delegate?.labelTapped()
     }
@@ -161,10 +157,10 @@ final class PaymentView: UIView {
             userAgreementText.topAnchor.constraint(equalTo: cartInfo.topAnchor, constant: 16),
             userAgreementText.heightAnchor.constraint(equalToConstant: 18),
             
-            userAgreementLink.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            userAgreementLink.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            userAgreementLink.topAnchor.constraint(equalTo: userAgreementText.bottomAnchor, constant: 5),
-            userAgreementLink.heightAnchor.constraint(equalToConstant: 18),
+            userAgreementLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            userAgreementLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            userAgreementLabel.topAnchor.constraint(equalTo: userAgreementText.bottomAnchor, constant: 5),
+            userAgreementLabel.heightAnchor.constraint(equalToConstant: 18),
         ])
     }
     
@@ -203,7 +199,7 @@ extension PaymentView: UICollectionViewDelegate {
 
 protocol PaymentViewDelegate: AnyObject {
     func payButtonTapped(selectedIndex: Int) // Add this method
-    func labelTapped() -> WebViewController?
+    func labelTapped()
 }
 
 extension PaymentView: UICollectionViewDelegateFlowLayout {

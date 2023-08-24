@@ -70,12 +70,16 @@ extension DetailedCollectionViewController: DetailedCollectionViewProtocol {
     
     func updateDetailsCollectionModel(with viewModel: CollectionDetailsCollectionViewCellModel) {
         self.detailsCollectionModel = viewModel
-        collectionView.reloadData()
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
     }
     
     func updateNftsModel(with viewModels: [NFTCollectionViewCellViewModel]) {
         self.nftModels = viewModels
-        collectionView.reloadData()
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
     }
     
     func present(_ vc: UIViewController) {
@@ -187,7 +191,7 @@ extension DetailedCollectionViewController: UICollectionViewDataSource, UICollec
 }
 
 extension DetailedCollectionViewController: CollectionDetailsCellProtocol {
-    func didTapOnLink(url: URL?) {
+    func didTapOnLink(url: String?) {
         presenter.didTapOnLink(url: url)
     }
 }

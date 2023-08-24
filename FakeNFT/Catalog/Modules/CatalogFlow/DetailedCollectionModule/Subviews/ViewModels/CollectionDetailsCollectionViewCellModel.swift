@@ -5,7 +5,7 @@ protocol DetailedCollectionTableViewCellProtocol {}
 
 struct CollectionDetailsCollectionViewCellModel: DetailedCollectionTableViewCellProtocol {
     let collectionId: String
-    let website: URL?
+    let website: String?
     let authorName: String
     let collectionName: String
     let collectionDescription: String
@@ -15,11 +15,11 @@ struct CollectionDetailsCollectionViewCellModel: DetailedCollectionTableViewCell
          collectionDescription: String,
          collectionName: String,
          imageStringUrl: URL?,
-         user: ProfileDecodable
+         user: Profile
     ) {
         self.collectionId = collectionId
         self.website = user.website
-        self.authorName = user.name
+        self.authorName = user.name ?? ""
         self.collectionDescription = collectionDescription
         self.collectionName = collectionName
         self.imageStringUrl = imageStringUrl

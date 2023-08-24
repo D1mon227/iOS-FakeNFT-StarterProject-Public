@@ -2,7 +2,7 @@ import UIKit
 import Kingfisher
 
 protocol CollectionDetailsCellProtocol {
-    func didTapOnLink(url: URL?)
+    func didTapOnLink(url: String?)
 }
 
 extension CollectionDetailsCell {

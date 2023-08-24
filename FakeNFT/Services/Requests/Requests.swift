@@ -1,64 +1,89 @@
 import Foundation
 
 //MARK: Profile
-struct ProfileRequest: NetworkRequest {
+struct ProfileGetRequest: NetworkRequest {
     var endpoint: URL? {
         URL(string: Resourses.Network.baseURL + Resourses.Network.Paths.profile)
     }
-    let httpMethod: HttpMethod
+    var httpMethod: HttpMethod { .get }
+    var dto: Encodable? { nil }
+}
+
+struct ProfilePutRequest: NetworkRequest {
+    var endpoint: URL? {
+        URL(string: Resourses.Network.baseURL + Resourses.Network.Paths.profile)
+    }
+    var httpMethod: HttpMethod { .put }
     let dto: Encodable?
 }
 
 //MARK: NFTs
-struct NFTsRequest: NetworkRequest {
+struct NFTsGetRequest: NetworkRequest {
     var endpoint: URL? {
         URL(string: Resourses.Network.baseURL + Resourses.Network.Paths.nft)
     }
-    let httpMethod: HttpMethod
-    let dto: Encodable?
+    var httpMethod: HttpMethod { .get }
+    var dto: Encodable? { nil }
 }
 
-struct NFTsRequestByID: NetworkRequest {
+struct NFTsGetRequestByID: NetworkRequest {
     let nftId: String
     var endpoint: URL? {
         URL(string: Resourses.Network.baseURL + Resourses.Network.Paths.nft + "/\(nftId)")
     }
-    let httpMethod: HttpMethod
-    let dto: Encodable?
+    var httpMethod: HttpMethod { .get }
+    var dto: Encodable? { nil }
 }
 
 //MARK: Users
-struct UsersRequest: NetworkRequest {
+struct UsersGetRequest: NetworkRequest {
     var endpoint: URL? {
         URL(string: Resourses.Network.baseURL + Resourses.Network.Paths.users)
     }
-    let httpMethod: HttpMethod
-    let dto: Encodable?
+    var httpMethod: HttpMethod { .get }
+    var dto: Encodable? { nil }
 }
 
 //MARK: Currency
-struct CurrencyRequest: NetworkRequest {
+struct CurrencyGetRequest: NetworkRequest {
     var endpoint: URL? {
         URL(string: Resourses.Network.baseURL + Resourses.Network.Paths.currencies)
     }
-    let httpMethod: HttpMethod
-    let dto: Encodable?
+    var httpMethod: HttpMethod { .get }
+    var dto: Encodable? { nil }
 }
 
 //MARK: NFTCollections
-struct NFTCollectionRequest: NetworkRequest {
+struct NFTCollectionGetRequest: NetworkRequest {
     var endpoint: URL? {
         URL(string: Resourses.Network.baseURL + Resourses.Network.Paths.nftCollection)
     }
-    let httpMethod: HttpMethod
-    let dto: Encodable?
+    var httpMethod: HttpMethod { .get }
+    var dto: Encodable? { nil }
 }
 
 //MARK: Cart
-struct CartRequest: NetworkRequest {
+struct CartGetRequest: NetworkRequest {
     var endpoint: URL? {
         URL(string: Resourses.Network.baseURL + Resourses.Network.Paths.orders)
     }
-    let httpMethod: HttpMethod
-    let dto: Encodable?
+    var httpMethod: HttpMethod { .get }
+    var dto: Encodable? { nil }
 }
+
+struct CartPutRequest: NetworkRequest {
+    var endpoint: URL? {
+        URL(string: Resourses.Network.baseURL + Resourses.Network.Paths.orders)
+    }
+    var httpMethod: HttpMethod { .put }
+    var dto: Encodable?
+}
+
+//MARK: Payment
+//struct CartPutRequest: NetworkRequest {
+//    var endpoint: URL? {
+//        URL(string: Resourses.Network.baseURL + Resourses.Network.Paths.orders)
+//    }
+//    var httpMethod: HttpMethod { .put }
+//    var dto: Encodable?
+//}
