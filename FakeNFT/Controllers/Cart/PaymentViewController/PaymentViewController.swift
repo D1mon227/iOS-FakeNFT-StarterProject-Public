@@ -9,7 +9,7 @@ import UIKit
 import Kingfisher
 
 protocol PaymentViewProtocol: AnyObject {
-    func updateCurrencies(_ currencies: [PaymentStruct])
+    func updateCurrencies(_ currencies: [Currency])
     func showSuccessPayment()
     func showFailedPayment()
     func showErrorFetchingCurrencies(message: String)
@@ -32,7 +32,7 @@ final class PaymentViewController: UIViewController, PaymentViewNavigationDelega
     
     private var model: PaymentModel?
     
-    private var paymentArray: [PaymentStruct] = []
+    private var paymentArray: [Currency] = []
     
     private var isCellSelected: Int = -1
     
@@ -99,7 +99,7 @@ extension PaymentViewController: PaymentViewDelegate {
 
 extension PaymentViewController: PaymentViewProtocol {
     
-    func updateCurrencies(_ currencies: [PaymentStruct]) {
+    func updateCurrencies(_ currencies: [Currency]) {
         paymentArray = currencies
         paymentView.paymentArray = currencies
         paymentView.updateCurrencies(currencies)

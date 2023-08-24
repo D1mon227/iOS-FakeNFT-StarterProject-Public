@@ -7,11 +7,11 @@ final class CartViewController: UIViewController, UITableViewDataSource {
     
     private var containerView: UIView!
     
-    private var cartArray: [CartStruct] = []
+    private var cartArray: [Cart] = []
     
     private var presenter: CartPresenterProtocol?
     
-    private var myOrders = [String]()
+    private var myOrders: [Order] = []
     
     private let numberFormatter = NumberFormatter()
     
@@ -46,7 +46,7 @@ final class CartViewController: UIViewController, UITableViewDataSource {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         fetchDataFromAPI()
-    } 
+    }
     
     // MARK: - UI Setup
     
@@ -107,32 +107,19 @@ final class CartViewController: UIViewController, UITableViewDataSource {
         }
     }
     
-    private func formatPrice(_ price: Double) -> String {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        numberFormatter.minimumFractionDigits = 2
-        numberFormatter.maximumFractionDigits = 2
-        numberFormatter.locale = Locale.current // Use the current locale for proper formatting
-        
-        // Set the decimal separator to comma
-        numberFormatter.decimalSeparator = ","
-        
-        return numberFormatter.string(from: NSNumber(value: price)) ?? ""
-    }
-    
     private func fetchDataFromAPI() {
         UIBlockingProgressHUD.show()
-        myOrders = []
         cartArray = []
         
         presenter?.cartNFTs { [weak self] result in
             guard let self = self else { return }
             
             switch result {
-            case .success(let orders):
-                self.myOrders = orders.nfts
+            case .success(let cartModelDecodable):
+                // Assuming cartModelDecodable contains an array of nft IDs as strings
+                let nftIDs = cartModelDecodable.nfts
                 
-                if self.myOrders.isEmpty {
+                if nftIDs.isEmpty {
                     DispatchQueue.main.async {
                         UIBlockingProgressHUD.dismiss()
                         self.sortBy(selectedSortOption: self.selectedSortOption)
@@ -142,14 +129,14 @@ final class CartViewController: UIViewController, UITableViewDataSource {
                     return
                 }
                 
-                var fetchCount = self.myOrders.count
-                self.myOrders.forEach { nftID in
+                var fetchCount = nftIDs.count
+                nftIDs.forEach { nftID in
                     self.presenter?.getNFTsFromAPI(nftID: nftID) { [weak self] result in
                         guard let self = self else { return }
                         
                         switch result {
-                        case .success(let cart):
-                            self.cartArray.append(cart)
+                        case .success(let cartDetails):
+                            self.cartArray.append(cartDetails)
                         case .failure(let error):
                             print("Error fetching NFT details: \(error)")
                             self.showErrorAlertAndRetry(message: "Please check your internet connection and try again")
@@ -176,10 +163,12 @@ final class CartViewController: UIViewController, UITableViewDataSource {
                     
                     self.view?.isUserInteractionEnabled = true
                 }
-                print("Error fetching orders: \(error)")
+                print("Error fetching cart data: \(error)")
             }
         }
     }
+    
+    
     
     private lazy var blurView: UIVisualEffectView = {
         let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
@@ -345,12 +334,12 @@ final class CartViewController: UIViewController, UITableViewDataSource {
         let rating = cartArray[indexPath.row].nftRating
         let name = cartArray[indexPath.row].nftName
         let priceValue = cartArray[indexPath.row].nftPrice
-        let formattedPriceWithCurrency = formatPrice(priceValue) + " ETH"
         let imageURL = URL(string: cartArray[indexPath.row].nftImages.first ?? "")
+        let formattedPriceWithCurrency = convert(price: priceValue) + " ETH"
         
         cell.setupRating(rating: rating)
         cell.nftName.text = name
-        cell.nftPrice.text = String(formattedPriceWithCurrency)
+        cell.nftPrice.text = formattedPriceWithCurrency
         cell.nftImage.kf.setImage(with: imageURL)
         cell.indexCell = indexPath.row
         cell.delegate = self
@@ -390,32 +379,31 @@ final class CartViewController: UIViewController, UITableViewDataSource {
     
     @objc
     func deleteNFT() {
-        guard let indexToDelete = indexToDelete else {
-            return
+        if let indexToDelete = indexToDelete, indexToDelete >= 0 && indexToDelete < cartArray.count {
+            let nftIDToDelete = cartArray[indexToDelete].nftID
+            
+            cartArray.remove(at: indexToDelete)
+            
+            let updatedOrder = Order(nfts: cartArray.map { $0.nftID }, id: "1")
+            
+            presenter?.changeCart(order: updatedOrder) { [weak self] in
+                self?.fetchDataFromAPI() // Fetch updated cart data
+                
+                self?.isDeleteViewVisible = false
+                self?.indexToDelete = nil
+                
+                self?.blurView.removeFromSuperview()
+                self?.imageToDelete.removeFromSuperview()
+                self?.deleteText.removeFromSuperview()
+                self?.deleteButton.removeFromSuperview()
+                self?.cancelButton.removeFromSuperview()
+                
+                self?.navigationController?.isNavigationBarHidden = false
+                self?.tabBarController?.tabBar.isHidden = false
+            }
+        } else {
+            print("Invalid indexToDelete value")
         }
-        
-        // Check if the index is within the valid range
-        guard indexToDelete >= 0 && indexToDelete < myOrders.count else {
-            return
-        }
-        
-        myOrders.remove(at: indexToDelete)
-        presenter?.changeCart(newArray: myOrders) { [weak self] in
-            self?.fetchDataFromAPI()
-        }
-        
-        // Clean up the delete view
-        isDeleteViewVisible = false
-        self.indexToDelete = nil
-        
-        blurView.removeFromSuperview()
-        imageToDelete.removeFromSuperview()
-        deleteText.removeFromSuperview()
-        deleteButton.removeFromSuperview()
-        cancelButton.removeFromSuperview()
-        
-        navigationController?.isNavigationBarHidden = false
-        tabBarController?.tabBar.isHidden = false
     }
     
     @objc
@@ -481,15 +469,11 @@ final class CartViewController: UIViewController, UITableViewDataSource {
     private func fillInfo() {
         countOfNFTS.text = "\(cartArray.count) NFT"
         countOfNFTS.textColor = .blackDay
-        var price = 0.0
-        cartArray.forEach { cart in
-            price += cart.nftPrice
-        }
         
-        let formattedPrice = formatPrice(price)
-        let formattedPriceWithCurrency = "\(formattedPrice) ETH"
+        let totalPrice = cartArray.reduce(0.0) { $0 + $1.nftPrice }
+        let formattedTotalPrice = convert(price: totalPrice) + " ETH" // Using the convert function
         
-        priceOfNFTS.text = formattedPriceWithCurrency
+        priceOfNFTS.text = formattedTotalPrice
     }
 }
 
