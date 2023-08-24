@@ -103,12 +103,11 @@ final class NetworkErrorView: UIView {
             //notificationNetworkLabel
             notificationNetworkLabel.topAnchor.constraint(equalTo: networkErrorImage.bottomAnchor, constant: 20),
             notificationNetworkLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            notificationNetworkLabel.leadingAnchor.constraint(equalTo: trailingAnchor, constant: 20),
-            notificationNetworkLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            notificationNetworkLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             //reloadNetworkButton
             reloadNetworkButton.topAnchor.constraint(equalTo: notificationNetworkLabel.bottomAnchor, constant: 20),
             reloadNetworkButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            reloadNetworkButton.leadingAnchor.constraint(equalTo: trailingAnchor, constant: 20),
+            reloadNetworkButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             reloadNetworkButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
         ])
     }
