@@ -62,7 +62,7 @@ final class NFTCollectionPresenter {
 		guard let nftIds = model?.nfts  else { return }
 		for nftId in nftIds {
 			dispatchGroup.enter()
-            let request = NFTsRequestByID(nftId: nftId, httpMethod: .get, dto: nil)
+            let request = NFTsGetRequestByID(nftId: nftId)
 			networkManager.send(request: request, type: NFT.self) { [weak self] result in
 				guard let self = self else { return }
 				switch result {
@@ -83,7 +83,7 @@ final class NFTCollectionPresenter {
 	}
 	
 	private func fetchLikesFromServer() {
-        let request = ProfileRequest(httpMethod: .get, dto: nil)
+        let request = ProfileGetRequest()
         networkManager.send(request: request, type: Profile.self) { [weak self] result in
 			guard let self = self else { return }
 			switch result {
@@ -100,7 +100,7 @@ final class NFTCollectionPresenter {
 	}
 	
 	private func fetchOrdersFromServer() {
-        let request = CartRequest(httpMethod: .get, dto: nil)
+        let request = CartGetRequest()
         networkManager.send(request: request, type: Order.self) { [weak self] result in
 			guard let self = self else { return }
 			switch result {
@@ -116,7 +116,7 @@ final class NFTCollectionPresenter {
 	}
 	
 	private func putOrderToServer(order: Order) {
-        let request = CartRequest(httpMethod: .put, dto: order)
+        let request = CartPutRequest(dto: order)
         networkManager.send(request: request) { result in
 			switch result {
 			case .success(_): break
@@ -128,7 +128,7 @@ final class NFTCollectionPresenter {
 	}
 	
 	private func putLikesToServer(likes: Likes) {
-        let request = ProfileRequest(httpMethod: .put, dto: likes)
+        let request = ProfilePutRequest(dto: likes)
         networkManager.send(request: request) { result in
 			switch result {
 			case .success(_): break

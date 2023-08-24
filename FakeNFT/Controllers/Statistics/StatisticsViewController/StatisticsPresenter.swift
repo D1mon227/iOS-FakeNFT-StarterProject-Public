@@ -72,7 +72,7 @@ final class StatisticsPresenter {
 	
 	private func fetchUserFromServer() {
 		UIBlockingProgressHUD.show()
-        let request = UsersRequest(httpMethod: .get, dto: nil)
+        let request = UsersGetRequest()
         networkManager.send(request: request, type: [User].self) { [weak self] result in
 			guard let self else { return }
 			UIBlockingProgressHUD.dismiss()

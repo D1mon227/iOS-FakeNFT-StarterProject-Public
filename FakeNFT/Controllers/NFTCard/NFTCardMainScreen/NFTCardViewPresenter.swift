@@ -53,7 +53,7 @@ final class NFTCardViewPresenter: NFTCardViewPresenterProtocol {
         updateLikes(id)
         
         UIBlockingProgressHUD.show()
-        let request = ProfileRequest(httpMethod: .put, dto: Likes(likes: self.likes ?? []))
+        let request = ProfilePutRequest(dto: Likes(likes: self.likes ?? []))
         networkManager.send(request: request) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -69,7 +69,7 @@ final class NFTCardViewPresenter: NFTCardViewPresenterProtocol {
     func addNftToCard(_ id: String) {
         updateCart(id)
         UIBlockingProgressHUD.show()
-        let request = CartRequest(httpMethod: .put, dto: Order(nfts: self.order ?? [], id: "1"))
+        let request = CartPutRequest(dto: Order(nfts: self.order ?? [], id: "1"))
         networkManager.send(request: request) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -183,7 +183,7 @@ final class NFTCardViewPresenter: NFTCardViewPresenterProtocol {
     
     private func fetchNFTCollections() {
         UIBlockingProgressHUD.show()
-        let request = NFTCollectionRequest(httpMethod: .get, dto: nil)
+        let request = NFTCollectionGetRequest()
         networkManager.send(request: request, type: [NFTCollection].self) { [weak self] result in
             guard let self = self,
                   let id = nftModel?.id else { return }
@@ -199,7 +199,7 @@ final class NFTCardViewPresenter: NFTCardViewPresenterProtocol {
     
     private func fetchCurrencies() {
         UIBlockingProgressHUD.show()
-        let request = CurrencyRequest(httpMethod: .get, dto: nil)
+        let request = CurrencyGetRequest()
         networkManager.send(request: request, type: [Currency].self) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -214,7 +214,7 @@ final class NFTCardViewPresenter: NFTCardViewPresenterProtocol {
     
     private func fetchNFTs() {
         UIBlockingProgressHUD.show()
-        let request = NFTsRequest(httpMethod: .get, dto: nil)
+        let request = NFTsGetRequest()
         networkManager.send(request: request, type: [NFT].self) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -230,7 +230,7 @@ final class NFTCardViewPresenter: NFTCardViewPresenterProtocol {
     
     private func fetchProfile() {
         UIBlockingProgressHUD.show()
-        let request = ProfileRequest(httpMethod: .get, dto: nil)
+        let request = ProfileGetRequest()
         networkManager.send(request: request, type: Profile.self) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -245,7 +245,7 @@ final class NFTCardViewPresenter: NFTCardViewPresenterProtocol {
     
     private func fetchCart() {
         UIBlockingProgressHUD.show()
-        let request = CartRequest(httpMethod: .get, dto: nil)
+        let request = CartGetRequest()
         networkManager.send(request: request, type: Order.self) { [weak self] result in
             guard let self = self else { return }
             switch result {
